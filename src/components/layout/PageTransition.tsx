@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
@@ -6,24 +6,17 @@ interface PageTransitionProps {
   children: React.ReactNode;
 }
 
-const pageTransition = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
-  transition: { duration: 0.3 }
-};
-
 export const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={location.pathname + location.hash}
-        initial={pageTransition.initial}
-        animate={pageTransition.animate}
-        exit={pageTransition.exit}
-        transition={pageTransition.transition}
+        key={location.pathname}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -24 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
       >
         {children}
       </motion.div>

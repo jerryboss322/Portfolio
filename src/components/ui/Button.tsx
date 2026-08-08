@@ -1,6 +1,4 @@
 import React, { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { cardHover } from '@/lib/motion-variants';
 
 interface ButtonProps {
   children: ReactNode;
@@ -9,8 +7,6 @@ interface ButtonProps {
   className?: string;
   onClick?: () => void;
   type?: 'button' | 'submit';
-  icon?: ReactNode;
-  iconPosition?: 'left' | 'right';
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -20,16 +16,14 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   onClick,
   type = 'button',
-  icon,
-  iconPosition = 'left',
 }) => {
   const baseClasses =
-    'inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2';
 
   const variantClasses = {
-    primary: 'primary-button cta-glow bg-accent text-white hover:scale-105 hover:shadow-lg hover:shadow-accent/30',
-    secondary: 'secondary-button border border-border bg-transparent text-muted hover:border-accent hover:text-text',
-    ghost: 'bg-transparent text-muted hover:text-text hover:bg-surface-strong',
+    primary: 'primary-button',
+    secondary: 'secondary-button',
+    ghost: 'ghost-button',
   }[variant];
 
   const sizeClasses = {
@@ -39,19 +33,12 @@ export const Button: React.FC<ButtonProps> = ({
   }[size];
 
   return (
-    <motion.button
+    <button
       type={type}
       onClick={onClick}
       className={`${baseClasses} ${variantClasses} ${sizeClasses} ${className}`}
-      whileTap={{ scale: 0.97 }}
-      initial="rest"
-      animate="rest"
-      whileHover={variant === 'primary' ? 'hover' : undefined}
-      variants={variant === 'primary' ? cardHover : undefined}
     >
-      {icon && iconPosition === 'left' && <span className="mr-2">{icon}</span>}
       {children}
-      {icon && iconPosition === 'right' && <span className="ml-2">{icon}</span>}
-    </motion.button>
+    </button>
   );
 };

@@ -1,129 +1,103 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { useInView } from 'react-intersection-observer';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ScrollLink } from '@/components/ui/ScrollLink';
+import { profile } from '@/content/data';
 
-const HeroCanvas = lazy(() => import('@/components/canvas/HeroCanvas'));
+const ease = [0.16, 1, 0.3, 1] as const;
 
-const prefersReducedMotion = () =>
-  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const container = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.09, delayChildren: 0.1 },
+  },
+};
 
-export const Hero = () => {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [isMobile, setIsMobile] = useState(false);
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease },
+  },
+};
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
+export const Hero: React.FC = () => {
   return (
-    <motion.section
-      ref={ref}
+    <section
       id="hero"
       className="hero min-h-screen flex items-center relative overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      aria-label="Introduction"
     >
-      <div className="absolute inset-0">
-        {!isMobile && !prefersReducedMotion() && (
-          <Suspense fallback={null}>
-            <HeroCanvas />
-          </Suspense>
-        )}
-      </div>
-      <div className="hero-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] max-w-[80vw] rounded-full bg-accent/25 blur-[80px] pointer-events-none" />
-
-      <div className="container mx-auto px-4 text-center relative z-10">
-        <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <motion.span
-            className="eyebrow inline-block mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            JBOSS / Portfolio
+      <div className="container grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-8 items-center py-16 lg:py-24">
+        <motion.div variants={container} initial="hidden" animate="visible">
+          <motion.span className="eyebrow" variants={item}>
+            {profile.role}
           </motion.span>
 
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 font-display"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-6 font-display font-bold leading-[1.08] text-[var(--fs-hero)]"
+            variants={item}
           >
-            Engineering detail into digital products.
+            <span className="block">I build digital products</span>
+            <span className="block">that solve real problems.</span>
           </motion.h1>
 
           <motion.p
-            className="text-lg max-w-2xl mx-auto mb-8 leading-relaxed text-muted"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-6 max-w-xl text-lg md:text-xl leading-relaxed text-muted"
+            variants={item}
           >
-            Crafting high-fidelity interfaces & interactive tools. Building digital infrastructure
-            with visual clarity, performance, and intentional motion.
+            {profile.tagline}
           </motion.p>
 
           <motion.div
-            className="hero-actions flex flex-col sm:flex-row gap-4 justify-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-10 flex flex-col sm:flex-row gap-4 items-start"
+            variants={item}
           >
-            <motion.button
-              onClick={() => scrollTo('work')}
-              className="cta-glow primary-button px-8 py-3 text-base font-semibold flex items-center gap-2 justify-center"
-              whileTap={{ scale: 0.97 }}
+            <ScrollLink
+              to="work"
+              className="primary-button px-7 py-3.5 text-base font-semibold"
             >
               View My Work
-              <ArrowRight size={18} />
-            </motion.button>
-
-            <motion.button
-              onClick={() => scrollTo('contact')}
-              className="secondary-button px-8 py-3 text-base font-semibold"
-              whileTap={{ scale: 0.97 }}
+              <ArrowRight size={18} aria-hidden="true" />
+            </ScrollLink>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="secondary-button px-7 py-3.5 text-base font-semibold"
             >
-              Get in Touch
-            </motion.button>
+              GitHub
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
           </motion.div>
 
           <motion.div
-            className="stats-grid grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-12 flex flex-col sm:flex-row gap-2 sm:gap-8 meta"
+            variants={item}
           >
-            <motion.div className="stat">
-              <div className="stat-number">5+</div>
-              <div className="stat-label">Systems Shipped</div>
-            </motion.div>
-            <motion.div className="stat">
-              <div className="stat-number">60%</div>
-              <div className="stat-label">Debt Reduction</div>
-            </motion.div>
-            <motion.div className="stat">
-              <div className="stat-number">100%</div>
-              <div className="stat-label">Native Frontend</div>
-            </motion.div>
+            <span>{profile.location}</span>
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
+              {profile.status}
+            </span>
           </motion.div>
         </motion.div>
+
+        <motion.div
+          className="hero-portrait flex justify-center lg:justify-end lg:-mr-6"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease }}
+        >
+          <img
+            src={profile.heroPortrait}
+            alt={`Portrait of ${profile.name}`}
+            className="portrait w-full max-w-[420px] h-auto"
+            fetchPriority="high"
+          />
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 };

@@ -1,47 +1,44 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import { setLenis } from '@/lib/scroll';
 
 interface SmoothScrollerProps {
   children: React.ReactNode;
 }
 
 export const SmoothScroller: React.FC<SmoothScrollerProps> = ({ children }) => {
-  const lenisRef = useRef<Lenis | null>(null);
-
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+
+    if (prefersReduced) {
+      setLenis(null);
+      return;
+    }
 
     const lenis = new Lenis({
       duration: 1.6,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 1.5,
     });
 
-    lenisRef.current = lenis;
+    setLenis(lenis);
 
-    const animate = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
-
-    const handleHashChange = () => {
-      if (window.location.hash) {
-        setTimeout(() => {
-          const target = document.querySelector(window.location.hash);
-          if (target instanceof HTMLElement) {
-            lenis.scrollTo(target, { offset: 0, duration: 1.6 });
-          }
-        }, 100);
-      }
+    const update = (time: number) => {
+      lenis.raf(time * 1000);
     };
 
-    window.addEventListener('hashchange', handleHashChange);
+    let rafId = 0;
+    const loop = (time: number) => {
+      update(time);
+      rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
-      lenisRef.current = null;
-      window.removeEventListener('hashchange', handleHashChange);
+      setLenis(null);
     };
   }, []);
 

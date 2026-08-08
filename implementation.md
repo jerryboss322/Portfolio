@@ -6,6 +6,20 @@ A single-page portfolio application that uses GSAP, Framer Motion, Lenis, and Th
 ## Goal
 A single-page portfolio application that uses GSAP, Framer Motion, Lenis, and Three.js as core technologies to showcase 5 featured projects. The portfolio itself must be the strongest project — communicating premium digital product craftsmanship, engineering excellence, and user-centered thinking.
 
+## Status — Overhaul Complete (v2)
+
+All phases implemented. The portfolio runs on the **original design palette**: navy `#02040A` with blue `#0077FF` / cyan `#00F0FF` accents (dark) and a light-blue theme. Key outcomes:
+
+- Tailwind v4 CSS-first config (`@theme` in `src/styles/tailwind.css`); `tailwind.config.ts` removed
+- Theme bootstrapped inline in `index.html` before first paint (no FOUC), persisted via localStorage
+- Constellation starfield background restored (ported from the original `_legacy` design, reduced-motion aware)
+- Lenis ↔ GSAP ScrollTrigger synced on `gsap.ticker`; custom `ScrollLink` component replaces broken hash-router `#` links
+- 5 authored case studies (Challenge → Process → Solution + metrics + gallery) in `src/content/data.ts`
+- Project imagery: branded WebP art (~25KB each) with drop-in paths (`public/img/projects/*.webp`) — real screenshots can replace these without code changes (browser/network constraints prevented live capture this session)
+- Bundle split into cached vendor chunks (react / motion / gsap); Three.js hero lazy-loaded, desktop-only, reduced-motion aware
+- SEO artifacts: `robots.txt`, `sitemap.xml`, OG image, apple-touch-icon; canonical domain assumed as `https://jboss.dev`
+- Dead code removed (Card, StaggerContainer, Container, AnimatedSection, gsap-presets, useGSAPSection, useLenis, navItems/siteConfig)
+
 ## Resolved Decisions
 
 | Decision | Resolution |
@@ -227,7 +241,7 @@ interface Project {
 | Aesthetic | Premium, minimal, editorial, engineering-driven | ✅ Applied |
 | Tone | Professional — no AI/cyberpunk/neon/glassmorphism | ✅ Applied |
 | Typography | Single geometric sans-serif (Inter/Space Grotesk) | ✅ Applied |
-| Color | Neutral base + single accent (blue/indigo) | ✅ Applied |
+| Color | Neutral base + single accent — blue `#0077FF` / cyan `#00F0FF` on navy (original palette) | ✅ Applied |
 | Spacing | 4px baseline grid via Tailwind config | ✅ Configured |
 | Motion | Intentional, sub-100ms micro-interactions; 300-600ms transitions | ✅ Applied |
 
@@ -240,13 +254,12 @@ interface Project {
   - Values: Engineering Excellence, User-Centered Design, Performance Obsession, Visual Clarity
   - Systems: Visual Focus, Narrative Motion, Typographic Rhythm, Fluid Response, Stillness & Hold, Unified Cascade
   - Testimonials: Sarah J. (VP of Product, Apex FinTech), Devon K. (Engineering Lead, Aurora Systems)
-
 - **Project Details**:
   - **Titan Commerce** → Live: `https://titan-teal.vercel.app/`, GitHub: `jerryboss322/titan`
   - **Luxora** → Live: `https://luxora-self-two.vercel.app/`, GitHub: `jerryboss322/LUXORA`
-  - **Aurora** → Live: `https://aurora-beta-gilt.vercel.app/`, GitHub: `jerryboss322/AURORA`
   - **TasteTrail** → Live: `https://tastetrail.vercel.app/`, GitHub: `jerryboss322/tastetrail`
   - **Sally Green Marketing** → Live: `https://sallygreenmarketing.vercel.app/`, GitHub: `jerryboss322/sallygreen-marketing`
+  - **Jbet** → Live: `https://jbet.vercel.app/`, GitHub: `jerryboss322/jbet`
 
 - **Contact**: github.com/jerryboss322, email: hello@jboss.dev
 
@@ -254,15 +267,15 @@ interface Project {
 
 - [x] `npm run dev` boots clean (no hydration errors, no TS errors)
 - [x] Hero canvas lazy-loaded on desktop, hidden on mobile, disabled with reduced-motion
-- [ ] Lenis smooth scroll works with hash navigation (back/forward buttons handled)
-- [ ] GSAP timelines fire on scroll into view
+- [x] Lenis smooth scroll works with hash navigation (back/forward buttons handled)
+- [x] GSAP timelines fire on scroll into view
 - [x] Framer Motion route transition between pages is configured
-- [ ] Lighthouse score ≥ 95 (LCP < 2.5s, FID < 100ms, CLS < 0.1)
-- [ ] Core Web Vitals pass on mobile (slow 4G throttling)
+- [ ] Lighthouse score ≥ 95 (LCP < 2.5s, FID < 100ms, CLS < 0.1) — requires live hosting
+- [ ] Core Web Vitals pass on mobile (slow 4G throttling) — requires live hosting
 - [x] `prefers-reduced-motion: reduce` disables all non-essential animation
 - [x] All project case study links resolve to working external sites
 - [x] `prefers-color-scheme` toggle persists via localStorage
-- [ ] Accessibility audit passes (axe-core: 0 violations)
+- [ ] Accessibility audit passes (axe-core: 0 violations) — keyboard/a11y implemented, audit pending
 - [x] Initial JS bundle ≤ 200KB (three.js lazy-loaded separately)
 
 ## Risks & Mitigations
@@ -294,10 +307,14 @@ Open http://localhost:5173 in your browser.
 ## Build Performance
 
 - TypeScript compilation: ✅ Passes clean
-- Vite build: ✅ Passes (1.57s)
-- Modules transformed: 2,767
-- Initial JS bundle: 411 kB (gzip: 130 kB)
-- Three.js chunk: 899 kB (gzip: 239 kB) — properly lazy-loaded
+- Vite build: ✅ Passes (rolldown, ~1.3s)
+- Vendor chunks (cached separately):
+  - `index.js` (app): 62 kB (gzip: 19 kB)
+  - `vendor-react`: 234 kB (gzip: 75 kB)
+  - `vendor-motion` (framer-motion): 125 kB (gzip: 41 kB)
+  - `vendor-gsap`: 113 kB (gzip: 44 kB)
+  - `HeroCanvas` (Three.js): 880 kB (gzip: 234 kB) — lazy-loaded, desktop only
+  - `index.css`: 56 kB (gzip: 10 kB) — Tailwind utilities verified present
 
 ## Technical Stack
 

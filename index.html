@@ -1,12 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JBOSS — Engineering Portfolio</title>
-    <meta name="description" content="JBOSS — Engineering detail into digital products. Crafting high-fidelity interfaces & interactive tools." />
-    <meta name="theme-color" content="#02040a" />
+    <title>JBOSS — Software Engineer · Lagos, Nigeria</title>
+    <meta
+      name="description"
+      content="JBOSS is a software engineer who builds digital products that solve real problems — full-stack applications, platforms and APIs."
+    />
+    <meta name="theme-color" content="#08090b" />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JBOSS Portfolio" />
+    <meta property="og:title" content="JBOSS — Software Engineer" />
+    <meta
+      property="og:description"
+      content="JBOSS is a software engineer who builds digital products that solve real problems — full-stack applications, platforms and APIs."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="JBOSS — Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="I build digital products that solve real problems."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Theme bootstrap: apply saved theme before first paint to avoid FOUC -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t !== 'light' && t !== 'dark') {
+            t = window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+          }
+          document.documentElement.dataset.theme = t;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>

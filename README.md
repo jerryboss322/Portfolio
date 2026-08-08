@@ -1,14 +1,14 @@
 # JBOSS
 
-A premium personal product portfolio built on Design System v2 — a motion-first definition of the AI feel: restraint, precision, and motion as narration.
+A premium personal product portfolio built on **Design System v2** — a motion-first definition of the AI feel: restraint, precision, and motion as narration.
 
-## Overview
+## Stack
 
-This project is designed to feel like a polished product experience rather than a standard portfolio page. The design system is built around two things: a **dual-mode color system** (dark default, peach light mode) and a **motion language** (five named behaviors, not a particle canvas).
-
-- **Restraint** — one accent, used in at most three places per viewport
-- **Precision** — everything on a grid, everything timed
-- **Motion as narration** — transitions that explain hierarchy instead of just looking nice
+- **React 19** + **TypeScript** + **Vite 8** (rolldown)
+- **Tailwind CSS v4** (CSS-first config via `@theme` tokens, no config file)
+- **Framer Motion** — entrance/reveal choreography
+- **GSAP ScrollTrigger** + **Lenis** — smooth scrolling, hero parallax
+- **Three.js** — theme-aware hero canvas (lazy-loaded, desktop only)
 
 ## Design system
 
@@ -16,11 +16,16 @@ This project is designed to feel like a polished product experience rather than 
 
 | Token | Signal (dark) | Ember (light) |
 |-------|---------------|---------------|
-| `--bg` | `#0A0A0F` | `#FFF8F2` |
-| `--surface` | `#121218` | `#FFFFFF` |
-| `--accent` | `#6D5EF0` (indigo-violet) | `#F2683F` (coral-peach) |
+| `--bg` | `#02040A` | `#F5F8FC` |
+| `--surface` | `#070C1E` | `#FFFFFF` |
+| `--accent` | `#0077FF` (blue) | `#0066EE` (blue) |
+| `--accent-strong` | `#00F0FF` (cyan) | `#0044BB` (deep blue) |
 
-Both modes share the same neutral ramp logic (bg → surface → surface-strong → border). Toggle a `data-theme` attribute on `<html>` and let the cascade do the work — no mode-specific CSS beyond variable swaps.
+Both modes share the same neutral ramp logic (bg → surface → surface-strong → border). Toggle a `data-theme` attribute on `<html>` and let the cascade do the work — theme is bootstrapped inline in `index.html` before first paint (no FOUC).
+
+### Background
+
+A constellation starfield canvas (`src/components/canvas/Starfield.tsx`) sits behind all content — twinkling particles, responsive links, and reactive mouse rays. It renders a single static frame under `prefers-reduced-motion`.
 
 ### Typography
 
@@ -33,45 +38,50 @@ Both modes share the same neutral ramp logic (bg → surface → surface-strong 
 | Behavior | Description |
 |----------|-------------|
 | **Arrive** | Section/element entrance. Opacity 0→1 + translateY 16px→0, staggered 60–80ms. Easing: `cubic-bezier(0.16, 1, 0.3, 1)` (expo-out). |
-| **Glide** | Scroll behavior. Native smooth-scroll + one parallax layer (hero background drifts 10% slower). |
-| **Reveal** | Cinematic project transition. Card image expands via `transform: scale()` from its clicked position; text content staggers in 120ms after. |
-| **Respond** | Micro-interactions. Magnetic hover (±4px max), press state (scale 0.97), link underlines that draw from the accent. |
+| **Glide** | Lenis smooth-scroll synced to GSAP ScrollTrigger via `gsap.ticker`; hero background drifts 10% slower. |
+| **Reveal** | Cinematic project transition. Card image expands via `transform: scale()`; text content staggers in 120ms after. |
+| **Respond** | Micro-interactions. Magnetic hover (±4px max, reduced-motion safe), press state (scale 0.97), link underlines drawn from the accent. |
 | **Hold** | What does not move. Static grid, fixed spacing scale, no idle/looping animations. |
 
 ## Run locally
 
-1. Serve the project with a static server:
-   ```bash
-   python3 -m http.server 8000
-   ```
-2. Visit: http://localhost:8000
+```bash
+npm install
+npm run dev        # start dev server (http://localhost:5173)
+npm run build      # type-check + production build to dist/
+npm run preview    # serve the production build
+```
 
 ## Structure
 
 ```
-index.html              — app shell, topbar, font imports
-css/styles.css          — design system v2 (tokens, components, motion keyframes)
-data/content.js         — portfolio content (projects, systems, testimonials, skills)
-js/
-  app.js                — bootstrap: composes components, wires interactions
-  core/store.js         — state management + theme persistence
-  services/storage.js   — localStorage adapter
-  utils/
-    dom.js              — DOM helpers ($, $$, bindAll)
-    motion.js           — motion language (magnetic hover, parallax, reveal origin)
+index.html                     — app shell, font imports, theme bootstrap, SEO/OG meta
+src/
+  styles/global.css            — design tokens, base, glow, scrollbar, reduced-motion
+  styles/tailwind.css          — Tailwind v4 @theme tokens + component classes
+  App.tsx                      — theme state, ambient glow, routes
+  lib/scroll.ts                — Lenis singleton, section scroll helpers
+  lib/motion-variants.ts       — shared Framer Motion variants
+  lib/three-config.ts          — theme-aware Three.js scene config
   components/
-    Hero.js             — hero section
-    WorkGrid.js         — selected work + filter bar
-    ProjectDetail.js    — cinematic Reveal overlay
-    Systems.js          — motion behaviors showcase
-    Testimonials.js     — social proof
-    About.js            — approach + skills
-    Contact.js          — contact section
-    Toast.js            — toast notifications
+    layout/Header.tsx          — scrollspy, scroll progress, hide-on-scroll, mobile menu
+    layout/SmoothScroller.tsx  — Lenis + GSAP ScrollTrigger sync, deep-link handling
+    layout/PageTransition.tsx  — pathname-keyed transitions
+    layout/Footer.tsx          — contact + social links
+    ui/                        — Button, Badge, Typography, Magnetic, ScrollLink
+    canvas/HeroCanvas.tsx      — lazy Three.js hero canvas
+  pages/                       — Hero, About, Projects, Systems, Testimonials, Skills, Project (case study)
+  content/data.ts              — all portfolio content (5 case studies)
+public/                        — images (WebP), favicon, OG image, robots.txt, sitemap.xml
 ```
 
-## Architecture
+## Performance
 
-Each component is a pure function that returns an HTML string. `app.js` composes them into the `#app` container and wires events via `data-action` attributes. State lives in `core/store.js` and persists to localStorage. The motion language is implemented in `utils/motion.js` — magnetic hover, scroll parallax, and the Reveal origin capture for the cinematic detail expansion.
+- Vendor libraries split into cached chunks (`vendor-react`, `vendor-motion`, `vendor-gsap`)
+- Three.js hero canvas lazy-loaded and desktop-only (reduced-motion aware)
+- All project imagery served as WebP (~25KB each)
+- HashRouter enables static hosting without server rewrites
 
-No build step. Native ES modules served directly.
+## Case studies
+
+Each project includes authored Challenge / Process / Solution sections, a metric strip, and a gallery. Content lives in `src/content/data.ts`.
