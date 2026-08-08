@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
 import { ScrollLink } from '@/components/ui/ScrollLink';
+import { profile } from '@/content/data';
 
 interface HeaderProps {
   theme: 'dark' | 'light';
@@ -10,7 +11,6 @@ interface HeaderProps {
 const NAV_ITEMS = [
   { id: 'work', label: 'Work' },
   { id: 'about', label: 'About' },
-  { id: 'stack', label: 'Stack' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -105,6 +105,15 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
                 {item.label}
               </ScrollLink>
             ))}
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="topbar-nav inline-flex items-center gap-1 text-sm font-medium text-muted transition-colors hover:text-accent"
+            >
+              GitHub
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
           </nav>
 
           <div className="flex items-center space-x-3">
@@ -148,6 +157,15 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
               {item.label}
             </ScrollLink>
           ))}
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleScrollLink}
+            className="block py-3 text-sm font-medium text-muted transition-colors hover:text-accent"
+          >
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
         </nav>
       </div>
       </header>

@@ -18,10 +18,13 @@ describe('App', () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', { level: 1, name: /I build digital products/ })
+      screen.getByRole('heading', { level: 1, name: /I build full-stack products/ })
     ).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Selected Work/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /What I Build/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /from the ground up/i })
+    ).toBeInTheDocument();
+    expect(screen.getByText('Product Thinking')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Tech Stack/i })).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: /Have a project in mind/i })
@@ -37,7 +40,7 @@ describe('App', () => {
     // wait for it to unmount so the project page is the only route in the DOM.
     await waitFor(() => {
       expect(
-        screen.queryByRole('heading', { name: /I build digital products/ })
+        screen.queryByRole('heading', { name: /I build full-stack products/ })
       ).not.toBeInTheDocument();
     });
 

@@ -31,12 +31,12 @@ export const projects: Project[] = [
     role: 'Lead Frontend Engineer',
     year: '2025',
     summary:
-      'A high-performance e-commerce platform built for conversion — custom checkout, real-time inventory sync, and a headless CMS.',
+      'A full-stack storefront with real product data, categories, cart, wishlist, and authentication — not a static template. Built to handle the complete path from browsing to checkout.',
     description:
-      'Titan Commerce is an e-commerce platform engineered for optimal conversion and performance. Built on a microservices architecture, it integrates a headless CMS and delivers a seamless shopping experience across web and mobile.',
+      'Titan is a full-stack commerce platform built around the complete customer journey — product discovery through browsing and category pages, a persistent cart and wishlist, and account-based checkout backed by real authentication rather than a mocked login state. The product catalog, cart state, and user accounts are all backed by PostgreSQL rather than static or hardcoded data, which means the storefront behaves like a real store: items persist in the cart across sessions, wishlist state is tied to the signed-in account, and product data can change without a redeploy.',
     image: '/img/projects/titan.webp',
     gallery: ['/img/projects/titan.webp'],
-    tech: ['React', 'TypeScript', 'Stripe API', 'Tailwind CSS', 'Node.js'],
+    tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Vercel'],
     liveUrl: 'https://titan-teal.vercel.app/',
     githubUrl: 'https://github.com/jerryboss322/titan',
     challenge: [
@@ -69,9 +69,9 @@ export const projects: Project[] = [
     role: 'Product Designer & Frontend Lead',
     year: '2024',
     summary:
-      'A curated luxury marketplace focused on high-fidelity design and immersive product presentation — including WebGL product previews.',
+      'A product showroom built around presentation, not just listings — collections arranged like a gallery, with a still product photo transitioning into an interactive 3D model on interaction.',
     description:
-      'Luxora is a premium marketplace for luxury goods that emphasizes visual storytelling and tactile interactions. The platform uses Three.js for 3D product visualization and GSAP for sophisticated micro-interactions.',
+      "Luxora reimagines a product marketplace as a curated showroom rather than a grid of listings — collections are presented like gallery installations, and the centerpiece interaction lets a static product photograph dissolve into a fully interactive 3D model, giving each object a sense of physical presence that a flat photo can't. Built with React Three Fiber for the 3D layer, GSAP for the showroom's scroll choreography, and Sanity as a headless CMS so collections and featured objects can be managed without touching code.",
     image: '/img/projects/luxora.webp',
     gallery: ['/img/projects/luxora.webp'],
     tech: ['React', 'Three.js', 'GSAP', 'Framer Motion', 'Sanity CMS'],
@@ -103,51 +103,44 @@ export const projects: Project[] = [
   {
     slug: 'tastetrail',
     title: 'TasteTrail',
-    subtitle: 'Food Discovery App',
+    subtitle: 'Food Ordering App',
     role: 'Full-Stack Developer',
     year: '2024',
     summary:
-      'A location-based food discovery app that surfaces authentic, locally-owned restaurants with personalized recommendations.',
+      'An ordering experience with category-filtered menu browsing and a live running cart — built to make choosing and confirming an order fast, with no friction between menu and checkout.',
     description:
-      "TasteTrail connects food lovers with hidden culinary gems. Built with a recommendation engine that learns from user preferences and dining history, it surfaces authentic local experiences.",
+      'TasteTrail is a focused food-ordering experience for a single restaurant — category-filtered menu browsing with a live running cart, built to make choosing and confirming an order fast, with no friction between menu and checkout.',
     image: '/img/projects/tastetrail.webp',
     gallery: ['/img/projects/tastetrail.webp'],
-    tech: ['React Native', 'Node.js', 'PostgreSQL', 'Redis', 'Mapbox API'],
+    tech: ['React', 'Node.js', 'PostgreSQL'],
     liveUrl: 'https://tastetrail.vercel.app/',
     githubUrl: 'https://github.com/jerryboss322/tastetrail',
     challenge: [
-      'Generic review platforms bury small, local restaurants under chain results, making discovery frustrating.',
-      'Recommendations ignored context — location, cuisine preference, and dining history were all flat.',
-      'Search results often surfaced outdated listings or permanently closed venues.',
+      'Browsing a menu without categories means scanning long lists to find what you want.',
+      'Losing track of the running total makes confirming an order slower than it needs to be.',
     ],
     process: [
-      'Built a collaborative filtering engine that weighs dining history, cuisine affinity, and geospatial proximity.',
-      'Engineered a Node.js + PostgreSQL backend with Redis caching for sub-100ms recommendation lookups.',
-      'Integrated Mapbox for a rich, map-first discovery experience with live venue data.',
+      'Built category-filtered menu browsing (All / Main Course / Sushi / Desserts / Drinks) so items are reachable in one tap.',
+      'Implemented a live running cart with a confirm-order flow that keeps the total visible at every step.',
     ],
     solution: [
-      'Delivered a mobile-first experience (React Native) that feels fast even on 4G connections.',
-      'Personalized home feeds adapt as users rate and save venues, improving relevance over time.',
-      'Grew to 12k monthly active users with an average session duration of 14 minutes.',
+      'Shipped a single-page ordering experience where choosing and confirming an order happens without page reloads.',
+      'The cart total updates in real time, removing the mental math between menu and checkout.',
     ],
-    metrics: [
-      { value: '12k', label: 'Monthly active users' },
-      { value: '14 min', label: 'Avg. session' },
-      { value: '<100ms', label: 'Recommendations' },
-    ],
+    metrics: [],
     outcome:
-      'Grew to 12k monthly active users with an average session duration of 14 minutes.',
+      'A fast, focused ordering flow where customers go from menu to confirmed order with minimal friction.',
   },
   {
     slug: 'sallygreen',
     title: 'Sally Green Marketing',
-    subtitle: 'Marketing Website',
+    subtitle: 'Book Marketing Platform',
     role: 'Frontend Engineer',
     year: '2024',
     summary:
-      'A modern marketing site for a sustainable lifestyle brand — accessibility-first, high-performance, and visually cohesive.',
+      'A marketing and analytics site built for an author-services client — combining a data-driven results dashboard, structured case studies, and a lead-capture flow designed around converting inbound author inquiries.',
     description:
-      'A premium marketing website for Sally Green, featuring smooth animations, accessibility-first design, and optimized assets for performance.',
+      "Built for an author-marketing client, this site combines a results dashboard, structured case-study sections, and a conversion-focused inquiry flow designed to turn visiting authors into qualified leads. The build required translating a fairly aggressive, data-heavy marketing voice into a working, responsive site with animated stat displays, testimonial sections tied to real author names, and a functioning contact/diagnostic-request form — while keeping the site's own commercial claims clearly the client's positioning, not overstated engineering claims of your own.",
     image: '/img/projects/sallygreen.webp',
     gallery: ['/img/projects/sallygreen.webp'],
     tech: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
@@ -182,9 +175,9 @@ export const projects: Project[] = [
     role: 'Frontend Engineer',
     year: '2026',
     summary:
-      'A premium football betting platform for the Nigerian market — live odds, a persistent bet-slip engine, and instant wallet funding through local payment rails.',
+      'A football betting platform for the Nigerian market — live odds across multiple leagues, a persistent bet-slip, and instant wallet funding through local rails like Opay, Palmpay, and bank USSD.',
     description:
-      'Jbet is a fast, licensed sports betting platform built for Nigerian football fans. It surfaces live odds across major leagues, a friction-free bet-slip flow, and instant wallet deposits via local payment channels — all behind 256-bit SSL.',
+      'Jbet is a full sports-betting platform built for the Nigerian market, covering live odds across multiple football leagues, a persistent bet-slip that tracks selections and calculates potential winnings in real time, and account creation with session-based authentication. The wallet system integrates local Nigerian payment rails — Opay, Palmpay, GTBank, and USSD — for instant deposits, and the platform includes licensing and responsible-gambling messaging consistent with regulated betting products.',
     image: '/img/projects/jbet.webp',
     gallery: ['/img/projects/jbet.webp'],
     tech: ['React', 'TypeScript', 'Tailwind CSS', 'REST API', 'Vercel'],
@@ -218,8 +211,13 @@ export const projects: Project[] = [
 export const profile = {
   name: 'JBOSS',
   role: 'Software Engineer',
-  headline: 'I build digital products that solve real problems.',
-  tagline: 'Full-stack applications · Platforms · APIs',
+  eyebrow: 'Software Engineer · Digital Product Builder',
+  headline: 'I build full-stack products — from interface to infrastructure.',
+  intro: [
+    "I'm a software engineer who works across the full lifecycle of a product — frontend interfaces, backend systems, databases, and the infrastructure that ties it together. I care less about how something looks in isolation and more about whether it actually works: fast, reliable, and simple for someone else to use.",
+    "I've shipped e-commerce platforms, sports-data products, and internal tools across Go, Next.js, Laravel, and Kotlin — usually solo, always end-to-end.",
+  ],
+  meta: 'Frontend · Backend · APIs · Product Engineering',
   location: 'Lagos, Nigeria',
   status: 'Available for select projects',
   heroPortrait: '/img/hero.webp',
@@ -229,43 +227,60 @@ export const profile = {
 };
 
 export const about = {
-  heading:
-    "I'm a software engineer focused on building useful, reliable and polished digital products.",
-  narrative:
-    'I work across frontend, backend and system architecture, with a strong interest in turning complex requirements into simple interfaces.',
+  heading: "I'm a software engineer who likes building things from the ground up.",
+  paragraphs: [
+    "I'm a software engineer with a strong interest in building useful, reliable, and well-crafted digital products. I work across the stack — designing interfaces, building frontend experiences, and developing the backend systems, APIs, databases, and infrastructure that hold everything together.",
+    'What interests me most is the process of turning a problem into a product. I like taking an idea that starts as a rough concept, breaking it into smaller systems, working out how those systems talk to each other, and turning the result into something real that people can actually use.',
+    'I care about the details that are easy to skip past: how quickly an interface responds, how a component behaves across different states, how data moves through an application, whether the architecture holds up as it grows, and whether the finished product genuinely makes sense to the person using it.',
+    "I'm constantly building — sometimes on product experiences, sometimes on backend systems or automation, sometimes on something more technical just to understand it better. Each project is a chance to go deeper on something and get better at how I build.",
+  ],
+  pullQuote:
+    'My goal is simple: build software that is useful, technically sound, and genuinely enjoyable to use.',
   portrait: '/img/about.webp',
 };
 
-export const capabilities = [
-  'Web Applications',
-  'SaaS Platforms',
-  'E-commerce',
-  'APIs & Backend Systems',
-  'Interactive Interfaces',
-  'Dashboards',
-  'Developer Tools',
-  'Data-driven Products',
+export const whatIBring = [
+  {
+    title: 'Product Thinking',
+    description:
+      "I don't just think about individual screens or features. I think about how the complete product works, and how each part serves the user's actual goal.",
+  },
+  {
+    title: 'Full-Stack Engineering',
+    description:
+      'I work across interface, application logic, APIs, databases, and the supporting systems needed to take an idea to a working product.',
+  },
+  {
+    title: 'Attention to Detail',
+    description:
+      'Performance, responsive behavior, accessibility, interaction states, typography, and the small usability decisions all matter to the final result.',
+  },
+  {
+    title: 'Continuous Learning',
+    description:
+      'I enjoy testing new tools and approaches while keeping the fundamentals that make software reliable.',
+  },
 ];
 
 export const stack = [
   {
     group: 'Frontend',
-    items: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Next.js', 'React Native'],
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript'],
   },
   {
     group: 'Backend',
-    items: ['Node.js', 'Express', 'REST API', 'GraphQL'],
+    items: ['Node.js', 'Express', 'Django', 'REST APIs'],
   },
   {
     group: 'Database',
     items: ['PostgreSQL', 'Redis'],
   },
   {
-    group: 'Infrastructure',
-    items: ['Vercel', 'Git'],
+    group: 'Tools',
+    items: ['Git', 'GitHub', 'Vercel', 'VS Code'],
   },
   {
-    group: 'Tools & Design',
-    items: ['Figma', 'Storybook', 'Three.js', 'GSAP', 'Design Systems'],
+    group: 'Other',
+    items: ['Three.js', 'Unity', 'C#', 'Python'],
   },
 ];

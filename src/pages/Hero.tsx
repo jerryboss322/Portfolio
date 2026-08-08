@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { ScrollLink } from '@/components/ui/ScrollLink';
 import { profile } from '@/content/data';
 
@@ -26,29 +26,34 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="hero min-h-screen flex items-center relative overflow-hidden"
+      className="hero min-h-[90vh] flex items-center relative overflow-hidden"
       aria-label="Introduction"
     >
-      <div className="container grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-8 items-center py-16 lg:py-24">
+      <div className="container grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-8 items-center py-12 lg:py-16">
         <motion.div variants={container} initial="hidden" animate="visible">
           <motion.span className="eyebrow" variants={item}>
-            {profile.role}
+            {profile.eyebrow}
           </motion.span>
 
           <motion.h1
             className="mt-6 font-display font-bold leading-[1.08] text-[var(--fs-hero)]"
             variants={item}
           >
-            <span className="block">I build digital products</span>
-            <span className="block">that solve real problems.</span>
+            <span className="block">I build full-stack products</span>
+            <span className="block">— from interface to infrastructure.</span>
           </motion.h1>
 
-          <motion.p
-            className="mt-6 max-w-xl text-lg md:text-xl leading-relaxed text-muted"
-            variants={item}
-          >
-            {profile.tagline}
-          </motion.p>
+          <motion.div className="mt-6 max-w-xl space-y-4" variants={item}>
+            {profile.intro.map((paragraph) => (
+              <p key={paragraph} className="text-base md:text-lg leading-relaxed text-muted">
+                {paragraph}
+              </p>
+            ))}
+          </motion.div>
+
+          <motion.div className="mt-6 meta" variants={item}>
+            {profile.meta}
+          </motion.div>
 
           <motion.div
             className="mt-10 flex flex-col sm:flex-row gap-4 items-start"
@@ -61,15 +66,13 @@ export const Hero: React.FC = () => {
               View My Work
               <ArrowRight size={18} aria-hidden="true" />
             </ScrollLink>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
+            <ScrollLink
+              to="contact"
               className="secondary-button px-7 py-3.5 text-base font-semibold"
             >
-              GitHub
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
+              Let&apos;s Work Together
+              <ArrowRight size={18} aria-hidden="true" />
+            </ScrollLink>
           </motion.div>
 
           <motion.div
@@ -85,7 +88,7 @@ export const Hero: React.FC = () => {
         </motion.div>
 
         <motion.div
-          className="hero-portrait flex justify-center lg:justify-end lg:-mr-6"
+          className="hero-portrait flex justify-center lg:justify-end lg:-mr-10"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25, ease }}
@@ -93,7 +96,7 @@ export const Hero: React.FC = () => {
           <img
             src={profile.heroPortrait}
             alt={`Portrait of ${profile.name}`}
-            className="portrait w-full max-w-[420px] h-auto"
+            className="portrait w-full max-w-[400px] h-auto"
             fetchPriority="high"
           />
         </motion.div>

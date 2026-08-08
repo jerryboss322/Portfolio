@@ -46,23 +46,27 @@ const Section: React.FC<{
   </motion.section>
 );
 
-const MetricStrip: React.FC<{ metrics: Project['metrics'] }> = ({ metrics }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-12">
-    {metrics.map((metric, i) => (
-      <motion.div
-        key={metric.label}
-        className="stat text-center"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5, delay: i * 0.1 }}
-      >
-        <div className="stat-number text-accent text-3xl">{metric.value}</div>
-        <div className="stat-label mt-1">{metric.label}</div>
-      </motion.div>
-    ))}
-  </div>
-);
+const MetricStrip: React.FC<{ metrics: Project['metrics'] }> = ({ metrics }) => {
+  if (!metrics.length) return null;
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-12">
+      {metrics.map((metric, i) => (
+        <motion.div
+          key={metric.label}
+          className="stat text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+        >
+          <div className="stat-number text-accent text-3xl">{metric.value}</div>
+          <div className="stat-label mt-1">{metric.label}</div>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
 
 export const ProjectPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -111,7 +115,7 @@ export const ProjectPage: React.FC = () => {
 
         <Typography.P className="text-lg max-w-3xl mb-12">{project.description}</Typography.P>
 
-        <div className="aspect-video rounded-lg overflow-hidden border border-border mb-12 bg-surface-strong">
+        <div className="aspect-video rounded-2xl overflow-hidden border border-border mb-12 bg-surface-strong">
           <img
             src={project.image}
             alt={`${project.title} — hero screenshot`}
@@ -152,7 +156,7 @@ export const ProjectPage: React.FC = () => {
           {project.gallery.slice(1).map((src, i) => (
             <motion.div
               key={src}
-              className="rounded-xl overflow-hidden border border-border bg-surface-strong"
+              className="rounded-2xl overflow-hidden border border-border bg-surface-strong"
               variants={sectionItem}
             >
               <img

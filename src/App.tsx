@@ -7,7 +7,6 @@ import { PageTransition } from './components/layout/PageTransition';
 import { Hero } from './pages/Hero';
 import { WorkSection } from './pages/Work';
 import { AboutSection } from './pages/About';
-import { CapabilitiesSection } from './pages/Capabilities';
 import { StackSection } from './pages/Stack';
 import { ContactSection } from './pages/Contact';
 import { ProjectPage } from './pages/Project';
@@ -109,7 +108,6 @@ const Layout: React.FC = () => {
       <Hero />
       <WorkSection />
       <AboutSection />
-      <CapabilitiesSection />
       <StackSection />
       <ContactSection />
     </>

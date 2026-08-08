@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { projects } from '@/content/data';
-import { Typography } from '@/components/ui/Typography';
 
 const rowItem = {
   hidden: { opacity: 0, y: 28 },
@@ -25,7 +24,7 @@ export const WorkSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="space-y-24 md:space-y-32">
+      <div className="space-y-16 md:space-y-24">
         {projects.map((project, index) => {
           const fullWidth = index === 0 || index === 3;
           const flipped = index === 2;
@@ -69,33 +68,34 @@ export const WorkSection: React.FC = () => {
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
             >
-              <div className="flex items-baseline justify-between gap-4 mb-5">
-                <span className="section-index">{number}</span>
-                <Typography.Meta>{project.subtitle}</Typography.Meta>
+              <div className="flex items-baseline gap-2 mb-5">
+                <span className="section-index">
+                  {number}
+                  <span className="mx-1 opacity-50" aria-hidden="true">
+                    /
+                  </span>
+                  {project.subtitle}
+                </span>
               </div>
 
               {fullWidth ? (
                 <>
-                  <div className="aspect-video">{media}</div>
+                  <div className="aspect-video max-w-[880px] mx-auto">{media}</div>
                   <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                     {info}
                   </div>
                 </>
               ) : (
-                <div
-                  className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center ${
-                    flipped ? '' : ''
-                  }`}
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                   {flipped ? (
                     <>
-                      <div className="order-2 md:order-1">{info}</div>
-                      <div className="order-1 md:order-2 aspect-video md:aspect-[4/3]">{media}</div>
+                      {info}
+                      <div className="aspect-video md:aspect-[4/3]">{media}</div>
                     </>
                   ) : (
                     <>
-                      <div className="aspect-video md:aspect-[4/3]">{media}</div>
-                      {info}
+                      <div className="order-2 md:order-1 aspect-video md:aspect-[4/3]">{media}</div>
+                      <div className="order-1 md:order-2">{info}</div>
                     </>
                   )}
                 </div>
