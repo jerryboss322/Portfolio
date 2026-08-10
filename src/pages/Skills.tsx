@@ -2,57 +2,43 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { stack } from '@/content/data';
 
-const container = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-const item = {
+const groupItem = {
   hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
 export const SkillsSection: React.FC = () => {
   return (
-    <section id="skills" className="section" aria-label="Skills">
-      <div className="container">
-        <div className="max-w-2xl mb-12">
-          <span className="section-index">04 — Primary Stack</span>
-          <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
-            Technologies I Work With
-          </h2>
-          <p className="mt-4 text-muted leading-relaxed">
-            Tools and languages I use to build modern digital products.
-          </p>
-        </div>
-
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '10%' }}
-        >
-          {stack.map((group) => (
-            <motion.div key={group.group} variants={item}>
-              <h3 className="meta text-accent mb-4 pb-3 border-b border-border">{group.group}</h3>
-              <ul className="space-y-2.5">
-                {group.items.map((tech) => (
-                  <li key={tech} className="text-sm text-text font-medium">
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </motion.div>
+    <section id="skills" className="section container" aria-label="Tech stack">
+      <div className="section-head">
+        <span className="section-index">06 — Tech Stack</span>
+        <h2 className="mt-3">Tech Stack</h2>
       </div>
+
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ staggerChildren: 0.08 }}
+      >
+        {stack.map((group) => (
+          <motion.div key={group.group} variants={groupItem}>
+            <h3 className="meta text-accent mb-4">{group.group}</h3>
+            <ul className="space-y-2">
+              {group.items.map((item) => (
+                <li key={item} className="text-text">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 };

@@ -6,10 +6,9 @@ import { profile } from '@/content/data';
 
 const NAV_ITEMS = [
   { id: 'work', label: 'Work' },
-  { id: 'process', label: 'Process' },
   { id: 'about', label: 'About' },
   { id: 'capabilities', label: 'Capabilities' },
-  { id: 'faq', label: 'FAQ' },
+  { id: 'skills', label: 'Stack' },
   { id: 'contact', label: 'Contact' },
 ];
 

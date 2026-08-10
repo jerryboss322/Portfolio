@@ -50,13 +50,13 @@
 /* --- Component layer --- */
 @layer components {
   .container {
-    width: min(1200px, calc(100% - 3rem));
+    width: min(1280px, calc(100% - 3rem));
     margin-inline: auto;
   }
 
   @media (min-width: 768px) {
     .container {
-      width: min(1200px, calc(100% - 4rem));
+      width: min(1280px, calc(100% - 4rem));
     }
   }
 

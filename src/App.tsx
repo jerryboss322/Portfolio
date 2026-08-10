@@ -6,12 +6,9 @@ import { SmoothScroller } from './components/layout/SmoothScroller';
 import { PageTransition } from './components/layout/PageTransition';
 import { Hero } from './pages/Hero';
 import { WorkSection } from './pages/Work';
-import { ProcessSection } from './components/sections/Process';
 import { AboutSection } from './pages/About';
 import { WhatIBuildSection } from './pages/WhatIBuild';
 import { SkillsSection } from './pages/Skills';
-import { CTASection } from './pages/CTA';
-import { FAQSection } from './components/sections/FAQ';
 import { ContactSection } from './pages/Contact';
 import { ProjectPage } from './pages/Project';
 import { scrollToSection, scrollToTop, isSectionId } from './lib/scroll';
@@ -81,12 +78,9 @@ const Layout: React.FC = () => {
     <>
       <Hero />
       <WorkSection />
-      <ProcessSection />
-      <WhatIBuildSection />
       <AboutSection />
+      <WhatIBuildSection />
       <SkillsSection />
-      <CTASection />
-      <FAQSection />
       <ContactSection />
     </>
   );

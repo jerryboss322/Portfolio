@@ -25,7 +25,7 @@ export const WorkSection: React.FC = () => {
   return (
     <section id="work" className="section container" aria-label="Selected work">
       <div className="section-head">
-        <span className="section-index">03 — Selected Work</span>
+        <span className="section-index">02 — Selected Work</span>
         <h2 className="mt-3">Selected Work</h2>
         <p className="mt-4 max-w-xl leading-relaxed text-muted">
           A selection of digital products, platforms and interfaces I&apos;ve designed and built.
@@ -35,11 +35,11 @@ export const WorkSection: React.FC = () => {
       <div className="space-y-16 md:space-y-24">
         {projects.map((project, index) => {
           const number = String(index + 1).padStart(2, '0');
+          const flipped = index % 2 === 1;
 
           return (
             <motion.article
               key={project.slug}
-              className="work-item"
               variants={rowItem}
               initial="hidden"
               whileInView="visible"
@@ -56,7 +56,7 @@ export const WorkSection: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                 <Link
                   to={`/projects/${project.slug}`}
-                  className="project-media"
+                  className={`project-media order-2 ${flipped ? 'md:order-1' : 'md:order-2'}`}
                   aria-label={`View case study: ${project.title}`}
                 >
                   <img
@@ -67,12 +67,9 @@ export const WorkSection: React.FC = () => {
                   />
                 </Link>
 
-                <div>
+                <div className={`order-1 ${flipped ? 'md:order-2' : 'md:order-1'}`}>
                   <div className="flex items-center gap-3 mb-3">
                     <h3 className="text-2xl md:text-3xl font-bold font-display">{project.title}</h3>
-                    <span className={`project-badge ${project.type === 'client' ? 'project-badge-client' : project.type === 'experiment' ? 'project-badge-experiment' : 'project-badge-personal'}`}>
-                      {getBadgeLabel(project.type)}
-                    </span>
                   </div>
                   <p className="mt-4 leading-relaxed text-muted">{project.summary}</p>
                   <div className="mt-6 meta leading-relaxed">{project.tech.join(' · ')}</div>
@@ -83,6 +80,11 @@ export const WorkSection: React.FC = () => {
                     View Case Study
                     <ArrowRight size={16} aria-hidden="true" />
                   </Link>
+                  <div className="mt-4">
+                    <span className={`project-badge ${project.type === 'client' ? 'project-badge-client' : project.type === 'experiment' ? 'project-badge-experiment' : 'project-badge-personal'}`}>
+                      {getBadgeLabel(project.type)}
+                    </span>
+                  </div>
                 </div>
               </div>
             </motion.article>

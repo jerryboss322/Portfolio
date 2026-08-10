@@ -1,7 +1,6 @@
 /* ============================================================
-   JBOSS — design tokens
-   Keldra-style dark theme
-   Deep dark with blue accent
+   JBOSS --- design tokens
+   Personal Editorial / Project-First Engineering Portfolio
    ============================================================ */
 
 :root {
@@ -22,13 +21,7 @@
   --accent-hover: #6a9fff;
   --accent-soft: rgba(59, 130, 255, 0.14);
   --accent-contrast: #08090b;
-  --accent-purple: #6a9fff;
-  --dark-section: #04050a;
-  --success: #34d399;
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.4);
-  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
 }
 
 :root[data-theme='light'] {
@@ -44,13 +37,7 @@
   --accent-hover: #0057d8;
   --accent-soft: rgba(18, 107, 255, 0.12);
   --accent-contrast: #ffffff;
-  --accent-purple: #6a9fff;
-  --dark-section: #08090b;
-  --success: #10b981;
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow: 0 24px 48px rgba(17, 17, 17, 0.08);
 }
 
 /* --- Typography & motion tokens --- */
@@ -61,14 +48,13 @@
   --fs-body: 1rem;
   --fs-meta: 0.75rem;
   --fs-label: 0.6875rem;
-  --fs-project-title: 1.25rem;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
   --duration-base: 320ms;
   --duration-slow: 600ms;
 
-  --max-width: 1240px;
+  --max-width: 1280px;
 
   --space-xs: 8px;
   --space-sm: 16px;
@@ -79,7 +65,6 @@
 
   --radius-sm: 4px;
   --radius-md: 8px;
-  --radius-lg: 12px;
 }
 
 /* --- Reset & base --- */
@@ -111,17 +96,6 @@ body {
   overflow-x: hidden;
   transition: background var(--duration-slow) var(--ease-out-expo),
     color var(--duration-slow) var(--ease-out-expo);
-}
-
-/* Subtle film grain texture */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 button,

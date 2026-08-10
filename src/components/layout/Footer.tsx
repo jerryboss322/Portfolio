@@ -1,23 +1,20 @@
 import React from 'react';
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { profile } from '@/content/data';
 
 export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="border-t border-border" style={{ background: 'var(--dark-section)' }}>
+    <footer className="border-t border-border mt-24">
       <div className="container py-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
             <span className="brand text-lg">JBOSS</span>
-            <p className="mt-2 text-sm text-muted max-w-xs">
-              Software Engineer building digital systems.
+            <p className="mt-2 text-sm text-muted">
+              Software Engineer<br />
+              {profile.location}
             </p>
           </div>
 
@@ -49,23 +46,14 @@ export const Footer: React.FC = () => {
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <button
-              onClick={scrollToTop}
-              className="p-3 rounded-xl border border-border hover:border-accent hover:text-accent transition-all"
-              aria-label="Back to top"
-            >
-              <ArrowUp size={18} />
-            </button>
-          </div>
+          <ThemeToggle />
         </div>
 
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-xs text-muted">© {year} JBOSS. All rights reserved.</span>
+          <span className="text-xs text-muted">&copy; {year} JBOSS</span>
           <span className="flex items-center gap-2 text-xs text-muted">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500" aria-hidden="true" />
-            Available for work
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
+            Available for select projects
           </span>
         </div>
       </div>

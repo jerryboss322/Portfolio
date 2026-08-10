@@ -342,24 +342,24 @@ export const whatIBring = [
 
 export const stack = [
   {
-    group: 'Languages',
-    items: ['Go', 'TypeScript', 'PHP', 'Kotlin', 'Python'],
-  },
-  {
     group: 'Frontend',
-    items: ['React', 'Next.js', 'Tailwind CSS'],
+    items: ['React', 'Next.js', 'TypeScript', 'HTML / CSS'],
   },
   {
     group: 'Backend',
-    items: ['Laravel', 'Node.js', 'REST APIs', 'GraphQL'],
+    items: ['Node.js', 'Express', 'Django', 'Python'],
   },
   {
     group: 'Database',
-    items: ['PostgreSQL', 'Redis', 'MySQL'],
+    items: ['PostgreSQL', 'SQL'],
   },
   {
-    group: 'Tools',
-    items: ['Git', 'GitHub', 'Vercel', 'Docker'],
+    group: 'Infrastructure',
+    items: ['Linux', 'Git', 'Docker', 'Vercel'],
+  },
+  {
+    group: 'Other',
+    items: ['C#', 'Unity', 'Godot'],
   },
 ];
 
