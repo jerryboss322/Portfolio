@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
 
   const socialLinks = [
     { label: 'GitHub', href: profile.github },
-    { label: 'WhatsApp', href: profile.whatsapp },
+    { label: 'LinkedIn', href: profile.linkedin },
     { label: 'Email', href: `mailto:${profile.email}` },
   ];
 
@@ -17,13 +17,16 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="border-t border-border" style={{ background: 'var(--dark-section)' }}>
       <div className="container py-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
             <span className="brand text-lg">JBOSS</span>
             <p className="mt-2 text-sm text-muted max-w-xs">
-              Software Engineer based in {profile.location}.
+              Software Engineer building digital systems.
+            </p>
+            <p className="mt-1 text-xs text-muted">
+              {profile.location}
             </p>
           </div>
 
@@ -57,8 +60,8 @@ export const Footer: React.FC = () => {
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs text-muted">© {year} JBOSS. All rights reserved.</span>
           <span className="flex items-center gap-2 text-xs text-muted">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
-            Available for work
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
+            Available for selected projects
           </span>
         </div>
       </div>

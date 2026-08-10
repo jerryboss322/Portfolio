@@ -1,62 +1,62 @@
 /* ============================================================
    JBOSS — design tokens
-   Premium Software Engineer Portfolio
-   Peachy theme — warm coral tones
+   Deep Ocean Engineering
+   Dark navy foundation with subtle blue variations
    ============================================================ */
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 :root,
-:root[data-theme='light'] {
-  color-scheme: light;
-  --bg: #FFF8F5;
-  --surface: #FFFFFF;
-  --bg-elevated: #FFF0E9;
-  --bg-soft: #FFE8DD;
-  --border: #F0D9CC;
-  --text: #2D1810;
-  --muted: #8B6F5C;
-  --accent: #E85D3A;
-  --accent-hover: #D04A2B;
-  --accent-soft: rgba(232, 93, 58, 0.08);
-  --accent-contrast: #FFFFFF;
-  --accent-purple: #C084FC;
-  --dark-section: #2D1810;
-  --success: #2ECC71;
-  --shadow-sm: 0 1px 3px rgba(45, 24, 16, 0.06), 0 1px 2px rgba(45, 24, 16, 0.04);
-  --shadow-md: 0 4px 12px rgba(45, 24, 16, 0.08), 0 2px 4px rgba(45, 24, 16, 0.04);
-  --shadow-lg: 0 12px 32px rgba(45, 24, 16, 0.1), 0 4px 8px rgba(45, 24, 16, 0.04);
-  --shadow-card: 0 2px 8px rgba(45, 24, 16, 0.06), 0 1px 3px rgba(45, 24, 16, 0.04);
-}
-
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #1A100C;
-  --surface: #231612;
-  --bg-elevated: #2D1C16;
-  --bg-soft: #2D1C16;
-  --border: #3D2820;
-  --text: #F5EDE8;
-  --muted: #B09080;
-  --accent: #FF7A5C;
-  --accent-hover: #FF8F75;
-  --accent-soft: rgba(255, 122, 92, 0.12);
-  --accent-contrast: #1A100C;
-  --accent-purple: #D8B4FE;
-  --dark-section: #0F0A08;
-  --success: #2ECC71;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.3);
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --bg: #061923;
+  --surface: #0B2430;
+  --bg-elevated: #103342;
+  --bg-soft: #103342;
+  --border: rgba(160, 200, 215, 0.14);
+  --text: #F4F8FA;
+  --muted: #78909C;
+  --accent: #2F7D9D;
+  --accent-hover: #5FA9C4;
+  --accent-soft: rgba(47, 125, 157, 0.12);
+  --accent-contrast: #FFFFFF;
+  --accent-purple: #8BC8DC;
+  --dark-section: #04131B;
+  --success: #4ADE80;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #F4F8FA;
+  --surface: #FFFFFF;
+  --bg-elevated: #E8F0F4;
+  --bg-soft: #DCE8EE;
+  --border: rgba(47, 125, 157, 0.18);
+  --text: #061923;
+  --muted: #5A7A8A;
+  --accent: #2F7D9D;
+  --accent-hover: #1D5A75;
+  --accent-soft: rgba(47, 125, 157, 0.1);
+  --accent-contrast: #FFFFFF;
+  --accent-purple: #5FA9C4;
+  --dark-section: #061923;
+  --success: #16A34A;
+  --shadow-sm: 0 2px 8px rgba(6, 25, 35, 0.06);
+  --shadow-md: 0 4px 16px rgba(6, 25, 35, 0.08);
+  --shadow-lg: 0 20px 60px rgba(6, 25, 35, 0.12);
+  --shadow-card: 0 2px 12px rgba(6, 25, 35, 0.06);
 }
 
 /* --- Typography & motion tokens --- */
 :root {
-  --fs-hero: clamp(2.75rem, 5vw, 4.5rem);
-  --fs-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --fs-hero: clamp(3rem, 7vw, 7rem);
+  --fs-h2: clamp(2rem, 4vw, 3.5rem);
   --fs-h3: clamp(1.25rem, 2vw, 1.5rem);
   --fs-body: 1.0625rem;
   --fs-meta: 0.75rem;
@@ -64,9 +64,9 @@
   --fs-project-title: 1.25rem;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-fast: 150ms;
-  --duration-base: 250ms;
-  --duration-slow: 400ms;
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
 
   --max-width: 1200px;
 
@@ -74,12 +74,12 @@
   --space-sm: 16px;
   --space-md: 24px;
   --space-lg: 48px;
-  --space-xl: 80px;
-  --space-2xl: 120px;
+  --space-xl: 96px;
+  --space-2xl: 140px;
 
   --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
 }
 
 /* --- Reset & base --- */
@@ -111,6 +111,17 @@ body {
   overflow-x: hidden;
   transition: background var(--duration-slow) var(--ease-out-expo),
     color var(--duration-slow) var(--ease-out-expo);
+}
+
+/* Subtle ocean texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background: radial-gradient(ellipse at 50% 0%, var(--accent) 0%, transparent 60%);
 }
 
 button,

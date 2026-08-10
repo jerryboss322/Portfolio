@@ -9,6 +9,7 @@ import { WorkSection } from './pages/Work';
 import { AboutSection } from './pages/About';
 import { WhatIBuildSection } from './pages/WhatIBuild';
 import { SkillsSection } from './pages/Skills';
+import { PrinciplesSection } from './components/sections/Principles';
 import { CTASection } from './pages/CTA';
 import { FAQSection } from './components/sections/FAQ';
 import { ContactSection } from './pages/Contact';
@@ -83,6 +84,7 @@ const Layout: React.FC = () => {
       <WhatIBuildSection />
       <AboutSection />
       <SkillsSection />
+      <PrinciplesSection />
       <CTASection />
       <FAQSection />
       <ContactSection />

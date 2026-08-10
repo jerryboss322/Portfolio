@@ -1,27 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Globe, Server, Rocket } from 'lucide-react';
+import { whatIBring } from '@/content/data';
 
-const capabilities = [
-  {
-    number: '01',
-    title: 'Web Applications',
-    description: 'Modern, responsive applications built around real user needs. From interactive interfaces to full-stack platforms.',
-    icon: Globe,
-  },
-  {
-    number: '02',
-    title: 'Backend Systems',
-    description: 'APIs, databases, authentication, business logic, and application architecture that scales.',
-    icon: Server,
-  },
-  {
-    number: '03',
-    title: 'DevOps & Deployment',
-    description: 'Production-ready applications with reliable deployment, CI/CD, and cloud infrastructure.',
-    icon: Rocket,
-  },
-];
+const icons = [Globe, Server, Rocket];
 
 const container = {
   hidden: {},
@@ -60,8 +42,8 @@ export const WhatIBuildSection: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, margin: '10%' }}
         >
-          {capabilities.map((cap) => {
-            const Icon = cap.icon;
+          {whatIBring.map((cap, index) => {
+            const Icon = icons[index];
             return (
               <motion.div
                 key={cap.number}

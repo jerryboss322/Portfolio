@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Mail, Code2, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Mail, Code2, ExternalLink, Link } from 'lucide-react';
 import { ContactForm } from '@/components/ui/ContactForm';
 import { profile } from '@/content/data';
 
@@ -9,6 +9,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const contactLinks = [
   { label: 'Email', href: `mailto:${profile.email}`, icon: Mail, description: profile.email },
   { label: 'GitHub', href: profile.github, icon: Code2, description: 'github.com/jerryboss322' },
+  { label: 'LinkedIn', href: profile.linkedin, icon: Link, description: 'linkedin.com/in/jboss-dev' },
   { label: 'WhatsApp', href: profile.whatsapp, icon: ExternalLink, description: 'Chat on WhatsApp' },
 ];
 
@@ -23,12 +24,12 @@ export const ContactSection: React.FC = () => {
             viewport={{ once: true, margin: '10%' }}
             transition={{ duration: 0.6, ease }}
           >
-            <span className="section-index">07 — Contact</span>
+            <span className="section-index">08 — Contact</span>
             <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
               Get in Touch
             </h2>
             <p className="mt-4 text-muted leading-relaxed max-w-md">
-              Have a question or want to work together? Reach out through any of the channels below.
+              Tell me what you&apos;re building, what problem you&apos;re trying to solve, and where you want to take it.
             </p>
 
             <div className="mt-10 space-y-4">

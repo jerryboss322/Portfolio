@@ -23,7 +23,7 @@ export const SkillsSection: React.FC = () => {
     <section id="skills" className="section" aria-label="Skills">
       <div className="container">
         <div className="max-w-2xl mb-12">
-          <span className="section-index">04 — Tech Stack</span>
+          <span className="section-index">04 — Primary Stack</span>
           <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
             Technologies I Work With
           </h2>

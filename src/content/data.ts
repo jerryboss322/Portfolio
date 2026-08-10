@@ -3,7 +3,7 @@ export interface Metric {
   label: string;
 }
 
-export type ProjectType = 'client' | 'personal';
+export type ProjectType = 'client' | 'personal' | 'experiment';
 
 export interface Project {
   slug: string;
@@ -30,12 +30,12 @@ export const projects: Project[] = [
   {
     slug: 'titan',
     title: 'Titan Commerce',
-    subtitle: 'E-commerce Platform',
+    subtitle: 'E-Commerce Platform',
     type: 'personal',
     role: 'Lead Frontend Engineer',
     year: '2025',
     summary:
-      'A full-stack storefront with real product data, categories, cart, wishlist, and authentication — not a static template. Built to handle the complete path from browsing to checkout.',
+      'A full-stack commerce platform focused on a polished shopping experience, product management, authentication, and scalable application architecture.',
     description:
       'Titan is a full-stack commerce platform built around the complete customer journey — product discovery through browsing and category pages, a persistent cart and wishlist, and account-based checkout backed by real authentication rather than a mocked login state. The product catalog, cart state, and user accounts are all backed by PostgreSQL rather than static or hardcoded data, which means the storefront behaves like a real store: items persist in the cart across sessions, wishlist state is tied to the signed-in account, and product data can change without a redeploy.',
     image: '/img/projects/titan.webp',
@@ -67,14 +67,45 @@ export const projects: Project[] = [
       'Increased conversion rate by 35% and reduced page load time from 4.2s to 1.1s through performance optimization and code splitting.',
   },
   {
+    slug: 'matchora',
+    title: 'Matchora',
+    subtitle: 'Sports Prediction Platform',
+    type: 'personal',
+    role: 'Full-Stack Developer',
+    year: '2025',
+    summary:
+      'A data-driven sports prediction platform designed around match information, prediction workflows, and an intuitive user experience.',
+    description:
+      'Matchora is a sports prediction platform built for users who want structured match information, prediction workflows, and a clean experience for tracking their picks.',
+    image: '/img/projects/titan.webp',
+    gallery: ['/img/projects/titan.webp'],
+    tech: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+    liveUrl: 'https://matchora.vercel.app/',
+    githubUrl: 'https://github.com/jerryboss322/matchora',
+    challenge: [
+      'Sports fans need a clean way to view match information and track predictions.',
+      'Existing platforms often overwhelm users with cluttered interfaces.',
+    ],
+    process: [
+      'Built a streamlined match browsing experience with clear prediction entry.',
+      'Implemented a responsive prediction tracking system with real-time updates.',
+    ],
+    solution: [
+      'Shipped a focused prediction platform where users can browse matches and track picks efficiently.',
+    ],
+    metrics: [],
+    outcome:
+      'A clean, data-driven sports prediction platform with intuitive match browsing and prediction workflows.',
+  },
+  {
     slug: 'luxora',
     title: 'Luxora',
-    subtitle: 'Luxury Marketplace',
+    subtitle: 'Premium Commerce Experience',
     type: 'personal',
     role: 'Product Designer & Frontend Lead',
     year: '2024',
     summary:
-      'A product showroom built around presentation, not just listings — collections arranged like a gallery, with a still product photo transitioning into an interactive 3D model on interaction.',
+      'A luxury-focused commerce experience combining premium visual design with structured product discovery and responsive interaction.',
     description:
       "Luxora reimagines a product marketplace as a curated showroom rather than a grid of listings — collections are presented like gallery installations, and the centerpiece interaction lets a static product photograph dissolve into a fully interactive 3D model, giving each object a sense of physical presence that a flat photo can't. Built with React Three Fiber for the 3D layer, GSAP for the showroom's scroll choreography, and Sanity as a headless CMS so collections and featured objects can be managed without touching code.",
     image: '/img/projects/luxora.webp',
@@ -108,12 +139,12 @@ export const projects: Project[] = [
   {
     slug: 'tastetrail',
     title: 'TasteTrail',
-    subtitle: 'Food Ordering App',
+    subtitle: 'Food Discovery',
     type: 'personal',
     role: 'Full-Stack Developer',
     year: '2024',
     summary:
-      'A smaller, self-directed build — a single-restaurant ordering flow with category-filtered browsing and a live cart. Built to experiment with fast add-to-cart interactions rather than as a full product.',
+      'A visual food discovery experience designed around exploration, content presentation, and intuitive navigation.',
     description:
       'TasteTrail is a focused food-ordering experience for a single restaurant — category-filtered menu browsing with a live running cart, built to make choosing and confirming an order fast, with no friction between menu and checkout.',
     image: '/img/projects/tastetrail.webp',
@@ -139,13 +170,13 @@ export const projects: Project[] = [
   },
   {
     slug: 'sallygreen',
-    title: 'Sally Green Marketing',
-    subtitle: 'Book Marketing Platform',
+    title: 'Sally Green',
+    subtitle: 'Digital Product',
     type: 'client',
     role: 'Frontend Engineer',
     year: '2024',
     summary:
-      'A marketing and analytics site built for an author-services client — combining a data-driven results dashboard, structured case studies, and a lead-capture flow designed around converting inbound author inquiries.',
+      'A client-focused digital experience built around clear communication, usability, and a polished product presentation.',
     description:
       "Built for an author-marketing client, this site combines a results dashboard, structured case-study sections, and a conversion-focused inquiry flow designed to turn visiting authors into qualified leads. The build required translating a fairly aggressive, data-heavy marketing voice into a working, responsive site with animated stat displays, testimonial sections tied to real author names, and a functioning contact/diagnostic-request form — while keeping the site's own commercial claims clearly the client's positioning, not overstated engineering claims of your own.",
     image: '/img/projects/sallygreen.webp',
@@ -178,12 +209,12 @@ export const projects: Project[] = [
   {
     slug: 'jbet',
     title: 'Jbet',
-    subtitle: 'Sports Betting Platform',
-    type: 'personal',
+    subtitle: 'Platform Concept',
+    type: 'experiment',
     role: 'Frontend Engineer',
     year: '2026',
     summary:
-      'A personal project exploring a sports betting platform for the Nigerian market — live odds across multiple leagues, a persistent bet-slip, and wallet funding built against local payment rails like Opay, Palmpay, and bank USSD.',
+      'A complex platform concept exploring user flows, data presentation, account experiences, and application architecture.',
     description:
       'Jbet is a full sports-betting platform built for the Nigerian market, covering live odds across multiple football leagues, a persistent bet-slip that tracks selections and calculates potential winnings in real time, and account creation with session-based authentication. The wallet system integrates local Nigerian payment rails — Opay, Palmpay, GTBank, and USSD — for instant deposits, and the platform includes licensing and responsible-gambling messaging consistent with regulated betting products.',
     image: '/img/projects/jbet.webp',
@@ -230,40 +261,54 @@ export const profile = {
   heroPortrait: '/img/hero.png',
   github: 'https://github.com/jerryboss322',
   whatsapp: 'https://wa.me/2348130075752',
+  linkedin: 'https://linkedin.com/in/jboss-dev',
   email: 'jerryadewole2023@gmail.com',
 };
 
 export const about = {
-  heading: "I'm a software engineer who likes building things from the ground up.",
+  heading: 'I build with both the product and the system in mind.',
   paragraphs: [
-    "I'm a software engineer who works across the stack — interfaces, backend systems, APIs, and the infrastructure behind them. What interests me most is taking a rough idea, breaking it into smaller systems, and turning it into something people can actually use.",
-    'I care about the details that are easy to skip: response time, component states, data flow, and whether the finished product genuinely makes sense to the person using it.',
+    'I enjoy turning complex ideas into reliable, usable digital products. My work spans web development, backend systems, deployment, and technical problem solving.',
   ],
   pullQuote:
-    'My goal is simple: build software that is useful, technically sound, and genuinely enjoyable to use.',
+    'Build for maintainability, not just the demo.',
   portrait: '/img/about.png',
 };
 
+export const principles = [
+  {
+    title: 'CLARITY',
+    description: 'Clear communication before unnecessary complexity.',
+  },
+  {
+    title: 'ENGINEERING',
+    description: 'Build for maintainability, not just the demo.',
+  },
+  {
+    title: 'PERFORMANCE',
+    description: 'Keep products fast, responsive, and efficient.',
+  },
+  {
+    title: 'OWNERSHIP',
+    description: 'Take responsibility from idea through deployment.',
+  },
+];
+
 export const whatIBring = [
   {
-    title: 'Product Thinking',
-    description:
-      "I don't just think about individual screens or features. I think about how the complete product works, and how each part serves the user's actual goal.",
+    number: '01',
+    title: 'Web Applications',
+    description: 'Modern, responsive web applications designed around real users and real product requirements.',
   },
   {
-    title: 'Full-Stack Engineering',
-    description:
-      'I work across interface, application logic, APIs, databases, and the supporting systems needed to take an idea to a working product.',
+    number: '02',
+    title: 'Backend Systems',
+    description: 'APIs, databases, authentication, business logic, and application architecture designed to support reliable products.',
   },
   {
-    title: 'Attention to Detail',
-    description:
-      'Performance, responsive behavior, accessibility, interaction states, typography, and the small usability decisions all matter to the final result.',
-  },
-  {
-    title: 'Continuous Learning',
-    description:
-      'I enjoy testing new tools and approaches while keeping the fundamentals that make software reliable.',
+    number: '03',
+    title: 'Deployment & Systems',
+    description: 'Production-ready applications, deployment workflows, infrastructure configuration, and reliable delivery.',
   },
 ];
 
