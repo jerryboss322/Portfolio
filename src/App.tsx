@@ -23,7 +23,7 @@ export const App: React.FC = () => {
           </a>
           <Header />
 
-          <main id="main" className="flex-1">
+          <main id="main" className="flex-1 pt-20">
             <PageTransition>
               <Routes>
                 <Route path="/" element={<Layout />} />
