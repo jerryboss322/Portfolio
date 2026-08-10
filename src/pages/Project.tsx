@@ -106,6 +106,9 @@ export const ProjectPage: React.FC = () => {
             <span className="section-index">{project.subtitle}</span>
             <span className="text-muted">·</span>
             <span className="meta">{project.year}</span>
+            <span className={`project-badge ${project.type === 'client' ? 'project-badge-client' : 'project-badge-personal'}`}>
+              {project.type === 'client' ? 'Client Project' : 'Personal Project'}
+            </span>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-bold font-display text-text leading-tight">

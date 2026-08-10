@@ -1,7 +1,7 @@
 /* ============================================================
    JBOSS — design tokens
    Premium Software Engineer Portfolio
-   Light theme with blue primary and purple accent
+   Peachy theme — warm coral tones
    ============================================================ */
 
 :root {
@@ -11,41 +11,41 @@
 :root,
 :root[data-theme='light'] {
   color-scheme: light;
-  --bg: #F5F7FB;
+  --bg: #FFF8F5;
   --surface: #FFFFFF;
-  --bg-elevated: #FFFFFF;
-  --bg-soft: #EEF1F7;
-  --border: #E5E7EB;
-  --text: #111827;
-  --muted: #667085;
-  --accent: #2563EB;
-  --accent-hover: #1D4ED8;
-  --accent-soft: rgba(37, 99, 235, 0.08);
+  --bg-elevated: #FFF0E9;
+  --bg-soft: #FFE8DD;
+  --border: #F0D9CC;
+  --text: #2D1810;
+  --muted: #8B6F5C;
+  --accent: #E85D3A;
+  --accent-hover: #D04A2B;
+  --accent-soft: rgba(232, 93, 58, 0.08);
   --accent-contrast: #FFFFFF;
-  --accent-purple: #8B5CF6;
-  --dark-section: #0B2A55;
+  --accent-purple: #C084FC;
+  --dark-section: #2D1810;
   --success: #2ECC71;
-  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
-  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08), 0 2px 4px rgba(16, 24, 40, 0.04);
-  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.1), 0 4px 8px rgba(16, 24, 40, 0.04);
-  --shadow-card: 0 2px 8px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.04);
+  --shadow-sm: 0 1px 3px rgba(45, 24, 16, 0.06), 0 1px 2px rgba(45, 24, 16, 0.04);
+  --shadow-md: 0 4px 12px rgba(45, 24, 16, 0.08), 0 2px 4px rgba(45, 24, 16, 0.04);
+  --shadow-lg: 0 12px 32px rgba(45, 24, 16, 0.1), 0 4px 8px rgba(45, 24, 16, 0.04);
+  --shadow-card: 0 2px 8px rgba(45, 24, 16, 0.06), 0 1px 3px rgba(45, 24, 16, 0.04);
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #0E0E10;
-  --surface: #151518;
-  --bg-elevated: #1C1C20;
-  --bg-soft: #1C1C20;
-  --border: #232326;
-  --text: #F1F1F2;
-  --muted: #B4B4B8;
-  --accent: #4F8CFF;
-  --accent-hover: #6EA2FF;
-  --accent-soft: rgba(79, 140, 255, 0.12);
-  --accent-contrast: #0E0E10;
-  --accent-purple: #A78BFA;
-  --dark-section: #061830;
+  --bg: #1A100C;
+  --surface: #231612;
+  --bg-elevated: #2D1C16;
+  --bg-soft: #2D1C16;
+  --border: #3D2820;
+  --text: #F5EDE8;
+  --muted: #B09080;
+  --accent: #FF7A5C;
+  --accent-hover: #FF8F75;
+  --accent-soft: rgba(255, 122, 92, 0.12);
+  --accent-contrast: #1A100C;
+  --accent-purple: #D8B4FE;
+  --dark-section: #0F0A08;
   --success: #2ECC71;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);

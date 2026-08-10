@@ -3,10 +3,13 @@ export interface Metric {
   label: string;
 }
 
+export type ProjectType = 'client' | 'personal';
+
 export interface Project {
   slug: string;
   title: string;
   subtitle: string;
+  type: ProjectType;
   role: string;
   year: string;
   summary: string;
@@ -28,6 +31,7 @@ export const projects: Project[] = [
     slug: 'titan',
     title: 'Titan Commerce',
     subtitle: 'E-commerce Platform',
+    type: 'personal',
     role: 'Lead Frontend Engineer',
     year: '2025',
     summary:
@@ -66,6 +70,7 @@ export const projects: Project[] = [
     slug: 'luxora',
     title: 'Luxora',
     subtitle: 'Luxury Marketplace',
+    type: 'personal',
     role: 'Product Designer & Frontend Lead',
     year: '2024',
     summary:
@@ -103,7 +108,8 @@ export const projects: Project[] = [
   {
     slug: 'tastetrail',
     title: 'TasteTrail',
-    subtitle: 'Food Ordering App (Personal Project)',
+    subtitle: 'Food Ordering App',
+    type: 'personal',
     role: 'Full-Stack Developer',
     year: '2024',
     summary:
@@ -135,6 +141,7 @@ export const projects: Project[] = [
     slug: 'sallygreen',
     title: 'Sally Green Marketing',
     subtitle: 'Book Marketing Platform',
+    type: 'client',
     role: 'Frontend Engineer',
     year: '2024',
     summary:
@@ -171,7 +178,8 @@ export const projects: Project[] = [
   {
     slug: 'jbet',
     title: 'Jbet',
-    subtitle: 'Sports Betting Platform (Personal Project)',
+    subtitle: 'Sports Betting Platform',
+    type: 'personal',
     role: 'Frontend Engineer',
     year: '2026',
     summary:
@@ -217,12 +225,12 @@ export const profile = {
     'I work across the full stack — frontend, backend, databases, and the infrastructure that ties it together. I care most about whether something actually works: fast, reliable, and simple to use.',
   ],
   meta: 'Frontend · Backend · APIs · Product Engineering',
-  location: 'Lagos, Nigeria',
+  location: 'Ogbomoso, Nigeria',
   status: 'Available for select projects',
   heroPortrait: '/img/hero.png',
   github: 'https://github.com/jerryboss322',
   whatsapp: 'https://wa.me/2348130075752',
-  email: 'hello@jboss.dev',
+  email: 'jerryadewole2023@gmail.com',
 };
 
 export const about = {
@@ -261,23 +269,71 @@ export const whatIBring = [
 
 export const stack = [
   {
+    group: 'Languages',
+    items: ['Go', 'TypeScript', 'PHP', 'Kotlin', 'Python'],
+  },
+  {
     group: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'JavaScript'],
+    items: ['React', 'Next.js', 'Tailwind CSS'],
   },
   {
     group: 'Backend',
-    items: ['Node.js', 'Express', 'Django', 'REST APIs'],
+    items: ['Laravel', 'Node.js', 'REST APIs', 'GraphQL'],
   },
   {
     group: 'Database',
-    items: ['PostgreSQL', 'Redis'],
+    items: ['PostgreSQL', 'Redis', 'MySQL'],
   },
   {
     group: 'Tools',
-    items: ['Git', 'GitHub', 'Vercel', 'VS Code'],
+    items: ['Git', 'GitHub', 'Vercel', 'Docker'],
+  },
+];
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export const faq: FAQItem[] = [
+  {
+    question: "What's your typical project timeline?",
+    answer: "A typical landing page takes around 1–2 weeks, depending on design, content, revisions, and functionality required. A full web application usually takes around 3–6 weeks, and larger or more complex systems may take longer. I review the project scope first and agree on a realistic timeline rather than make unrealistic promises.",
   },
   {
-    group: 'Other',
-    items: ['Three.js', 'Unity', 'C#', 'Python'],
+    question: "Do you work with non-technical founders/clients?",
+    answer: "Yes. I explain technical decisions in terms of business goals, user experience, performance, cost, and long-term maintainability, rather than unnecessary jargon — so you understand what's being built and why.",
+  },
+  {
+    question: "What's your tech stack?",
+    answer: "My primary stack includes Go, Next.js, Laravel, and Kotlin. I also work with other technologies depending on the requirements of a project, choosing tools based on the product, architecture, and specific problem being solved.",
+  },
+  {
+    question: "Since you're one person, what happens if you get overloaded/sick/stuck?",
+    answer: "I plan realistic timelines and avoid taking on more work than I can responsibly manage. If an unexpected issue affects a project, I communicate it as early as possible rather than leaving you without an update, and I build in reasonable time for testing, revisions, and unexpected technical problems.",
+  },
+  {
+    question: "Do you sign NDAs?",
+    answer: "Yes — I'm comfortable signing an NDA when a project requires confidentiality.",
+  },
+  {
+    question: "What happens after the project ships?",
+    answer: "I provide a clear handoff: code, documentation, deployment information, and instructions to manage it. If you need continued help, I can also provide maintenance, bug fixes, updates, and further improvements through an agreed support arrangement.",
+  },
+  {
+    question: "How do payments work?",
+    answer: "Standard structure is 50% upfront, 50% on completion. For larger projects, payment can be split into milestones tied to defined deliverables. Development begins once the initial payment is received.",
+  },
+  {
+    question: "Can you take over a half-finished project someone else started?",
+    answer: "Yes. I normally recommend a codebase audit first, so I understand the existing architecture, dependencies, incomplete features, and remaining work before quoting a scope and timeline.",
+  },
+  {
+    question: "Where are you based, and do you work with international clients?",
+    answer: "I'm based in Ogbomoso, Nigeria (WAT / UTC+1) and I'm open to working with clients internationally. I'm comfortable working asynchronously through clear communication, documentation, and regular progress updates, while also making time for meetings when needed.",
+  },
+  {
+    question: "Do you only build the projects on your portfolio, or other things too?",
+    answer: "No — my portfolio includes a mix of client projects, personal projects, and experimental builds. Client projects show my ability to deliver against real requirements; personal projects let me explore new technologies, architectures, and ideas. Each project is clearly labeled so visitors can tell which is which.",
   },
 ];

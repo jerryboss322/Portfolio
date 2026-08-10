@@ -6,9 +6,9 @@ import { ScrollLink } from '@/components/ui/ScrollLink';
 export const CTASection: React.FC = () => {
   return (
     <section className="py-24 md:py-32 dark-section relative overflow-hidden" aria-label="Call to action">
-      {/* Subtle geometric decoration */}
-      <div className="absolute inset-0 opacity-[0.04]" aria-hidden="true">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+      {/* Subtle decoration */}
+      <div className="absolute inset-0 opacity-[0.06]" aria-hidden="true">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-purple rounded-full blur-3xl" />
       </div>
 

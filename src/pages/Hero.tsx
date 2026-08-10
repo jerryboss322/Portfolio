@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, ChevronDown } from 'lucide-react';
 import { ScrollLink } from '@/components/ui/ScrollLink';
+import { Marquee } from '@/components/ui/Marquee';
 import { profile } from '@/content/data';
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -22,15 +23,20 @@ const item = {
   },
 };
 
+const marqueeItems = [
+  'Go', 'Next.js', 'Laravel', 'Kotlin', 'React', 'TypeScript',
+  'PostgreSQL', 'Docker', 'Node.js', 'GraphQL', 'Tailwind CSS',
+];
+
 export const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="min-h-[85vh] flex items-center relative overflow-hidden pt-8 pb-16"
+      className="min-h-[90vh] flex flex-col justify-center relative overflow-hidden pt-8 pb-16"
       aria-label="Introduction"
     >
-      <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container flex-1 flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
           <motion.div variants={container} initial="hidden" animate="visible">
             <motion.span className="eyebrow" variants={item}>
               Software Engineer
@@ -69,7 +75,7 @@ export const Hero: React.FC = () => {
               variants={item}
             >
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-green-500" aria-hidden="true" />
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
                 Available for work
               </span>
               <span>{profile.location}</span>
@@ -118,6 +124,28 @@ export const Hero: React.FC = () => {
             </motion.span>
           </motion.div>
         </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="flex justify-center pb-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <ScrollLink to="work" aria-label="Scroll to work" className="text-muted hover:text-accent transition-colors">
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ChevronDown size={24} />
+          </motion.div>
+        </ScrollLink>
+      </motion.div>
+
+      {/* Marquee */}
+      <div className="pb-8">
+        <Marquee items={marqueeItems} speed={25} />
       </div>
     </section>
   );

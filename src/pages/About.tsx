@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { about, profile } from '@/content/data';
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -31,7 +30,7 @@ export const AboutSection: React.FC = () => {
             viewport={{ once: true, margin: '10%' }}
             transition={{ duration: 0.6, delay: 0.1, ease }}
           >
-            <span className="section-index">03 — About Me</span>
+            <span className="section-index">03 — About</span>
             <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
               {about.heading}
             </h2>
@@ -47,13 +46,6 @@ export const AboutSection: React.FC = () => {
             <p className="mt-6 text-lg font-medium text-text border-l-[3px] border-accent pl-5 italic">
               {about.pullQuote}
             </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a href="#cv-download" className="primary-button inline-flex items-center gap-2">
-                About Me
-                <ArrowRight size={16} aria-hidden="true" />
-              </a>
-            </div>
 
             <div className="mt-8 flex flex-wrap gap-6 meta">
               <span>{profile.role}</span>

@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { ScrollLink } from '@/components/ui/ScrollLink';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { profile } from '@/content/data';
 
 const NAV_ITEMS = [
   { id: 'work', label: 'Work' },
   { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -106,6 +108,7 @@ export const Header: React.FC = () => {
             </nav>
 
             <div className="flex items-center gap-3">
+              <ThemeToggle />
               <ScrollLink to="contact" className="primary-button hidden sm:inline-flex text-sm py-2.5 px-5">
                 Hire Me
                 <ArrowUpRight size={15} aria-hidden="true" />

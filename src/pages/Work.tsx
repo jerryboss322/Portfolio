@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
 import { projects } from '@/content/data';
 
 const container = {
@@ -32,7 +31,7 @@ export const WorkSection: React.FC = () => {
             </h2>
           </div>
           <p className="hidden md:block max-w-sm text-muted text-sm leading-relaxed">
-            A selection of digital products, platforms and interfaces I&apos;ve designed and built.
+            A selection of client work and personal builds.
           </p>
         </div>
 
@@ -58,10 +57,13 @@ export const WorkSection: React.FC = () => {
                   />
                 </div>
                 <div className="project-card-body">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <span className="section-index text-[0.6rem]">{String(index + 1).padStart(2, '0')}</span>
                     <span className="text-[0.6rem] text-muted">/</span>
                     <span className="text-[0.6rem] text-muted uppercase tracking-wider">{project.subtitle}</span>
+                    <span className={`project-badge ${project.type === 'client' ? 'project-badge-client' : 'project-badge-personal'}`}>
+                      {project.type === 'client' ? 'Client' : 'Personal'}
+                    </span>
                   </div>
                   <h3 className="project-card-title">{project.title}</h3>
                   <p className="project-card-desc line-clamp-2">{project.summary}</p>

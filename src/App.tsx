@@ -10,6 +10,7 @@ import { AboutSection } from './pages/About';
 import { WhatIBuildSection } from './pages/WhatIBuild';
 import { SkillsSection } from './pages/Skills';
 import { CTASection } from './pages/CTA';
+import { FAQSection } from './components/sections/FAQ';
 import { ContactSection } from './pages/Contact';
 import { ProjectPage } from './pages/Project';
 import { scrollToSection, scrollToTop, isSectionId } from './lib/scroll';
@@ -83,6 +84,7 @@ const Layout: React.FC = () => {
       <AboutSection />
       <SkillsSection />
       <CTASection />
+      <FAQSection />
       <ContactSection />
     </>
   );

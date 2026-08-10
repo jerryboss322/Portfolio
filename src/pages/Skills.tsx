@@ -23,17 +23,17 @@ export const SkillsSection: React.FC = () => {
     <section id="skills" className="section" aria-label="Skills">
       <div className="container">
         <div className="max-w-2xl mb-12">
-          <span className="section-index">04 — Skills & Technologies</span>
+          <span className="section-index">04 — Tech Stack</span>
           <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
-            Technical Stack
+            Technologies I Work With
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Technologies and tools I use to build modern digital products.
+            Tools and languages I use to build modern digital products.
           </p>
         </div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={container}
           initial="hidden"
           whileInView="visible"
