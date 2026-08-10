@@ -67,37 +67,6 @@ export const projects: Project[] = [
       'Increased conversion rate by 35% and reduced page load time from 4.2s to 1.1s through performance optimization and code splitting.',
   },
   {
-    slug: 'matchora',
-    title: 'Matchora',
-    subtitle: 'Sports Prediction Platform',
-    type: 'personal',
-    role: 'Full-Stack Developer',
-    year: '2025',
-    summary:
-      'A data-driven sports prediction platform designed around match information, prediction workflows, and an intuitive user experience.',
-    description:
-      'Matchora is a sports prediction platform built for users who want structured match information, prediction workflows, and a clean experience for tracking their picks.',
-    image: '/img/projects/titan.webp',
-    gallery: ['/img/projects/titan.webp'],
-    tech: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
-    liveUrl: 'https://matchora.vercel.app/',
-    githubUrl: 'https://github.com/jerryboss322/matchora',
-    challenge: [
-      'Sports fans need a clean way to view match information and track predictions.',
-      'Existing platforms often overwhelm users with cluttered interfaces.',
-    ],
-    process: [
-      'Built a streamlined match browsing experience with clear prediction entry.',
-      'Implemented a responsive prediction tracking system with real-time updates.',
-    ],
-    solution: [
-      'Shipped a focused prediction platform where users can browse matches and track picks efficiently.',
-    ],
-    metrics: [],
-    outcome:
-      'A clean, data-driven sports prediction platform with intuitive match browsing and prediction workflows.',
-  },
-  {
     slug: 'luxora',
     title: 'Luxora',
     subtitle: 'Premium Commerce Experience',

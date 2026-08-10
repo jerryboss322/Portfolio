@@ -32,7 +32,7 @@ export const WorkSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="space-y-16 md:space-y-24">
+      <div className="space-y-8 md:space-y-12">
         {projects.map((project, index) => {
           const number = String(index + 1).padStart(2, '0');
           const flipped = index % 2 === 1;
@@ -44,6 +44,7 @@ export const WorkSection: React.FC = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
+              className="border border-border rounded-xl p-6 md:p-8 bg-surface"
             >
               <div className="flex items-baseline gap-2 mb-5">
                 <span className="section-index">
