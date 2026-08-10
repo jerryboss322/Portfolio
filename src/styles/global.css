@@ -196,7 +196,7 @@ ul {
 .bg-grain {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
   background-size: 200px 200px;
-  opacity: 0.08;
+  opacity: 0.15;
   animation: grain 20s ease-in-out infinite;
   will-change: transform;
 }
@@ -204,8 +204,8 @@ ul {
 /* Orb base */
 .bg-orb {
   will-change: transform;
-  filter: blur(100px);
-  opacity: 0.08;
+  filter: blur(80px);
+  opacity: 0.25;
   backface-visibility: hidden;
   transform-style: preserve-3d;
 }
@@ -235,6 +235,28 @@ ul {
   bottom: 10%;
   left: 40%;
   animation: float-3 22s ease-in-out infinite;
+}
+
+/* Light mode orbs - more saturated colors for visibility */
+:root[data-theme='light'] .bg-orb {
+  opacity: 0.18;
+  filter: blur(100px);
+}
+
+:root[data-theme='light'] .bg-orb-1 {
+  background: #ff6b4a;
+}
+
+:root[data-theme='light'] .bg-orb-2 {
+  background: #2563eb;
+}
+
+:root[data-theme='light'] .bg-orb-3 {
+  background: #7c3aed;
+}
+
+:root[data-theme='light'] .bg-grain {
+  opacity: 0.1;
 }
 
 /* --- Reduced motion --- */

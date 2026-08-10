@@ -18,8 +18,8 @@ export const App: React.FC = () => {
   return (
     <HashRouter>
       <SmoothScroller>
+        <Background />
         <div className="relative z-10 min-h-screen bg-bg text-text overflow-x-hidden">
-          <Background />
           <a href="#main" className="skip-link">
             Skip to content
           </a>
