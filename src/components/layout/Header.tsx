@@ -6,8 +6,9 @@ import { profile } from '@/content/data';
 
 const NAV_ITEMS = [
   { id: 'work', label: 'Work' },
+  { id: 'process', label: 'Process' },
   { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
+  { id: 'capabilities', label: 'Capabilities' },
   { id: 'faq', label: 'FAQ' },
   { id: 'contact', label: 'Contact' },
 ];
@@ -76,7 +77,7 @@ export const Header: React.FC = () => {
       />
 
       <header
-        className={`nav-bar transition-transform duration-300 ease-out ${
+        className={`topbar transition-transform duration-300 ease-out ${
           hidden ? '-translate-y-[120%]' : 'translate-y-0'
         }`}
       >
@@ -86,7 +87,7 @@ export const Header: React.FC = () => {
               JBOSS
             </ScrollLink>
 
-            <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
+            <nav className="hidden md:flex items-center" aria-label="Primary">
               {NAV_ITEMS.map((item) => (
                 <ScrollLink
                   key={item.id}
@@ -96,25 +97,22 @@ export const Header: React.FC = () => {
                   {item.label}
                 </ScrollLink>
               ))}
-              <span className="nav-divider" aria-hidden="true" />
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-link inline-flex items-center gap-1"
-              >
-                GitHub
-                <ArrowUpRight size={13} aria-hidden="true" />
-              </a>
             </nav>
 
             <div className="flex items-center gap-3">
               <ThemeToggle />
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link hidden sm:inline-flex items-center gap-1"
+              >
+                GitHub
+                <ArrowUpRight size={13} aria-hidden="true" />
+              </a>
               <ScrollLink to="contact" className="primary-button hidden sm:inline-flex text-sm py-2.5 px-5">
                 Hire Me
-                <ArrowUpRight size={15} aria-hidden="true" />
               </ScrollLink>
-
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen((open) => !open)}

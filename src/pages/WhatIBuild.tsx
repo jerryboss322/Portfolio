@@ -5,15 +5,8 @@ import { whatIBring } from '@/content/data';
 
 const icons = [Globe, Server, Rocket];
 
-const container = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
+const groupItem = {
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
@@ -23,44 +16,32 @@ const item = {
 
 export const WhatIBuildSection: React.FC = () => {
   return (
-    <section id="what-i-build" className="section" aria-label="What I build">
-      <div className="container">
-        <div className="max-w-2xl mb-12">
-          <span className="section-index">02 — What I Build</span>
-          <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
-            Engineering Capabilities
-          </h2>
-          <p className="mt-4 text-muted leading-relaxed">
-            I work across the full stack — from polished interfaces to scalable infrastructure.
-          </p>
-        </div>
-
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '10%' }}
-        >
-          {whatIBring.map((cap, index) => {
-            const Icon = icons[index];
-            return (
-              <motion.div
-                key={cap.number}
-                variants={item}
-                className="capability-card"
-              >
-                <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center mb-5">
-                  <Icon size={20} className="text-accent" />
-                </div>
-                <div className="capability-number">{cap.number}</div>
-                <h3 className="capability-title">{cap.title}</h3>
-                <p className="capability-desc">{cap.description}</p>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+    <section id="capabilities" className="section container" aria-label="Capabilities">
+      <div className="section-head">
+        <span className="section-index">04 — What I Build</span>
+        <h2 className="mt-3">What I Build</h2>
       </div>
+
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ staggerChildren: 0.08 }}
+      >
+        {whatIBring.map((item, index) => {
+          const Icon = icons[index];
+          return (
+            <motion.div key={item.title} variants={groupItem}>
+              <div className="w-10 h-10 rounded-lg bg-accent-soft flex items-center justify-center mb-4">
+                <Icon size={20} className="text-accent" />
+              </div>
+              <h3 className="meta text-accent mb-4">{item.title}</h3>
+              <p className="text-muted leading-relaxed">{item.description}</p>
+            </motion.div>
+          );
+        })}
+      </motion.div>
     </section>
   );
 };

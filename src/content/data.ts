@@ -250,10 +250,10 @@ export const projects: Project[] = [
 export const profile = {
   name: 'JBOSS',
   role: 'Software Engineer',
-  eyebrow: 'Software Engineer · Digital Product Builder',
-  headline: 'I build full-stack products — from interface to infrastructure.',
+  eyebrow: 'Software Engineer · Digital Systems',
+  headline: 'Software Engineer Building Digital Systems.',
   intro: [
-    'I work across the full stack — frontend, backend, databases, and the infrastructure that ties it together. I care most about whether something actually works: fast, reliable, and simple to use.',
+    'I build modern web applications, scalable backend systems, and polished digital experiences — from concept to deployment.',
   ],
   meta: 'Frontend · Backend · APIs · Product Engineering',
   location: 'Ogbomoso, Nigeria',
@@ -264,6 +264,34 @@ export const profile = {
   linkedin: 'https://linkedin.com/in/jboss-dev',
   email: 'jerryadewole2023@gmail.com',
 };
+
+export const process = [
+  {
+    number: '01',
+    title: 'Discover',
+    description: 'Map the problem. Audit what exists, define what\'s missing, scope what to build.',
+  },
+  {
+    number: '02',
+    title: 'Design',
+    description: 'Sketch the solution. Wireframes, flows, and visual systems that survive contact with engineering.',
+  },
+  {
+    number: '03',
+    title: 'Build',
+    description: 'Engineering with weekly demos. You stay in the loop the whole way. No black boxes.',
+  },
+  {
+    number: '04',
+    title: 'Test',
+    description: 'Real test suites, edge cases, performance checks. I don\'t ship code that hasn\'t been validated.',
+  },
+  {
+    number: '05',
+    title: 'Ship',
+    description: 'Launch, instrument, document. I hand off so you can own it from day one.',
+  },
+];
 
 export const about = {
   heading: 'I build with both the product and the system in mind.',

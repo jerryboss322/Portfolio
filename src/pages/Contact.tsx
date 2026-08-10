@@ -24,12 +24,12 @@ export const ContactSection: React.FC = () => {
             viewport={{ once: true, margin: '10%' }}
             transition={{ duration: 0.6, ease }}
           >
-            <span className="section-index">08 — Contact</span>
+            <span className="section-index">07 — Contact</span>
             <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
               Get in Touch
             </h2>
             <p className="mt-4 text-muted leading-relaxed max-w-md">
-              Tell me what you&apos;re building, what problem you&apos;re trying to solve, and where you want to take it.
+              Have a question or want to work together? Reach out through any of the channels below.
             </p>
 
             <div className="mt-10 space-y-4">
