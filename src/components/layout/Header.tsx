@@ -86,7 +86,7 @@ export const Header: React.FC = () => {
               JBOSS
             </ScrollLink>
 
-            <nav className="hidden md:flex items-center" aria-label="Primary">
+            <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
               {NAV_ITEMS.map((item) => (
                 <ScrollLink
                   key={item.id}
@@ -96,6 +96,7 @@ export const Header: React.FC = () => {
                   {item.label}
                 </ScrollLink>
               ))}
+              <span className="nav-divider" aria-hidden="true" />
               <a
                 href={profile.github}
                 target="_blank"
