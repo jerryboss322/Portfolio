@@ -1,27 +1,22 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { ScrollLink } from '@/components/ui/ScrollLink';
 import { profile } from '@/content/data';
-
-interface HeaderProps {
-  theme: 'dark' | 'light';
-  toggleTheme: () => void;
-}
 
 const NAV_ITEMS = [
   { id: 'work', label: 'Work' },
   { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ];
 
-export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
+export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [progress, setProgress] = useState(0);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
 
-  // Scrollspy: highlight the section currently in view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -42,7 +37,6 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
     return () => observer.disconnect();
   }, []);
 
-  // Scroll progress + hide-on-scroll-down
   useEffect(() => {
     const onScroll = () => {
       const doc = document.documentElement;
@@ -59,7 +53,6 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close mobile menu on Escape
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setIsMobileMenuOpen(false);
@@ -74,7 +67,6 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
 
   return (
     <>
-      {/* Scroll progress bar — fixed, stays visible when the header hides */}
       <div
         aria-hidden="true"
         className="fixed top-0 left-0 z-[45] h-[2px] bg-accent transition-[width] duration-150 ease-out pointer-events-none"
@@ -82,23 +74,68 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
       />
 
       <header
-        className={`topbar transition-transform duration-300 ease-out ${
-          hidden ? '-translate-y-full' : 'translate-y-0'
+        className={`nav-bar transition-transform duration-300 ease-out ${
+          hidden ? '-translate-y-[120%]' : 'translate-y-0'
         }`}
       >
+        <div className="container">
+          <div className="nav-inner">
+            <ScrollLink to="hero" className="brand" ariaLabel="JBOSS — back to top">
+              JBOSS
+            </ScrollLink>
 
-      <div className="container">
-        <div className="flex items-center justify-between h-16">
-          <ScrollLink to="hero" className="brand text-text" ariaLabel="JBOSS — back to top">
-            JBOSS
-          </ScrollLink>
+            <nav className="hidden md:flex items-center" aria-label="Primary">
+              {NAV_ITEMS.map((item) => (
+                <ScrollLink
+                  key={item.id}
+                  to={item.id}
+                  className={`nav-link ${activeSection === item.id ? 'active text-text' : ''}`}
+                >
+                  {item.label}
+                </ScrollLink>
+              ))}
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link inline-flex items-center gap-1"
+              >
+                GitHub
+                <ArrowUpRight size={13} aria-hidden="true" />
+              </a>
+            </nav>
 
-          <nav className="hidden md:flex items-center space-x-8" aria-label="Primary">
+            <div className="flex items-center gap-3">
+              <ScrollLink to="contact" className="primary-button hidden sm:inline-flex text-sm py-2.5 px-5">
+                Hire Me
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </ScrollLink>
+
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen((open) => !open)}
+                className="md:hidden p-2 rounded-lg hover:bg-bg-soft transition-colors"
+                aria-label="Toggle navigation menu"
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
+              >
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="mobile-menu"
+          className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} container mt-2`}
+        >
+          <nav className="bg-surface border border-border rounded-xl p-4 shadow-md" aria-label="Mobile">
             {NAV_ITEMS.map((item) => (
               <ScrollLink
                 key={item.id}
                 to={item.id}
-                className={`topbar-nav text-sm font-medium transition-colors hover:text-accent ${
+                onClick={handleScrollLink}
+                className={`block py-3 px-2 text-sm font-medium rounded-lg transition-colors hover:bg-bg-soft ${
                   activeSection === item.id ? 'text-accent' : 'text-muted'
                 }`}
               >
@@ -109,65 +146,20 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="topbar-nav inline-flex items-center gap-1 text-sm font-medium text-muted transition-colors hover:text-accent"
-            >
-              GitHub
-              <ArrowUpRight size={14} aria-hidden="true" />
-            </a>
-          </nav>
-
-          <div className="flex items-center space-x-3">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="icon-button"
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen((open) => !open)}
-              className="md:hidden icon-button"
-              aria-label="Toggle navigation menu"
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        id="mobile-menu"
-        className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-surface border-t border-border`}
-      >
-        <nav className="container py-4" aria-label="Mobile">
-          {NAV_ITEMS.map((item) => (
-            <ScrollLink
-              key={item.id}
-              to={item.id}
               onClick={handleScrollLink}
-              className={`block py-3 text-sm font-medium transition-colors hover:text-accent ${
-                activeSection === item.id ? 'text-accent' : 'text-muted'
-              }`}
+              className="block py-3 px-2 text-sm font-medium text-muted rounded-lg transition-colors hover:bg-bg-soft"
             >
-              {item.label}
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+            <ScrollLink
+              to="contact"
+              onClick={handleScrollLink}
+              className="block mt-2 primary-button w-full text-sm"
+            >
+              Hire Me
             </ScrollLink>
-          ))}
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={handleScrollLink}
-            className="block py-3 text-sm font-medium text-muted transition-colors hover:text-accent"
-          >
-            GitHub <span aria-hidden="true">↗</span>
-          </a>
-        </nav>
-      </div>
+          </nav>
+        </div>
       </header>
     </>
   );

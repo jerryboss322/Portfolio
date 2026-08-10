@@ -1,91 +1,67 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { about, whatIBring, profile } from '@/content/data';
+import { ArrowRight } from 'lucide-react';
+import { about, profile } from '@/content/data';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const reveal = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease },
-  },
-};
-
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="section container" aria-label="About">
-      <div className="section-head">
-        <span className="section-index">02 — About</span>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-        <motion.div
-          className="order-2 lg:order-1 flex justify-center lg:justify-start lg:sticky lg:top-24"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease }}
-        >
-          <img
-            src={about.portrait}
-            alt={`Portrait of ${profile.name}`}
-            loading="lazy"
-            className="portrait w-full max-w-[380px] h-auto"
-          />
-        </motion.div>
-
-        <motion.div className="order-1 lg:order-2" variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }}>
-          <h2 className="text-2xl md:text-3xl font-bold font-display leading-snug">
-            {about.heading}
-          </h2>
-
-          <div className="mt-6 space-y-5">
-            {about.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="max-w-xl leading-relaxed text-muted">
-                {paragraph}
-              </p>
-            ))}
-          </div>
-
-          <p className="mt-8 max-w-xl text-xl md:text-2xl font-semibold font-display leading-snug text-text border-l-2 border-accent pl-5">
-            {about.pullQuote}
-          </p>
-
-          <div className="mt-8 meta flex flex-col sm:flex-row gap-2 sm:gap-8">
-            <span>{profile.role}</span>
-            <span>{profile.location}</span>
-          </div>
-        </motion.div>
-      </div>
-
-      <motion.div
-        className="mt-20"
-        variants={reveal}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-      >
-        <div className="section-head">
-          <span className="section-index">What I Bring</span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12">
-          {whatIBring.map((item, index) => (
-            <div key={item.title} className="py-5 border-b border-border">
-              <div className="flex items-baseline gap-4">
-                <span className="section-index shrink-0">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-              </div>
-              <p className="mt-2 pl-9 text-sm leading-relaxed text-muted">
-                {item.description}
-              </p>
+    <section id="about" className="section" aria-label="About">
+      <div className="container">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '10%' }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <div className="portrait-frame aspect-[4/5] max-w-[400px] mx-auto lg:mx-0">
+              <img
+                src={about.portrait}
+                alt={`Portrait of ${profile.name}`}
+                loading="lazy"
+              />
             </div>
-          ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '10%' }}
+            transition={{ duration: 0.6, delay: 0.1, ease }}
+          >
+            <span className="section-index">03 — About Me</span>
+            <h2 className="mt-3 text-[var(--fs-h2)] font-bold font-display text-text">
+              {about.heading}
+            </h2>
+
+            <div className="mt-6 space-y-4">
+              {about.paragraphs.map((paragraph) => (
+                <p key={paragraph} className="text-muted leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            <p className="mt-6 text-lg font-medium text-text border-l-[3px] border-accent pl-5 italic">
+              {about.pullQuote}
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a href="#cv-download" className="primary-button inline-flex items-center gap-2">
+                About Me
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-6 meta">
+              <span>{profile.role}</span>
+              <span>{profile.location}</span>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
