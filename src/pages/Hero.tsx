@@ -29,9 +29,9 @@ export const Hero: React.FC = () => {
       className="min-h-[80vh] flex items-center relative overflow-hidden py-8 lg:py-12"
       aria-label="Introduction"
     >
-      <div className="container grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-8 lg:gap-6 items-center">
-        <motion.div variants={container} initial="hidden" animate="visible">
-          <motion.span className="eyebrow" variants={item}>
+      <div className="container text-center">
+        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
+          <motion.span className="eyebrow justify-center" variants={item}>
             Software Engineer
           </motion.span>
 
@@ -43,14 +43,14 @@ export const Hero: React.FC = () => {
             <span className="block">— from interface to infrastructure.</span>
           </motion.h1>
 
-          <motion.div className="mt-3 max-w-xl" variants={item}>
-            <p className="meta">
+          <motion.div className="mt-3" variants={item}>
+            <p className="meta justify-center">
               Full-stack applications · Platforms · APIs
             </p>
           </motion.div>
 
           <motion.div
-            className="mt-5 flex flex-col sm:flex-row gap-4 items-start"
+            className="mt-5 flex flex-col sm:flex-row gap-4 items-center justify-center"
             variants={item}
           >
             <ScrollLink
@@ -69,7 +69,7 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="mt-6 flex flex-wrap gap-6 meta"
+            className="mt-6 flex flex-wrap gap-6 meta justify-center"
             variants={item}
           >
             <span>{profile.location}</span>
@@ -81,7 +81,7 @@ export const Hero: React.FC = () => {
         </motion.div>
 
         <motion.div
-          className="flex justify-center lg:justify-end lg:-mr-10"
+          className="flex justify-center mt-12"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25, ease }}
@@ -89,7 +89,7 @@ export const Hero: React.FC = () => {
           <img
             src={profile.heroPortrait}
             alt={`Portrait of ${profile.name}`}
-            className="portrait w-full max-w-[400px] h-auto"
+            className="portrait w-full max-w-[350px] h-auto"
             fetchPriority="high"
           />
         </motion.div>

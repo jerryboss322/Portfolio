@@ -73,9 +73,11 @@
 
   .section-head {
     margin-bottom: 2rem;
+    text-align: center;
   }
 
   .section-index {
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--fs-label);
     letter-spacing: 0.12em;
