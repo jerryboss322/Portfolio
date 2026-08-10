@@ -11,6 +11,7 @@ import { WhatIBuildSection } from './pages/WhatIBuild';
 import { SkillsSection } from './pages/Skills';
 import { ContactSection } from './pages/Contact';
 import { ProjectPage } from './pages/Project';
+import { Background } from './components/canvas/Background';
 import { scrollToSection, scrollToTop, isSectionId } from './lib/scroll';
 
 export const App: React.FC = () => {
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
     <HashRouter>
       <SmoothScroller>
         <div className="relative z-10 min-h-screen bg-bg text-text overflow-x-hidden">
+          <Background />
           <a href="#main" className="skip-link">
             Skip to content
           </a>
