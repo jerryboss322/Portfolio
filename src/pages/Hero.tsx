@@ -39,12 +39,12 @@ export const Hero: React.FC = () => {
             className="mt-3 font-display font-bold leading-[1.08] text-[var(--fs-hero)]"
             variants={item}
           >
-            <span className="block">I build digital products</span>
-            <span className="block">that solve real problems.</span>
+            <span className="block">I build full-stack products</span>
+            <span className="block">— from interface to infrastructure.</span>
           </motion.h1>
 
-          <motion.div className="mt-2 max-w-xl" variants={item}>
-            <p className="hero-subtext leading-relaxed text-muted">
+          <motion.div className="mt-3 max-w-xl" variants={item}>
+            <p className="meta">
               Full-stack applications · Platforms · APIs
             </p>
           </motion.div>
@@ -60,15 +60,12 @@ export const Hero: React.FC = () => {
               View My Work
               <ArrowRight size={18} aria-hidden="true" />
             </ScrollLink>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
+            <ScrollLink
+              to="contact"
               className="secondary-button px-7 py-3.5 text-base font-semibold inline-flex items-center gap-2"
             >
-              GitHub
-              <ArrowRight size={16} aria-hidden="true" />
-            </a>
+              Let&apos;s Work Together
+            </ScrollLink>
           </motion.div>
 
           <motion.div
