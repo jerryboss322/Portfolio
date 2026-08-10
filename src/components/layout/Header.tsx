@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { ScrollLink } from '@/components/ui/ScrollLink';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -16,8 +16,6 @@ export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [progress, setProgress] = useState(0);
-  const [hidden, setHidden] = useState(false);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,11 +42,6 @@ export const Header: React.FC = () => {
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? window.scrollY / max : 0);
-
-      const y = window.scrollY;
-      if (Math.abs(y - lastScrollY.current) < 8) return;
-      setHidden(y > lastScrollY.current && y > 120);
-      lastScrollY.current = y;
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -75,11 +68,7 @@ export const Header: React.FC = () => {
         style={{ width: `${progress * 100}%` }}
       />
 
-      <header
-        className={`topbar transition-transform duration-300 ease-out ${
-          hidden ? '-translate-y-[120%]' : 'translate-y-0'
-        }`}
-      >
+      <header className="topbar">
         <div className="container">
           <div className="nav-inner">
             <ScrollLink to="hero" className="brand" ariaLabel="JBOSS — back to top">

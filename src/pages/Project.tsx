@@ -120,7 +120,7 @@ export const ProjectPage: React.FC = () => {
             {project.description}
           </p>
 
-          <div className="mt-8 rounded-2xl overflow-hidden border border-border bg-surface">
+          <div className="mt-8 rounded-2xl overflow-hidden border border-border bg-surface shadow-card">
             <img
               src={project.image}
               alt={`${project.title} — hero screenshot`}

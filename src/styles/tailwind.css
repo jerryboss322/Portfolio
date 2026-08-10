@@ -265,6 +265,29 @@
       box-shadow var(--duration-base) var(--ease-out-expo);
   }
 
+  .project-media {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+    border-radius: 18px;
+    transition: border-color var(--duration-base) var(--ease-out-expo),
+      box-shadow var(--duration-base) var(--ease-out-expo);
+  }
+
+  .project-media:hover {
+    border-color: var(--accent);
+  }
+
+  .project-media img {
+    transition: transform 400ms var(--ease-out-expo);
+  }
+
+  .project-media:hover img {
+    transform: scale(1.02);
+  }
+
   .project-card:hover {
     border-color: var(--accent);
     box-shadow: var(--shadow);

@@ -124,8 +124,8 @@ export const ContactForm: React.FC = () => {
         {status === 'error' && (
           <span className="form-status-error">
             Something went wrong. Please email me directly at{' '}
-            <a href="mailto:hello@jboss.dev" className="link-underline text-accent">
-              hello@jboss.dev
+            <a href="mailto:jerryadewole2023@gmail.com" className="link-underline text-accent">
+              jerryadewole2023@gmail.com
             </a>
             .
           </span>

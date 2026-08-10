@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { ScrollLink } from '@/components/ui/ScrollLink';
+import { ContactForm } from '@/components/ui/ContactForm';
 
 export const ContactSection: React.FC = () => {
   return (
@@ -22,13 +22,26 @@ export const ContactSection: React.FC = () => {
           </p>
 
           <div className="mt-10">
-            <ScrollLink
-              to="mailto:jerryadewole2023@gmail.com"
+            <a
+              href="mailto:jerryadewole2023@gmail.com"
               className="primary-button px-8 py-4 text-base font-semibold"
             >
               Get in Touch
               <ArrowRight size={18} aria-hidden="true" />
-            </ScrollLink>
+            </a>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '10%' }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+        >
+          <div className="bg-surface border border-border rounded-2xl p-6 md:p-8 shadow-card text-left">
+            <h3 className="text-lg font-semibold text-text mb-6 text-center">Send a Message</h3>
+            <ContactForm />
           </div>
         </motion.div>
       </div>
