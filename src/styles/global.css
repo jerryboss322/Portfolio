@@ -42,12 +42,12 @@
 
 /* --- Typography & motion tokens --- */
 :root {
-  --fs-hero: clamp(4.25rem, 6.8vw, 5.95rem);
-  --fs-h2: clamp(2.975rem, 5.1vw, 4.25rem);
-  --fs-h3: clamp(2.125rem, 3.4vw, 2.55rem);
-  --fs-body: 1.80625rem;
-  --fs-meta: 1.38125rem;
-  --fs-label: 1.275rem;
+  --fs-hero: clamp(3.4rem, 5.44vw, 4.76rem);
+  --fs-h2: clamp(2.38rem, 4.08vw, 3.4rem);
+  --fs-h3: clamp(1.7rem, 2.72vw, 2.04rem);
+  --fs-body: 1.445rem;
+  --fs-meta: 1.105rem;
+  --fs-label: 1.02rem;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
