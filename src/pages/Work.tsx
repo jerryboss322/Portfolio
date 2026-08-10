@@ -44,7 +44,7 @@ export const WorkSection: React.FC = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
-              className="border border-border rounded-xl p-6 md:p-8 bg-surface"
+              className="project-card-container border border-border rounded-xl p-6 md:p-8 bg-surface hover:border-accent transition-colors duration-300"
             >
               <div className="flex items-baseline gap-2 mb-5">
                 <span className="section-index">
@@ -64,7 +64,7 @@ export const WorkSection: React.FC = () => {
                     src={project.image}
                     alt={`${project.title} — ${project.subtitle}`}
                     loading="lazy"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
                   />
                 </Link>
 
@@ -95,3 +95,5 @@ export const WorkSection: React.FC = () => {
     </section>
   );
 };
+
+export default WorkSection;

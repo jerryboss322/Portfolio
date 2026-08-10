@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { ScrollLink } from '@/components/ui/ScrollLink';
+import { Marquee } from '@/components/ui/Marquee';
 import { profile } from '@/content/data';
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -9,7 +10,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const container = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
@@ -80,20 +81,54 @@ export const Hero: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        <motion.div
-          className="flex justify-center mt-12"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25, ease }}
-        >
-          <img
+        <div className="relative flex justify-center mt-12">
+          <motion.img
             src={profile.heroPortrait}
             alt={`Portrait of ${profile.name}`}
-            className="portrait w-full max-w-[350px] h-auto"
+            className="portrait w-full max-w-[350px] h-auto relative z-10"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.25, ease }}
             fetchPriority="high"
           />
-        </motion.div>
+
+          {/* Floating labels */}
+          <motion.span
+            className="floating-label absolute top-8 -left-4 z-20"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.5, ease }}
+          >
+            FULL-STACK
+          </motion.span>
+          <motion.span
+            className="floating-label absolute top-1/2 -right-4 z-20"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.75, duration: 0.5, ease }}
+          >
+            BACKEND
+          </motion.span>
+          <motion.span
+            className="floating-label absolute bottom-12 -left-2 z-20"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9, duration: 0.5, ease }}
+          >
+            SYSTEMS
+          </motion.span>
+        </div>
+
+        {/* Marquee */}
+        <div className="mt-16">
+          <Marquee
+            items={['AVAILABLE FOR WORK', 'GO', 'NEXT.JS', 'LARAVEL', 'KOTLIN', 'REACT', 'TYPESCRIPT', 'POSTGRESQL', 'DOCKER']}
+            speed={30}
+          />
+        </div>
       </div>
     </section>
   );
 };
+
+export default Hero;
