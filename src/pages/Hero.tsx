@@ -26,31 +26,31 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="min-h-[85vh] flex items-center relative overflow-hidden py-16 lg:py-24"
+      className="min-h-[80vh] flex items-center relative overflow-hidden py-8 lg:py-12"
       aria-label="Introduction"
     >
-      <div className="container grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-12 lg:gap-8 items-center">
+      <div className="container grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-8 lg:gap-6 items-center">
         <motion.div variants={container} initial="hidden" animate="visible">
           <motion.span className="eyebrow" variants={item}>
             Software Engineer
           </motion.span>
 
           <motion.h1
-            className="mt-6 font-display font-bold leading-[1.08] text-[var(--fs-hero)]"
+            className="mt-3 font-display font-bold leading-[1.08] text-[var(--fs-hero)]"
             variants={item}
           >
             <span className="block">I build digital products</span>
             <span className="block">that solve real problems.</span>
           </motion.h1>
 
-          <motion.div className="mt-6 max-w-xl" variants={item}>
-            <p className="text-base md:text-lg leading-relaxed text-muted">
+          <motion.div className="mt-2 max-w-xl" variants={item}>
+            <p className="hero-subtext leading-relaxed text-muted">
               Full-stack applications · Platforms · APIs
             </p>
           </motion.div>
 
           <motion.div
-            className="mt-10 flex flex-col sm:flex-row gap-4 items-start"
+            className="mt-5 flex flex-col sm:flex-row gap-4 items-start"
             variants={item}
           >
             <ScrollLink
@@ -72,7 +72,7 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="mt-12 flex flex-wrap gap-6 meta"
+            className="mt-6 flex flex-wrap gap-6 meta"
             variants={item}
           >
             <span>{profile.location}</span>
