@@ -125,10 +125,10 @@
   }
 
   .nav-link {
-    font-size: 0.9375rem;
+    font-size: 1.125rem;
     font-weight: 500;
     color: var(--muted);
-    padding: 0.4rem 0.75rem;
+    padding: 0.5rem 1rem;
     border-radius: var(--radius-sm);
     transition: color var(--duration-fast) var(--ease-out-expo),
       background var(--duration-fast) var(--ease-out-expo);
