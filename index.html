@@ -1,46 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JBOSS — Software Engineer · Lagos, Nigeria</title>
+    <title>Jerry Adewole — Software Engineer</title>
     <meta
       name="description"
-      content="JBOSS is a software engineer who builds digital products that solve real problems — full-stack applications, platforms and APIs."
+      content="Software engineer building modern web applications, backend systems, and digital products. Full-stack development from concept to deployment."
     />
-    <meta name="theme-color" content="#08090b" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#F5F7FB" />
+    <meta name="color-scheme" content="light" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="JBOSS Portfolio" />
-    <meta property="og:title" content="JBOSS — Software Engineer" />
+    <meta property="og:title" content="Jerry Adewole — Software Engineer" />
     <meta
       property="og:description"
-      content="JBOSS is a software engineer who builds digital products that solve real problems — full-stack applications, platforms and APIs."
+      content="Software engineer building modern web applications, backend systems, and digital products."
     />
     <meta property="og:image" content="/og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="JBOSS — Software Engineer" />
+    <meta name="twitter:title" content="Jerry Adewole — Software Engineer" />
     <meta
       name="twitter:description"
-      content="I build digital products that solve real problems."
+      content="Software engineer building modern web applications, backend systems, and digital products."
     />
     <meta name="twitter:image" content="/og-image.png" />
 
-    <!-- Theme bootstrap: apply saved theme before first paint to avoid FOUC -->
+    <!-- Theme bootstrap -->
     <script>
       (function () {
         try {
-          var t = localStorage.getItem('theme');
-          if (t !== 'light' && t !== 'dark') {
-            t = window.matchMedia('(prefers-color-scheme: light)').matches
-              ? 'light'
-              : 'dark';
-          }
+          var t = localStorage.getItem('theme') || 'light';
           document.documentElement.dataset.theme = t;
         } catch (e) {
-          document.documentElement.dataset.theme = 'dark';
+          document.documentElement.dataset.theme = 'light';
         }
       })();
     </script>
@@ -52,6 +47,21 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jerry Adewole",
+        "jobTitle": "Software Engineer",
+        "url": "https://jboss.dev",
+        "sameAs": [
+          "https://github.com/jerryboss322",
+          "https://wa.me/2348130075752"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

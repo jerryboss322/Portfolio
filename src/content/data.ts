@@ -103,11 +103,11 @@ export const projects: Project[] = [
   {
     slug: 'tastetrail',
     title: 'TasteTrail',
-    subtitle: 'Food Ordering App',
+    subtitle: 'Food Ordering App (Personal Project)',
     role: 'Full-Stack Developer',
     year: '2024',
     summary:
-      'An ordering experience with category-filtered menu browsing and a live running cart — built to make choosing and confirming an order fast, with no friction between menu and checkout.',
+      'A smaller, self-directed build — a single-restaurant ordering flow with category-filtered browsing and a live cart. Built to experiment with fast add-to-cart interactions rather than as a full product.',
     description:
       'TasteTrail is a focused food-ordering experience for a single restaurant — category-filtered menu browsing with a live running cart, built to make choosing and confirming an order fast, with no friction between menu and checkout.',
     image: '/img/projects/tastetrail.webp',
@@ -171,11 +171,11 @@ export const projects: Project[] = [
   {
     slug: 'jbet',
     title: 'Jbet',
-    subtitle: 'Sports Betting Platform',
+    subtitle: 'Sports Betting Platform (Personal Project)',
     role: 'Frontend Engineer',
     year: '2026',
     summary:
-      'A football betting platform for the Nigerian market — live odds across multiple leagues, a persistent bet-slip, and instant wallet funding through local rails like Opay, Palmpay, and bank USSD.',
+      'A personal project exploring a sports betting platform for the Nigerian market — live odds across multiple leagues, a persistent bet-slip, and wallet funding built against local payment rails like Opay, Palmpay, and bank USSD.',
     description:
       'Jbet is a full sports-betting platform built for the Nigerian market, covering live odds across multiple football leagues, a persistent bet-slip that tracks selections and calculates potential winnings in real time, and account creation with session-based authentication. The wallet system integrates local Nigerian payment rails — Opay, Palmpay, GTBank, and USSD — for instant deposits, and the platform includes licensing and responsible-gambling messaging consistent with regulated betting products.',
     image: '/img/projects/jbet.webp',
@@ -214,29 +214,26 @@ export const profile = {
   eyebrow: 'Software Engineer · Digital Product Builder',
   headline: 'I build full-stack products — from interface to infrastructure.',
   intro: [
-    "I'm a software engineer who works across the full lifecycle of a product — frontend interfaces, backend systems, databases, and the infrastructure that ties it together. I care less about how something looks in isolation and more about whether it actually works: fast, reliable, and simple for someone else to use.",
-    "I've shipped e-commerce platforms, sports-data products, and internal tools across Go, Next.js, Laravel, and Kotlin — usually solo, always end-to-end.",
+    'I work across the full stack — frontend, backend, databases, and the infrastructure that ties it together. I care most about whether something actually works: fast, reliable, and simple to use.',
   ],
   meta: 'Frontend · Backend · APIs · Product Engineering',
   location: 'Lagos, Nigeria',
   status: 'Available for select projects',
-  heroPortrait: '/img/hero.webp',
+  heroPortrait: '/img/hero.png',
   github: 'https://github.com/jerryboss322',
-  linkedin: 'https://linkedin.com/in/jboss-dev',
+  whatsapp: 'https://wa.me/2348130075752',
   email: 'hello@jboss.dev',
 };
 
 export const about = {
   heading: "I'm a software engineer who likes building things from the ground up.",
   paragraphs: [
-    "I'm a software engineer with a strong interest in building useful, reliable, and well-crafted digital products. I work across the stack — designing interfaces, building frontend experiences, and developing the backend systems, APIs, databases, and infrastructure that hold everything together.",
-    'What interests me most is the process of turning a problem into a product. I like taking an idea that starts as a rough concept, breaking it into smaller systems, working out how those systems talk to each other, and turning the result into something real that people can actually use.',
-    'I care about the details that are easy to skip past: how quickly an interface responds, how a component behaves across different states, how data moves through an application, whether the architecture holds up as it grows, and whether the finished product genuinely makes sense to the person using it.',
-    "I'm constantly building — sometimes on product experiences, sometimes on backend systems or automation, sometimes on something more technical just to understand it better. Each project is a chance to go deeper on something and get better at how I build.",
+    "I'm a software engineer who works across the stack — interfaces, backend systems, APIs, and the infrastructure behind them. What interests me most is taking a rough idea, breaking it into smaller systems, and turning it into something people can actually use.",
+    'I care about the details that are easy to skip: response time, component states, data flow, and whether the finished product genuinely makes sense to the person using it.',
   ],
   pullQuote:
     'My goal is simple: build software that is useful, technically sound, and genuinely enjoyable to use.',
-  portrait: '/img/about.webp',
+  portrait: '/img/about.png',
 };
 
 export const whatIBring = [
