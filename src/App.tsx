@@ -1,90 +1,35 @@
-import React, { useLayoutEffect } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { SmoothScroller } from './components/layout/SmoothScroller';
-import { PageTransition } from './components/layout/PageTransition';
 import { Hero } from './pages/Hero';
 import { WorkSection } from './pages/Work';
 import { AboutSection } from './pages/About';
-import { WhatIBuildSection } from './pages/WhatIBuild';
-import { SkillsSection } from './pages/Skills';
+import { SystemsSection } from './pages/Systems';
+import { TestimonialsSection } from './pages/Testimonials';
 import { ContactSection } from './pages/Contact';
-import { ProjectPage } from './pages/Project';
-import { Background } from './components/canvas/Background';
-import { scrollToSection, scrollToTop, isSectionId } from './lib/scroll';
 
 export const App: React.FC = () => {
   return (
-    <HashRouter>
-      <SmoothScroller>
-        <Background />
-        <div className="relative z-10 min-h-screen bg-bg text-text overflow-x-hidden">
-          <a href="#main" className="skip-link">
-            Skip to content
-          </a>
-          <Header />
+    <SmoothScroller>
+      <div className="relative min-h-screen overflow-x-hidden bg-bg text-text">
+        <a href="#main" className="sr-only">
+          Skip to content
+        </a>
+        <Header />
 
-          <main id="main" className="flex-1 pt-20">
-            <PageTransition>
-              <Routes>
-                <Route path="/" element={<Layout />} />
-                <Route path="/projects/:slug" element={<ProjectPage />} />
-                <Route path="*" element={<Layout />} />
-              </Routes>
-            </PageTransition>
-          </main>
+        <main id="main">
+          <Hero />
+          <WorkSection />
+          <AboutSection />
+          <SystemsSection />
+          <TestimonialsSection />
+          <ContactSection />
+        </main>
 
-          <Footer />
-        </div>
-      </SmoothScroller>
-    </HashRouter>
-  );
-};
-
-const Layout: React.FC = () => {
-  const location = useLocation();
-
-  useLayoutEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const target = location.state?.scrollTo;
-
-    const scrollToId = (id: string) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (prefersReduced) {
-        el.scrollIntoView({ block: 'start' });
-      } else {
-        scrollToSection(id, false);
-      }
-    };
-
-    if (typeof target === 'string' && isSectionId(target)) {
-      scrollToId(target);
-      return;
-    }
-
-    const rawHash = window.location.hash;
-    if (rawHash) {
-      const candidate = rawHash.startsWith('#') ? rawHash.slice(1) : rawHash;
-      if (isSectionId(candidate)) {
-        scrollToId(candidate);
-        return;
-      }
-    }
-
-    scrollToTop(true);
-  }, [location]);
-
-  return (
-    <>
-      <Hero />
-      <WorkSection />
-      <AboutSection />
-      <WhatIBuildSection />
-      <SkillsSection />
-      <ContactSection />
-    </>
+        <Footer />
+      </div>
+    </SmoothScroller>
   );
 };
 

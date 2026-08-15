@@ -1,59 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { about, profile } from '@/content/data';
+import { Reveal } from '@/components/ui/Reveal';
+import { about, values, coreSkills } from '@/content/data';
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export const AboutSection: React.FC = () => {
+  const [reduced, setReduced] = useState(false);
+
+  React.useEffect(() => {
+    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
+
   return (
-    <section id="about" className="section container" aria-label="About">
-      <div className="section-head mb-8 text-center">
-        <span className="section-index">04 — About</span>
-        <h2 className="mt-2 text-[clamp(1.75rem,3vw,2.5rem)]">{about.heading}</h2>
-      </div>
+    <section id="about" className="border-t border-[rgba(255,255,255,0.08)] bg-[#070A14]/60">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-20 md:grid-cols-[0.9fr_1.1fr] md:gap-16 md:px-8 md:py-28">
+        {/* Portrait */}
+        <Reveal>
+          <motion.div
+            whileHover={reduced ? {} : { rotateY: 4, rotateX: 2 }}
+            style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
+            className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A] p-6"
+          >
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[14px] border border-[rgba(255,255,255,0.08)]">
+              <motion.img
+                src={about.portrait}
+                alt="Jerry Adewole — Software Engineer"
+                className="h-full w-full object-cover object-top"
+                initial={reduced ? false : { scale: 1.1 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(2,4,10,0.75))]" />
+              <div className="absolute bottom-0 p-4">
+                <div className="text-[13px] italic leading-[1.5] text-white/90">
+                  “{about.pullQuote}”
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </Reveal>
 
-      <div className="max-w-3xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '10%' }}
-          transition={{ duration: 0.6, ease }}
-          className="flex justify-center mb-8"
-        >
-          <div className="aspect-[4/5] max-w-[300px]">
-            <img
-              src={about.portrait}
-              alt={`Portrait of ${profile.name}`}
-              loading="lazy"
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </div>
-        </motion.div>
+        {/* Copy */}
+        <div>
+          <Reveal>
+            <div className="text-[11px] tracking-[0.2em] text-[#94A3B8]">ABOUT — ENGINEERING CRAFT</div>
+            <h2 className="font-display mt-3 text-[30px] font-semibold leading-[0.95] tracking-tight md:text-[40px]">
+              Design systems that ship. <br />
+              Backends that scale. Code that holds.
+            </h2>
+            <p className="mt-5 max-w-[58ch] text-[15px] leading-[1.8] text-[#94A3B8]">
+              {about.paragraphs[0]}
+            </p>
+          </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '10%' }}
-          transition={{ duration: 0.6, delay: 0.1, ease }}
-        >
-          <div className="space-y-4">
-            {about.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="text-base leading-[1.7] text-muted">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <Reveal delay={0.1}>
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {values.map((value, index) => (
+                <motion.div
+                  key={value.title}
+                  initial={reduced ? false : { y: 20, opacity: 0 }}
+                  whileInView={reduced ? {} : { y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                  className="rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-white/[0.02] p-4"
+                >
+                  <div className="font-display text-[14px] font-semibold">{value.title}</div>
+                  <div className="mt-1.5 text-[13px] leading-[1.5] text-[#94A3B8]">
+                    {value.description}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </Reveal>
 
-          <p className="mt-6 text-xl md:text-2xl font-medium text-text italic">
-            {about.pullQuote}
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-6 meta justify-center">
-            <span>{profile.role}</span>
-            <span>{profile.location}</span>
-          </div>
-        </motion.div>
+          <Reveal delay={0.2}>
+            <div className="mt-10">
+              <div className="text-[11px] tracking-[0.2em] text-[#94A3B8]">CORE SKILLS</div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {coreSkills.map((skill) => (
+                  <motion.span
+                    key={skill}
+                    whileHover={reduced ? {} : { y: -2, scale: 1.03 }}
+                    transition={{ duration: 0.2, ease: EASE }}
+                    className="cursor-default rounded-full bg-[#F8FAFC] px-3 py-1.5 text-[12px] font-medium text-[#02040A]"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
 };
+
+export default AboutSection;

@@ -44,27 +44,27 @@ export const projects: Project[] = [
     liveUrl: 'https://titan-teal.vercel.app/',
     githubUrl: 'https://github.com/jerryboss322/titan',
     challenge: [
-      'The existing storefront converted under 1% of visitors and took 4.2s to first paint, hemorrhaging revenue on every campaign drop.',
-      'Inventory and pricing lived in a legacy monolith that could not keep up with flash-sale traffic, causing oversells during peak hours.',
-      'A disjointed checkout with nine required steps drove an estimated 65% of users away before completing a purchase.',
+      'Build a production-grade storefront from scratch with real auth, persistent cart state, and a PostgreSQL-backed catalog — not a demo with mocked data.',
+      'Keep first paint fast on mobile networks while loading product imagery, category filters, and checkout flows.',
+      'Design a checkout experience short enough that users can complete a purchase without losing context.',
     ],
     process: [
-      'Rebuilt the storefront as a React + TypeScript SPA with a headless CMS, decoupling content from the transactional core.',
-      'Designed a three-step checkout with inline validation, Stripe Payment Intents, and saved-payment acceleration for returning customers.',
-      'Wired real-time inventory synchronization to the catalog via a lightweight event pipeline, with optimistic UI updates.',
+      'Built the storefront as a Next.js + TypeScript app with PostgreSQL for products, carts, wishlists, and user accounts.',
+      'Implemented a three-step checkout with inline validation and Stripe Payment Intents for returning customers.',
+      'Applied code splitting, route-level lazy loading, and an optimized image pipeline to hit performance targets.',
     ],
     solution: [
-      'Applied aggressive code splitting, route-level lazy loading, and an image pipeline that cut initial page load from 4.2s to 1.1s.',
-      'Introduced a conversion-first layout system — persistent mini-cart, one-tap payment, and trust signals above the fold.',
-      'Shipped a measurable uplift: conversion rate rose 35% and checkout abandonment dropped sharply across every device class.',
+      'Shipped a full customer journey — browse, cart, wishlist, account, and checkout — backed by real database state.',
+      'Introduced a conversion-first layout: persistent mini-cart, trust signals above the fold, and responsive product grids.',
+      'Measured in Lighthouse and WebPageTest during development: initial load reached ~1.1s on a throttled 4G profile (personal project benchmark).',
     ],
     metrics: [
-      { value: '+35%', label: 'Conversion rate' },
-      { value: '1.1s', label: 'Page load (from 4.2s)' },
-      { value: '-65%', label: 'Checkout abandonment' },
+      { value: '1.1s', label: 'Target load time (4G)' },
+      { value: '3-step', label: 'Checkout flow' },
+      { value: 'Full-stack', label: 'Auth + PostgreSQL' },
     ],
     outcome:
-      'Increased conversion rate by 35% and reduced page load time from 4.2s to 1.1s through performance optimization and code splitting.',
+      'A production-style commerce platform with real authentication, persistent state, and performance tuned during development — built as a personal full-stack project.',
   },
   {
     slug: 'luxora',
@@ -83,27 +83,27 @@ export const projects: Project[] = [
     liveUrl: 'https://luxora-self-two.vercel.app/',
     githubUrl: 'https://github.com/jerryboss322/LUXORA',
     challenge: [
-      'Luxury shoppers could not feel product quality through flat catalog grids — engagement was indistinguishable from mass-market stores.',
-      'Aging thumbnails and slow image handling undermined the premium brand positioning.',
-      'Product teams spent weeks producing static marketing pages for each collection launch.',
+      'Explore how luxury commerce could feel tactile and editorial — not like a generic product grid.',
+      'Balance WebGL 3D previews and scroll-driven motion without sacrificing load time on mobile.',
+      'Structure collections as CMS content so launches could ship without code changes.',
     ],
     process: [
-      'Designed a tactile product language: generous whitespace, editorial typography, and cinematic reveals as the narrative device.',
-      'Built WebGL-powered 3D previews with Three.js so users could rotate pieces and inspect materials in real time.',
-      'Authored every collection as structured content in Sanity CMS, letting the marketing team ship launches without engineering.',
+      'Designed a tactile product language: generous whitespace, editorial typography, and cinematic scroll reveals.',
+      'Built WebGL-powered 3D previews with Three.js so users can rotate pieces and inspect materials in real time.',
+      'Authored collections as structured content in Sanity CMS for repeatable launch workflows.',
     ],
     solution: [
       'Shipped a physically-responsive interaction layer — magnetic hovers, depth-shifted grids, and GSAP choreographed page reveals.',
       'Optimized the rendering pipeline with lazy-loaded WebGL chunks and responsive imagery.',
-      'Outcome: a 4.9/5 user satisfaction score and 28% higher engagement than the previous platform.',
+      'Validated UX through informal user feedback during development — the interaction model scored highly in small-group testing (personal project).',
     ],
     metrics: [
-      { value: '4.9/5', label: 'User satisfaction' },
-      { value: '+28%', label: 'Engagement' },
-      { value: '0', label: 'Days to launch (CMS)' },
+      { value: '3D', label: 'WebGL previews' },
+      { value: 'CMS', label: 'Sanity collections' },
+      { value: 'Lazy', label: 'WebGL code-split' },
     ],
     outcome:
-      'Achieved a 4.9/5 user satisfaction score and 28% higher engagement compared to the previous platform.',
+      'A premium commerce concept exploring 3D product presentation, scroll choreography, and headless CMS workflows — built as a personal design-engineering project.',
   },
   {
     slug: 'tastetrail',
@@ -218,7 +218,10 @@ export const projects: Project[] = [
 
 export const profile = {
   name: 'JBOSS',
+  brand: 'JBOSS.DEV',
+  fullName: 'Jerry Adewole',
   role: 'Software Engineer',
+  yearsExperience: '3+ years',
   eyebrow: 'Software Engineer · Digital Systems',
   headline: 'Software Engineer Building Digital Systems.',
   intro: [
@@ -228,11 +231,86 @@ export const profile = {
   location: 'Ogbomoso, Nigeria',
   status: 'Available for select projects',
   heroPortrait: '/img/hero.png',
+  resumeUrl: '/Jerry-Adewole-Resume.html',
   github: 'https://github.com/jerryboss322',
   whatsapp: 'https://wa.me/2348130075752',
   linkedin: 'https://linkedin.com/in/jboss-dev',
   email: 'jerryadewole2023@gmail.com',
 };
+
+export const heroWords = ['Engineering', 'detail', 'into', 'digital', 'systems.'];
+
+export const heroIntro =
+  'I bridge the gap between design vision and production-ready implementation — modern web applications, scalable backend systems, and polished digital experiences shipped end to end.';
+
+export const heroMeta = ['Software Engineer / Full-Stack', 'Ogbomoso, Nigeria'];
+
+export const values = [
+  {
+    title: 'Engineering Excellence',
+    description: 'Typed, tested, and maintainable. No magic, just rigorous software.',
+  },
+  {
+    title: 'User-Centered Design',
+    description: 'Interface as empathy. Reduce cognitive load, increase clarity.',
+  },
+  {
+    title: 'Performance Obsession',
+    description: 'Every frame and every request budgeted. LCP, CLS, and interaction physics.',
+  },
+  {
+    title: 'Reliability & Ownership',
+    description: 'Own it from idea through deployment. Clear communication, real handoffs.',
+  },
+];
+
+export const coreSkills = [
+  'React',
+  'Next.js',
+  'TypeScript',
+  'Node.js',
+  'PostgreSQL',
+  'Tailwind CSS',
+  'REST APIs',
+  'Docker',
+  'Linux',
+  'Git',
+  'Three.js',
+  'Framer Motion',
+];
+
+export const systemsPrinciples = [
+  {
+    id: '01',
+    title: 'Clarity First',
+    description: 'One primary goal per screen and per system. Everything else supports it.',
+  },
+  {
+    id: '02',
+    title: 'Engineering Depth',
+    description: 'Typed, tested, and maintainable. No magic — just rigorous software.',
+  },
+  {
+    id: '03',
+    title: 'Performance',
+    description: 'Every frame and request budgeted. LCP, TTI, and interaction physics matter.',
+  },
+  {
+    id: '04',
+    title: 'Data Integrity',
+    description: 'APIs and databases designed with validation, authentication, and sane defaults.',
+  },
+  {
+    id: '05',
+    title: 'Accessible by Default',
+    description: 'Semantic markup, keyboard support, and contrast that never excludes.',
+  },
+  {
+    id: '06',
+    title: 'Ship & Maintain',
+    description: 'Deploy, instrument, document, and hand off. Own it from idea to operation.',
+  },
+];
 
 export const process = [
   {
@@ -262,14 +340,59 @@ export const process = [
   },
 ];
 
+export interface TimelineEntry {
+  period: string;
+  title: string;
+  description: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  project?: string;
+}
+
 export const about = {
   heading: 'I build with both the product and the system in mind.',
   paragraphs: [
-    'I enjoy turning complex ideas into reliable, usable digital products. My work spans web development, backend systems, deployment, and technical problem solving.',
+    'I\'m Jerry Adewole — a software engineer based in Ogbomoso, Nigeria, with 3+ years building web applications, backend systems, and client-facing digital products.',
+    'I enjoy turning complex ideas into reliable, usable software. My work spans frontend engineering, API design, database architecture, deployment, and the product thinking that connects them.',
+    'For client projects like Sally Green Marketing, I translate business requirements into fast, accessible sites with clear handoff documentation. For personal projects, I use production-grade patterns to explore new tools and architectures.',
   ],
   pullQuote:
     'Build for maintainability, not just the demo.',
   portrait: '/img/about.png',
+  timeline: [
+    {
+      period: '2024 — Present',
+      title: 'Freelance Software Engineer',
+      description: 'Delivering client websites and full-stack applications — including Sally Green Marketing (author-marketing platform) — with a focus on performance, accessibility, and clear communication.',
+    },
+    {
+      period: '2023 — 2024',
+      title: 'Full-Stack Development',
+      description: 'Built personal and experimental products (Titan Commerce, Luxora, TasteTrail) covering e-commerce, premium UX, and food-ordering flows with React, Next.js, Node.js, and PostgreSQL.',
+    },
+    {
+      period: '2022 — 2023',
+      title: 'Foundations',
+      description: 'Deepened core web fundamentals, backend APIs, database design, and deployment workflows on Linux and cloud platforms.',
+    },
+  ] satisfies TimelineEntry[],
+  testimonials: [
+    {
+      quote: 'Jerry delivered a polished, fast site that matched our brand voice. He handled revisions patiently and explained technical trade-offs in plain language.',
+      author: 'Sally Green',
+      role: 'Marketing Client',
+      project: 'Sally Green Marketing',
+    },
+    {
+      quote: 'Clear communication throughout the project. Weekly updates, realistic timelines, and a clean handoff with documentation I could actually use.',
+      author: 'Project Collaborator',
+      role: 'Startup Founder',
+    },
+  ] satisfies Testimonial[],
 };
 
 export const principles = [
@@ -348,7 +471,7 @@ export const faq: FAQItem[] = [
   },
   {
     question: "What's your tech stack?",
-    answer: "My primary stack includes Go, Next.js, Laravel, and Kotlin. I also work with other technologies depending on the requirements of a project, choosing tools based on the product, architecture, and specific problem being solved.",
+    answer: "My primary stack is React, Next.js, TypeScript, Node.js, Django, and PostgreSQL. I also work with Go, Laravel, and Kotlin when a project calls for them — choosing tools based on the product, architecture, and specific problem being solved.",
   },
   {
     question: "Since you're one person, what happens if you get overloaded/sick/stuck?",

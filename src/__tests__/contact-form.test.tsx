@@ -6,14 +6,15 @@ const submitForm = (overrides: Partial<{ name: string; email: string; message: s
   const values = { name: 'Jane Doe', email: 'jane@example.com', message: 'Hello there!', ...overrides };
   render(<ContactForm />);
 
-  fireEvent.change(screen.getByLabelText('Name'), { target: { value: values.name } });
-  fireEvent.change(screen.getByLabelText('Email'), { target: { value: values.email } });
-  fireEvent.change(screen.getByLabelText('Message'), { target: { value: values.message } });
+  fireEvent.change(screen.getByLabelText(/name/i), { target: { value: values.name } });
+  fireEvent.change(screen.getByLabelText(/email/i), { target: { value: values.email } });
+  fireEvent.change(screen.getByLabelText(/message/i), { target: { value: values.message } });
   fireEvent.click(screen.getByRole('button', { name: 'Send Message' }));
 };
 
 describe('ContactForm', () => {
   beforeEach(() => {
+    vi.stubEnv('VITE_WEB3FORMS_ACCESS_KEY', 'test-key-123');
     vi.stubGlobal(
       'fetch',
       vi.fn().mockResolvedValue({
@@ -25,6 +26,7 @@ describe('ContactForm', () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
   });
 
   it('posts the message to Web3Forms and shows a success message', async () => {
@@ -41,10 +43,11 @@ describe('ContactForm', () => {
     expect(init?.method).toBe('POST');
 
     const payload = JSON.parse(String(init?.body));
-    expect(payload.access_key).toBe(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+    expect(payload.access_key).toBe('test-key-123');
     expect(payload.name).toBe('Jane Doe');
     expect(payload.email).toBe('jane@example.com');
     expect(payload.message).toBe('Hello there!');
+    expect(payload.subject).toBe('New message from jboss.dev portfolio');
     expect(payload.replyto).toBe('jane@example.com');
     expect(payload.botcheck).toBe('');
   });
@@ -61,7 +64,7 @@ describe('ContactForm', () => {
     expect(screen.getByRole('button', { name: 'Send Message' })).toBeEnabled();
   });
 
-  it('rejects empty submissions via native validation', () => {
+  it('does not submit an empty form (native validation)', () => {
     render(<ContactForm />);
     fireEvent.click(screen.getByRole('button', { name: 'Send Message' }));
 

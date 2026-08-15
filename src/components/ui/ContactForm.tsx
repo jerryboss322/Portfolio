@@ -1,23 +1,27 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
+import { profile } from '@/content/data';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
-const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
 const SUBMIT_URL = 'https://api.web3forms.com/submit';
+
+const INPUT_CLASS =
+  'w-full rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[#02040A]/60 px-4 py-3 text-[14px] text-white placeholder:text-[#475569] outline-none transition-colors focus:border-[#0077FF]/60';
+const LABEL_CLASS = 'text-[11px] tracking-[0.2em] text-[#94A3B8]';
 
 export const ContactForm: React.FC = () => {
   const [status, setStatus] = useState<FormStatus>('idle');
 
-  const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!ACCESS_KEY) {
+    const form = event.currentTarget;
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+    if (!accessKey) {
       setStatus('error');
       return;
     }
 
-    const form = event.currentTarget;
     const formData = new FormData(form);
-
     setStatus('submitting');
 
     try {
@@ -28,13 +32,13 @@ export const ContactForm: React.FC = () => {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          access_key: ACCESS_KEY,
+          access_key: accessKey,
           name: formData.get('name'),
           email: formData.get('email'),
           message: formData.get('message'),
           subject: 'New message from jboss.dev portfolio',
           replyto: formData.get('email'),
-          botcheck: '',
+          botcheck: formData.get('botcheck') ?? '',
         }),
       });
 
@@ -48,14 +52,14 @@ export const ContactForm: React.FC = () => {
     } catch {
       setStatus('error');
     }
-  }, []);
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="contact-form text-left" noValidate={false}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+    <form onSubmit={handleSubmit} noValidate={false}>
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="cf-name" className="form-label">
-            Name
+          <label htmlFor="cf-name" className={LABEL_CLASS}>
+            NAME
           </label>
           <input
             id="cf-name"
@@ -64,12 +68,12 @@ export const ContactForm: React.FC = () => {
             required
             autoComplete="name"
             placeholder="Your name"
-            className="form-input"
+            className={`${INPUT_CLASS} mt-2`}
           />
         </div>
         <div>
-          <label htmlFor="cf-email" className="form-label">
-            Email
+          <label htmlFor="cf-email" className={LABEL_CLASS}>
+            EMAIL
           </label>
           <input
             id="cf-email"
@@ -78,14 +82,14 @@ export const ContactForm: React.FC = () => {
             required
             autoComplete="email"
             placeholder="you@example.com"
-            className="form-input"
+            className={`${INPUT_CLASS} mt-2`}
           />
         </div>
       </div>
 
-      <div className="mb-4">
-        <label htmlFor="cf-message" className="form-label">
-          Message
+      <div className="mt-4">
+        <label htmlFor="cf-message" className={LABEL_CLASS}>
+          MESSAGE
         </label>
         <textarea
           id="cf-message"
@@ -93,39 +97,42 @@ export const ContactForm: React.FC = () => {
           required
           rows={5}
           placeholder="Tell me about your project…"
-          className="form-input resize-y"
+          className={`${INPUT_CLASS} mt-2 resize-y`}
         />
       </div>
 
-      {/* Honeypot spam protection — must stay empty */}
       <input
         type="checkbox"
         name="botcheck"
         tabIndex={-1}
         autoComplete="off"
-        className="hidden"
         aria-hidden="true"
+        className="hidden"
       />
 
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <button type="submit" className="primary-button w-full sm:w-auto" disabled={status === 'submitting'}>
+      <div className="mt-5 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <button
+          type="submit"
+          disabled={status === 'submitting'}
+          className="grid h-10 cursor-pointer place-items-center rounded-full bg-white px-6 text-[13px] font-medium text-black transition-all duration-300 hover:-translate-y-[2px] hover:bg-[#F8FAFC] hover:shadow-[0_10px_30px_rgba(0,119,255,0.35)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-white disabled:hover:shadow-none"
+        >
           {status === 'submitting' ? 'Sending…' : 'Send Message'}
         </button>
-
-        <span className="meta">Replies go straight to my inbox</span>
+        <span className="text-[12px] text-[#94A3B8]">Replies go straight to my inbox</span>
       </div>
 
-      <p role="status" aria-live="polite" className="form-status">
+      <p role="status" aria-live="polite" className="mt-3 text-[13px]">
         {status === 'success' && (
-          <span className="form-status-success">
-            Message sent — I&apos;ll get back to you shortly.
-          </span>
+          <span className="text-emerald-400">Message sent — I&apos;ll get back to you shortly.</span>
         )}
         {status === 'error' && (
-          <span className="form-status-error">
+          <span className="text-[#F87171]">
             Something went wrong. Please email me directly at{' '}
-            <a href="mailto:jerryadewole2023@gmail.com" className="link-underline text-accent">
-              jerryadewole2023@gmail.com
+            <a
+              href={`mailto:${profile.email}`}
+              className="text-[#00F0FF] underline underline-offset-2 hover:text-[#0077FF]"
+            >
+              {profile.email}
             </a>
             .
           </span>

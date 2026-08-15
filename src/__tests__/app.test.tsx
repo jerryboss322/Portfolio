@@ -1,75 +1,65 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from '@/App';
-
-const navigateTo = (hash: string) => {
-  window.location.hash = hash;
-  fireEvent.popState(window);
-};
+import { profile, projects } from '@/content/data';
 
 describe('App', () => {
   beforeEach(() => {
     localStorage.clear();
-    window.location.hash = '';
-    delete document.documentElement.dataset.theme;
   });
 
   it('renders the hero and all home sections', async () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', { level: 1, name: /I build full-stack products/ })
+      screen.getByRole('heading', { level: 1, name: /Engineering\s+detail\s+into\s+digital\s+systems/ })
     ).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Selected Work/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Selected Work/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /from the ground up/i })
+      screen.getByRole('heading', { name: /Design systems that ship/ })
     ).toBeInTheDocument();
-    expect(screen.getByText('Product Thinking')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Tech Stack/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Systems thinking/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /Have a project in mind/i })
+      screen.getByRole('link', { name: /jerryadewole2023@gmail.com/i })
     ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /View My Work/ })).toBeInTheDocument();
   });
 
-  it('renders a case study page for a project slug', async () => {
+  it('renders the brand and navigation', () => {
     render(<App />);
-    navigateTo('#/projects/titan');
 
-    // PageTransition keeps the home layout mounted during the exit animation —
-    // wait for it to unmount so the project page is the only route in the DOM.
-    await waitFor(() => {
-      expect(
-        screen.queryByRole('heading', { name: /I build full-stack products/ })
-      ).not.toBeInTheDocument();
-    });
-
-    expect(
-      screen.getByRole('heading', { name: 'Titan Commerce' })
-    ).toBeInTheDocument();
-    expect(screen.getByText('Challenge')).toBeInTheDocument();
-    expect(screen.getByText('Process')).toBeInTheDocument();
-    expect(screen.getByText('Solution')).toBeInTheDocument();
-    expect(screen.getByText('+35%')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /JBOSS.DEV/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Work' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Systems' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
   });
 
-  it('renders a fallback message for unknown slugs', async () => {
+  it('renders project cards with live demo and github links', () => {
     render(<App />);
-    navigateTo('#/projects/does-not-exist');
 
-    expect(await screen.findByText('Project not found')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Titan Commerce' })).toBeInTheDocument();
+
+    const demoLinks = screen.getAllByRole('link', { name: 'Live Demo ↗' });
+    const githubLinks = screen.getAllByRole('link', { name: 'GitHub' });
+    expect(demoLinks).toHaveLength(projects.length);
+    expect(githubLinks).toHaveLength(projects.length);
+
+    const demoSorted = demoLinks.map((link) => link.getAttribute('href')).sort();
+    const githubSorted = githubLinks.map((link) => link.getAttribute('href')).sort();
+    expect(demoSorted).toEqual(
+      projects.map((p) => p.liveUrl).sort()
+    );
+    expect(githubSorted).toEqual(
+      projects.map((p) => p.githubUrl).sort()
+    );
   });
 
-  it('toggles the theme and persists it to localStorage', () => {
+  it('renders the footer', () => {
     render(<App />);
 
-    const toggle = screen.getByRole('button', { name: 'Switch to light mode' });
-    fireEvent.click(toggle);
-
-    expect(document.documentElement.dataset.theme).toBe('light');
-    expect(localStorage.getItem('theme')).toBe('light');
+    const year = new Date().getFullYear();
     expect(
-      screen.getByRole('button', { name: 'Switch to dark mode' })
+      screen.getByText(`© ${year} ${profile.name} — ${profile.location}`)
     ).toBeInTheDocument();
   });
 });
