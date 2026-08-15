@@ -37,7 +37,6 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 h1,
@@ -89,13 +88,6 @@ ul {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
-}
-
-/* --- Performance --- */
-/* Skip layout/paint for off-screen sections so scrolling stays at 60fps. */
-section[id] {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
 }
 
 /* --- Entrances (matches the reference choreography) --- */

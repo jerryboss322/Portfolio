@@ -80,7 +80,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     >
       <motion.div
         style={reduced ? {} : { rotateX, rotateY }}
-        className="relative overflow-hidden rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A]/60 transition-[border,box-shadow] duration-300 hover:border-[rgba(0,119,255,0.35)] hover:shadow-[0_0_0_1px_rgba(0,119,255,0.25),0_20px_80px_rgba(0,119,255,0.12)]"
+        className="relative rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A]/60 transition-[border,box-shadow] duration-300 hover:border-[rgba(0,119,255,0.35)] hover:shadow-[0_0_0_1px_rgba(0,119,255,0.25),0_20px_80px_rgba(0,119,255,0.12)]"
       >
         {/* Spotlight */}
         <div
@@ -153,7 +153,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
 
           {/* Preview panel */}
-          <div className="relative flex flex-col overflow-hidden rounded-b-[20px] border-t border-[rgba(255,255,255,0.08)] bg-[#02040A] md:rounded-bl-none md:rounded-r-[20px] md:border-l md:border-t-0">
+          <div className="relative flex flex-col rounded-b-[20px] border-t border-[rgba(255,255,255,0.08)] bg-[#02040A] md:rounded-bl-none md:rounded-r-[20px] md:border-l md:border-t-0">
             <div className="flex h-[36px] shrink-0 items-center justify-between border-b border-[rgba(255,255,255,0.06)] bg-[#0A0E1A] px-4">
               <div className="flex items-center gap-[6px]">
                 <span className="h-[10px] w-[10px] rounded-full bg-[#FF5F56] opacity-[0.5]" />
@@ -171,7 +171,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               </div>
             </div>
 
-            <div className="relative h-[280px] overflow-hidden bg-[#02040A] md:h-[360px] lg:h-full lg:min-h-[360px]">
+            <div className="relative h-[280px] bg-[#02040A] md:h-[360px] lg:h-full lg:min-h-[360px]">
               <motion.img
                 src={image}
                 alt={alt}
