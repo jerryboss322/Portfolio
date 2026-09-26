@@ -1,97 +1,145 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Reveal } from '@/components/ui/Reveal';
-import { about, values, coreSkills } from '@/content/data';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Media } from '@/components/ui/Media';
+import { Text3D } from '@/components/ui/Text3D';
+import { useReducedMotion } from '@/lib/hooks';
+import { portrait } from '@/content/images';
+import { about, values } from '@/content/data';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+/**
+ * About: an asymmetric two-column with a tilted 3D portrait on the left and a
+ * vertical timeline whose spine fills as you scroll on the right.
+ */
 export const AboutSection: React.FC = () => {
-  const [reduced, setReduced] = useState(false);
+  const reduced = useReducedMotion();
+  const timelineRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
-    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  }, []);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 0.85', 'end 0.6'],
+  });
+
+  /* The spine fills to match scroll progress instead of jumping on reveal. */
+  const spineScale = useTransform(scrollYProgress, [0, 1], [0.04, 1]);
 
   return (
-    <section id="about" className="border-t border-[rgba(255,255,255,0.08)] bg-[#070A14]/60">
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-20 md:grid-cols-[0.9fr_1.1fr] md:gap-16 md:px-8 md:py-28">
-        {/* Portrait */}
-        <Reveal>
+    <section id="about" className="relative overflow-hidden border-t border-[rgba(255,255,255,0.08)]">
+      <div className="mx-auto grid max-w-[1280px] gap-14 px-6 py-20 md:px-10 md:py-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
+        {/* ---- Portrait ---- */}
+        <div className="relative [perspective:1300px]">
           <motion.div
-            whileHover={reduced ? {} : { rotateY: 4, rotateX: 2 }}
-            style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
-            className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A] p-6"
+            initial={reduced ? false : { opacity: 0, y: 34 }}
+            whileInView={reduced ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="relative"
+            style={reduced ? undefined : { transform: 'rotateY(8deg) rotateX(3deg)' }}
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[14px] border border-[rgba(255,255,255,0.08)]">
-              <motion.img
-                src={about.portrait}
-                alt="Jerry Adewole — Software Engineer"
-                className="h-full w-full object-cover object-top"
-                initial={reduced ? false : { scale: 1.1 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
+            <div className="relative overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[#0A0E1A] p-2 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.95)]">
+              <Media
+                asset={portrait}
+                alt={`Jerry Adewole — ${about.paragraphs[0]}`}
+                sizes="(max-width: 1024px) 90vw, 420px"
+                className="rounded-[17px]"
+                imgClassName="object-cover object-top"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(2,4,10,0.75))]" />
-              <div className="absolute bottom-0 p-4">
-                <div className="text-[13px] italic leading-[1.5] text-white/90">
+              <div className="pointer-events-none absolute inset-2 rounded-[17px] bg-[linear-gradient(180deg,transparent_52%,rgba(2,4,10,0.88))]" />
+
+              <div className="absolute inset-x-6 bottom-6">
+                <div className="text-[15px] leading-[1.5] text-white">
                   “{about.pullQuote}”
                 </div>
               </div>
             </div>
-          </motion.div>
-        </Reveal>
 
-        {/* Copy */}
-        <div>
-          <Reveal>
-            <div className="text-[11px] tracking-[0.2em] text-[#94A3B8]">ABOUT — ENGINEERING CRAFT</div>
-            <h2 className="font-display mt-3 text-[30px] font-semibold leading-[0.95] tracking-tight md:text-[40px]">
-              Design systems that ship. <br />
-              Backends that scale. Code that holds.
-            </h2>
-            <p className="mt-5 max-w-[58ch] text-[15px] leading-[1.8] text-[#94A3B8]">
-              {about.paragraphs[0]}
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {values.map((value, index) => (
-                <motion.div
-                  key={value.title}
-                  initial={reduced ? false : { y: 20, opacity: 0 }}
-                  whileInView={reduced ? {} : { y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                  className="rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-white/[0.02] p-4"
-                >
-                  <div className="font-display text-[14px] font-semibold">{value.title}</div>
-                  <div className="mt-1.5 text-[13px] leading-[1.5] text-[#94A3B8]">
-                    {value.description}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <div className="mt-10">
-              <div className="text-[11px] tracking-[0.2em] text-[#94A3B8]">CORE SKILLS</div>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {coreSkills.map((skill) => (
-                  <motion.span
-                    key={skill}
-                    whileHover={reduced ? {} : { y: -2, scale: 1.03 }}
-                    transition={{ duration: 0.2, ease: EASE }}
-                    className="cursor-default rounded-full bg-[#F8FAFC] px-3 py-1.5 text-[12px] font-medium text-[#02040A]"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
+            {/* Accent plate breaking the frame. */}
+            <div className="absolute -bottom-5 -right-5 rounded-[16px] border border-[#00F0FF]/25 bg-[#05080F]/90 px-5 py-3.5 backdrop-blur-xl">
+              <div className="font-display text-[22px] font-bold leading-none tracking-tight">
+                3<span className="text-[13px] text-[#00F0FF]">+</span>
+              </div>
+              <div className="mt-1.5 text-[9px] uppercase tracking-[0.16em] text-[#94A3B8]">
+                Years
               </div>
             </div>
-          </Reveal>
+          </motion.div>
+        </div>
+
+        {/* ---- Copy + timeline ---- */}
+        <div>
+          <div className="text-[10px] uppercase tracking-[0.24em] text-[#00F0FF]/70">
+            About
+          </div>
+          <h2 className="font-display mt-4 text-[34px] font-semibold leading-[0.95] tracking-[-0.03em] md:text-[48px]">
+            <Text3D depth={reduced ? 1 : 14} step={0.9} tilt={3}>
+              I BUILD THE WHOLE THING
+            </Text3D>
+          </h2>
+
+          <p className="mt-6 max-w-[56ch] text-[15px] leading-[1.8] text-[#94A3B8]">
+            {about.paragraphs[0]}
+          </p>
+          <p className="mt-4 max-w-[56ch] text-[14px] leading-[1.8] text-[#64748B]">
+            {about.paragraphs[2]}
+          </p>
+
+          {/* Values as inline chips. */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {values.map((value) => (
+              <span
+                key={value.title}
+                title={value.description}
+                className="cursor-default rounded-lg border border-[rgba(255,255,255,0.09)] bg-white/[0.03] px-3 py-1.5 text-[11.5px] text-[#CBD5E1] transition-colors duration-300 hover:border-[#00F0FF]/30 hover:text-white"
+              >
+                {value.title}
+              </span>
+            ))}
+          </div>
+
+          {/* Timeline with a scroll-driven spine. */}
+          <div ref={timelineRef} className="relative mt-11">
+            <div className="relative pl-7">
+              {/* Track */}
+              <span
+                aria-hidden="true"
+                className="absolute left-[7px] top-2 bottom-2 w-px bg-[rgba(255,255,255,0.08)]"
+              />
+              {/* Fill */}
+              <motion.span
+                aria-hidden="true"
+                className="absolute left-[7px] top-2 bottom-2 w-px origin-top bg-[linear-gradient(180deg,#00F0FF,#0077FF)]"
+                style={reduced ? undefined : { scaleY: spineScale }}
+              />
+
+              <ol className="space-y-8">
+                {about.timeline.map((entry, i) => (
+                  <motion.li
+                    key={entry.period}
+                    initial={reduced ? false : { opacity: 0, x: -14 }}
+                    whileInView={reduced ? {} : { opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+                    className="relative"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute -left-[25px] top-1.5 grid h-[9px] w-[9px] place-items-center rounded-full border border-[#00F0FF]/60 bg-[#05080F] shadow-[0_0_10px_rgba(0,240,255,0.5)]"
+                    />
+                    <div className="font-mono text-[10.5px] tracking-wider text-[#00F0FF]/80">
+                      {entry.period}
+                    </div>
+                    <div className="font-display mt-1.5 text-[16px] font-semibold tracking-tight">
+                      {entry.title}
+                    </div>
+                    <p className="mt-1.5 max-w-[52ch] text-[13px] leading-[1.65] text-[#94A3B8]">
+                      {entry.description}
+                    </p>
+                  </motion.li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
       </div>
     </section>

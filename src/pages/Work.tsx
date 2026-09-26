@@ -1,250 +1,234 @@
-import React, { useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Reveal } from '@/components/ui/Reveal';
-import { projects } from '@/content/data';
+import React from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { DeviceFrame } from '@/components/ui/Media';
+import { ScrambleText } from '@/components/ui/ScrambleText';
+import { Text3D } from '@/components/ui/Text3D';
+import { useReducedMotion } from '@/lib/hooks';
+import { projects, type Project } from '@/content/data';
+import {
+  projectImage_titan,
+  projectImage_luxora,
+  projectImage_sallygreen,
+  projectImage_tastetrail,
+  projectImage_jbet,
+  type ImageAsset,
+} from '@/content/images';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-interface ProjectCardProps {
-  number: string;
-  name: string;
-  role: string;
-  summary: string;
-  tech: string[];
-  challenge: string;
-  process: string;
-  solution: string;
-  live: string;
-  github: string;
-  image: string;
-  alt: string;
+const IMAGES: Record<string, ImageAsset> = {
+  titan: projectImage_titan,
+  luxora: projectImage_luxora,
+  sallygreen: projectImage_sallygreen,
+  tastetrail: projectImage_tastetrail,
+  jbet: projectImage_jbet,
+};
+
+const TYPE_LABEL: Record<Project['type'], string> = {
+  client: 'Client work',
+  personal: 'Personal build',
+  experiment: 'Experiment',
+};
+
+/**
+ * One project, laid out as an alternating editorial spread.
+ *
+ * Odd rows put the device on the right, even rows flip it, so the section has
+ * rhythm instead of five identical stacked cards. Each row drifts its own
+ * device slightly against the scroll to build vertical parallax between the
+ * screenshot and the copy.
+ */
+const ProjectRow: React.FC<{
+  project: Project;
   index: number;
   reduced: boolean;
-}
+}> = ({ project, index, reduced }) => {
+  const rowRef = React.useRef<HTMLElement>(null);
+  const flip = index % 2 === 1;
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
-  number,
-  name,
-  role,
-  summary,
-  tech,
-  challenge,
-  process,
-  solution,
-  live,
-  github,
-  image,
-  alt,
-  index,
-  reduced,
-}) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rotateX = useSpring(useTransform(my, [-300, 300], [8, -8]), {
-    stiffness: 120,
-    damping: 18,
+  const { scrollYProgress } = useScroll({
+    target: rowRef,
+    offset: ['start end', 'end start'],
   });
-  const rotateY = useSpring(useTransform(mx, [-300, 300], [-12, 12]), {
-    stiffness: 120,
-    damping: 18,
-  });
-  const [spot, setSpot] = useState({ x: 50, y: 50 });
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (reduced || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    mx.set(x - rect.width / 2);
-    my.set(y - rect.height / 2);
-    setSpot({ x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
-  };
-
-  const handleMouseLeave = () => {
-    mx.set(0);
-    my.set(0);
-  };
+  const deviceY = useTransform(scrollYProgress, [0, 1], [54, -54]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [-22, 22]);
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      initial={reduced ? false : { y: 60, rotateX: -15, opacity: 0 }}
-      whileInView={reduced ? {} : { y: 0, rotateX: 0, opacity: 1 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: EASE }}
-      style={reduced ? {} : { perspective: 1200 }}
-      className="group"
+    <motion.article
+      ref={rowRef}
+      initial={reduced ? false : { opacity: 0, y: 46 }}
+      whileInView={reduced ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-90px' }}
+      transition={{ duration: 0.75, ease: EASE }}
+      className="group relative border-t border-[rgba(255,255,255,0.08)] py-14 first:border-t-0 md:py-20"
     >
-      <motion.div
-        style={reduced ? {} : { rotateX, rotateY }}
-        className="relative rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A]/60 transition-[border,box-shadow] duration-300 hover:border-[rgba(0,119,255,0.35)] hover:shadow-[0_0_0_1px_rgba(0,119,255,0.25),0_20px_80px_rgba(0,119,255,0.12)]"
+      {/* Oversized index numeral, behind everything. It is wrapped in its own
+          clipping layer: the numeral deliberately bleeds past the text edge, and
+          clipping the whole section instead would cut the device reflections
+          and the 3D tilt. */}
+      <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <span
+          className="font-display absolute -top-2 select-none text-[120px] font-bold leading-none tracking-tighter text-white/[0.035] md:text-[170px]"
+          style={{ [flip ? 'right' : 'left']: '-0.06em' }}
+        >
+          {String(index + 1).padStart(2, '0')}
+        </span>
+      </span>
+
+      <div
+        className={[
+          'relative grid items-center gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16',
+          flip ? 'lg:[direction:rtl]' : '',
+        ].join(' ')}
       >
-        {/* Spotlight */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(600px circle at ${spot.x}% ${spot.y}%, rgba(0,119,255,0.15), transparent 40%)`,
-          }}
-        />
+        {/* ---- Copy ---- */}
+        <motion.div
+          style={reduced ? undefined : { y: copyY }}
+          className={flip ? 'lg:[direction:ltr]' : ''}
+        >
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="rounded-full border border-[#00F0FF]/25 bg-[#00F0FF]/[0.07] px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-[#7DD3FC]">
+              {TYPE_LABEL[project.type]}
+            </span>
+            <span className="text-[10px] uppercase tracking-[0.16em] text-[#64748B]">
+              {project.year}
+            </span>
+          </div>
 
-        <div className="relative z-20 grid md:grid-cols-[1.1fr_0.9fr]">
-          {/* Content */}
-          <div className="p-6 md:p-8">
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] tracking-[0.18em] text-[#94A3B8]">{number}</span>
-              <span className="h-px w-8 bg-[rgba(255,255,255,0.08)]" />
-              <span className="text-[11px] uppercase tracking-[0.12em] text-[#94A3B8]">{role}</span>
+          <h3 className="font-display mt-5 text-[34px] font-semibold leading-[0.94] tracking-[-0.03em] md:text-[46px]">
+            {project.title}
+          </h3>
+          <div className="mt-2 text-[14px] text-[#00F0FF]/80">{project.subtitle}</div>
+
+          <p className="mt-5 max-w-[48ch] text-[14px] leading-[1.75] text-[#94A3B8] md:text-[15px]">
+            {project.summary}
+          </p>
+
+          {/* Challenge / outcome — the two things a client actually cares about. */}
+          <div className="mt-7 grid gap-px overflow-hidden rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.08)] sm:grid-cols-2">
+            <div className="bg-[#070A14] p-4">
+              <div className="text-[9px] uppercase tracking-[0.18em] text-[#64748B]">
+                The problem
+              </div>
+              <p className="mt-2 text-[12.5px] leading-[1.6] text-[#CBD5E1]">
+                {project.challenge[0]}
+              </p>
             </div>
-
-            <h3 className="font-display mt-4 text-[28px] font-semibold leading-[0.95] tracking-tight md:text-[32px]">
-              {name}
-            </h3>
-
-            <p className="mt-3 max-w-[54ch] text-[14px] leading-[1.7] text-[#94A3B8]">{summary}</p>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              {tech.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-[rgba(255,255,255,0.10)] px-2.5 py-1 text-[11px] tracking-wide text-[#CBD5E1]"
-                >
-                  {item}
-                </span>
-              ))}
+            <div className="bg-[#070A14] p-4">
+              <div className="text-[9px] uppercase tracking-[0.18em] text-[#64748B]">
+                What shipped
+              </div>
+              <p className="mt-2 text-[12.5px] leading-[1.6] text-[#CBD5E1]">
+                {project.solution[0]}
+              </p>
             </div>
+          </div>
 
-            <div className="mt-6 grid grid-cols-3 gap-3 rounded-[12px] border border-[rgba(255,255,255,0.06)] bg-[#02040A]/60 p-3">
-              {[
-                { k: 'Challenge', v: challenge },
-                { k: 'Process', v: process },
-                { k: 'Solution', v: solution },
-              ].map((item) => (
-                <div key={item.k}>
-                  <div className="text-[10px] uppercase tracking-[0.14em] text-[#94A3B8]">
-                    {item.k}
+          {project.metrics.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+              {project.metrics.map((m) => (
+                <div key={m.label}>
+                  <div className="font-display text-[20px] font-semibold leading-none tracking-tight text-white">
+                    {m.value}
                   </div>
-                  <div className="mt-1 text-[12px] leading-[1.3]">{item.v}</div>
+                  <div className="mt-1.5 text-[10px] uppercase tracking-[0.13em] text-[#64748B]">
+                    {m.label}
+                  </div>
                 </div>
               ))}
             </div>
+          )}
 
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                href={live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="grid h-9 cursor-pointer place-items-center rounded-full bg-white px-4 text-[13px] font-medium text-black shadow-[0_6px_20px_rgba(255,255,255,0.15)] transition-all duration-300 hover:-translate-y-[2px] hover:bg-[#F8FAFC] hover:shadow-[0_10px_30px_rgba(0,119,255,0.35)] active:scale-[0.97]"
+          <div className="mt-7 flex flex-wrap items-center gap-2">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-md border border-[rgba(255,255,255,0.09)] bg-white/[0.02] px-2.5 py-1 font-mono text-[10.5px] text-[#94A3B8] transition-colors duration-300 hover:border-[#00F0FF]/30 hover:text-[#7DD3FC]"
               >
-                Live Demo ↗
-              </a>
-              <a
-                href={github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="grid h-9 cursor-pointer place-items-center rounded-full bg-[#F8FAFC] px-4 text-[13px] font-medium text-black transition-all duration-300 hover:-translate-y-[2px] hover:bg-white hover:shadow-[0_10px_30px_rgba(0,240,255,0.25)] active:scale-[0.97]"
-              >
-                GitHub
-              </a>
-            </div>
+                {t}
+              </span>
+            ))}
           </div>
 
-          {/* Preview panel */}
-          <div className="relative flex flex-col rounded-b-[20px] border-t border-[rgba(255,255,255,0.08)] bg-[#02040A] md:rounded-bl-none md:rounded-r-[20px] md:border-l md:border-t-0">
-            <div className="flex h-[36px] shrink-0 items-center justify-between border-b border-[rgba(255,255,255,0.06)] bg-[#0A0E1A] px-4">
-              <div className="flex items-center gap-[6px]">
-                <span className="h-[10px] w-[10px] rounded-full bg-[#FF5F56] opacity-[0.5]" />
-                <span className="h-[10px] w-[10px] rounded-full bg-[#FFBD2E] opacity-[0.5]" />
-                <span className="h-[10px] w-[10px] rounded-full bg-[#27C93F] opacity-[0.5]" />
-              </div>
-              <div className="hidden text-[10px] font-medium tracking-[0.14em] text-[#94A3B8]/70 sm:block">
-                {name.toUpperCase()} — LIVE PREVIEW
-              </div>
-              <div className="text-[10px] tracking-[0.12em] text-[#94A3B8]/60 sm:hidden">
-                PREVIEW
-              </div>
-              <div className="flex w-[48px] justify-end sm:w-[54px]">
-                <span className="h-1 w-1 rounded-full bg-[#00F0FF]/60" />
-              </div>
-            </div>
-
-            <div className="relative h-[280px] bg-[#02040A] md:h-[360px] lg:h-full lg:min-h-[360px]">
-              <motion.img
-                src={image}
-                alt={alt}
-                loading="lazy"
-                decoding="async"
-                initial={reduced ? false : { scale: 1.1 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: EASE }}
-                className="absolute inset-0 h-full w-full object-cover object-top"
-              />
-              <div
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn relative inline-flex h-11 cursor-pointer items-center gap-2 overflow-hidden rounded-full border border-transparent bg-white pl-5 pr-3 text-[13px] font-medium text-black"
+            >
+              <span className="relative z-10">Live site</span>
+              <span
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(2,4,10,0.55)_85%,rgba(2,4,10,0.9)_100%)]"
-              />
-              <div
+                className="relative z-10 grid h-6 w-6 place-items-center rounded-full bg-black/10 text-[11px] transition-transform duration-300 group-hover/btn:translate-x-0.5"
+              >
+                ↗
+              </span>
+              <span
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-[rgba(255,255,255,0.08)]"
+                className="absolute inset-0 origin-left scale-x-0 bg-[linear-gradient(90deg,#00F0FF,#0077FF)] transition-transform duration-500 ease-out group-hover/btn:scale-x-100"
               />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),inset_0_20px_40px_rgba(2,4,10,0.08)]"
-              />
-              <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between p-3">
-                <span className="rounded-full border border-white/10 bg-[#02040A]/60 px-2.5 py-1 text-[10px] tracking-[0.14em] text-white/70 backdrop-blur">
-                  {number} • {tech[0]}
-                </span>
-                <span className="text-[10px] tracking-wide text-white/50">↗ Hover to zoom</span>
-              </div>
-            </div>
+            </a>
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 cursor-pointer items-center rounded-full border border-[rgba(255,255,255,0.14)] px-5 text-[13px] text-[#CBD5E1] transition-colors duration-300 hover:border-white/35 hover:bg-white/[0.05] hover:text-white"
+            >
+              Source
+            </a>
           </div>
-        </div>
-      </motion.div>
-    </motion.div>
+        </motion.div>
+
+        {/* ---- Device ---- */}
+        <motion.div
+          style={reduced ? undefined : { y: deviceY }}
+          className={[
+            'relative lg:[direction:ltr]',
+            flip ? 'lg:-order-1' : '',
+          ].join(' ')}
+        >
+          <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-[radial-gradient(60%_60%_at_50%_40%,rgba(0,119,255,0.22),transparent_70%)] opacity-0 blur-[48px] transition-opacity duration-700 group-hover:opacity-100" />
+          <DeviceFrame
+            asset={IMAGES[project.slug]}
+            alt={`${project.title} — ${project.subtitle} interface`}
+            title={`${project.slug}.app`}
+            sizes="(max-width: 1024px) 100vw, 620px"
+          />
+        </motion.div>
+      </div>
+    </motion.article>
   );
 };
 
 export const WorkSection: React.FC = () => {
-  const [reduced, setReduced] = React.useState(false);
-
-  React.useEffect(() => {
-    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  }, []);
+  const reduced = useReducedMotion();
 
   return (
-    <section id="work" className="mx-auto max-w-[1200px] px-6 py-20 md:px-8 md:py-28">
-      <Reveal>
-        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[rgba(255,255,255,0.08)] pb-6">
-          <h2 className="font-display text-[28px] font-semibold tracking-tight md:text-[36px]">
-            Selected Work — <span className="font-normal text-[#94A3B8]">05 featured builds</span>
-          </h2>
-          <div className="text-[12px] tracking-[0.14em] text-[#94A3B8]">
-            2024 — 2026 • CRAFTED SYSTEMS
+    <section id="work" className="mx-auto max-w-[1280px] px-6 md:px-10 md:py-24">
+      <div className="flex flex-wrap items-end justify-between gap-6 pb-10">
+        <div>
+          <div className="text-[10px] uppercase tracking-[0.24em] text-[#00F0FF]/70">
+            Selected work — 2024 / 2026
           </div>
+          <h2 className="font-display mt-4 text-[40px] font-semibold leading-[0.9] tracking-[-0.035em] md:text-[64px]">
+            <Text3D depth={reduced ? 1 : 16} step={1} tilt={4} className="block">
+              SYSTEMS I SHIPPED
+            </Text3D>
+          </h2>
         </div>
-      </Reveal>
+        <p className="max-w-[34ch] text-[13px] leading-[1.7] text-[#94A3B8]">
+          <ScrambleText text="Each one built end to end" speed={0.03} />{' '}
+          — schema, API, interface, and the deployment that runs it.
+        </p>
+      </div>
 
-      <div className="mt-10 grid gap-6">
+      <div>
         {projects.map((project, index) => (
-          <ProjectCard
+          <ProjectRow
             key={project.slug}
-            number={String(index + 1).padStart(2, '0')}
-            name={project.title}
-            role={project.role}
-            summary={project.summary}
-            tech={project.tech}
-            challenge={project.challenge[0] ?? ''}
-            process={project.process[0] ?? ''}
-            solution={project.solution[0] ?? ''}
-            live={project.liveUrl}
-            github={project.githubUrl}
-            image={project.image}
-            alt={`${project.title} — ${project.subtitle}`}
+            project={project}
             index={index}
             reduced={reduced}
           />

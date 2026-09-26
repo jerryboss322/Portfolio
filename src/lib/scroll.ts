@@ -8,7 +8,15 @@ export const setLenis = (instance: Lenis | null) => {
 
 export const getLenis = () => lenisInstance;
 
-const SECTION_IDS = ['home', 'work', 'about', 'systems', 'contact'];
+const SECTION_IDS = [
+  'home',
+  'work',
+  'about',
+  'capabilities',
+  'systems',
+  'process',
+  'contact',
+];
 
 export const isSectionId = (id: string): boolean =>
   SECTION_IDS.includes(id.replace(/^#/, ''));

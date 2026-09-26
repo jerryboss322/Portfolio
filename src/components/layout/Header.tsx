@@ -6,7 +6,9 @@ import { profile } from '@/content/data';
 const NAV_ITEMS = [
   { label: 'Work', id: 'work' },
   { label: 'About', id: 'about' },
+  { label: 'Stack', id: 'capabilities' },
   { label: 'Systems', id: 'systems' },
+  { label: 'Process', id: 'process' },
   { label: 'Contact', id: 'contact' },
 ];
 
@@ -77,7 +79,7 @@ export const Header: React.FC = () => {
             </span>
           </motion.a>
 
-          <nav className="hidden items-center gap-8 text-[13px] md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-6 text-[13px] md:flex lg:gap-8" aria-label="Primary">
             {NAV_ITEMS.map((item) => (
               <ScrollLink
                 key={item.id}

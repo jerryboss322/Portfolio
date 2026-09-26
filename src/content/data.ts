@@ -279,7 +279,85 @@ export const coreSkills = [
   'Framer Motion',
 ];
 
+export type CapabilityIcon =
+  | 'layers'
+  | 'gauge'
+  | 'database'
+  | 'accessibility'
+  | 'cloud'
+  | 'pen';
+
+export interface Capability {
+  id: string;
+  icon: CapabilityIcon;
+  title: string;
+  description: string;
+  points: string[];
+  /** Bento sizing: how many grid cells the card occupies at desktop. */
+  span: 1 | 2;
+  featured?: boolean;
+}
+
+export const capabilities: Capability[] = [
+  {
+    id: 'delivery',
+    icon: 'layers',
+    title: 'Full-Stack Delivery',
+    description:
+      'One engineer from schema to screen. I design the data model, build the API, wire the interface, and own the deployment — no handoff gaps where requirements get lost in translation.',
+    points: ['React / Next.js', 'Node / Django', 'REST & auth', 'PostgreSQL'],
+    span: 2,
+    featured: true,
+  },
+  {
+    id: 'performance',
+    icon: 'gauge',
+    title: 'Performance Budgets',
+    description:
+      'Performance treated as a constraint, not a cleanup task. Budgets set up front and checked in CI.',
+    points: ['LCP / CLS / INP', 'Bundle splitting', 'Edge caching'],
+    span: 1,
+  },
+  {
+    id: 'data',
+    icon: 'database',
+    title: 'Data Integrity',
+    description:
+      'Schemas with real constraints, migrations that run in both directions, and validation at every boundary.',
+    points: ['Normalised schema', 'Migrations', 'Input validation'],
+    span: 1,
+  },
+  {
+    id: 'a11y',
+    icon: 'accessibility',
+    title: 'Accessible by Default',
+    description:
+      'Semantic markup, full keyboard paths, and contrast that holds up. Accessibility is part of the build, not a later audit.',
+    points: ['WCAG AA contrast', 'Keyboard paths', 'Screen reader tested'],
+    span: 1,
+  },
+  {
+    id: 'infra',
+    icon: 'cloud',
+    title: 'Deployment & Ops',
+    description:
+      'Ship to a real environment and keep it running. Linux, containers, CI, and observability wired in from the start.',
+    points: ['Docker', 'Linux', 'CI pipelines', 'Monitoring'],
+    span: 1,
+  },
+  {
+    id: 'design',
+    icon: 'pen',
+    title: 'Design Engineering',
+    description:
+      'I work from the design file, not just a handoff screenshot — so motion, spacing, and states hold up in the browser.',
+    points: ['Design tokens', 'Motion systems', 'Component APIs'],
+    span: 1,
+  },
+];
+
 export const systemsPrinciples = [
+
   {
     id: '01',
     title: 'Clarity First',

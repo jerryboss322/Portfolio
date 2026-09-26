@@ -14,11 +14,11 @@ describe('App', () => {
     expect(
       screen.getByRole('heading', { level: 1, name: /Engineering\s+detail\s+into\s+digital\s+systems/ })
     ).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Selected Work/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /SYSTEMS I SHIPPED/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /Design systems that ship/ })
+      screen.getByRole('heading', { name: /I BUILD THE WHOLE THING/ })
     ).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Systems thinking/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /How I think/ })).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: /jerryadewole2023@gmail.com/i })
     ).toBeInTheDocument();
@@ -28,19 +28,21 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByRole('link', { name: /JBOSS.DEV/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Stack' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Process' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Work' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Systems' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Contact' })).toBeInTheDocument();
   });
 
-  it('renders project cards with live demo and github links', () => {
+  it('renders project rows with live site and source links', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: 'Titan Commerce' })).toBeInTheDocument();
 
-    const demoLinks = screen.getAllByRole('link', { name: 'Live Demo ↗' });
-    const githubLinks = screen.getAllByRole('link', { name: 'GitHub' });
+    const demoLinks = screen.getAllByRole('link', { name: 'Live site' });
+    const githubLinks = screen.getAllByRole('link', { name: 'Source' });
     expect(demoLinks).toHaveLength(projects.length);
     expect(githubLinks).toHaveLength(projects.length);
 

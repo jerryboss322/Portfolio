@@ -112,6 +112,76 @@ ul {
   }
 }
 
+/* --- Ambient aurora drift -------------------------------------------------
+   Transform-only so the blooms stay on the compositor. Three independent
+   periods (34s / 46s / 40s) so the composite never visibly repeats. */
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6vw, 4vh, 0) scale(1.12);
+  }
+  66% {
+    transform: translate3d(-4vw, 7vh, 0) scale(0.94);
+  }
+}
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  40% {
+    transform: translate3d(-7vw, -5vh, 0) scale(0.92);
+  }
+  70% {
+    transform: translate3d(3vw, -9vh, 0) scale(1.14);
+  }
+}
+@keyframes drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  50% {
+    transform: translate3d(9vw, -6vh, 0) scale(1.16);
+  }
+}
+
+/* --- Rendering budget ---------------------------------------------------
+   Below-fold sections skip layout and paint until they approach the viewport.
+   `contain-intrinsic-size` reserves a plausible height first so the scrollbar
+   does not jump.
+
+   Three sections are deliberately excluded:
+     #home    — always on screen, nothing to skip
+     #work    — tilt cards project children along Z; a layout-contained
+                ancestor clips the projected layers
+     #process — the 3D deck sets its own perspective inside that context */
+main > section:not(#home):not(#work):not(#process) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+@media (max-width: 767px) {
+  main > section:not(#home):not(#work):not(#process) {
+    contain-intrinsic-size: auto 1400px;
+  }
+}
+
+/* --- Tech marquee ---------------------------------------------------------
+   The track holds two copies of the list and translates exactly -50%, so the
+   wrap is seamless. Transform-only, and paused under reduced motion. */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 /* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
   *,

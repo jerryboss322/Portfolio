@@ -1,195 +1,228 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { HeroCanvas } from '@/components/canvas/HeroCanvas';
-import { Reveal } from '@/components/ui/Reveal';
+import { Magnetic } from '@/components/ui/Magnetic';
+import { Media } from '@/components/ui/Media';
+import { ScrambleText } from '@/components/ui/ScrambleText';
+import { Text3D } from '@/components/ui/Text3D';
 import { ScrollLink } from '@/components/ui/ScrollLink';
-import { profile, heroWords, heroIntro } from '@/content/data';
+import { useReducedMotion } from '@/lib/hooks';
+import { portrait } from '@/content/images';
+import { profile, coreSkills, heroIntro, heroWords } from '@/content/data';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const HERO_STATS = [
-  { k: '5', v: 'Projects' },
-  { k: '100%', v: 'Craft' },
-  { k: '<100ms', v: 'Motion' },
-];
+const PRIMARY_CTA =
+  'grid h-[46px] cursor-pointer place-items-center rounded-full bg-white px-7 text-[14px] font-medium tracking-wide text-black transition-colors duration-300 hover:bg-[#F8FAFC]';
+
+const SECONDARY_CTA =
+  'grid h-[46px] cursor-pointer place-items-center rounded-full border border-[rgba(255,255,255,0.16)] px-6 text-[14px] font-medium tracking-wide text-white transition-colors duration-300 hover:border-white/35 hover:bg-white/[0.06]';
+
+const MARQUEE = [...coreSkills, ...coreSkills];
 
 export const Hero: React.FC = () => {
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  }, []);
+  const reduced = useReducedMotion();
 
   return (
-    <section id="home" className="relative flex min-h-[90vh] items-center overflow-hidden">
+    <section
+      id="home"
+      className="relative flex min-h-[calc(100svh-64px)] flex-col justify-between overflow-hidden"
+    >
       <HeroCanvas />
 
-      {/* Radial gradient wash */}
+      {/* Reading scrim. The nebula is decoration; the copy has to win. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(60%_60%_at_70%_30%,rgba(0,119,255,0.12),transparent_60%),radial-gradient(40%_40%_at_20%_80%,rgba(0,240,255,0.08),transparent)]"
+        className="pointer-events-none absolute inset-0 z-[5] bg-[linear-gradient(100deg,rgba(2,4,10,0.94)_0%,rgba(2,4,10,0.78)_38%,rgba(2,4,10,0.25)_62%,transparent_85%)]"
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1200px] items-center gap-12 overflow-hidden px-6 py-20 md:grid-cols-[1.15fr_0.85fr] md:px-8 md:py-28">
-        {/* Left column */}
-        <div>
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.08)] bg-white/[0.03] px-3 py-1 text-[11px] tracking-[0.14em] text-[#94A3B8]">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00F0FF]" />
-              {profile.status.toUpperCase()} — 2026
-            </span>
-          </Reveal>
+      {/* Vertical side rail — desktop only, purely editorial texture. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 xl:block"
+      >
+        <div className="flex flex-col items-center gap-4">
+          <span className="text-[10px] tracking-[0.3em] text-[#94A3B8] [writing-mode:vertical-rl]">
+            {profile.location.toUpperCase()} — UTC+1
+          </span>
+          <span className="h-16 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+        </div>
+      </div>
 
-          <div className="mt-6">
-            <h1
-              aria-label="Engineering detail into digital systems."
-              className="font-display text-[40px] font-bold leading-[0.92] tracking-[-0.04em] md:text-[62px]"
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] min-h-0 flex-1 px-6 md:px-10">
+        <div className="grid min-h-full items-center gap-12 py-12 lg:grid-cols-[1.35fr_0.65fr] lg:gap-16">
+          {/* ---- Copy column ---- */}
+          <div className="flex flex-col justify-center">
+            <motion.div
+              initial={reduced ? false : { y: 14, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, ease: EASE }}
+              className="inline-flex w-fit items-center gap-2.5 rounded-full border border-[rgba(255,255,255,0.10)] bg-white/[0.04] px-3.5 py-1.5 text-[10px] tracking-[0.16em] text-[#CBD5E1] backdrop-blur-md"
             >
-              <span className="inline-block">
-                {heroWords.map((word, index) => (
-                  <motion.span
-                    key={`${word}-${index}`}
-                    className="mr-[0.22em] inline-block"
-                    initial={reduced ? false : { y: 24, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={reduced ? undefined : { duration: 0.7, delay: 0.08 * index, ease: EASE }}
-                  >
-                    {word + ' '}
-                  </motion.span>
-                ))}
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00F0FF] opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#00F0FF]" />
               </span>
+              {profile.status.toUpperCase()}
+            </motion.div>
+
+            {/* The display line, extruded in 3D. */}
+            <h1 className="font-display mt-7 text-[38px] font-bold uppercase leading-[0.88] tracking-[-0.04em] sm:text-[52px] lg:max-w-[15ch] lg:text-[68px]">
+              <Text3D depth={reduced ? 1 : 18} step={1.15} tilt={5}>
+                {heroWords.join(' ')}
+              </Text3D>
             </h1>
-          </div>
 
-          <Reveal delay={0.4}>
-            <p className="mt-6 max-w-[52ch] text-[16px] leading-[1.7] text-[#94A3B8] md:text-[17px]">
-              {heroIntro}
-            </p>
-          </Reveal>
+            <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:gap-8">
+              <p className="max-w-[46ch] text-[15px] leading-[1.75] text-[#94A3B8] md:text-[16px]">
+                {heroIntro}
+              </p>
 
-          <Reveal delay={0.5}>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <ScrollLink
-                to="work"
-                className="grid h-[44px] cursor-pointer place-items-center rounded-full bg-white px-6 text-[14px] font-medium tracking-wide text-black transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,119,255,0.35)] active:translate-y-0"
-              >
-                View Work →
-              </ScrollLink>
+              <div className="flex shrink-0 items-center gap-2.5 sm:pb-1">
+                {[
+                  { k: '03', v: 'Years shipping' },
+                  { k: '05', v: 'Systems built' },
+                ].map((s) => (
+                  <div
+                    key={s.v}
+                    className="rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-white/[0.03] px-3.5 py-2.5 backdrop-blur-md"
+                  >
+                    <div className="font-display text-[17px] font-semibold leading-none">
+                      {s.k}
+                    </div>
+                    <div className="mt-1 text-[9px] uppercase tracking-[0.14em] text-[#94A3B8]">
+                      {s.v}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Magnetic strength={18}>
+                <ScrollLink to="work" className={PRIMARY_CTA}>
+                  View Work
+                </ScrollLink>
+              </Magnetic>
+              <Magnetic strength={14}>
+                <ScrollLink to="contact" className={SECONDARY_CTA}>
+                  Start a project
+                </ScrollLink>
+              </Magnetic>
               <motion.a
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={reduced ? {} : { y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                className="grid h-[44px] cursor-pointer place-items-center rounded-full bg-[#F8FAFC] px-5 text-[14px] font-medium tracking-wide text-black transition-colors duration-300 hover:bg-white"
+                className="ml-1 inline-flex h-[46px] cursor-pointer items-center gap-2 px-2 text-[13px] text-[#94A3B8] transition-colors hover:text-white"
               >
-                GitHub — github.com/jerryboss322
+                <span aria-hidden="true" className="text-[13px] leading-none">↗</span>
+                GitHub
               </motion.a>
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.6}>
-            <div className="mt-10 grid max-w-[420px] grid-cols-3 border-t border-[rgba(255,255,255,0.08)] pt-6">
-              {HERO_STATS.map((stat) => (
-                <div key={stat.v}>
-                  <div className="font-display text-[22px] font-semibold tracking-tight">
-                    {stat.k}
-                  </div>
-                  <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#94A3B8]">
-                    {stat.v}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
+          {/* ---- Identity column ---- */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
+            className="relative hidden justify-self-end lg:block"
+            style={{ perspective: 1200 }}
+          >
+            <div className="relative w-[290px]">
+              {/* Orbital rings behind the portrait. */}
+              {!reduced && (
+                <>
+                  <motion.div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#00F0FF]/20"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
+                  >
+                    <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00F0FF] shadow-[0_0_14px_rgba(0,240,255,0.9)]" />
+                  </motion.div>
+                  <motion.div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#0077FF]/25"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+                  />
+                </>
+              )}
 
-        {/* Right column — profile card */}
-        <motion.div
-          className="relative"
-          animate={reduced ? {} : { y: [-6, 6] }}
-          transition={
-            reduced
-              ? {}
-              : { duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
-          }
-        >
-          {!reduced && (
-            <motion.div
-              aria-hidden="true"
-              className="pointer-events-none absolute -inset-3 rounded-[28px] border border-[#0077FF]/20"
-              style={{ transformStyle: 'preserve-3d' }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-            >
-              <div
-                className="absolute inset-0 rounded-[28px] border border-[#00F0FF]/15"
-                style={{ transform: 'rotateX(60deg)' }}
-              />
-            </motion.div>
-          )}
+              <motion.div
+                animate={reduced ? {} : { y: [-7, 7] }}
+                transition={
+                  reduced
+                    ? {}
+                    : { duration: 5.5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
+                }
+                className="relative overflow-hidden rounded-[22px] border border-[rgba(255,255,255,0.12)] bg-[#0A0E1A]/70 p-2 shadow-[0_30px_90px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl"
+              >
+                <Media
+                  asset={portrait}
+                  alt={`${profile.name} — software engineer`}
+                  priority
+                  sizes="280px"
+                  className="rounded-[16px]"
+                  imgClassName="object-cover object-top"
+                />
 
-          <div className="relative overflow-hidden rounded-[24px]">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -inset-6 -z-10 rounded-[32px] bg-[radial-gradient(60%_60%_at_50%_30%,rgba(0,119,255,0.22),rgba(0,240,255,0.14)_40%,transparent_70%)] blur-[28px]"
-            />
-            <div className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A]/70 p-5 shadow-[0_20px_80px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:p-6">
-              <div className="flex items-center gap-4">
-                <div className="relative h-[76px] w-[76px] rounded-full bg-[linear-gradient(135deg,#0077FF,#00F0FF)] p-[2px]">
-                  <div className="h-full w-full overflow-hidden rounded-full bg-[#02040A]">
-                    <img
-                      src={profile.heroPortrait}
-                      alt={`${profile.name} avatar`}
-                      className="h-full w-full object-cover object-top"
-                    />
+                <div className="pointer-events-none absolute inset-2 rounded-[16px] bg-[linear-gradient(180deg,transparent_45%,rgba(2,4,10,0.82))]" />
+
+                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+                  <div>
+                    <div className="text-[10px] tracking-[0.2em] text-[#00F0FF]">
+                      {profile.name}
+                    </div>
+                    <div className="mt-1 text-[15px] font-semibold leading-tight">
+                      {profile.role}
+                    </div>
                   </div>
-                  <span className="absolute -bottom-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-[#02040A]">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
+                  <span className="grid h-7 shrink-0 place-items-center rounded-full bg-white px-3 text-[10px] font-semibold text-black">
+                    Open
                   </span>
                 </div>
-                <div>
-                  <div className="font-display text-[18px] font-semibold leading-none tracking-tight">
-                    Jerry — {profile.name}
-                  </div>
-                  <div className="mt-1.5 text-[12px] leading-[1.4] text-[#94A3B8]">
-                    Software Engineer / Full-Stack
-                    <br />
-                    {profile.location} • UTC+1
-                  </div>
-                </div>
-              </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
 
-              <div className="mt-5 overflow-hidden rounded-[16px] border border-[rgba(255,255,255,0.08)] bg-[#02040A]">
-                <div className="relative aspect-[4/3]">
-                  <img
-                    src={profile.heroPortrait}
-                    alt={profile.name}
-                    className="absolute inset-0 h-full w-full object-cover object-[center_18%]"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_30%,rgba(2,4,10,0.85)_100%)]" />
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                    <span className="text-[11px] tracking-[0.14em] text-white/70">
-                      PROFILE — 2026
-                    </span>
-                    <span className="grid h-6 place-items-center rounded-full bg-white px-2.5 text-[11px] font-medium text-black">
-                      Available
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 grid grid-cols-2 gap-3 text-[12px]">
-                <div className="rounded-full border border-[rgba(255,255,255,0.08)] bg-white/[0.03] px-3 py-2 text-[#94A3B8]">
-                  <span className="text-white">Stack:</span> Next.js • React
-                </div>
-                <div className="rounded-full border border-[rgba(255,255,255,0.08)] bg-white/[0.03] px-3 py-2 text-[#94A3B8]">
-                  <span className="text-white">Focus:</span> Systems &amp; Detail
-                </div>
-              </div>
+      {/* ---- Tech marquee ---- */}
+      <div className="relative z-10 shrink-0 border-t border-[rgba(255,255,255,0.07)] bg-[#02040A]/50 py-3 backdrop-blur-sm">
+        <div className="flex items-center gap-6 overflow-hidden">
+          <span className="shrink-0 pl-6 text-[10px] tracking-[0.24em] text-[#64748B]">
+            STACK
+          </span>
+          <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+            <div
+              className="flex w-max gap-8 will-change-transform"
+              style={
+                reduced
+                  ? undefined
+                  : { animation: 'marquee 38s linear infinite' }
+              }
+            >
+              {MARQUEE.map((skill, i) => (
+                <span
+                  key={`${skill}-${i}`}
+                  className="flex shrink-0 items-center gap-8 text-[12px] tracking-[0.18em] text-[#94A3B8]"
+                >
+                  {skill.toUpperCase()}
+                  <span aria-hidden="true" className="h-1 w-1 rounded-full bg-[#00F0FF]/50" />
+                </span>
+              ))}
             </div>
           </div>
-        </motion.div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute bottom-24 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[10px] tracking-[0.26em] text-[#94A3B8] lg:flex">
+        <ScrambleText text="SCROLL" speed={0.05} stagger={0.03} />
+        <span aria-hidden="true" className="h-10 w-px bg-gradient-to-b from-[#00F0FF] to-transparent" />
       </div>
     </section>
   );
