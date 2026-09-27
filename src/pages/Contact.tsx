@@ -22,7 +22,7 @@ export const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="relative mx-auto max-w-[1280px] px-6 py-20 md:px-10 md:py-28">
-      <div className="relative overflow-hidden rounded-[28px] border border-[rgba(255,255,255,0.10)] bg-[#070A14]">
+      <div className="relative overflow-hidden rounded-[28px] border border-line-strong bg-ink-850">
         {/* Lit corner + grid, so the panel reads as a lit surface. */}
         <div
           aria-hidden="true"
@@ -30,13 +30,13 @@ export const ContactSection: React.FC = () => {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.5] [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(70%_70%_at_50%_30%,black,transparent)]"
+          className="pointer-events-none absolute inset-0 opacity-[0.5] [background-image:linear-gradient(var(--line-faint)_1px,transparent_1px),linear-gradient(90deg,var(--line-faint)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(70%_70%_at_50%_30%,black,transparent)]"
         />
 
         <div className="relative grid gap-12 p-8 md:p-14 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
           {/* ---- Pitch ---- */}
           <div>
-            <div className="text-[10px] uppercase tracking-[0.24em] text-[#00F0FF]/70">
+            <div className="eyebrow">
               Contact
             </div>
 
@@ -45,14 +45,14 @@ export const ContactSection: React.FC = () => {
                 depth={reduced ? 1 : 18}
                 step={1.1}
                 tilt={5}
-                back="#062A66"
-                front="#F8FAFC"
+                back="var(--accent-deep)"
+                front="var(--text-display)"
               >
                 LET&apos;S BUILD IT
               </Text3D>
             </h2>
 
-            <p className="mt-6 max-w-[46ch] text-[15px] leading-[1.8] text-[#94A3B8]">
+            <p className="mt-6 max-w-[46ch] text-[15px] leading-[1.8] text-body">
               Tell me what you are building and where it is stuck. I will reply
               with a straight read on scope, a realistic timeline, and whether I
               am the right person for it.
@@ -62,7 +62,7 @@ export const ContactSection: React.FC = () => {
               <Magnetic strength={18}>
                 <a
                   href={`mailto:${profile.email}`}
-                  className="relative inline-flex h-12 cursor-pointer items-center gap-2 overflow-hidden rounded-full bg-white pl-6 pr-3 text-[13.5px] font-medium text-black"
+                  className="relative inline-flex h-12 cursor-pointer items-center gap-2 overflow-hidden rounded-full bg-display pl-6 pr-3 text-[13.5px] font-medium text-onaccent"
                 >
                   <span className="relative z-10">{profile.email}</span>
                   <span
@@ -73,7 +73,7 @@ export const ContactSection: React.FC = () => {
                   </span>
                   <span
                     aria-hidden="true"
-                    className="absolute inset-0 origin-left scale-x-0 bg-[linear-gradient(90deg,#00F0FF,#0077FF)] transition-transform duration-500 ease-out hover:scale-x-100"
+                    className="absolute inset-0 origin-left scale-x-0 bg-[linear-gradient(90deg,var(--glow),var(--accent))] transition-transform duration-500 ease-out hover:scale-x-100"
                   />
                 </a>
               </Magnetic>
@@ -85,14 +85,14 @@ export const ContactSection: React.FC = () => {
                   rel="noopener noreferrer"
                   whileHover={reduced ? {} : { y: -2 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex h-12 cursor-pointer items-center rounded-full border border-[rgba(255,255,255,0.14)] px-5 text-[13.5px] text-[#CBD5E1] transition-colors duration-300 hover:border-white/35 hover:bg-white/[0.05] hover:text-white"
+                  className="inline-flex h-12 cursor-pointer items-center rounded-full border border-line-strong px-5 text-[13.5px] text-bright transition-colors duration-300 hover:border-white/35 hover:bg-tint-2 hover:text-display"
                 >
                   WhatsApp
                 </motion.a>
               </Magnetic>
             </div>
 
-            <div className="mt-10 border-t border-[rgba(255,255,255,0.08)] pt-8">
+            <div className="mt-10 border-t border-line pt-8">
               <ContactForm />
             </div>
           </div>
@@ -105,20 +105,20 @@ export const ContactSection: React.FC = () => {
             transition={{ duration: 0.7, ease: EASE }}
             className="lg:pt-4"
           >
-            <div className="rounded-[20px] border border-[rgba(255,255,255,0.09)] bg-[#02040A]/60 p-5 backdrop-blur-xl">
+            <div className="rounded-[20px] border border-line-strong bg-ink-900/60 p-5 backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <Media
                   asset={portrait}
                   alt=""
                   sizes="48px"
-                  className="h-12 w-12 shrink-0 rounded-full ring-1 ring-[#00F0FF]/25"
+                  className="h-12 w-12 shrink-0 rounded-full ring-1 ring-[var(--glow)]/25"
                   imgClassName="object-cover object-top"
                 />
                 <div className="min-w-0">
                   <div className="truncate text-[13.5px] font-medium">
                     {profile.fullName}
                   </div>
-                  <div className="truncate text-[11px] text-[#94A3B8]">{profile.role}</div>
+                  <div className="truncate text-[11px] text-body">{profile.role}</div>
                 </div>
                 <span
                   aria-hidden="true"
@@ -126,14 +126,14 @@ export const ContactSection: React.FC = () => {
                 />
               </div>
 
-              <dl className="mt-5 space-y-0 border-t border-[rgba(255,255,255,0.08)] pt-2">
+              <dl className="mt-5 space-y-0 border-t border-line pt-2">
                 {FACTS.map((fact) => (
                   <div
                     key={fact.k}
-                    className="flex items-center justify-between gap-3 border-b border-[rgba(255,255,255,0.05)] py-2.5 text-[12px] last:border-b-0"
+                    className="flex items-center justify-between gap-3 border-b border-line-faint py-2.5 text-[12px] last:border-b-0"
                   >
-                    <dt className="text-[#64748B]">{fact.k}</dt>
-                    <dd className="truncate text-right text-[#CBD5E1]">{fact.v}</dd>
+                    <dt className="text-muted">{fact.k}</dt>
+                    <dd className="truncate text-right text-bright">{fact.v}</dd>
                   </div>
                 ))}
               </dl>
@@ -150,7 +150,7 @@ export const ContactSection: React.FC = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-9 cursor-pointer items-center rounded-full border border-[rgba(255,255,255,0.10)] px-3.5 text-[11.5px] text-[#94A3B8] transition-colors duration-300 hover:border-[#00F0FF]/30 hover:text-white"
+                  className="inline-flex h-9 cursor-pointer items-center rounded-full border border-line-strong px-3.5 text-[11.5px] text-body transition-colors duration-300 hover:border-[var(--glow)]/30 hover:text-display"
                 >
                   {link.label}
                 </a>

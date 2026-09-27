@@ -38,7 +38,7 @@ export const SystemsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="systems"
-      className="relative overflow-hidden border-y border-[rgba(255,255,255,0.08)] bg-[#05080F] py-20 md:py-28"
+      className="relative overflow-hidden border-y border-line bg-ink-800 py-20 md:py-28"
     >
       <div
         aria-hidden="true"
@@ -48,14 +48,14 @@ export const SystemsSection: React.FC = () => {
       <div className="relative mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.24em] text-[#00F0FF]/70">
+            <div className="eyebrow">
               Operating principles
             </div>
             <h2 className="font-display mt-4 text-[40px] font-semibold leading-[0.9] tracking-[-0.035em] md:text-[58px]">
               How I think
             </h2>
           </div>
-          <p className="max-w-[36ch] text-[13px] leading-[1.7] text-[#94A3B8]">
+          <p className="max-w-[36ch] text-[13px] leading-[1.7] text-body">
             Six rules I apply to every project, client or personal. They decide
             what gets cut when the timeline gets tight.
           </p>
@@ -86,16 +86,16 @@ export const SystemsSection: React.FC = () => {
             {/* Depth cues at the edges. */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-[linear-gradient(to_right,#05080F,transparent)]"
+              className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-[linear-gradient(to_right,var(--ink-800),transparent)]"
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-[linear-gradient(to_left,#05080F,transparent)]"
+              className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-[linear-gradient(to_left,var(--ink-800),transparent)]"
             />
           </div>
 
           <div className="relative mx-auto -mt-2 max-w-[1280px] px-6 text-center md:px-10">
-            <span className="rounded-full border border-[rgba(255,255,255,0.09)] bg-[#05080F]/80 px-4 py-1.5 text-[10px] uppercase tracking-[0.24em] text-[#64748B] backdrop-blur">
+            <span className="rounded-full border border-line-strong bg-ink-800/80 px-4 py-1.5 eyebrow backdrop-blur">
               Scroll to step through
             </span>
           </div>
@@ -127,7 +127,7 @@ const FlowCard: React.FC<{
       <div
         className={[
           'h-full overflow-hidden rounded-[20px] border p-6 backdrop-blur-md',
-          'border-[rgba(255,255,255,0.09)]',
+          'border-line-strong',
           'bg-[linear-gradient(160deg,rgba(15,23,42,0.96),rgba(8,12,22,0.96))]',
           'shadow-[0_30px_70px_-40px_rgba(0,0,0,0.95)]',
         ].join(' ')}
@@ -138,19 +138,19 @@ const FlowCard: React.FC<{
         />
 
         <div className="relative flex items-baseline justify-between">
-          <span className="font-display text-[13px] font-semibold tracking-[0.18em] text-[#00F0FF]/75">
+          <span className="font-display text-[13px] font-semibold tracking-[0.18em] text-glow/75">
             {item.id}
           </span>
           <span
             aria-hidden="true"
-            className="h-1.5 w-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_10px_rgba(0,240,255,0.7)]"
+            className="h-1.5 w-1.5 rounded-full bg-glow shadow-[0_0_10px_rgba(0,240,255,0.7)]"
           />
         </div>
 
         <h3 className="font-display relative mt-5 text-[18px] font-semibold leading-tight tracking-tight">
           {item.title}
         </h3>
-        <p className="relative mt-3 text-[12.5px] leading-[1.7] text-[#94A3B8]">
+        <p className="relative mt-3 text-[12.5px] leading-[1.7] text-body">
           {item.description}
         </p>
       </div>
@@ -168,17 +168,17 @@ const PrincipleCard: React.FC<{
     whileInView={reduced ? {} : { opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-60px' }}
     transition={{ duration: 0.5, delay: index * 0.06, ease: EASE }}
-    className="relative overflow-hidden rounded-[18px] border border-[rgba(255,255,255,0.09)] bg-[linear-gradient(160deg,rgba(15,23,42,0.95),rgba(8,12,22,0.95))] p-5"
+    className="relative overflow-hidden rounded-[18px] border border-line-strong bg-[linear-gradient(160deg,rgba(15,23,42,0.95),rgba(8,12,22,0.95))] p-5"
   >
     <div className="flex items-baseline justify-between">
-      <span className="font-display text-[13px] font-semibold tracking-[0.16em] text-[#00F0FF]/70">
+      <span className="font-display text-[13px] font-semibold tracking-[0.16em] text-glow/70">
         {item.id}
       </span>
     </div>
     <h3 className="font-display mt-4 text-[17px] font-semibold leading-tight tracking-tight">
       {item.title}
     </h3>
-    <p className="mt-2.5 text-[12.5px] leading-[1.65] text-[#94A3B8]">{item.description}</p>
+    <p className="mt-2.5 text-[12.5px] leading-[1.65] text-body">{item.description}</p>
   </motion.article>
 );
 

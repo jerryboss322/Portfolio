@@ -17,6 +17,31 @@ const SCALE_START = 0.62;
 const FRAME_SLOW = 30;
 const FRAME_FAST = 20;
 
+/** sRGB -> linear, because gl.uniform3f wants linear and the tokens are sRGB. */
+const toLinear = (channel: number) =>
+  channel <= 0.04045 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+
+/**
+ * Reads a colour straight off :root so the shader is driven by the same tokens
+ * as the rest of the UI. Anything hardcoded here would silently drift the next
+ * time the palette changes.
+ */
+const readToken = (name: string, fallback: [number, number, number]) => {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  if (!raw) return fallback;
+  const probe = document.createElement('span');
+  probe.style.color = `rgb(${raw})`;
+  document.body.appendChild(probe);
+  const parts = getComputedStyle(probe).color.match(/[\d.]+/g)?.map(Number);
+  probe.remove();
+  if (!parts || parts.length < 3) return fallback;
+  return [toLinear(parts[0] / 255), toLinear(parts[1] / 255), toLinear(parts[2] / 255)] as [
+    number,
+    number,
+    number,
+  ];
+};
+
 const compile = (gl: WebGL2RenderingContext, type: number, source: string) => {
   const shader = gl.createShader(type);
   if (!shader) return null;
@@ -86,7 +111,32 @@ export const HeroCanvas: React.FC = () => {
     const uTime = gl.getUniformLocation(program, 'uTime');
     const uPointer = gl.getUniformLocation(program, 'uPointer');
     const uScroll = gl.getUniformLocation(program, 'uScroll');
+    const uInk = gl.getUniformLocation(program, 'uInk');
+    const uAccent = gl.getUniformLocation(program, 'uAccent');
+    const uGlow = gl.getUniformLocation(program, 'uGlow');
+    const uSignal = gl.getUniformLocation(program, 'uSignal');
+    const uTheme = gl.getUniformLocation(program, 'uTheme');
 
+    const isLight = () => document.documentElement.dataset.theme === 'light';
+
+    let paletteTheme = isLight() ? 'light' : 'dark';
+
+    /* Re-read on theme change so the palette tracks it without a rebuild. */
+    const applyPalette = () => {
+      const ink = readToken('--ink-900', [0.02, 0.024, 0.043]);
+      const accent = readToken('--accent', [0.239, 0.42, 1]);
+      const glow = readToken('--glow', [0.122, 0.878, 0.804]);
+      const signal = readToken('--signal', [1, 0.706, 0.329]);
+      gl.uniform3f(uInk, ink[0], ink[1], ink[2]);
+      gl.uniform3f(uAccent, accent[0], accent[1], accent[2]);
+      gl.uniform3f(uGlow, glow[0], glow[1], glow[2]);
+      gl.uniform3f(uSignal, signal[0], signal[1], signal[2]);
+      gl.uniform1f(uTheme, isLight() ? 1 : 0);
+      paletteTheme = isLight() ? 'light' : 'dark';
+    };
+    applyPalette();
+
+    const startTime = performance.now();
     const pointer = { x: 0, y: 0 };
     const pointerTarget = { x: 0, y: 0 };
 
@@ -130,6 +180,23 @@ export const HeroCanvas: React.FC = () => {
       lost = false;
     };
 
+    const themeObserver = new MutationObserver(() => {
+      const next = isLight() ? 'light' : 'dark';
+      if (next === paletteTheme) return;
+      applyPalette();
+      /* Force one immediate repaint so the switch is not gated on the next
+         scheduled frame. */
+      if (onScreen && !hidden) {
+        gl.uniform1f(uTime, (performance.now() - startTime) / 1000);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      }
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         onScreen = entry.isIntersecting;
@@ -163,7 +230,6 @@ export const HeroCanvas: React.FC = () => {
       cancelAnimationFrame(rafId);
     };
 
-    const startTime = performance.now();
     let lastTime = 0;
     let smoothed = FRAME_FAST;
 
@@ -210,6 +276,7 @@ export const HeroCanvas: React.FC = () => {
 
     return () => {
       stop();
+      themeObserver.disconnect();
       observer.disconnect();
       resizeObserver.disconnect();
       window.removeEventListener('pointermove', onPointerMove);
@@ -234,7 +301,7 @@ export const HeroCanvas: React.FC = () => {
           background:
             'radial-gradient(60% 55% at 62% 38%, rgba(0,119,255,0.22), transparent 62%),' +
             'radial-gradient(45% 45% at 22% 78%, rgba(0,240,255,0.12), transparent 65%),' +
-            '#02040A',
+            'var(--ink-900)',
         }}
       />
       {enabled && (

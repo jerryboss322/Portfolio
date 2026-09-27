@@ -106,14 +106,14 @@ export const DeviceFrame: React.FC<DeviceProps> = ({
         style={reduced ? undefined : { transform: 'rotateX(6deg) rotateY(-9deg)' }}
       >
         {/* Bezel */}
-        <div className="relative overflow-hidden rounded-[14px] border border-[rgba(255,255,255,0.14)] bg-[#05070E] p-[6px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95),0_0_0_1px_rgba(0,119,255,0.16)]">
+        <div className="relative overflow-hidden rounded-[14px] border border-line-strong bg-ink-900 p-[6px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95),0_0_0_1px_rgba(0,119,255,0.16)]">
           {/* Chrome */}
-          <div className="flex h-[30px] items-center gap-1.5 rounded-t-[9px] bg-[#0B0F1A] px-3">
+          <div className="flex h-[30px] items-center gap-1.5 rounded-t-[9px] bg-ink-800 px-3">
             <span className="h-[7px] w-[7px] rounded-full bg-[#FF5F56]/70" />
             <span className="h-[7px] w-[7px] rounded-full bg-[#FFBD2E]/70" />
             <span className="h-[7px] w-[7px] rounded-full bg-[#27C93F]/70" />
-            <div className="ml-2 flex h-[16px] flex-1 items-center justify-center rounded-[5px] bg-white/[0.04] px-3">
-              <span className="truncate font-mono text-[9px] tracking-wider text-[#7A8699]">
+            <div className="ml-2 flex h-[16px] flex-1 items-center justify-center rounded-[5px] bg-tint-2 px-3">
+              <span className="truncate font-mono text-[9px] tracking-wider text-faint">
                 {title}
               </span>
             </div>
@@ -124,7 +124,7 @@ export const DeviceFrame: React.FC<DeviceProps> = ({
           {/* Screen sheen — a diagonal highlight across the glass. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-[6px] rounded-b-[9px] bg-[linear-gradient(115deg,rgba(255,255,255,0.10)_0%,transparent_28%,transparent_72%,rgba(0,240,255,0.05)_100%)]"
+            className="pointer-events-none absolute inset-[6px] rounded-b-[9px] bg-[linear-gradient(115deg,var(--sheen)_0%,transparent_28%,transparent_72%,color-mix(in oklab, var(--glow) 5%, transparent))]"
           />
         </div>
 

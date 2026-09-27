@@ -61,7 +61,7 @@ const ProjectRow: React.FC<{
       whileInView={reduced ? {} : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-90px' }}
       transition={{ duration: 0.75, ease: EASE }}
-      className="group relative border-t border-[rgba(255,255,255,0.08)] py-14 first:border-t-0 md:py-20"
+      className="group relative border-t border-line py-14 first:border-t-0 md:py-20"
     >
       {/* Oversized index numeral, behind everything. It is wrapped in its own
           clipping layer: the numeral deliberately bleeds past the text edge, and
@@ -69,7 +69,7 @@ const ProjectRow: React.FC<{
           and the 3D tilt. */}
       <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <span
-          className="font-display absolute -top-2 select-none text-[120px] font-bold leading-none tracking-tighter text-white/[0.035] md:text-[170px]"
+          className="font-display absolute -top-2 select-none text-[120px] font-bold leading-none tracking-tighter text-display/[0.035] md:text-[170px]"
           style={{ [flip ? 'right' : 'left']: '-0.06em' }}
         >
           {String(index + 1).padStart(2, '0')}
@@ -88,10 +88,10 @@ const ProjectRow: React.FC<{
           className={flip ? 'lg:[direction:ltr]' : ''}
         >
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="rounded-full border border-[#00F0FF]/25 bg-[#00F0FF]/[0.07] px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-[#7DD3FC]">
+            <span className="eyebrow rounded-full border border-glow/25 bg-glow/[0.07] px-2.5 py-1 text-glow">
               {TYPE_LABEL[project.type]}
             </span>
-            <span className="text-[10px] uppercase tracking-[0.16em] text-[#64748B]">
+            <span className="eyebrow">
               {project.year}
             </span>
           </div>
@@ -99,27 +99,27 @@ const ProjectRow: React.FC<{
           <h3 className="font-display mt-5 text-[34px] font-semibold leading-[0.94] tracking-[-0.03em] md:text-[46px]">
             {project.title}
           </h3>
-          <div className="mt-2 text-[14px] text-[#00F0FF]/80">{project.subtitle}</div>
+          <div className="mt-2 text-[14px] text-glow/80">{project.subtitle}</div>
 
-          <p className="mt-5 max-w-[48ch] text-[14px] leading-[1.75] text-[#94A3B8] md:text-[15px]">
+          <p className="mt-5 max-w-[48ch] text-[14px] leading-[1.75] text-body md:text-[15px]">
             {project.summary}
           </p>
 
           {/* Challenge / outcome — the two things a client actually cares about. */}
-          <div className="mt-7 grid gap-px overflow-hidden rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.08)] sm:grid-cols-2">
-            <div className="bg-[#070A14] p-4">
-              <div className="text-[9px] uppercase tracking-[0.18em] text-[#64748B]">
+          <div className="mt-7 grid gap-px overflow-hidden rounded-[14px] border border-line bg-line sm:grid-cols-2">
+            <div className="bg-ink-850 p-4">
+              <div className="text-[9px] uppercase tracking-[0.18em] text-muted">
                 The problem
               </div>
-              <p className="mt-2 text-[12.5px] leading-[1.6] text-[#CBD5E1]">
+              <p className="mt-2 text-[12.5px] leading-[1.6] text-bright">
                 {project.challenge[0]}
               </p>
             </div>
-            <div className="bg-[#070A14] p-4">
-              <div className="text-[9px] uppercase tracking-[0.18em] text-[#64748B]">
+            <div className="bg-ink-850 p-4">
+              <div className="text-[9px] uppercase tracking-[0.18em] text-muted">
                 What shipped
               </div>
-              <p className="mt-2 text-[12.5px] leading-[1.6] text-[#CBD5E1]">
+              <p className="mt-2 text-[12.5px] leading-[1.6] text-bright">
                 {project.solution[0]}
               </p>
             </div>
@@ -129,10 +129,10 @@ const ProjectRow: React.FC<{
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
               {project.metrics.map((m) => (
                 <div key={m.label}>
-                  <div className="font-display text-[20px] font-semibold leading-none tracking-tight text-white">
+                  <div className="font-display text-[20px] font-semibold leading-none tracking-tight text-display">
                     {m.value}
                   </div>
-                  <div className="mt-1.5 text-[10px] uppercase tracking-[0.13em] text-[#64748B]">
+                  <div className="mt-1.5 eyebrow">
                     {m.label}
                   </div>
                 </div>
@@ -144,7 +144,7 @@ const ProjectRow: React.FC<{
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="rounded-md border border-[rgba(255,255,255,0.09)] bg-white/[0.02] px-2.5 py-1 font-mono text-[10.5px] text-[#94A3B8] transition-colors duration-300 hover:border-[#00F0FF]/30 hover:text-[#7DD3FC]"
+                className="rounded-md border border-line-strong bg-tint-1 px-2.5 py-1 font-mono text-[10.5px] text-body transition-colors duration-300 hover:border-[var(--glow)]/30 hover:text-glow"
               >
                 {t}
               </span>
@@ -156,7 +156,7 @@ const ProjectRow: React.FC<{
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn relative inline-flex h-11 cursor-pointer items-center gap-2 overflow-hidden rounded-full border border-transparent bg-white pl-5 pr-3 text-[13px] font-medium text-black"
+              className="group/btn relative inline-flex h-11 cursor-pointer items-center gap-2 overflow-hidden rounded-full border border-transparent bg-display pl-5 pr-3 text-[13px] font-medium text-onaccent"
             >
               <span className="relative z-10">Live site</span>
               <span
@@ -167,14 +167,14 @@ const ProjectRow: React.FC<{
               </span>
               <span
                 aria-hidden="true"
-                className="absolute inset-0 origin-left scale-x-0 bg-[linear-gradient(90deg,#00F0FF,#0077FF)] transition-transform duration-500 ease-out group-hover/btn:scale-x-100"
+                className="absolute inset-0 origin-left scale-x-0 bg-[linear-gradient(90deg,var(--glow),var(--accent))] transition-transform duration-500 ease-out group-hover/btn:scale-x-100"
               />
             </a>
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-11 cursor-pointer items-center rounded-full border border-[rgba(255,255,255,0.14)] px-5 text-[13px] text-[#CBD5E1] transition-colors duration-300 hover:border-white/35 hover:bg-white/[0.05] hover:text-white"
+              className="inline-flex h-11 cursor-pointer items-center rounded-full border border-line-strong px-5 text-[13px] text-bright transition-colors duration-300 hover:border-white/35 hover:bg-tint-2 hover:text-display"
             >
               Source
             </a>
@@ -209,7 +209,7 @@ export const WorkSection: React.FC = () => {
     <section id="work" className="mx-auto max-w-[1280px] px-6 md:px-10 md:py-24">
       <div className="flex flex-wrap items-end justify-between gap-6 pb-10">
         <div>
-          <div className="text-[10px] uppercase tracking-[0.24em] text-[#00F0FF]/70">
+          <div className="eyebrow">
             Selected work — 2024 / 2026
           </div>
           <h2 className="font-display mt-4 text-[40px] font-semibold leading-[0.9] tracking-[-0.035em] md:text-[64px]">
@@ -218,7 +218,7 @@ export const WorkSection: React.FC = () => {
             </Text3D>
           </h2>
         </div>
-        <p className="max-w-[34ch] text-[13px] leading-[1.7] text-[#94A3B8]">
+        <p className="max-w-[34ch] text-[13px] leading-[1.7] text-body">
           <ScrambleText text="Each one built end to end" speed={0.03} />{' '}
           — schema, API, interface, and the deployment that runs it.
         </p>

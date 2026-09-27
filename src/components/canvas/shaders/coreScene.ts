@@ -30,6 +30,15 @@ uniform float uTime;
 uniform vec2  uPointer;
 uniform float uScroll;
 
+/* Palette arrives as uniforms from the CSS tokens rather than being baked in
+   here, so a theme switch repaints the nebula instead of leaving it on the
+   previous theme's colours. */
+uniform vec3  uInk;     /* page ground */
+uniform vec3  uAccent;  /* primary azure */
+uniform vec3  uGlow;    /* secondary teal */
+uniform vec3  uSignal;  /* warm counterpoint */
+uniform float uTheme;   /* 0 = dark, 1 = light */
+
 out vec4 fragColor;
 
 const int   SOLID_STEPS = 48;
@@ -37,10 +46,6 @@ const int   VOL_STEPS  = 48;
 const float SOLID_DIST = 12.0;
 const float SURF_DIST  = 0.0016;
 const float CORE_R     = 1.42;
-
-const vec3 C_BLUE = vec3(0.000, 0.467, 1.000);
-const vec3 C_CYAN = vec3(0.000, 0.941, 1.000);
-const vec3 C_DEEP = vec3(0.008, 0.016, 0.039);
 
 mat2 rot(float a) {
   float c = cos(a);
@@ -123,16 +128,22 @@ vec4 volumeMarch(vec3 ro, vec3 rd, float tStart, float tEnd) {
     float d = latticeDensity(p);
 
     if (d > 0.004) {
-      /* Denser, whiter toward the centre of the shell. */
+      /* Tri-tone ramp across the shell: azure at the rim, teal through the
+         mid, and a warm signal highlight where the web faces the key light.
+         A two-tone ramp left the far side of the sphere reading as one flat
+         colour; the third stop is what gives the volume a light direction. */
       float depth = 1.0 - smoothstep(0.3, 1.35, length(p));
-      vec3 c = mix(C_BLUE * 0.85, C_CYAN, depth * 0.75 + 0.25);
-      c = mix(c, vec3(0.85, 0.97, 1.0), depth * 0.35);
+      float warmth = smoothstep(-0.2, 0.9, p.y * 0.7 + p.x * 0.3);
 
-      float a = 1.0 - exp(-d * 3.4 * dt);
+      vec3 c = mix(uAccent, uGlow, depth);
+      c = mix(c, uSignal, warmth * 0.30);
+      c = mix(c, mix(uGlow, vec3(1.0), 0.55), depth * depth * 0.30);
+
+      float a = 1.0 - exp(-d * mix(3.4, 1.15, uTheme) * dt);
       acc.rgb += (1.0 - acc.a) * c * a;
       acc.a += (1.0 - acc.a) * a;
 
-      if (acc.a > 0.985) break;
+      if (acc.a > mix(0.985, 0.80, uTheme)) break;
     }
     t += dt;
   }
@@ -195,8 +206,8 @@ vec3 shadeSolid(vec3 p, vec3 rd) {
   float curve = 0.35 + 0.65 * clamp(dot(n, normalize(vec3(-0.4, 0.6, 0.7))), 0.0, 1.0);
   vec3 col = vec3(0.10, 0.26, 0.52) * (0.10 + 0.95 * dif * curve);
   col += spe * vec3(0.80, 0.93, 1.00) * 1.10;
-  col += fres * C_CYAN * 0.85;
-  col += C_CYAN * 0.10 * pow(1.0 - clamp(dot(n, v), 0.0, 1.0), 1.5);
+  col += fres * uGlow * 0.85;
+  col += uGlow * 0.10 * pow(1.0 - clamp(dot(n, v), 0.0, 1.0), 1.5);
   return col;
 }
 
@@ -210,12 +221,24 @@ mat3 setCamera(vec3 ro, vec3 ta, float cr) {
 
 vec3 sky(vec3 rd) {
   float g = smoothstep(-0.65, 0.95, rd.y);
-  vec3 c = mix(C_DEEP, vec3(0.010, 0.022, 0.058), g);
-  c += C_BLUE * 0.030 * pow(1.0 - abs(rd.y), 8.0);
+
+  /* Dark: near-black ground lifting to a deep blue at the horizon.
+     Light: a paper-white ground with a faint cool cast. The nebula has to sit
+     *on* the page in light mode, not glow through it, so the whole ramp
+     inverts and the contrast drops. */
+  vec3 lowDark  = uInk;
+  vec3 highDark = mix(uInk, uAccent, 0.16);
+  vec3 lowLight = mix(uInk, vec3(1.0), 0.06);
+  vec3 highLight = vec3(1.0);
+
+  vec3 c = mix(mix(lowLight, highLight, g), mix(lowDark, highDark, g), 1.0 - uTheme);
+  c += uAccent * mix(0.030, 0.055, uTheme) * pow(1.0 - abs(rd.y), 8.0);
   return c;
 }
 
 float stars(vec3 rd) {
+  /* Stars belong to the night. In light mode they would read as dust. */
+  if (uTheme > 0.5) return 0.0;
   vec2 uv = vec2(atan(rd.z, rd.x) * 0.1591, rd.y * 0.5 + 0.5) * 260.0;
   float h = hash21(floor(uv));
   if (h < 0.9905) return 0.0;
@@ -253,12 +276,19 @@ void main() {
   vec4 vol = volumeMarch(ro, rd, tEnter, tEnd);
   vec3 col = behind * (1.0 - vol.a) + vol.rgb;
 
-  /* Reinhard rolloff, then gamma. */
-  col = col / (1.0 + col);
-  col = pow(max(col, 0.0), vec3(0.4545));
+  /* Reinhard rolloff, then gamma — but only part-strength in light mode. That
+     curve exists to tame a bright HDR-ish dark render; applied to an already
+     display-referred light palette it just muddies everything toward grey. */
+  float rolloff = mix(1.0, 0.28, uTheme);
+  vec3 mapped = col / (1.0 + col);
+  col = mix(col, mapped, rolloff);
+  col = pow(max(col, 0.0), vec3(mix(0.4545, 0.92, uTheme)));
 
+  /* Vignette stays, but lighter grounds need a softer edge or the corners
+     read as grey smudges rather than shading. */
   vec2 q = gl_FragCoord.xy / uRes;
-  col *= 0.58 + 0.42 * pow(16.0 * q.x * q.y * (1.0 - q.x) * (1.0 - q.y), 0.22);
+  float vig = pow(16.0 * q.x * q.y * (1.0 - q.x) * (1.0 - q.y), 0.22);
+  col *= mix(0.58 + 0.42 * vig, 0.82 + 0.18 * vig, uTheme);
 
   /* Dither kills the banding that dark gradients always show. */
   col += (hash21(gl_FragCoord.xy + fract(uTime)) - 0.5) * 0.0055;

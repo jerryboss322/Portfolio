@@ -40,8 +40,8 @@ export const Text3D: React.FC<Text3DProps> = ({
   className,
   depth = 18,
   step = 1.15,
-  back = '#0B2A6B',
-  front = '#F8FAFC',
+  back = 'var(--accent-deep)',
+  front = 'var(--text-display)',
   tilt = 6,
   shade = true,
 }) => {
@@ -125,23 +125,53 @@ export const Text3D: React.FC<Text3DProps> = ({
 };
 
 /**
- * Blend two hex colours. Kept dependency-free because this only ever runs
- * `depth` times at mount.
+/**
+ * Resolve a colour to [r, g, b]. Accepts hex or any CSS colour string.
+ *
+ * Token values arrive as `var(--…)`, which cannot be parsed numerically, so
+ * they are resolved through a throwaway element. That forces a synchronous
+ * style recalc — doing it per slice meant ~80 forced reflows on first paint
+ * and pushed the test suite past its timeout. Results are cached and keyed by
+ * theme, because the resolved value flips with the palette.
  */
-const mix = (from: string, to: string, t: number) => {
-  const parse = (hex: string) => {
-    const v = hex.replace('#', '');
-    const full = v.length === 3 ? v.split('').map((c) => c + c).join('') : v;
+const rgbCache = new Map<string, [number, number, number]>();
+
+const resolveColor = (value: string): [number, number, number] => {
+  const v = value.trim();
+
+  if (v.startsWith('#')) {
+    const hex = v.slice(1);
+    const full = hex.length === 3 ? hex.split('').map((c) => c + c).join('') : hex;
     return [
       parseInt(full.slice(0, 2), 16),
       parseInt(full.slice(2, 4), 16),
       parseInt(full.slice(4, 6), 16),
     ];
-  };
-  const a = parse(from);
-  const b = parse(to);
-  const c = a.map((av, i) => Math.round(av + (b[i] - av) * Math.min(1, Math.max(0, t))));
-  return `rgb(${c[0]} ${c[1]} ${c[2]})`;
+  }
+
+  const theme = document.documentElement.dataset.theme ?? 'dark';
+  const key = `${theme}:${v}`;
+  const hit = rgbCache.get(key);
+  if (hit) return hit;
+
+  const probe = document.createElement('span');
+  probe.style.color = v;
+  document.body.appendChild(probe);
+  const rgb = getComputedStyle(probe).color;
+  probe.remove();
+
+  const [r = 0, g = 0, b = 0] = rgb.match(/[\d.]+/g)?.map(Number) ?? [];
+  const out: [number, number, number] = [r, g, b];
+  rgbCache.set(key, out);
+  return out;
+};
+
+/** Blend two colours. Resolves through the cache so tokens work as either end. */
+const mix = (from: string, to: string, t: number): string => {
+  const a = resolveColor(from);
+  const b = resolveColor(to);
+  const k = Math.min(1, Math.max(0, t));
+  return `rgb(${a.map((av, i) => Math.round(av + (b[i] - av) * k)).join(' ')})`;
 };
 
 export default Text3D;

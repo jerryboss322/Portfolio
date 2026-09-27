@@ -5,17 +5,28 @@ export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[rgba(255,255,255,0.08)]">
-      <div className="mx-auto flex h-[64px] max-w-[1200px] items-center justify-between px-6 text-[11px] tracking-[0.14em] text-[#94A3B8] md:px-8">
-        <div>© {year} {profile.name} — {profile.location}</div>
-        <div className="hidden md:block">
-          Built with React + Framer Motion + Lenis + Three.js
+    <footer className="relative border-t border-line">
+      <div className="mx-auto grid max-w-[1280px] gap-6 px-6 py-10 text-[11px] tracking-[0.14em] text-muted md:grid-cols-3 md:items-center md:px-10">
+        <div>
+          © {year} {profile.name} — {profile.location}
         </div>
-        <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#0077FF]" />
+
+        {/* Credit reflects what this site actually ships. It previously named
+            three.js, which the WebGL hero replaced. */}
+        <div className="hidden text-center md:block">
+          React · TypeScript · Tailwind · Framer Motion · raw WebGL2
+        </div>
+
+        <div className="flex items-center gap-2 md:justify-end">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-signal"
+          />
           <span>SYSTEMS THINKING</span>
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;

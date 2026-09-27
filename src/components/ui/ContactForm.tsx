@@ -6,8 +6,8 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 const SUBMIT_URL = 'https://api.web3forms.com/submit';
 
 const INPUT_CLASS =
-  'w-full rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[#02040A]/60 px-4 py-3 text-[14px] text-white placeholder:text-[#475569] outline-none transition-colors focus:border-[#0077FF]/60';
-const LABEL_CLASS = 'text-[11px] tracking-[0.2em] text-[#94A3B8]';
+  'w-full rounded-[12px] border border-line bg-ink-900/60 px-4 py-3 text-[14px] text-display placeholder:text-faint outline-none transition-colors focus:border-[var(--accent)]/60';
+const LABEL_CLASS = 'text-[11px] tracking-[0.2em] text-body';
 
 export const ContactForm: React.FC = () => {
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -114,23 +114,23 @@ export const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="grid h-10 cursor-pointer place-items-center rounded-full bg-white px-6 text-[13px] font-medium text-black transition-all duration-300 hover:-translate-y-[2px] hover:bg-[#F8FAFC] hover:shadow-[0_10px_30px_rgba(0,119,255,0.35)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-white disabled:hover:shadow-none"
+          className="grid h-10 cursor-pointer place-items-center rounded-full bg-display px-6 text-[13px] font-medium text-onaccent transition-all duration-300 hover:-translate-y-[2px] hover:bg-bright hover:shadow-[0_10px_30px_color-mix(in_oklab,var(--accent)_35%,transparent)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-display disabled:hover:shadow-none"
         >
           {status === 'submitting' ? 'Sending…' : 'Send Message'}
         </button>
-        <span className="text-[12px] text-[#94A3B8]">Replies go straight to my inbox</span>
+        <span className="text-[12px] text-body">Replies go straight to my inbox</span>
       </div>
 
       <p role="status" aria-live="polite" className="mt-3 text-[13px]">
         {status === 'success' && (
-          <span className="text-emerald-400">Message sent — I&apos;ll get back to you shortly.</span>
+          <span className="text-success">Message sent — I&apos;ll get back to you shortly.</span>
         )}
         {status === 'error' && (
-          <span className="text-[#F87171]">
+          <span className="text-danger">
             Something went wrong. Please email me directly at{' '}
             <a
               href={`mailto:${profile.email}`}
-              className="text-[#00F0FF] underline underline-offset-2 hover:text-[#0077FF]"
+              className="text-glow underline underline-offset-2 hover:text-accent"
             >
               {profile.email}
             </a>

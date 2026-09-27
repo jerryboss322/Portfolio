@@ -25,7 +25,7 @@ export const AboutSection: React.FC = () => {
   const spineScale = useTransform(scrollYProgress, [0, 1], [0.04, 1]);
 
   return (
-    <section id="about" className="relative overflow-hidden border-t border-[rgba(255,255,255,0.08)]">
+    <section id="about" className="relative overflow-hidden border-t border-line">
       <div className="mx-auto grid max-w-[1280px] gap-14 px-6 py-20 md:px-10 md:py-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
         {/* ---- Portrait ---- */}
         <div className="relative [perspective:1300px]">
@@ -37,7 +37,7 @@ export const AboutSection: React.FC = () => {
             className="relative"
             style={reduced ? undefined : { transform: 'rotateY(8deg) rotateX(3deg)' }}
           >
-            <div className="relative overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[#0A0E1A] p-2 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.95)]">
+            <div className="relative overflow-hidden rounded-[24px] border border-line-strong bg-ink-700 p-2 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.95)]">
               <Media
                 asset={portrait}
                 alt={`Jerry Adewole — ${about.paragraphs[0]}`}
@@ -48,18 +48,18 @@ export const AboutSection: React.FC = () => {
               <div className="pointer-events-none absolute inset-2 rounded-[17px] bg-[linear-gradient(180deg,transparent_52%,rgba(2,4,10,0.88))]" />
 
               <div className="absolute inset-x-6 bottom-6">
-                <div className="text-[15px] leading-[1.5] text-white">
+                <div className="text-[15px] leading-[1.5] text-display">
                   “{about.pullQuote}”
                 </div>
               </div>
             </div>
 
             {/* Accent plate breaking the frame. */}
-            <div className="absolute -bottom-5 -right-5 rounded-[16px] border border-[#00F0FF]/25 bg-[#05080F]/90 px-5 py-3.5 backdrop-blur-xl">
+            <div className="absolute -bottom-5 -right-5 rounded-[16px] border border-[var(--glow)]/25 bg-ink-800/90 px-5 py-3.5 backdrop-blur-xl">
               <div className="font-display text-[22px] font-bold leading-none tracking-tight">
-                3<span className="text-[13px] text-[#00F0FF]">+</span>
+                3<span className="text-[13px] text-glow">+</span>
               </div>
-              <div className="mt-1.5 text-[9px] uppercase tracking-[0.16em] text-[#94A3B8]">
+              <div className="mt-1.5 text-[9px] uppercase tracking-[0.16em] text-body">
                 Years
               </div>
             </div>
@@ -68,7 +68,7 @@ export const AboutSection: React.FC = () => {
 
         {/* ---- Copy + timeline ---- */}
         <div>
-          <div className="text-[10px] uppercase tracking-[0.24em] text-[#00F0FF]/70">
+          <div className="eyebrow">
             About
           </div>
           <h2 className="font-display mt-4 text-[34px] font-semibold leading-[0.95] tracking-[-0.03em] md:text-[48px]">
@@ -77,10 +77,10 @@ export const AboutSection: React.FC = () => {
             </Text3D>
           </h2>
 
-          <p className="mt-6 max-w-[56ch] text-[15px] leading-[1.8] text-[#94A3B8]">
+          <p className="mt-6 max-w-[56ch] text-[15px] leading-[1.8] text-body">
             {about.paragraphs[0]}
           </p>
-          <p className="mt-4 max-w-[56ch] text-[14px] leading-[1.8] text-[#64748B]">
+          <p className="mt-4 max-w-[56ch] text-[14px] leading-[1.8] text-muted">
             {about.paragraphs[2]}
           </p>
 
@@ -90,7 +90,7 @@ export const AboutSection: React.FC = () => {
               <span
                 key={value.title}
                 title={value.description}
-                className="cursor-default rounded-lg border border-[rgba(255,255,255,0.09)] bg-white/[0.03] px-3 py-1.5 text-[11.5px] text-[#CBD5E1] transition-colors duration-300 hover:border-[#00F0FF]/30 hover:text-white"
+                className="cursor-default rounded-lg border border-line-strong bg-tint-1 px-3 py-1.5 text-[11.5px] text-bright transition-colors duration-300 hover:border-[var(--glow)]/30 hover:text-display"
               >
                 {value.title}
               </span>
@@ -103,12 +103,12 @@ export const AboutSection: React.FC = () => {
               {/* Track */}
               <span
                 aria-hidden="true"
-                className="absolute left-[7px] top-2 bottom-2 w-px bg-[rgba(255,255,255,0.08)]"
+                className="absolute left-[7px] top-2 bottom-2 w-px bg-line"
               />
               {/* Fill */}
               <motion.span
                 aria-hidden="true"
-                className="absolute left-[7px] top-2 bottom-2 w-px origin-top bg-[linear-gradient(180deg,#00F0FF,#0077FF)]"
+                className="absolute left-[7px] top-2 bottom-2 w-px origin-top bg-[linear-gradient(180deg,var(--glow),var(--accent))]"
                 style={reduced ? undefined : { scaleY: spineScale }}
               />
 
@@ -124,15 +124,15 @@ export const AboutSection: React.FC = () => {
                   >
                     <span
                       aria-hidden="true"
-                      className="absolute -left-[25px] top-1.5 grid h-[9px] w-[9px] place-items-center rounded-full border border-[#00F0FF]/60 bg-[#05080F] shadow-[0_0_10px_rgba(0,240,255,0.5)]"
+                      className="absolute -left-[25px] top-1.5 grid h-[9px] w-[9px] place-items-center rounded-full border border-[var(--glow)]/60 bg-ink-800 shadow-[0_0_10px_rgba(0,240,255,0.5)]"
                     />
-                    <div className="font-mono text-[10.5px] tracking-wider text-[#00F0FF]/80">
+                    <div className="font-mono text-[10.5px] tracking-wider text-glow/80">
                       {entry.period}
                     </div>
                     <div className="font-display mt-1.5 text-[16px] font-semibold tracking-tight">
                       {entry.title}
                     </div>
-                    <p className="mt-1.5 max-w-[52ch] text-[13px] leading-[1.65] text-[#94A3B8]">
+                    <p className="mt-1.5 max-w-[52ch] text-[13px] leading-[1.65] text-body">
                       {entry.description}
                     </p>
                   </motion.li>

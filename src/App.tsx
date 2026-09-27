@@ -15,7 +15,7 @@ import { ContactSection } from './pages/Contact';
 export const App: React.FC = () => {
   return (
     <SmoothScroller>
-      <div className="relative min-h-screen bg-bg text-text">
+      <div className="relative min-h-screen bg-ink-900 text-body">
         <a href="#main" className="sr-only">
           Skip to content
         </a>

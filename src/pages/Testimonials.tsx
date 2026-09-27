@@ -6,8 +6,8 @@ import { useReducedMotion } from '@/lib/hooks';
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const AVATAR_GRADIENTS = [
-  'linear-gradient(135deg,#0077FF,#00F0FF)',
-  'linear-gradient(135deg,#00F0FF,#0077FF)',
+  'linear-gradient(135deg,var(--accent),var(--glow))',
+  'linear-gradient(135deg,var(--glow),var(--accent))',
 ];
 
 const initials = (name: string) =>
@@ -35,14 +35,14 @@ export const TestimonialsSection: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="border-y border-[rgba(255,255,255,0.08)] bg-[#070A14]/50 py-16 md:py-20"
+      className="border-y border-line bg-ink-850/50 py-16 md:py-20"
     >
       <div className="mx-auto max-w-[1200px] px-6 md:px-8">
         <div className="mb-8 flex items-baseline justify-between gap-4">
           <h2 className="font-display text-[24px] font-semibold tracking-tight md:text-[30px]">
             What clients say
           </h2>
-          <span className="hidden text-[11px] tracking-[0.18em] text-[#94A3B8] sm:block">
+          <span className="hidden text-[11px] tracking-[0.18em] text-body sm:block">
             {reduced ? 'CLIENT NOTES' : 'FLIP A CARD FOR DETAILS'}
           </span>
         </div>
@@ -59,15 +59,15 @@ export const TestimonialsSection: React.FC = () => {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ delay: index * 0.1, ease: EASE }}
-                  className="flex flex-col gap-5 rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A] p-6 md:p-8"
+                  className="flex flex-col gap-5 rounded-[20px] border border-line bg-ink-700 p-6 md:p-8"
                 >
                   <p className="text-[16px] leading-[1.65] tracking-tight italic md:text-[17px]">
                     “{testimonial.quote}”
                   </p>
-                  <div className="flex items-center gap-3 border-t border-[rgba(255,255,255,0.08)] pt-5">
+                  <div className="flex items-center gap-3 border-t border-line pt-5">
                     <span
                       aria-hidden="true"
-                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold text-[#02040A]"
+                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold text-onaccent"
                       style={{ background: gradient }}
                     >
                       {initials(testimonial.author)}
@@ -76,7 +76,7 @@ export const TestimonialsSection: React.FC = () => {
                       <span className="block truncate text-[13px] font-medium">
                         {testimonial.author}
                       </span>
-                      <span className="block truncate text-[11px] tracking-wide text-[#94A3B8]">
+                      <span className="block truncate text-[11px] tracking-wide text-body">
                         {testimonial.role}
                         {testimonial.project ? ` — ${testimonial.project}` : ''}
                       </span>
@@ -111,14 +111,14 @@ export const TestimonialsSection: React.FC = () => {
                     'rounded-[20px] [transform-style:preserve-3d]',
                     'transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
                     isFlipped ? '[transform:rotateY(180deg)]' : '',
-                    'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0077FF]',
+                    'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]',
                   ].join(' ')}
                 >
                   {/* Front */}
                   <span
                     className={[
                       'absolute inset-0 flex flex-col justify-between rounded-[20px] border p-6 md:p-8',
-                      'border-[rgba(255,255,255,0.08)] bg-[#0A0E1A]',
+                      'border-line bg-ink-700',
                       'transition-[border-color,box-shadow] duration-500',
                       'group-hover:border-[rgba(0,119,255,0.35)]',
                       'group-hover:shadow-[0_24px_60px_-28px_rgba(0,119,255,0.5)]',
@@ -127,7 +127,7 @@ export const TestimonialsSection: React.FC = () => {
                     <span className="flex items-start gap-3">
                       <span
                         aria-hidden="true"
-                        className="font-display text-[32px] leading-none text-[#00F0FF]/45"
+                        className="font-display text-[32px] leading-none text-glow/45"
                       >
                         &ldquo;
                       </span>
@@ -139,7 +139,7 @@ export const TestimonialsSection: React.FC = () => {
                     <span className="mt-6 flex items-center gap-3">
                       <span
                         aria-hidden="true"
-                        className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold text-[#02040A]"
+                        className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold text-onaccent"
                         style={{ background: gradient }}
                       >
                         {initials(testimonial.author)}
@@ -148,13 +148,13 @@ export const TestimonialsSection: React.FC = () => {
                         <span className="block truncate text-[13px] font-medium">
                           {testimonial.author}
                         </span>
-                        <span className="block truncate text-[11px] tracking-wide text-[#94A3B8]">
+                        <span className="block truncate text-[11px] tracking-wide text-body">
                           {testimonial.role}
                         </span>
                       </span>
                       <span
                         aria-hidden="true"
-                        className="ml-auto shrink-0 text-[11px] tracking-[0.14em] text-[#94A3B8] transition-transform duration-500 group-hover:translate-x-0.5"
+                        className="ml-auto shrink-0 text-[11px] tracking-[0.14em] text-body transition-transform duration-500 group-hover:translate-x-0.5"
                       >
                         {isFlipped ? 'BACK' : 'FLIP'}
                       </span>
@@ -167,20 +167,20 @@ export const TestimonialsSection: React.FC = () => {
                     className={[
                       'absolute inset-0 flex flex-col justify-center gap-5 rounded-[20px] border p-6 md:p-8',
                       'border-[rgba(0,240,255,0.30)]',
-                      'bg-[radial-gradient(120%_100%_at_20%_0%,rgba(0,119,255,0.20),transparent_60%),#0A0E1A]',
+                      'bg-[radial-gradient(120%_100%_at_20%_0%,color-mix(in oklab, var(--accent) 20%, transparent),transparent_60%),var(--ink-700)]',
                       '[transform:rotateY(180deg)_translateZ(1px)]',
                     ].join(' ')}
                   >
-                    <span className="text-[11px] tracking-[0.2em] text-[#94A3B8]">
+                    <span className="text-[11px] tracking-[0.2em] text-body">
                       THE ENGAGEMENT
                     </span>
                     <span className="text-[20px] leading-tight tracking-tight">
                       {testimonial.project ?? testimonial.role}
                     </span>
-                    <span className="text-[13px] leading-[1.65] text-[#94A3B8]">
+                    <span className="text-[13px] leading-[1.65] text-body">
                       {testimonial.author} — {testimonial.role}
                     </span>
-                    <span className="text-[11px] tracking-[0.14em] text-[#7DD3FC]">
+                    <span className="text-[11px] tracking-[0.14em] text-glow">
                       CLICK TO RETURN
                     </span>
                   </span>

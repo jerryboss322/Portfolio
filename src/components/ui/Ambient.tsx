@@ -7,8 +7,10 @@ const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
 
 const AURORA = [
   {
-    background:
-      'radial-gradient(closest-side, rgba(0,119,255,0.20), transparent 70%)',
+    /* Azure, teal and a violet lean. The warm stop is deliberately absent here:
+       the amber is a *signal* colour, and washing it across the whole page
+       would spend it. It belongs on status dots and key figures only. */
+    background: 'radial-gradient(closest-side, var(--aurora-1), transparent 70%)',
     width: 720,
     height: 720,
     top: '-18%',
@@ -16,8 +18,7 @@ const AURORA = [
     animation: 'drift-a 34s ease-in-out infinite',
   },
   {
-    background:
-      'radial-gradient(closest-side, rgba(0,240,255,0.14), transparent 70%)',
+    background: 'radial-gradient(closest-side, var(--aurora-2), transparent 70%)',
     width: 620,
     height: 620,
     top: '38%',
@@ -25,8 +26,7 @@ const AURORA = [
     animation: 'drift-b 46s ease-in-out infinite',
   },
   {
-    background:
-      'radial-gradient(closest-side, rgba(88,80,236,0.13), transparent 70%)',
+    background: 'radial-gradient(closest-side, var(--aurora-3), transparent 70%)',
     width: 560,
     height: 560,
     bottom: '-14%',
@@ -69,8 +69,12 @@ export const Ambient: React.FC = () => {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-[70] opacity-[0.035] mix-blend-overlay"
-        style={{ backgroundImage: GRAIN, backgroundRepeat: 'repeat' }}
+        className="pointer-events-none fixed inset-0 z-[70] mix-blend-overlay"
+        style={{
+          backgroundImage: GRAIN,
+          backgroundRepeat: 'repeat',
+          opacity: 'var(--grain-opacity)',
+        }}
       />
     </>
   );

@@ -25,19 +25,19 @@ export const ProcessSection: React.FC = () => {
   return (
     <section
       id="process"
-      className="relative overflow-hidden border-t border-[rgba(255,255,255,0.08)] bg-[#070A14]/60 py-20 md:py-28"
+      className="relative overflow-hidden border-t border-line bg-ink-850/60 py-20 md:py-28"
     >
       <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.24em] text-[#00F0FF]/70">
+            <div className="eyebrow">
               Process — 05 stages
             </div>
             <h2 className="font-display mt-4 text-[40px] font-semibold leading-[0.9] tracking-[-0.035em] md:text-[56px]">
               How I work
             </h2>
           </div>
-          <p className="max-w-[38ch] text-[13px] leading-[1.7] text-[#94A3B8]">
+          <p className="max-w-[38ch] text-[13px] leading-[1.7] text-body">
             The same five stages on every engagement, sized to the project. You
             see working software the whole way through — no black boxes.
           </p>
@@ -51,11 +51,11 @@ export const ProcessSection: React.FC = () => {
             {/* Central spine */}
             <span
               aria-hidden="true"
-              className="absolute left-4 top-0 h-full w-px bg-[rgba(255,255,255,0.07)] md:left-1/2 md:-translate-x-1/2"
+              className="absolute left-4 top-0 h-full w-px bg-line-faint md:left-1/2 md:-translate-x-1/2"
             />
             <motion.span
               aria-hidden="true"
-              className="absolute left-4 top-0 h-full w-px origin-top bg-[linear-gradient(180deg,#00F0FF,#0077FF,transparent)] md:left-1/2 md:-translate-x-1/2"
+              className="absolute left-4 top-0 h-full w-px origin-top bg-[linear-gradient(180deg,var(--glow),var(--accent),transparent)] md:left-1/2 md:-translate-x-1/2"
               style={reduced ? undefined : { scaleY: fill }}
             />
 
@@ -81,7 +81,7 @@ export const ProcessSection: React.FC = () => {
                       aria-hidden="true"
                       className={[
                         'absolute left-4 top-7 z-10 grid h-[9px] w-[9px] -translate-x-1/2 place-items-center rounded-full',
-                        'border border-[#00F0FF]/70 bg-[#070A14] shadow-[0_0_12px_rgba(0,240,255,0.6)]',
+                        'border border-[var(--glow)]/70 bg-ink-850 shadow-[0_0_12px_rgba(0,240,255,0.6)]',
                         'md:left-1/2',
                       ].join(' ')}
                     />
@@ -101,9 +101,9 @@ export const ProcessSection: React.FC = () => {
                       }
                       className={[
                         'group relative overflow-hidden rounded-[18px] border',
-                        'border-[rgba(255,255,255,0.09)] bg-[#0A0E1A]/90 p-5 backdrop-blur-md',
+                        'border-line-strong bg-ink-700/90 p-5 backdrop-blur-md',
                         'transition-[border-color,box-shadow] duration-500',
-                        'hover:border-[#00F0FF]/35 hover:shadow-[0_26px_60px_-30px_rgba(0,240,255,0.5)]',
+                        'hover:border-[var(--glow)]/35 hover:shadow-[0_26px_60px_-30px_rgba(0,240,255,0.5)]',
                         right ? 'md:col-start-2' : 'md:col-start-1',
                       ].join(' ')}
                     >
@@ -113,19 +113,19 @@ export const ProcessSection: React.FC = () => {
                       />
 
                       <div className="relative flex items-baseline gap-3">
-                        <span className="font-display text-[26px] font-bold leading-none tracking-tighter text-white/12">
+                        <span className="font-display text-[26px] font-bold leading-none tracking-tighter text-display/12">
                           {step.number}
                         </span>
                         <span
                           aria-hidden="true"
-                          className="h-1.5 w-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_10px_rgba(0,240,255,0.8)]"
+                          className="h-1.5 w-1.5 rounded-full bg-glow shadow-[0_0_10px_rgba(0,240,255,0.8)]"
                         />
                       </div>
 
                       <h3 className="font-display relative mt-4 text-[17px] font-semibold tracking-tight">
                         {step.title}
                       </h3>
-                      <p className="relative mt-2 max-w-[40ch] text-[12.5px] leading-[1.65] text-[#94A3B8] md:max-w-none">
+                      <p className="relative mt-2 max-w-[40ch] text-[12.5px] leading-[1.65] text-body md:max-w-none">
                         {step.description}
                       </p>
                     </motion.div>

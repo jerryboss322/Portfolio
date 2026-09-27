@@ -65,14 +65,14 @@ const LayerStack: React.FC = () => {
             }}
           >
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[12px] font-semibold tracking-[0.14em] text-white">
+              <span className="text-[12px] font-semibold tracking-[0.14em] text-display">
                 {layer.label}
               </span>
-              <span className="font-mono text-[9px] tracking-widest text-[#7DD3FC]/80">
+              <span className="font-mono text-[9px] tracking-widest text-glow/80">
                 0{i + 1}
               </span>
             </div>
-            <div className="mt-1 text-[10px] tracking-wide text-[#A9CBDF]">{layer.sub}</div>
+            <div className="mt-1 text-[10px] tracking-wide text-bright">{layer.sub}</div>
           </div>
         ))}
       </motion.div>
@@ -97,7 +97,7 @@ export const CapabilitiesSection: React.FC = () => {
       <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <div className="text-[11px] tracking-[0.2em] text-[#94A3B8]">
+            <div className="text-[11px] tracking-[0.2em] text-body">
               CAPABILITIES — WHAT I BRING
             </div>
             <h2 className="font-display mt-4 text-[30px] font-semibold uppercase leading-[0.94] tracking-[-0.03em] md:text-[42px]">
@@ -109,14 +109,14 @@ export const CapabilitiesSection: React.FC = () => {
                 depth={reduced ? 1 : 13}
                 step={0.9}
                 tilt={3}
-                back="#123A6B"
-                front="#94A3B8"
+                back="var(--accent-deep)"
+                front="var(--text-body)"
               >
                 to production traffic
               </Text3D>
             </h2>
           </div>
-          <p className="max-w-[38ch] text-[13px] leading-[1.7] text-[#94A3B8]">
+          <p className="max-w-[38ch] text-[13px] leading-[1.7] text-body">
             Six disciplines I practise together rather than hand off between.
             Most projects need all six at once.
           </p>
@@ -136,7 +136,7 @@ export const CapabilitiesSection: React.FC = () => {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.55, delay: index * 0.06, ease: EASE }}
               className={[
-                'group relative overflow-hidden rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[#0A0E1A]/70 p-6',
+                'group relative overflow-hidden rounded-[18px] border border-line bg-ink-700/70 p-6',
                 'transition-[transform,border-color,box-shadow] duration-500',
                 'hover:-translate-y-1 hover:border-[rgba(0,119,255,0.35)]',
                 'hover:shadow-[0_24px_60px_-24px_rgba(0,119,255,0.45)]',
@@ -154,15 +154,15 @@ export const CapabilitiesSection: React.FC = () => {
               {/* Gradient hairline that brightens on hover. */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F0FF]/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--glow)]/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               />
 
               <div className="relative flex h-full flex-col">
                 <div
                   className={[
-                    'grid h-11 w-11 place-items-center rounded-[13px] border border-[rgba(255,255,255,0.10)]',
+                    'grid h-11 w-11 place-items-center rounded-[13px] border border-line-strong',
                     'bg-[linear-gradient(140deg,rgba(0,119,255,0.22),rgba(0,240,255,0.08))]',
-                    'text-[#7DD3FC] transition-transform duration-500 group-hover:scale-110',
+                    'text-glow transition-transform duration-500 group-hover:scale-110',
                   ].join(' ')}
                 >
                   <Icon size={19} strokeWidth={1.6} aria-hidden="true" />
@@ -179,7 +179,7 @@ export const CapabilitiesSection: React.FC = () => {
 
                 <p
                   className={[
-                    'mt-2.5 leading-[1.65] text-[#94A3B8]',
+                    'mt-2.5 leading-[1.65] text-body',
                     featured ? 'max-w-[46ch] text-[14px] md:text-[15px]' : 'text-[13px]',
                   ].join(' ')}
                 >
@@ -197,7 +197,7 @@ export const CapabilitiesSection: React.FC = () => {
                   {capability.points.map((point) => (
                     <li
                       key={point}
-                      className="rounded-full border border-[rgba(255,255,255,0.09)] bg-white/[0.03] px-2.5 py-1 text-[11px] tracking-wide text-[#CBD5E1]"
+                      className="rounded-full border border-line-strong bg-tint-1 px-2.5 py-1 text-[11px] tracking-wide text-bright"
                     >
                       {point}
                     </li>
