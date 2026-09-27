@@ -53,7 +53,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => 
 
       <motion.span
         aria-hidden="true"
-        className="relative grid h-[22px] w-[22px] place-items-center rounded-full bg-display shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
+        className="relative grid h-[22px] w-[22px] place-items-center rounded-full bg-display shadow-elev-1"
         animate={{ x: light ? 22 : 0 }}
         transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 520, damping: 34 }}
       />

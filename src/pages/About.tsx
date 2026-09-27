@@ -25,7 +25,8 @@ export const AboutSection: React.FC = () => {
   const spineScale = useTransform(scrollYProgress, [0, 1], [0.04, 1]);
 
   return (
-    <section id="about" className="relative overflow-hidden border-t border-line">
+    <section id="about" className="relative overflow-hidden border-t border-line bg-raised">
+      <div className="pointer-events-none absolute inset-0 bg-bloom-tr" aria-hidden="true" />
       <div className="mx-auto grid max-w-[1280px] gap-14 px-6 py-20 md:px-10 md:py-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
         {/* ---- Portrait ---- */}
         <div className="relative [perspective:1300px]">
@@ -37,7 +38,7 @@ export const AboutSection: React.FC = () => {
             className="relative"
             style={reduced ? undefined : { transform: 'rotateY(8deg) rotateX(3deg)' }}
           >
-            <div className="relative overflow-hidden rounded-[24px] border border-line-strong bg-ink-700 p-2 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.95)]">
+            <div className="relative overflow-hidden rounded-[24px] border border-line-strong bg-ink-700 p-2 shadow-elev-5">
               <Media
                 asset={portrait}
                 alt={`Jerry Adewole — ${about.paragraphs[0]}`}
@@ -45,7 +46,7 @@ export const AboutSection: React.FC = () => {
                 className="rounded-[17px]"
                 imgClassName="object-cover object-top"
               />
-              <div className="pointer-events-none absolute inset-2 rounded-[17px] bg-[linear-gradient(180deg,transparent_52%,rgba(2,4,10,0.88))]" />
+              <div className="pointer-events-none absolute inset-2 rounded-[17px] bg-[linear-gradient(180deg,transparent_52%,color-mix(in oklab, var(--ink-900) 88%, transparent))]" />
 
               <div className="absolute inset-x-6 bottom-6">
                 <div className="text-[15px] leading-[1.5] text-display">
@@ -55,7 +56,7 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Accent plate breaking the frame. */}
-            <div className="absolute -bottom-5 -right-5 rounded-[16px] border border-[var(--glow)]/25 bg-ink-800/90 px-5 py-3.5 backdrop-blur-xl">
+            <div className="absolute -bottom-5 -right-5 rounded-[16px] border border-glow/25 bg-ink-800/90 px-5 py-3.5 backdrop-blur-xl">
               <div className="font-display text-[22px] font-bold leading-none tracking-tight">
                 3<span className="text-[13px] text-glow">+</span>
               </div>
@@ -90,7 +91,7 @@ export const AboutSection: React.FC = () => {
               <span
                 key={value.title}
                 title={value.description}
-                className="cursor-default rounded-lg border border-line-strong bg-tint-1 px-3 py-1.5 text-[11.5px] text-bright transition-colors duration-300 hover:border-[var(--glow)]/30 hover:text-display"
+                className="cursor-default rounded-lg border border-line-strong bg-tint-1 px-3 py-1.5 text-[11.5px] text-bright transition-colors duration-300 hover:border-glow/30 hover:text-display"
               >
                 {value.title}
               </span>
@@ -124,7 +125,7 @@ export const AboutSection: React.FC = () => {
                   >
                     <span
                       aria-hidden="true"
-                      className="absolute -left-[25px] top-1.5 grid h-[9px] w-[9px] place-items-center rounded-full border border-[var(--glow)]/60 bg-ink-800 shadow-[0_0_10px_rgba(0,240,255,0.5)]"
+                      className="absolute -left-[25px] top-1.5 grid h-[9px] w-[9px] place-items-center rounded-full border border-glow/60 bg-ink-800 shadow-[0_0_10px_color-mix(in_oklab,var(--glow)_50%,transparent)]"
                     />
                     <div className="font-mono text-[10.5px] tracking-wider text-glow/80">
                       {entry.period}

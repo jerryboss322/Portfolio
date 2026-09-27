@@ -144,7 +144,7 @@ const ProjectRow: React.FC<{
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="rounded-md border border-line-strong bg-tint-1 px-2.5 py-1 font-mono text-[10.5px] text-body transition-colors duration-300 hover:border-[var(--glow)]/30 hover:text-glow"
+                className="rounded-md border border-line-strong bg-tint-1 px-2.5 py-1 font-mono text-[10.5px] text-body transition-colors duration-300 hover:border-glow/30 hover:text-glow"
               >
                 {t}
               </span>
@@ -189,7 +189,7 @@ const ProjectRow: React.FC<{
             flip ? 'lg:-order-1' : '',
           ].join(' ')}
         >
-          <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-[radial-gradient(60%_60%_at_50%_40%,rgba(0,119,255,0.22),transparent_70%)] opacity-0 blur-[48px] transition-opacity duration-700 group-hover:opacity-100" />
+          <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-[radial-gradient(60%_60%_at_50%_40%,color-mix(in oklab, var(--accent) 22%, transparent),transparent_70%)] opacity-0 blur-[48px] transition-opacity duration-700 group-hover:opacity-100" />
           <DeviceFrame
             asset={IMAGES[project.slug]}
             alt={`${project.title} — ${project.subtitle} interface`}

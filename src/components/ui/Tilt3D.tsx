@@ -50,7 +50,7 @@ export const Tilt3D: React.FC<Tilt3DProps> = ({
   const glare = useTransform(
     [glareX, glareY],
     ([gx, gy]: string[]) =>
-      `radial-gradient(520px circle at ${gx} ${gy}, rgba(0,180,255,0.13), transparent 42%)`
+      `radial-gradient(520px circle at ${gx} ${gy}, color-mix(in oklab, var(--accent) 13%, transparent), transparent 42%)`
   );
 
   const handleMove = (event: React.PointerEvent<HTMLDivElement>) => {

@@ -35,7 +35,7 @@ export const TestimonialsSection: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="border-y border-line bg-ink-850/50 py-16 md:py-20"
+      className="relative border-y border-line bg-raised py-16 md:py-20"
     >
       <div className="mx-auto max-w-[1200px] px-6 md:px-8">
         <div className="mb-8 flex items-baseline justify-between gap-4">
@@ -111,7 +111,7 @@ export const TestimonialsSection: React.FC = () => {
                     'rounded-[20px] [transform-style:preserve-3d]',
                     'transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
                     isFlipped ? '[transform:rotateY(180deg)]' : '',
-                    'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]',
+                    'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent',
                   ].join(' ')}
                 >
                   {/* Front */}
@@ -120,8 +120,8 @@ export const TestimonialsSection: React.FC = () => {
                       'absolute inset-0 flex flex-col justify-between rounded-[20px] border p-6 md:p-8',
                       'border-line bg-ink-700',
                       'transition-[border-color,box-shadow] duration-500',
-                      'group-hover:border-[rgba(0,119,255,0.35)]',
-                      'group-hover:shadow-[0_24px_60px_-28px_rgba(0,119,255,0.5)]',
+                      'group-hover:border-[color-mix(in oklab, var(--accent) 35%, transparent)]',
+                      'group-hover:shadow-elev-3',
                     ].join(' ')}
                   >
                     <span className="flex items-start gap-3">
@@ -166,7 +166,7 @@ export const TestimonialsSection: React.FC = () => {
                     aria-hidden="true"
                     className={[
                       'absolute inset-0 flex flex-col justify-center gap-5 rounded-[20px] border p-6 md:p-8',
-                      'border-[rgba(0,240,255,0.30)]',
+                      'border-[color-mix(in oklab, var(--glow) 30%, transparent)]',
                       'bg-[radial-gradient(120%_100%_at_20%_0%,color-mix(in oklab, var(--accent) 20%, transparent),transparent_60%),var(--ink-700)]',
                       '[transform:rotateY(180deg)_translateZ(1px)]',
                     ].join(' ')}

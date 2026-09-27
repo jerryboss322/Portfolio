@@ -137,15 +137,15 @@ export const Hero: React.FC = () => {
                 <>
                   <motion.div
                     aria-hidden="true"
-                    className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--glow)]/20"
+                    className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-glow/20"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
                   >
-                    <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-glow shadow-[0_0_14px_rgba(0,240,255,0.9)]" />
+                    <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-glow shadow-[0_0_14px_color-mix(in_oklab,var(--glow)_90%,transparent)]" />
                   </motion.div>
                   <motion.div
                     aria-hidden="true"
-                    className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[var(--accent)]/25"
+                    className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-accent/25"
                     animate={{ rotate: -360 }}
                     transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
                   />
@@ -159,7 +159,7 @@ export const Hero: React.FC = () => {
                     ? {}
                     : { duration: 5.5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
                 }
-                className="relative overflow-hidden rounded-[22px] border border-line-strong bg-ink-700/70 p-2 shadow-[0_30px_90px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl"
+                className="relative overflow-hidden rounded-[22px] border border-line-strong bg-ink-700/70 p-2 shadow-elev-5 backdrop-blur-xl"
               >
                 <Media
                   asset={portrait}
@@ -222,7 +222,7 @@ export const Hero: React.FC = () => {
 
       <div className="pointer-events-none absolute bottom-24 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[10px] tracking-[0.26em] text-body lg:flex">
         <ScrambleText text="SCROLL" speed={0.05} stagger={0.03} />
-        <span aria-hidden="true" className="h-10 w-px bg-gradient-to-b from-[var(--glow)] to-transparent" />
+        <span aria-hidden="true" className="h-10 w-px bg-gradient-to-b from-glow to-transparent" />
       </div>
     </section>
   );

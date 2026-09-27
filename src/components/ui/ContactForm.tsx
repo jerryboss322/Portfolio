@@ -6,7 +6,7 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 const SUBMIT_URL = 'https://api.web3forms.com/submit';
 
 const INPUT_CLASS =
-  'w-full rounded-[12px] border border-line bg-ink-900/60 px-4 py-3 text-[14px] text-display placeholder:text-faint outline-none transition-colors focus:border-[var(--accent)]/60';
+  'w-full rounded-[12px] border border-line bg-ink-900/60 px-4 py-3 text-[14px] text-display placeholder:text-faint outline-none transition-colors focus:border-accent/60';
 const LABEL_CLASS = 'text-[11px] tracking-[0.2em] text-body';
 
 export const ContactForm: React.FC = () => {

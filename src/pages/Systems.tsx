@@ -38,12 +38,10 @@ export const SystemsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="systems"
-      className="relative overflow-hidden border-y border-line bg-ink-800 py-20 md:py-28"
+      className="relative overflow-hidden border-y border-line bg-raised py-20 md:py-28"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_50%,rgba(0,119,255,0.13),transparent_70%)]"
-      />
+      {/* The carousel needs a stage: a centred bloom under the ring. */}
+      <div className="pointer-events-none absolute inset-0 bg-bloom-centre" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
@@ -128,13 +126,13 @@ const FlowCard: React.FC<{
         className={[
           'h-full overflow-hidden rounded-[20px] border p-6 backdrop-blur-md',
           'border-line-strong',
-          'bg-[linear-gradient(160deg,rgba(15,23,42,0.96),rgba(8,12,22,0.96))]',
-          'shadow-[0_30px_70px_-40px_rgba(0,0,0,0.95)]',
+          'bg-[linear-gradient(160deg,var(--ink-600),var(--ink-700))]',
+          'shadow-elev-4',
         ].join(' ')}
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_20%_0%,rgba(0,119,255,0.16),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_20%_0%,color-mix(in oklab, var(--accent) 16%, transparent),transparent_60%)]"
         />
 
         <div className="relative flex items-baseline justify-between">
@@ -143,7 +141,7 @@ const FlowCard: React.FC<{
           </span>
           <span
             aria-hidden="true"
-            className="h-1.5 w-1.5 rounded-full bg-glow shadow-[0_0_10px_rgba(0,240,255,0.7)]"
+            className="h-1.5 w-1.5 rounded-full bg-glow shadow-[0_0_10px_color-mix(in_oklab,var(--glow)_70%,transparent)]"
           />
         </div>
 
@@ -168,7 +166,7 @@ const PrincipleCard: React.FC<{
     whileInView={reduced ? {} : { opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-60px' }}
     transition={{ duration: 0.5, delay: index * 0.06, ease: EASE }}
-    className="relative overflow-hidden rounded-[18px] border border-line-strong bg-[linear-gradient(160deg,rgba(15,23,42,0.95),rgba(8,12,22,0.95))] p-5"
+    className="relative overflow-hidden rounded-[18px] border border-line-strong bg-[linear-gradient(160deg,var(--ink-600),var(--ink-700))] p-5"
   >
     <div className="flex items-baseline justify-between">
       <span className="font-display text-[13px] font-semibold tracking-[0.16em] text-glow/70">

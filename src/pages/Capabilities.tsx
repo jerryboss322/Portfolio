@@ -40,9 +40,9 @@ const LayerStack: React.FC = () => {
   const reduced = useReducedMotion();
 
   const layers = [
-    { label: 'Interface', sub: 'React · Next.js', tone: 'rgba(0,240,255,0.34)' },
-    { label: 'API', sub: 'Node · Django · REST', tone: 'rgba(0,150,255,0.30)' },
-    { label: 'Data', sub: 'PostgreSQL · Docker', tone: 'rgba(0,110,220,0.26)' },
+    { label: 'Interface', sub: 'React · Next.js', tone: 'color-mix(in oklab, var(--glow) 34%, transparent)' },
+    { label: 'API', sub: 'Node · Django · REST', tone: 'color-mix(in oklab, var(--accent) 30%, transparent)' },
+    { label: 'Data', sub: 'PostgreSQL · Docker', tone: 'color-mix(in oklab, var(--accent-deep) 26%, transparent)' },
   ];
 
   return (
@@ -56,7 +56,7 @@ const LayerStack: React.FC = () => {
         {layers.map((layer, i) => (
           <div
             key={layer.label}
-            className="absolute left-1/2 top-0 w-[244px] rounded-[12px] border bg-[linear-gradient(140deg,rgba(0,119,255,0.24),rgba(0,240,255,0.06))] px-4 py-3 shadow-[0_16px_40px_-18px_rgba(0,0,0,0.9)] backdrop-blur-[3px]"
+            className="absolute left-1/2 top-0 w-[244px] rounded-[12px] border bg-[linear-gradient(140deg,color-mix(in oklab, var(--accent) 24%, transparent),color-mix(in oklab, var(--glow) 6%, transparent))] px-4 py-3 shadow-elev-2 backdrop-blur-[3px]"
             style={{
               borderColor: layer.tone,
               /* Spread far enough on Y that every label clears the panel above
@@ -92,7 +92,7 @@ export const CapabilitiesSection: React.FC = () => {
   return (
     <section
       id="capabilities"
-      className="relative mx-auto max-w-[1280px] px-6 py-20 md:px-10 md:py-28"
+      className="relative bg-ground px-6 py-20 md:py-28"
     >
       <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
@@ -123,7 +123,7 @@ export const CapabilitiesSection: React.FC = () => {
         </div>
       </Reveal>
 
-      <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="relative mx-auto mt-10 grid max-w-[1280px] gap-3 px-6 sm:grid-cols-2 md:px-10 lg:grid-cols-3">
         {capabilities.map((capability, index) => {
           const Icon = ICONS[capability.icon];
           const featured = capability.featured;
@@ -138,8 +138,8 @@ export const CapabilitiesSection: React.FC = () => {
               className={[
                 'group relative overflow-hidden rounded-[18px] border border-line bg-ink-700/70 p-6',
                 'transition-[transform,border-color,box-shadow] duration-500',
-                'hover:-translate-y-1 hover:border-[rgba(0,119,255,0.35)]',
-                'hover:shadow-[0_24px_60px_-24px_rgba(0,119,255,0.45)]',
+                'hover:-translate-y-1 hover:border-[color-mix(in oklab, var(--accent) 35%, transparent)]',
+                'hover:shadow-elev-3',
                 featured ? 'lg:col-span-2 lg:row-span-2 lg:p-8' : '',
               ].join(' ')}
             >
@@ -147,21 +147,21 @@ export const CapabilitiesSection: React.FC = () => {
               {featured && (
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_15%_0%,rgba(0,119,255,0.20),transparent_60%),radial-gradient(80%_70%_at_90%_100%,rgba(0,240,255,0.12),transparent_65%)]"
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_15%_0%,color-mix(in oklab, var(--accent) 20%, transparent),transparent_60%),radial-gradient(80%_70%_at_90%_100%,color-mix(in oklab, var(--glow) 12%, transparent),transparent_65%)]"
                 />
               )}
 
               {/* Gradient hairline that brightens on hover. */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--glow)]/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-glow/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               />
 
               <div className="relative flex h-full flex-col">
                 <div
                   className={[
                     'grid h-11 w-11 place-items-center rounded-[13px] border border-line-strong',
-                    'bg-[linear-gradient(140deg,rgba(0,119,255,0.22),rgba(0,240,255,0.08))]',
+                    'bg-[linear-gradient(140deg,color-mix(in oklab, var(--accent) 22%, transparent),color-mix(in oklab, var(--glow) 8%, transparent))]',
                     'text-glow transition-transform duration-500 group-hover:scale-110',
                   ].join(' ')}
                 >

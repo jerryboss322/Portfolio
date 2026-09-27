@@ -25,9 +25,10 @@ export const ProcessSection: React.FC = () => {
   return (
     <section
       id="process"
-      className="relative overflow-hidden border-t border-line bg-ink-850/60 py-20 md:py-28"
+      className="relative overflow-hidden border-t border-line bg-recessed py-20 md:py-28"
     >
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="pointer-events-none absolute inset-0 bg-bloom-bottom" aria-hidden="true" />
+      <div className="relative mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <div className="eyebrow">
@@ -81,7 +82,7 @@ export const ProcessSection: React.FC = () => {
                       aria-hidden="true"
                       className={[
                         'absolute left-4 top-7 z-10 grid h-[9px] w-[9px] -translate-x-1/2 place-items-center rounded-full',
-                        'border border-[var(--glow)]/70 bg-ink-850 shadow-[0_0_12px_rgba(0,240,255,0.6)]',
+                        'border border-glow/70 bg-ink-850 shadow-[0_0_12px_color-mix(in_oklab,var(--glow)_60%,transparent)]',
                         'md:left-1/2',
                       ].join(' ')}
                     />
@@ -103,13 +104,13 @@ export const ProcessSection: React.FC = () => {
                         'group relative overflow-hidden rounded-[18px] border',
                         'border-line-strong bg-ink-700/90 p-5 backdrop-blur-md',
                         'transition-[border-color,box-shadow] duration-500',
-                        'hover:border-[var(--glow)]/35 hover:shadow-[0_26px_60px_-30px_rgba(0,240,255,0.5)]',
+                        'hover:border-glow/35 hover:shadow-elev-3',
                         right ? 'md:col-start-2' : 'md:col-start-1',
                       ].join(' ')}
                     >
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_-10%,rgba(0,119,255,0.16),transparent_62%)]"
+                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_-10%,color-mix(in oklab, var(--accent) 16%, transparent),transparent_62%)]"
                       />
 
                       <div className="relative flex items-baseline gap-3">
@@ -118,7 +119,7 @@ export const ProcessSection: React.FC = () => {
                         </span>
                         <span
                           aria-hidden="true"
-                          className="h-1.5 w-1.5 rounded-full bg-glow shadow-[0_0_10px_rgba(0,240,255,0.8)]"
+                          className="h-1.5 w-1.5 rounded-full bg-glow shadow-[0_0_10px_color-mix(in_oklab,var(--glow)_80%,transparent)]"
                         />
                       </div>
 

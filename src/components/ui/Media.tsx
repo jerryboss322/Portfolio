@@ -106,7 +106,7 @@ export const DeviceFrame: React.FC<DeviceProps> = ({
         style={reduced ? undefined : { transform: 'rotateX(6deg) rotateY(-9deg)' }}
       >
         {/* Bezel */}
-        <div className="relative overflow-hidden rounded-[14px] border border-line-strong bg-ink-900 p-[6px] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95),0_0_0_1px_rgba(0,119,255,0.16)]">
+        <div className="relative overflow-hidden rounded-[14px] border border-line-strong bg-ink-900 p-[6px] shadow-elev-5 shadow-[0_0_0_1px_color-mix(in_oklab,var(--accent)_16%,transparent)]">
           {/* Chrome */}
           <div className="flex h-[30px] items-center gap-1.5 rounded-t-[9px] bg-ink-800 px-3">
             <span className="h-[7px] w-[7px] rounded-full bg-[#FF5F56]/70" />
@@ -139,8 +139,8 @@ export const DeviceFrame: React.FC<DeviceProps> = ({
               backgroundImage: `url("${asset.src}")`,
               backgroundSize: 'cover',
               backgroundPosition: 'top center',
-              maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 72%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 72%)',
+              maskImage: 'linear-gradient(to bottom, rgb(0 0 0 / 0.75), transparent 72%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, rgb(0 0 0 / 0.75), transparent 72%)',
             }}
           />
         )}

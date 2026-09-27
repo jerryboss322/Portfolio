@@ -299,8 +299,8 @@ export const HeroCanvas: React.FC = () => {
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(60% 55% at 62% 38%, rgba(0,119,255,0.22), transparent 62%),' +
-            'radial-gradient(45% 45% at 22% 78%, rgba(0,240,255,0.12), transparent 65%),' +
+            'radial-gradient(60% 55% at 62% 38%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 62%),' +
+            'radial-gradient(45% 45% at 22% 78%, color-mix(in oklab, var(--glow) 12%, transparent), transparent 65%),' +
             'var(--ink-900)',
         }}
       />

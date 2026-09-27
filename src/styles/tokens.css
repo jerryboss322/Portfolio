@@ -77,7 +77,21 @@
   --scrim: rgba(5, 6, 11, 0.94);
   --sheen: rgba(255, 255, 255, 0.07);
   --grain-opacity: 0.035;
-  --shadow-color: 220 40% 2%;
+
+  /* Elevation. A usable shadow is a hue, an alpha AND a spread, so a single
+     colour token cannot express one — these are the composed values, and each
+     level is meaningfully larger than the last so depth reads as a ladder
+     rather than as "has a shadow / has no shadow". On a near-black ground the
+     shadow hue is barely visible and the alpha carries the depth. */
+  --elev-1: 0 1px 2px hsl(222 40% 2% / 0.5);
+  --elev-2: 0 4px 12px -2px hsl(222 40% 2% / 0.55);
+  --elev-3: 0 12px 28px -6px hsl(222 40% 2% / 0.6);
+  --elev-4: 0 24px 56px -16px hsl(222 40% 2% / 0.7);
+  --elev-5: 0 40px 90px -30px hsl(222 42% 1% / 0.85);
+
+  /* A single hairline that separates a card from its ground without the
+     heaviness of a shadow. Cheaper than elevation and reads cleaner. */
+  --ring-accent: 0 0 0 1px color-mix(in oklab, var(--accent) 28%, transparent);
 
   /* --- Type --------------------------------------------------- */
   --measure: 68ch;
@@ -135,5 +149,15 @@
   --scrim: rgba(255, 255, 255, 0.9);
   --sheen: rgba(8, 10, 18, 0.04);
   --grain-opacity: 0.02;
-  --shadow-color: 220 44% 40%;
+
+  /* Light mode: a dark shadow at dark-mode opacity reads as dirt. These are
+     tinted toward the ground hue and pulled well down in alpha, so a card
+     sits on the page by being lighter than it rather than by casting. */
+  --elev-1: 0 1px 2px hsl(222 44% 34% / 0.1);
+  --elev-2: 0 4px 12px -2px hsl(222 44% 34% / 0.12);
+  --elev-3: 0 12px 28px -6px hsl(222 44% 34% / 0.14);
+  --elev-4: 0 24px 56px -16px hsl(222 44% 34% / 0.16);
+  --elev-5: 0 40px 90px -30px hsl(222 44% 34% / 0.2);
+
+  --ring-accent: 0 0 0 1px color-mix(in oklab, var(--accent) 24%, transparent);
 }

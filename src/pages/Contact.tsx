@@ -21,12 +21,14 @@ export const ContactSection: React.FC = () => {
   const reduced = useReducedMotion();
 
   return (
-    <section id="contact" className="relative mx-auto max-w-[1280px] px-6 py-20 md:px-10 md:py-28">
+    <section id="contact" className="relative bg-ground px-6 py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0 bg-bloom-bottom" aria-hidden="true" />
+      <div className="relative mx-auto max-w-[1280px]">
       <div className="relative overflow-hidden rounded-[28px] border border-line-strong bg-ink-850">
         {/* Lit corner + grid, so the panel reads as a lit surface. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_80%_at_12%_0%,rgba(0,119,255,0.24),transparent_58%),radial-gradient(70%_60%_at_92%_100%,rgba(0,240,255,0.12),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_80%_at_12%_0%,color-mix(in oklab, var(--accent) 24%, transparent),transparent_58%),radial-gradient(70%_60%_at_92%_100%,color-mix(in oklab, var(--glow) 12%, transparent),transparent_60%)]"
         />
         <div
           aria-hidden="true"
@@ -111,7 +113,7 @@ export const ContactSection: React.FC = () => {
                   asset={portrait}
                   alt=""
                   sizes="48px"
-                  className="h-12 w-12 shrink-0 rounded-full ring-1 ring-[var(--glow)]/25"
+                  className="h-12 w-12 shrink-0 rounded-full ring-1 ring-glow/25"
                   imgClassName="object-cover object-top"
                 />
                 <div className="min-w-0">
@@ -122,7 +124,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <span
                   aria-hidden="true"
-                  className="ml-auto h-2 w-2 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)]"
+                  className="ml-auto h-2 w-2 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_10px_color-mix(in_oklab,var(--success)_80%,transparent)]"
                 />
               </div>
 
@@ -150,7 +152,7 @@ export const ContactSection: React.FC = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-9 cursor-pointer items-center rounded-full border border-line-strong px-3.5 text-[11.5px] text-body transition-colors duration-300 hover:border-[var(--glow)]/30 hover:text-display"
+                  className="inline-flex h-9 cursor-pointer items-center rounded-full border border-line-strong px-3.5 text-[11.5px] text-body transition-colors duration-300 hover:border-glow/30 hover:text-display"
                 >
                   {link.label}
                 </a>
@@ -158,6 +160,7 @@ export const ContactSection: React.FC = () => {
             </div>
           </motion.div>
         </div>
+      </div>
       </div>
     </section>
   );

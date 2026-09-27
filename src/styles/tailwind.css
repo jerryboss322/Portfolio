@@ -46,6 +46,14 @@
   --color-tint-3: var(--tint-3);
   --color-tint-4: var(--tint-4);
 
+  /* Shadows cannot be expressed as colour utilities, so the composed
+     elevation values are bridged to box-shadow utilities directly. */
+  --shadow-elev-1: var(--elev-1);
+  --shadow-elev-2: var(--elev-2);
+  --shadow-elev-3: var(--elev-3);
+  --shadow-elev-4: var(--elev-4);
+  --shadow-elev-5: var(--elev-5);
+
   /* Type */
   --font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -103,6 +111,75 @@
     color: var(--text-muted);
   }
 
+  /* ============================================================
+     Section grounds.
+
+     Scrolling through a long page needs a sense of place. Alternating
+     recessed and raised bands gives the eye somewhere to land, where a
+     column of identical fills reads as one undifferentiated block. Both
+     are token-driven, so the rhythm survives a theme flip.
+
+     These are all background-image only — no layout, no paint on scroll,
+     and they composite over the page ground rather than replacing it.
+     ============================================================ */
+
+  /* Sits below the page ground. Used for "the archive" moments. */
+  .bg-recessed {
+    background-color: var(--ink-900);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--ink-850) 70%, transparent),
+      transparent 40%
+    );
+  }
+
+  /* Comes forward a step. */
+  .bg-raised {
+    background-color: var(--ink-850);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--ink-800) 60%, transparent),
+      transparent 60%
+    );
+  }
+
+  /* Neutral: the page ground, untouched. */
+  .bg-ground {
+    background-color: var(--ink-900);
+  }
+
+  /* Faint technical grid, masked to a soft oval so it never reaches an edge
+     and never tiles visibly. Drawn from the line token so it flips polarity. */
+  .bg-grid {
+    background-image: linear-gradient(var(--line-faint) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-faint) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(70% 60% at 50% 40%, #000, transparent 78%);
+  }
+
+  /* A soft directional bloom, for giving a band a light source. */
+  .bg-bloom-tr {
+    background-image: radial-gradient(
+      80% 60% at 12% 0%,
+      color-mix(in oklab, var(--accent) 12%, transparent),
+      transparent 70%
+    );
+  }
+  .bg-bloom-bottom {
+    background-image: radial-gradient(
+      70% 55% at 50% 100%,
+      color-mix(in oklab, var(--glow) 9%, transparent),
+      transparent 72%
+    );
+  }
+  .bg-bloom-centre {
+    background-image: radial-gradient(
+      60% 50% at 50% 45%,
+      color-mix(in oklab, var(--accent) 13%, transparent),
+      transparent 70%
+    );
+  }
+
   /* Prose measure. Long lines are the fastest way to make a layout look
      unreviewed. */
   p {
@@ -112,5 +189,33 @@
   ::selection {
     background: var(--accent);
     color: var(--text-on-accent);
+  }
+
+  /* ============================================================
+     Focus.
+
+     The global :focus-visible outline in global.css is the floor, but on a
+     dark ground a pure accent ring at 2px can lose contrast against an
+     already-saturated card edge. A two-tone ring — a light inner line and the
+     accent outside it — stays visible on any surface in either theme, which
+     a single-colour ring cannot.
+     ============================================================ */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent);
+    border-radius: 6px;
+  }
+
+  /* Controls that manage their own ring should not get it twice. */
+  :where(input, textarea, select):focus-visible {
+    box-shadow: none;
+    border-color: var(--accent);
+  }
+
+  /* Keyboard users get the scroll affordance back; pointer users do not
+     need a focus ring on a scrollbar they are not using. */
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 }
