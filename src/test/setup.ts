@@ -48,7 +48,6 @@ Object.defineProperty(window, 'ResizeObserver', {
   value: ResizeObserverMock,
 });
 
-// jsdom does not implement these — stub them to keep scroll libs quiet.
+// jsdom implements neither of these, and Header + ScrollLink call them.
 window.scrollTo = () => {};
-window.scrollBy = () => {};
 Element.prototype.scrollIntoView = () => {};

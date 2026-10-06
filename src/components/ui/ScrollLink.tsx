@@ -10,9 +10,9 @@ interface ScrollLinkProps {
 }
 
 /**
- * Section scroll link. Renders a real anchor (accessible, deep-linkable)
- * but intercepts the click to scroll via Lenis and mirrors the section
- * into the URL hash without triggering router navigation.
+ * Section scroll link. Renders a real anchor (accessible, deep-linkable) but
+ * intercepts the click to scroll smoothly and mirror the section into the URL
+ * hash.
  */
 export const ScrollLink: React.FC<ScrollLinkProps> = ({
   to,

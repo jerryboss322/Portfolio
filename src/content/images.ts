@@ -12,12 +12,12 @@ export interface ImageAsset {
 }
 
 export const portrait: ImageAsset = {
-  src: '/img/portrait-560.webp',
-  srcSet: "/img/portrait-200.webp 200w, /img/portrait-340.webp 340w, /img/portrait-560.webp 560w",
-  width: 434,
-  height: 574,
-  ratio: 0.7561,
-  lqip: 'data:image/webp;base64,UklGRpoBAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSJUAAAART6CgbSM3diD2vvuPiICx/KNbCLexbavKlwa0gA804BA7uZN77hTwrQLeqfcKnkf0X4HbNoqPGZ5hvRW8UtmWattFU8R4k+f7kOtmQNHmxcQAGHNrAFg5mgPjHRmXOZF7xPZKXuWtjdJtdR/au6opgLb4B9KxtcahYitTikUzsLx+ClC8Dr3+xYCHvKck4Kwl5PijAABWUDgg3gAAANAFAJ0BKhgAIAA/BWqtT6ulpCI39VgBcCCJaAC34IAVxEbx7sDxy7Hw0sIf6oLs8ltPzGoNckAA/uLzQ1y+FsqcrP5lnmPzxQKsiZB0tUz5GpwOViQlm47IxxtJk9svQuvOBAGq0OySBjPf9Qi/uSUwiFT3dqtNkDgNZBgT/TbcFXd2OotgG5Is6bms7JNrtzQYGuPSjyu7Sm5myqughLiIsQlF9Wf7osiK11S7jFZKk/MXX6xRB13uaRGoj/S4kN2LanwKiPr52jOHdx3Sef+cMRnvzfT+LSZbCe0AAA==',
+  src: '/img/portrait-340.webp',
+  srcSet: "/img/portrait-200.webp 200w, /img/portrait-340.webp 340w",
+  width: 326,
+  height: 765,
+  ratio: 0.4261,
+  lqip: 'data:image/webp;base64,UklGRvQCAABXRUJQVlA4WAoAAAAQAAAAFwAANwAAQUxQSDMBAAART6CgbRsWl8bfIiLA/M2qAbe29rbNR2oBmKFXgmor0bUie+U6yzWp1EcsYOGf9//B4xEi+j8BAKAG58siBFf98/t9HfusebJEdA0BqIklIjKJB1QeJB5DYPKRTASVk0Or1tNBjcrWOkyjeXq7dGWwsy58tT6OGCg/pVsElB+CSX1A5Zbd6h6A/skSUeoDgOo/iUziMZRzS2YRCs2TJXPVwsQSEaUe2xBf+QBULvyGAMoP4RaxP8FoAM2PQAmAniNlVjAJgOZL0gDKDykCoPJ/uAlZEThCtpFKbGLZ0Wc9YSU0Pyz1WPnBfgR1FyDkLHFdX0WWT1dGaV4kyakhIKMkM1raGL1xrY1evx2Tdzx5R45r1CsS9l4FSsWaL+04FlCbo//9TDwhT71yPvZZeas91R/5AFZQOCCaAQAAMAkAnQEqGAA4AD8JdrBRK6ekoqgNUXAhCWgAv2vneHQsyqm1MGzTgkXmzN4ReEZRbkdGfmOWiVORWFPkN4Sf3Fo94Rlt2edpTed6w6uxiGncAAD9FLRUwHzlL8/1EF1PI1HLUVGFUvE4U9z1HGH3SEaCGXfnLEzdcmU6p+4RqBUEEudvz+o/X4yCK/E5TWhRK5GcybW3ic4uTmi8lhqcdRBJ+45NeMix2YVU7pztYOSmq/EDA8XrEj9qBuuFv+F+hmyw3Hg+KNFG2xwzQl0STtFcWnq2RGFDJKSZ+1pjGDqhWbsc4lyizDX0pm9OgmcrVmzPnPBVgkYDMP6I90/gH+pKYtWol7A1vbscK7RmDnw4Z4SXWX1uu2VKeM5HNowLs5p5pWhpRSdSzY6Am9dOQB1J8x7MIdt3jXybJkpGWzB4Ff2BibBEZiDApG6TLRR780nGvTq1CrNQSc1zlJcbgeP5CXXR9+zrv1M6Hs6r/gQS6DI1sLATUikrio8KUpoYtKZXxEzTPDFhKg4XN6VegBZ+H+g/gIuAAAA=',
 };
 
 export const projectImage_titan: ImageAsset = {

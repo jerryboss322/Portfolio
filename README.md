@@ -1,87 +1,159 @@
-# JBOSS
+# JBOSS.DEV
 
-A premium personal product portfolio built on **Design System v2** — a motion-first definition of the AI feel: restraint, precision, and motion as narration.
+A personal portfolio for Jerry Adewole — software engineer in Ogbomoso, Nigeria.
+
+Plain on purpose: dark ground, real screenshots, and layout that does the work.
+No WebGL, no 3D text, no scroll hijacking, and no per-frame JavaScript.
 
 ## Stack
 
 - **React 19** + **TypeScript** + **Vite 8** (rolldown)
-- **Tailwind CSS v4** (CSS-first config via `@theme` tokens, no config file)
-- **Framer Motion** — entrance/reveal choreography
-- **GSAP ScrollTrigger** + **Lenis** — smooth scrolling, hero parallax
-- **Three.js** — theme-aware hero canvas (lazy-loaded, desktop only)
+- **Tailwind CSS v4** (CSS-first config via `@theme`, no config file)
+- **Framer Motion** — entrance fades only
+- **sharp** — image pipeline
 
-## Design system
+## Layout
 
-### Color — Signal (dark) / Ember (light)
+One scrolling page, seven sections:
 
-| Token | Signal (dark) | Ember (light) |
-|-------|---------------|---------------|
-| `--bg` | `#02040A` | `#F5F8FC` |
-| `--surface` | `#070C1E` | `#FFFFFF` |
-| `--accent` | `#0077FF` (blue) | `#0066EE` (blue) |
-| `--accent-strong` | `#00F0FF` (cyan) | `#0044BB` (deep blue) |
+| Section | Ground | What it is |
+|---------|--------|------------|
+| Hero | ground | Who he is, availability, what he works with — skills run as a marquee |
+| Work | band | Five projects, each a card with a cropped screenshot |
+| About | ground | Photo, what he cares about, a short timeline |
+| What I do | ground | Six capabilities |
+| Process | band | Five stages |
+| Kind words | ground | Two quotes |
+| Get in touch | band | Email, socials, contact form |
 
-Both modes share the same neutral ramp logic (bg → surface → surface-strong → border). Toggle a `data-theme` attribute on `<html>` and let the cascade do the work — theme is bootstrapped inline in `index.html` before first paint (no FOUC).
+## Layout system
 
-### Background
+Three components own the page's structure so it cannot drift between files.
 
-A constellation starfield canvas (`src/components/canvas/Starfield.tsx`) sits behind all content — twinkling particles, responsive links, and reactive mouse rays. It renders a single static frame under `prefers-reduced-motion`.
+**`Section`** owns the id, the ground and the vertical rhythm. `tone="band"`
+selects the recessed plane that separates groups of sections; the alternation
+above is deliberate rather than mechanical, so About and What I do share a
+ground as one thought and Work and Process stand apart as their own.
 
-### Typography
+**`SectionHead`** is the heading block every section opens with — one component
+rather than the same five lines repeated eight times, so the title-to-lede gap
+and the lede measure are identical everywhere.
 
-- **Headlines:** Space Grotesk — geometric, slightly technical, confident at large sizes
-- **Body / UI:** Inter, 400–600
-- **Meta (years, tags, stat units):** Inter, uppercase, letter-spacing 0.08–0.14em, `--text-muted`
+**`.shell`** is the page container, defined once in the base layer of
+`tailwind.css`. It was previously retyped in every section and had already
+drifted to two different widths, which is how sections end up not lining up with
+each other.
 
-### Motion language
+### Plates and rules
 
-| Behavior | Description |
-|----------|-------------|
-| **Arrive** | Section/element entrance. Opacity 0→1 + translateY 16px→0, staggered 60–80ms. Easing: `cubic-bezier(0.16, 1, 0.3, 1)` (expo-out). |
-| **Glide** | Lenis smooth-scroll synced to GSAP ScrollTrigger via `gsap.ticker`; hero background drifts 10% slower. |
-| **Reveal** | Cinematic project transition. Card image expands via `transform: scale()`; text content staggers in 120ms after. |
-| **Respond** | Micro-interactions. Magnetic hover (±4px max, reduced-motion safe), press state (scale 0.97), link underlines drawn from the accent. |
-| **Hold** | What does not move. Static grid, fixed spacing scale, no idle/looping animations. |
+Two surface treatments, and the distinction is the point:
 
-## Run locally
+- **Plates** — a solid fill and a border — carry *things*: project cards,
+  testimonials, the contact form.
+- **Rules** — a hairline and nothing else — carry *arguments*: capabilities,
+  the process strip, the timeline.
+
+Seven identical box grids is what makes a one-page portfolio feel generic. The
+contrast between the two treatments is what gives the page a hierarchy, so a
+section that makes a claim deliberately does not get a card.
+
+## Content
+
+All copy lives in `src/content/data.ts` as plain typed objects. Page components
+read from it and hold no prose of their own apart from section titles.
+
+`src/content/images.ts` is **generated** by `scripts/build-images.mjs` — do not
+edit it by hand. The script reads the originals in `assets/`, writes responsive
+WebP derivatives and a base64 blur-up placeholder into `public/img/`, and
+regenerates the manifest. It runs automatically on `npm run build`.
+
+`assets/raw/` holds unused originals kept for reference. The script never reads
+it, and it can be deleted without breaking the build.
+
+## Theming
+
+Colour lives entirely in `src/styles/tokens.css`. Every utility compiles to
+`var(--…)`, so flipping `data-theme` on `<html>` re-themes the whole site with
+no rebuild and no re-render. `public/theme-init.js` is applied inline in `<head>`
+before first paint, so there is no flash of the wrong palette.
+
+Only tokens something actually uses are defined. Adding one means adding it to
+the `@theme inline` bridge in `tailwind.css` as well, or Tailwind will not
+generate a utility for it.
+
+The palette is deliberately narrow: one decorative accent (`--accent`) plus two
+semantic colours for the contact form (`--success`, `--danger`). The ground is
+pure black and the surfaces are warm-neutral greys.
+
+Every text token is contrast-checked against its own ground and clears WCAG AA.
+This is the one place the greys are not chosen purely by eye: the values that
+produce the dim-grey-on-black look sit at 4.27:1 and 2.95:1 and were rejected,
+so `--text-body` and `--text-muted` are pitched one step lighter than the look
+strictly implies. `--text-faint` is below that bar by design and is only ever
+used for placeholders and decorative rules.
+
+## Motion
+
+Two primitives in `src/components/ui/`, and nothing else animates:
+
+- **`ScrollReveal`** — the section entrance. Takes a `direction`, `delay`,
+  `distance` and `duration`. Sibling blocks inside one section stagger on 0.1s
+  steps so the section assembles in reading order rather than arriving at once.
+  Fires on `once`, because a section tall enough to scroll back through would
+  otherwise replay the entrance under the reader mid-sentence. `as="li"` renders
+  it as a list item, so a reveal inside an `<ol>` still emits `<li>`.
+- **`Marquee`** — an infinite horizontal track for the skills strip. The track is
+  rendered twice and translated by exactly `-50%`, which is the only distance
+  that hides the seam, since each copy is precisely half the track.
+
+Both respect `prefers-reduced-motion`. `ScrollReveal` drops the initial offset
+and the `whileInView` target entirely, so no transform is ever applied rather
+than animating to zero; `Marquee` cancels the keyframes, leaving the track
+parked at its start where it still reads as a complete row.
+
+## Type
+
+The display scale is declared once in `@theme inline`, not repeated per page:
+
+| Token | Range | Used for |
+|-------|-------|----------|
+| `text-display-1` | 36 → 64px | Hero headline |
+| `text-display-2` | 28 → 44px | Section headings |
+| `text-display-3` | 24 → 36px | Project titles |
+
+All three are `clamp()`, so the scale is fluid with no per-breakpoint pairs.
+Letter-spacing is set against the `h1`/`h2`/`h3` elements in `@layer base` in
+`tailwind.css`, so a heading only needs its size utility.
+
+## Fonts
+
+Self-hosted, in `public/fonts/` — two variable woff2 files, latin subset only,
+with `@font-face` declarations at the top of `tailwind.css` and preloads in
+`index.html`. There is no request to a third-party font host.
+
+Adding a weight means widening the `font-weight` range on the existing
+`@font-face`, not adding a file: the variable axis already covers it.
+
+## Images
+
+`Media` paints an inline base64 LQIP as the element background and always sets
+`width`/`height`, so the box is never empty and the layout does not shift when
+the image lands. Above-the-fold images pass `priority` to skip lazy loading.
+
+## Accessibility
+
+Semantic markup throughout, one `<h1>`, a skip link, visible focus rings that
+survive both themes, and a disclosure built from native `<details>` so it works
+from the keyboard with no JavaScript. Every entrance animation is skipped when
+`prefers-reduced-motion` is set.
+
+## Scripts
 
 ```bash
-npm install
-npm run dev        # start dev server (http://localhost:5173)
-npm run build      # type-check + production build to dist/
-npm run preview    # serve the production build
+npm run dev       # dev server
+npm run build     # typecheck, generate images, build
+npm run preview   # serve the build
+npm run lint      # oxlint
+npm test          # vitest
+npm run images    # regenerate responsive images and the manifest
 ```
-
-## Structure
-
-```
-index.html                     — app shell, font imports, theme bootstrap, SEO/OG meta
-src/
-  styles/global.css            — design tokens, base, glow, scrollbar, reduced-motion
-  styles/tailwind.css          — Tailwind v4 @theme tokens + component classes
-  App.tsx                      — theme state, ambient glow, routes
-  lib/scroll.ts                — Lenis singleton, section scroll helpers
-  lib/motion-variants.ts       — shared Framer Motion variants
-  lib/three-config.ts          — theme-aware Three.js scene config
-  components/
-    layout/Header.tsx          — scrollspy, scroll progress, hide-on-scroll, mobile menu
-    layout/SmoothScroller.tsx  — Lenis + GSAP ScrollTrigger sync, deep-link handling
-    layout/PageTransition.tsx  — pathname-keyed transitions
-    layout/Footer.tsx          — contact + social links
-    ui/                        — Button, Badge, Typography, Magnetic, ScrollLink
-    canvas/HeroCanvas.tsx      — lazy Three.js hero canvas
-  pages/                       — Hero, About, Projects, Systems, Testimonials, Skills, Project (case study)
-  content/data.ts              — all portfolio content (5 case studies)
-public/                        — images (WebP), favicon, OG image, robots.txt, sitemap.xml
-```
-
-## Performance
-
-- Vendor libraries split into cached chunks (`vendor-react`, `vendor-motion`, `vendor-gsap`)
-- Three.js hero canvas lazy-loaded and desktop-only (reduced-motion aware)
-- All project imagery served as WebP (~25KB each)
-- HashRouter enables static hosting without server rewrites
-
-## Case studies
-
-Each project includes authored Challenge / Process / Solution sections, a metric strip, and a gallery. Content lives in `src/content/data.ts`.

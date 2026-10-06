@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ScrollLink } from '@/components/ui/ScrollLink';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { profile } from '@/content/data';
@@ -7,39 +7,13 @@ import { profile } from '@/content/data';
 const NAV_ITEMS = [
   { label: 'Work', id: 'work' },
   { label: 'About', id: 'about' },
-  { label: 'Stack', id: 'capabilities' },
-  { label: 'Systems', id: 'systems' },
+  { label: 'What I do', id: 'capabilities' },
   { label: 'Process', id: 'process' },
   { label: 'Contact', id: 'contact' },
 ];
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
 export const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [reduced, setReduced] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  }, []);
-
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        setProgress(max > 0 ? window.scrollY / max : 0);
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, []);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -52,106 +26,99 @@ export const Header: React.FC = () => {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <>
-      {/* Scroll progress */}
-      <div
-        aria-hidden="true"
-        className="fixed top-0 left-0 right-0 z-[60] h-[2px] origin-left bg-accent transition-transform duration-150"
-        style={{ transform: `scaleX(${progress})` }}
-      />
+    <header className="sticky top-0 z-50 border-b border-line/80 bg-ink-900/80 backdrop-blur-xl transition-colors duration-200">
+      <div className="shell flex h-[64px] items-center justify-between">
+        <a
+          href="#home"
+          onClick={(e) => {
+            e.preventDefault();
+            closeMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="group flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
+          aria-label={`${profile.brand} — back to top`}
+        >
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-display text-onaccent font-mono text-[12px] font-bold shadow-sm transition-transform duration-200 group-hover:scale-105">
+            J
+          </span>
+          <span className="text-display">{profile.brand}</span>
+        </a>
 
-      <header className="sticky top-0 z-50 border-b border-line bg-ink-900/80 backdrop-blur-[14px]">
-        <div className="mx-auto flex h-[64px] max-w-[1200px] items-center justify-between px-6 md:px-8">
-          <motion.a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              closeMenu();
-              window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
-            }}
-            className="font-display text-[13px] font-semibold tracking-[0.2em] transition-colors hover:text-glow"
-            style={{ perspective: 600, transformStyle: 'preserve-3d' }}
-            whileHover={reduced ? {} : { rotateY: 180, scale: 1.05 }}
-            transition={{ duration: 0.6, ease: EASE }}
-            aria-label={`${profile.brand} — back to top`}
-          >
-            <span className="inline-block" style={{ transformStyle: 'preserve-3d' }}>
-              {profile.brand}
-            </span>
-          </motion.a>
-
-          <nav className="hidden items-center gap-6 text-[13px] md:flex lg:gap-8" aria-label="Primary">
-            {NAV_ITEMS.map((item) => (
-              <ScrollLink
-                key={item.id}
-                to={item.id}
-                className="tracking-wide text-body transition-colors hover:text-display"
-              >
-                {item.label}
-              </ScrollLink>
-            ))}
-            <div className="flex items-center gap-2 border-l border-line pl-4">
-              <motion.span
-                className="h-2 w-2 rounded-full bg-signal shadow-[0_0_12px_color-mix(in_oklab,var(--signal)_60%,transparent)]"
-                animate={reduced ? {} : { scale: [1, 1.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="h-2 w-2 rounded-full bg-glow/80" />
-              <ThemeToggle className="ml-3" />
-            </div>
-          </nav>
-
-          {/* The desktop nav is hidden below md, so the toggle has to appear
-              here too — otherwise mobile has no way to reach it at all. */}
-          <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setMenuOpen((open) => !open)}
-              className="grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-line transition-all duration-300 hover:-translate-y-[2px] hover:border-line-strong hover:bg-tint-3"
-              aria-label="Toggle menu"
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
+        <nav className="hidden items-center gap-1.5 text-[14px] md:flex" aria-label="Primary">
+          {NAV_ITEMS.map((item) => (
+            <ScrollLink
+              key={item.id}
+              to={item.id}
+              className="rounded-full px-3.5 py-1.5 text-body font-medium transition-all duration-200 hover:bg-tint-2 hover:text-display"
             >
-              <div className="space-y-1">
-                <div
-                  className={`h-[1.5px] w-4 bg-display transition ${menuOpen ? 'rotate-45 translate-y-[3px]' : ''}`}
-                />
-                <div
-                  className={`h-[1.5px] w-4 bg-display transition ${menuOpen ? '-rotate-45 -translate-y-[3px]' : ''}`}
-                />
-              </div>
-            </button>
+              {item.label}
+            </ScrollLink>
+          ))}
+          <div className="ml-2 pl-2 border-l border-line-faint">
+            <ThemeToggle />
           </div>
-        </div>
+        </nav>
 
-        {menuOpen && (
-          <div
-            id="mobile-menu"
-            className="animate-[fadeIn_0.25s_ease] border-t border-line bg-ink-900 px-6 py-6 md:hidden"
+        {/* Mobile menu controls */}
+        <div className="flex items-center gap-2.5 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-line bg-tint-1 transition-colors hover:border-line-strong hover:bg-tint-2"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
-            <div className="flex flex-col gap-5 text-[14px]">
-              {NAV_ITEMS.map((item) => (
-                <ScrollLink
-                  key={item.id}
-                  to={item.id}
-                  onClick={closeMenu}
-                  className="cursor-pointer text-left text-body"
-                >
-                  {item.label}
-                </ScrollLink>
-              ))}
-              <ScrollLink
-                to="contact"
-                onClick={closeMenu}
-                className="grid h-11 cursor-pointer place-items-center rounded-full bg-display px-5 text-[13px] font-medium text-onaccent transition-all duration-300 hover:-translate-y-[2px] hover:bg-bright hover:shadow-[0_10px_30px_color-mix(in_oklab,var(--accent)_35%,transparent)]"
-              >
-                Hire Me →
-              </ScrollLink>
+            <div className="space-y-1.5">
+              <div
+                className={`h-0.5 w-4 rounded-full bg-display transition-all duration-200 ${
+                  menuOpen ? 'translate-y-[4px] rotate-45' : ''
+                }`}
+              />
+              <div
+                className={`h-0.5 w-4 rounded-full bg-display transition-all duration-200 ${
+                  menuOpen ? '-translate-y-[4px] -rotate-45' : ''
+                }`}
+              />
             </div>
-          </div>
+          </button>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            id="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-line bg-ink-900/95 backdrop-blur-2xl md:hidden"
+          >
+            <div className="shell flex flex-col gap-1.5 py-4 text-[15px]">
+              {NAV_ITEMS.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.03, duration: 0.18 }}
+                >
+                  <ScrollLink
+                    to={item.id}
+                    onClick={closeMenu}
+                    className="block rounded-lg px-3 py-2.5 font-medium text-body transition-colors hover:bg-tint-2 hover:text-display"
+                  >
+                    {item.label}
+                  </ScrollLink>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         )}
-      </header>
-    </>
+      </AnimatePresence>
+    </header>
   );
 };
+
+export default Header;

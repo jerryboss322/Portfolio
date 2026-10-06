@@ -6,8 +6,8 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 const SUBMIT_URL = 'https://api.web3forms.com/submit';
 
 const INPUT_CLASS =
-  'w-full rounded-[12px] border border-line bg-ink-900/60 px-4 py-3 text-[14px] text-display placeholder:text-faint outline-none transition-colors focus:border-accent/60';
-const LABEL_CLASS = 'text-[11px] tracking-[0.2em] text-body';
+  'w-full rounded-xl border border-line bg-ink-900/60 px-4 py-3 text-[14px] text-display placeholder:text-faint outline-none transition-all duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20';
+const LABEL_CLASS = 'text-[11px] font-semibold uppercase tracking-[0.16em] text-muted';
 
 export const ContactForm: React.FC = () => {
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -114,7 +114,7 @@ export const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="grid h-10 cursor-pointer place-items-center rounded-full bg-display px-6 text-[13px] font-medium text-onaccent transition-all duration-300 hover:-translate-y-[2px] hover:bg-bright hover:shadow-[0_10px_30px_color-mix(in_oklab,var(--accent)_35%,transparent)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-display disabled:hover:shadow-none"
+          className="grid h-10 cursor-pointer place-items-center rounded-full bg-display px-6 text-[13px] font-medium text-onaccent transition-all duration-300 hover:-translate-y-[2px] hover:bg-bright active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-display"
         >
           {status === 'submitting' ? 'Sending…' : 'Send Message'}
         </button>
@@ -130,7 +130,7 @@ export const ContactForm: React.FC = () => {
             Something went wrong. Please email me directly at{' '}
             <a
               href={`mailto:${profile.email}`}
-              className="text-glow underline underline-offset-2 hover:text-accent"
+              className="text-accent underline underline-offset-2"
             >
               {profile.email}
             </a>

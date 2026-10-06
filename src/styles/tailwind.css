@@ -2,6 +2,40 @@
 @import './tokens.css';
 
 /* ============================================================
+   Self-hosted fonts.
+
+   Two variable woff2 files in public/fonts/, latin subset only. This
+   replaces a render-blocking <link> to fonts.googleapis.com plus two
+   preconnects, which put a third-party round trip on the critical path
+   for every first visit.
+
+   `swap` means text paints in the fallback immediately rather than
+   waiting on the font, and the variable axis means all five weights come
+   from one file each instead of one file per weight.
+   ============================================================ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/inter-latin-var.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-latin-var.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ============================================================
    Token bridge.
 
    `inline` is the important keyword: it makes Tailwind substitute
@@ -11,13 +45,14 @@
    React re-render.
    ============================================================ */
 @theme inline {
-  /* Surfaces */
+  /* --- Surfaces ---------------------------------------------- */
   --color-ink-900: var(--ink-900);
   --color-ink-850: var(--ink-850);
-  --color-ink-800: var(--ink-800);
   --color-ink-700: var(--ink-700);
   --color-ink-600: var(--ink-600);
-  --color-ink-500: var(--ink-500);
+  --color-frame-plate: var(--frame-plate);
+  --color-frame-well: var(--frame-well);
+  --color-tile-shadow: var(--tile-shadow);
 
   /* Text */
   --color-display: var(--text-display);
@@ -26,14 +61,10 @@
   --color-muted: var(--text-muted);
   --color-faint: var(--text-faint);
   --color-onaccent: var(--text-on-accent);
-  --color-onmedia: var(--on-media);
 
   /* Accents */
   --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --color-accent-deep: var(--accent-deep);
-  --color-glow: var(--glow);
-  --color-signal: var(--signal);
+  --color-accent-glow: var(--accent-glow);
   --color-success: var(--success);
   --color-danger: var(--danger);
 
@@ -44,20 +75,52 @@
   --color-tint-1: var(--tint-1);
   --color-tint-2: var(--tint-2);
   --color-tint-3: var(--tint-3);
-  --color-tint-4: var(--tint-4);
-
-  /* Shadows cannot be expressed as colour utilities, so the composed
-     elevation values are bridged to box-shadow utilities directly. */
-  --shadow-elev-1: var(--elev-1);
-  --shadow-elev-2: var(--elev-2);
-  --shadow-elev-3: var(--elev-3);
-  --shadow-elev-4: var(--elev-4);
-  --shadow-elev-5: var(--elev-5);
 
   /* Type */
   --font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+
+  /* ============================================================
+     Display scale.
+
+     Declared once here rather than as arbitrary values on each page. The
+     section heading was previously `text-[30px] ... md:text-[38px]` repeated
+     seven times identically; now it is a token, and it is fluid, so the
+     per-breakpoint pairs are gone too.
+
+     Letter-spacing is not here — it is set against the h1/h2/h3 elements in
+     the base layer below, so one rule covers every heading.
+     ============================================================ */
+  --text-display-1: clamp(2.25rem, 1.35rem + 3.6vw, 4rem);
+  --text-display-1--line-height: 1.02;
+  --text-display-2: clamp(1.75rem, 1.35rem + 1.6vw, 2.75rem);
+  --text-display-2--line-height: 1.06;
+  --text-display-3: clamp(1.5rem, 1.3rem + 0.8vw, 2.25rem);
+  --text-display-3--line-height: 1.12;
+
+  /* The site uses no drop shadows. Clearing the default scale stops Tailwind
+     shipping the base `shadow` rule with a blurred offset value, and makes any
+     later `shadow-*` a no-op rather than a silent regression. */
+  --shadow-*: initial;
+}
+
+/* ============================================================
+   Marquee.
+
+   One rule for the whole loop. `translateX(-50%)` is the only value that
+   makes the seam invisible, because the track holds two identical copies
+   and each is exactly half the track's width — so the copy leaving the
+   left edge is replaced by its twin entering from the right at the same
+   offset. Any other distance produces a visible jump.
+   ============================================================ */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @layer base {
@@ -65,14 +128,44 @@
     scroll-behavior: smooth;
   }
 
+  /* The loop is the one animation with no natural end, so it cannot just be
+     skipped when the visitor has asked for less motion — it has to stop.
+
+     `!important` because `global.css` sets `animation-duration` and
+     `animation-iteration-count` to `!important` on every element under the
+     same media query. Without it the keyframes are not cancelled but run once
+     in 0.01ms, which lands the track on `translateX(-50%)` — half a track out
+     of position, for the rest of the session. */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none !important;
+    }
+  }
+
+  /* ============================================================
+     Page container.
+
+     One definition of the horizontal measure, because it was being retyped in
+     eight places and had already drifted to two different widths — which is
+     how a page ends up with sections that do not line up with each other.
+     ============================================================ */
+  .shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1180px;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 3rem;
+    }
+  }
+
   body {
     font-family: var(--font-body);
     background-color: var(--ink-900);
     color: var(--text-body);
-    /* Anchored to the page ground so overscroll never flashes the UA white. */
-    background-attachment: fixed;
-    /* Slightly negative tracking on body copy. Long sans-serif lines at 16px
-       look airy without it. */
     letter-spacing: -0.003em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -87,97 +180,25 @@
   }
 
   /* Optical tracking: the larger the type, the tighter it has to sit or it
-     stops reading as a single word. */
+     stops reading as a single word. Set once per element here so the
+     display-scale utilities only have to carry size. */
   h1 {
-    letter-spacing: -0.042em;
-    line-height: 0.9;
+    letter-spacing: -0.04em;
   }
   h2 {
     letter-spacing: -0.035em;
-    line-height: 0.94;
   }
   h3 {
-    letter-spacing: -0.022em;
-    line-height: 1.08;
+    letter-spacing: -0.02em;
   }
 
-  /* One shared label style. Every section eyebrow was inventing its own
-     tracking value; this makes the rhythm identical everywhere. */
-  .eyebrow {
-    font-size: 10px;
+  /* One shared label style, for the few small uppercase labels left. */
+  .label {
+    font-size: 12px;
     line-height: 1.2;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--text-muted);
-  }
-
-  /* ============================================================
-     Section grounds.
-
-     Scrolling through a long page needs a sense of place. Alternating
-     recessed and raised bands gives the eye somewhere to land, where a
-     column of identical fills reads as one undifferentiated block. Both
-     are token-driven, so the rhythm survives a theme flip.
-
-     These are all background-image only — no layout, no paint on scroll,
-     and they composite over the page ground rather than replacing it.
-     ============================================================ */
-
-  /* Sits below the page ground. Used for "the archive" moments. */
-  .bg-recessed {
-    background-color: var(--ink-900);
-    background-image: linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--ink-850) 70%, transparent),
-      transparent 40%
-    );
-  }
-
-  /* Comes forward a step. */
-  .bg-raised {
-    background-color: var(--ink-850);
-    background-image: linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--ink-800) 60%, transparent),
-      transparent 60%
-    );
-  }
-
-  /* Neutral: the page ground, untouched. */
-  .bg-ground {
-    background-color: var(--ink-900);
-  }
-
-  /* Faint technical grid, masked to a soft oval so it never reaches an edge
-     and never tiles visibly. Drawn from the line token so it flips polarity. */
-  .bg-grid {
-    background-image: linear-gradient(var(--line-faint) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line-faint) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(70% 60% at 50% 40%, #000, transparent 78%);
-  }
-
-  /* A soft directional bloom, for giving a band a light source. */
-  .bg-bloom-tr {
-    background-image: radial-gradient(
-      80% 60% at 12% 0%,
-      color-mix(in oklab, var(--accent) 12%, transparent),
-      transparent 70%
-    );
-  }
-  .bg-bloom-bottom {
-    background-image: radial-gradient(
-      70% 55% at 50% 100%,
-      color-mix(in oklab, var(--glow) 9%, transparent),
-      transparent 72%
-    );
-  }
-  .bg-bloom-centre {
-    background-image: radial-gradient(
-      60% 50% at 50% 45%,
-      color-mix(in oklab, var(--accent) 13%, transparent),
-      transparent 70%
-    );
   }
 
   /* Prose measure. Long lines are the fastest way to make a layout look
@@ -191,25 +212,36 @@
     color: var(--text-on-accent);
   }
 
+  /* The project detail disclosure. `list-none` on the summary drops the
+     default triangle; the chevron in the markup does the job instead. */
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
   /* ============================================================
      Focus.
 
-     The global :focus-visible outline in global.css is the floor, but on a
-     dark ground a pure accent ring at 2px can lose contrast against an
-     already-saturated card edge. A two-tone ring — a light inner line and the
-     accent outside it — stays visible on any surface in either theme, which
-     a single-colour ring cannot.
+     A 2px solid outline is the entire indicator — no glow, no cast
+     effect. The site uses no depth effects anywhere, and a focus ring is
+     an outline rather than one, so it needs no companion. 2px of solid
+     accent at a 2px offset clears WCAG 2.4.7 and 2.4.13 on both themes.
+
+     Note: Tailwind scans this file as well as the JSX, so avoid writing
+     the bare drop-effect utility name in prose here. Tailwind reads it as
+     a class and ships the rule, unused, in the built CSS.
      ============================================================ */
   :where(a, button, input, textarea, select, [tabindex]):focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
-    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent);
     border-radius: 6px;
   }
 
-  /* Controls that manage their own ring should not get it twice. */
+  /* Form controls get the border colour as well, since their outline sits
+     tight against a field that already has a border of its own. */
   :where(input, textarea, select):focus-visible {
-    box-shadow: none;
     border-color: var(--accent);
   }
 

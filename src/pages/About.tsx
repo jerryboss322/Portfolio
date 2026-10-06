@@ -1,150 +1,109 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Media } from '@/components/ui/Media';
-import { Text3D } from '@/components/ui/Text3D';
-import { useReducedMotion } from '@/lib/hooks';
-import { portrait } from '@/content/images';
-import { about, values } from '@/content/data';
-
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import React from 'react';
+import { CheckCircle2, Sparkles } from 'lucide-react';
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { Section, SectionHead } from '@/components/ui/Section';
+import { about, values, profile } from '@/content/data';
 
 /**
- * About: an asymmetric two-column with a tilted 3D portrait on the left and a
- * vertical timeline whose spine fills as you scroll on the right.
+ * About Jerry: Philosophy, Principles, and Journey.
+ *
+ * Removes the duplicate portrait photo to keep the page clean and purposeful.
+ * Pairs an interactive principles card with a modern vertical milestone timeline.
  */
-export const AboutSection: React.FC = () => {
-  const reduced = useReducedMotion();
-  const timelineRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ['start 0.85', 'end 0.6'],
-  });
-
-  /* The spine fills to match scroll progress instead of jumping on reveal. */
-  const spineScale = useTransform(scrollYProgress, [0, 1], [0.04, 1]);
-
-  return (
-    <section id="about" className="relative overflow-hidden border-t border-line bg-raised">
-      <div className="pointer-events-none absolute inset-0 bg-bloom-tr" aria-hidden="true" />
-      <div className="mx-auto grid max-w-[1280px] gap-14 px-6 py-20 md:px-10 md:py-28 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
-        {/* ---- Portrait ---- */}
-        <div className="relative [perspective:1300px]">
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 34 }}
-            whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="relative"
-            style={reduced ? undefined : { transform: 'rotateY(8deg) rotateX(3deg)' }}
-          >
-            <div className="relative overflow-hidden rounded-[24px] border border-line-strong bg-ink-700 p-2 shadow-elev-5">
-              <Media
-                asset={portrait}
-                alt={`Jerry Adewole — ${about.paragraphs[0]}`}
-                sizes="(max-width: 1024px) 90vw, 420px"
-                className="rounded-[17px]"
-                imgClassName="object-cover object-top"
-              />
-              <div className="pointer-events-none absolute inset-2 rounded-[17px] bg-[linear-gradient(180deg,transparent_52%,color-mix(in oklab, var(--ink-900) 88%, transparent))]" />
-
-              <div className="absolute inset-x-6 bottom-6">
-                <div className="text-[15px] leading-[1.5] text-display">
-                  “{about.pullQuote}”
-                </div>
-              </div>
+export const AboutSection: React.FC = () => (
+  <Section id="about" tone="ground">
+    <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-start">
+      {/* ---- Left: Developer Profile & Principles ---- */}
+      <ScrollReveal direction="left" distance={30}>
+        <div className="rounded-2xl border border-line bg-ink-700/60 p-6 md:p-8 backdrop-blur-sm shadow-xl">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 border border-accent/20 text-accent">
+              <Sparkles size={20} />
             </div>
-
-            {/* Accent plate breaking the frame. */}
-            <div className="absolute -bottom-5 -right-5 rounded-[16px] border border-glow/25 bg-ink-800/90 px-5 py-3.5 backdrop-blur-xl">
-              <div className="font-display text-[22px] font-bold leading-none tracking-tight">
-                3<span className="text-[13px] text-glow">+</span>
-              </div>
-              <div className="mt-1.5 text-[9px] uppercase tracking-[0.16em] text-body">
-                Years
-              </div>
+            <div>
+              <div className="font-semibold text-display text-[16px]">{profile.fullName}</div>
+              <div className="text-[12px] text-muted">{profile.role} · {profile.location}</div>
             </div>
-          </motion.div>
+          </div>
+
+          <div className="mt-6 border-t border-line/60 pt-6">
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-muted">
+              Core Principles
+            </div>
+            <ul className="mt-3.5 space-y-2.5">
+              {values.map((value) => (
+                <li
+                  key={value}
+                  className="group flex items-center gap-2.5 rounded-xl border border-line-faint bg-ink-850/60 px-3.5 py-2.5 text-[13px] font-medium text-bright transition-all duration-200 hover:border-line hover:bg-ink-850 hover:text-display"
+                >
+                  <CheckCircle2
+                    size={15}
+                    className="shrink-0 text-accent transition-transform duration-200 group-hover:scale-110"
+                    aria-hidden="true"
+                  />
+                  <span>{value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-6 rounded-xl border border-line-faint bg-tint-1 p-4 text-[13px] leading-[1.7] text-muted">
+            <span className="font-medium text-bright">Focus: </span>
+            End-to-end web engineering with TypeScript, modern React, resilient backend architecture, and production performance.
+          </div>
         </div>
+      </ScrollReveal>
 
-        {/* ---- Copy + timeline ---- */}
-        <div>
-          <div className="eyebrow">
-            About
+      {/* ---- Right: Argument + Connected Timeline ---- */}
+      <div>
+        <SectionHead title="About me" />
+
+        <ScrollReveal direction="up" distance={20} delay={0.1}>
+          <p className="mt-6 max-w-[58ch] text-[16px] leading-[1.8] text-bright">
+            {about.paragraph}
+          </p>
+        </ScrollReveal>
+
+        <div className="mt-12">
+          <div className="text-[12px] font-semibold uppercase tracking-wider text-muted mb-6">
+            Experience & Journey
           </div>
-          <h2 className="font-display mt-4 text-[34px] font-semibold leading-[0.95] tracking-[-0.03em] md:text-[48px]">
-            <Text3D depth={reduced ? 1 : 14} step={0.9} tilt={3}>
-              I BUILD THE WHOLE THING
-            </Text3D>
-          </h2>
 
-          <p className="mt-6 max-w-[56ch] text-[15px] leading-[1.8] text-body">
-            {about.paragraphs[0]}
-          </p>
-          <p className="mt-4 max-w-[56ch] text-[14px] leading-[1.8] text-muted">
-            {about.paragraphs[2]}
-          </p>
-
-          {/* Values as inline chips. */}
-          <div className="mt-8 flex flex-wrap gap-2">
-            {values.map((value) => (
-              <span
-                key={value.title}
-                title={value.description}
-                className="cursor-default rounded-lg border border-line-strong bg-tint-1 px-3 py-1.5 text-[11.5px] text-bright transition-colors duration-300 hover:border-glow/30 hover:text-display"
+          <ol className="relative ml-2 space-y-8 border-l border-line/80 pl-6 sm:ml-3 sm:pl-8">
+            {about.timeline.map((entry, i) => (
+              <ScrollReveal
+                key={entry.period}
+                as="li"
+                direction="up"
+                distance={16}
+                delay={i * 0.08}
               >
-                {value.title}
-              </span>
-            ))}
-          </div>
+                {/* Glowing node indicator on timeline */}
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-[5px] mt-1.5 h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-ink-900 transition-transform duration-200 hover:scale-125"
+                />
 
-          {/* Timeline with a scroll-driven spine. */}
-          <div ref={timelineRef} className="relative mt-11">
-            <div className="relative pl-7">
-              {/* Track */}
-              <span
-                aria-hidden="true"
-                className="absolute left-[7px] top-2 bottom-2 w-px bg-line"
-              />
-              {/* Fill */}
-              <motion.span
-                aria-hidden="true"
-                className="absolute left-[7px] top-2 bottom-2 w-px origin-top bg-[linear-gradient(180deg,var(--glow),var(--accent))]"
-                style={reduced ? undefined : { scaleY: spineScale }}
-              />
-
-              <ol className="space-y-8">
-                {about.timeline.map((entry, i) => (
-                  <motion.li
-                    key={entry.period}
-                    initial={reduced ? false : { opacity: 0, x: -14 }}
-                    whileInView={reduced ? {} : { opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
-                    className="relative"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="absolute -left-[25px] top-1.5 grid h-[9px] w-[9px] place-items-center rounded-full border border-glow/60 bg-ink-800 shadow-[0_0_10px_color-mix(in_oklab,var(--glow)_50%,transparent)]"
-                    />
-                    <div className="font-mono text-[10.5px] tracking-wider text-glow/80">
-                      {entry.period}
-                    </div>
-                    <div className="font-display mt-1.5 text-[16px] font-semibold tracking-tight">
+                <div className="group rounded-xl border border-line-faint bg-ink-700/40 p-4 sm:p-5 backdrop-blur-sm transition-all duration-200 hover:border-line hover:bg-ink-700/70">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="text-[15px] font-semibold text-display">
                       {entry.title}
-                    </div>
-                    <p className="mt-1.5 max-w-[52ch] text-[13px] leading-[1.65] text-body">
-                      {entry.description}
-                    </p>
-                  </motion.li>
-                ))}
-              </ol>
-            </div>
-          </div>
+                    </h3>
+                    <span className="rounded-full border border-line-faint bg-tint-2 px-2.5 py-0.5 font-mono text-[11px] font-medium text-accent">
+                      {entry.period}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-[13px] leading-[1.7] text-muted">
+                    {entry.description}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </ol>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </Section>
+);
 
 export default AboutSection;

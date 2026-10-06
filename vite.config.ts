@@ -16,23 +16,15 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
-    /* The suite mounts the entire page — 3D text extrusions, the WebGL canvas
-       and every section — in jsdom, where forced style recalcs are ~100x slower
-       than a browser. Several tests already sat near the 5s default and started
-       failing as soon as the page grew, which says nothing about the product. */
-    testTimeout: 20000,
   },
   build: {
     sourcemap: false,
     target: 'es2022',
-    chunkSizeWarningLimit: 800,
+    chunkSizeWarningLimit: 400,
     rolldownOptions: {
       output: {
         codeSplitting: {
-          groups: [
-            { name: 'vendor-react', test: /node_modules\/(react|react-dom|react-router-dom|react-router)/ },
-            { name: 'vendor-motion', test: /node_modules\/framer-motion/ },
-          ],
+          groups: [{ name: 'vendor', test: /node_modules/ }],
         },
       },
     },

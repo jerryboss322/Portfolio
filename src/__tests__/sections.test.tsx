@@ -1,8 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import App from '@/App';
-import { capabilities, process } from '@/content/data';
+import { capabilities, process, about, projects } from '@/content/data';
 
 /** Flips the mocked matchMedia result for the duration of a test. */
 const setReducedMotion = (matches: boolean) => {
@@ -31,16 +30,7 @@ describe('Capabilities section', () => {
       expect(
         within(section as HTMLElement).getByRole('heading', { name: capability.title })
       ).toBeInTheDocument();
-    }
-  });
-
-  it('exposes the capability detail points as text', () => {
-    render(<App />);
-    const section = document.getElementById('capabilities') as HTMLElement;
-    const delivery = capabilities.find((c) => c.featured);
-
-    for (const point of delivery?.points ?? []) {
-      expect(within(section).getByText(point)).toBeInTheDocument();
+      expect(within(section as HTMLElement).getByText(capability.description)).toBeInTheDocument();
     }
   });
 });
@@ -57,16 +47,28 @@ describe('Process section', () => {
 });
 
 describe('Testimonials', () => {
-  it('exposes each card as a toggle button', async () => {
+  it('shows the full quote and attribution with nothing hidden behind a click', () => {
     render(<App />);
-    const buttons = screen.getAllByRole('button', { pressed: false });
-    expect(buttons.length).toBeGreaterThan(0);
+    const section = document.getElementById('testimonials') as HTMLElement;
 
-    const first = buttons[0];
-    await userEvent.click(first);
-    expect(first).toHaveAttribute('aria-pressed', 'true');
+    for (const testimonial of about.testimonials) {
+      expect(within(section).getByText(new RegExp(escapeRegExp(testimonial.quote.slice(0, 40)))))
+        .toBeInTheDocument();
+      expect(within(section).getByText(new RegExp(escapeRegExp(testimonial.role)))).toBeInTheDocument();
+    }
   });
 });
+
+describe('No heavyweight rendering', () => {
+  it('renders no canvas, and no animation libraries are driving the page', () => {
+    render(<App />);
+
+    /* The WebGL hero is gone for good: a canvas element should never come back. */
+    expect(document.querySelector('canvas')).toBeNull();
+  });
+});
+
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 describe('Reduced motion', () => {
   const original = window.matchMedia;
@@ -79,16 +81,15 @@ describe('Reduced motion', () => {
 
   it('still renders every section heading', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: /How I work/ })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /What clients say/ })).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: /From first commit/ })
-    ).toBeInTheDocument();
+
+    expect(screen.getByRole('heading', { name: 'How a project goes' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Kind words' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'What I do' })).toBeInTheDocument();
   });
 
-  it('renders testimonials without toggle buttons so nothing depends on a flip', () => {
+  it('still exposes every project write-up', () => {
     render(<App />);
-    const section = document.getElementById('testimonials') as HTMLElement;
-    expect(within(section).queryAllByRole('button')).toHaveLength(0);
+
+    expect(document.querySelectorAll('details')).toHaveLength(projects.length);
   });
 });

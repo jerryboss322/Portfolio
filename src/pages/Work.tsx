@@ -1,9 +1,7 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { DeviceFrame } from '@/components/ui/Media';
-import { ScrambleText } from '@/components/ui/ScrambleText';
-import { Text3D } from '@/components/ui/Text3D';
-import { useReducedMotion } from '@/lib/hooks';
+import { Media } from '@/components/ui/Media';
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { Section, SectionHead } from '@/components/ui/Section';
 import { projects, type Project } from '@/content/data';
 import {
   projectImage_titan,
@@ -13,8 +11,6 @@ import {
   projectImage_jbet,
   type ImageAsset,
 } from '@/content/images';
-
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const IMAGES: Record<string, ImageAsset> = {
   titan: projectImage_titan,
@@ -30,212 +26,236 @@ const TYPE_LABEL: Record<Project['type'], string> = {
   experiment: 'Experiment',
 };
 
+/** The bare host of a project URL, for the screenshot caption. */
+const host = (url: string) => {
+  try {
+    return new URL(url).host;
+  } catch {
+    return url;
+  }
+};
+
+const pad = (n: number) => String(n + 1).padStart(2, '0');
+
 /**
- * One project, laid out as an alternating editorial spread.
+ * One project.
  *
- * Odd rows put the device on the right, even rows flip it, so the section has
- * rhythm instead of five identical stacked cards. Each row drifts its own
- * device slightly against the scroll to build vertical parallax between the
- * screenshot and the copy.
+ * The card alternates which side the screenshot sits on. That is the whole
+ * reason the grid reads as composed rather than as a list — a visitor's eye
+ * zig-zags down the column instead of tracking one edge the whole way, and it
+ * means no two adjacent cards have their screenshot cropped the same way.
+ *
+ * The card edge is dissolved into the page with a gradient on the screenshot's
+ * outer side only. It is decorative and sits above the card, so it carries
+ * `pointer-events-none` — without it it would swallow the hover on the card
+ * underneath wherever it overlaps.
+ *
+ * The `<details>` is a sibling of the card, not a child of its link. A
+ * disclosure is interactive content and an `<a>` may not contain interactive
+ * content; nesting them would produce a control inside a control, which breaks
+ * both the click target and the keyboard path.
  */
-const ProjectRow: React.FC<{
-  project: Project;
-  index: number;
-  reduced: boolean;
-}> = ({ project, index, reduced }) => {
-  const rowRef = React.useRef<HTMLElement>(null);
-  const flip = index % 2 === 1;
-
-  const { scrollYProgress } = useScroll({
-    target: rowRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const deviceY = useTransform(scrollYProgress, [0, 1], [54, -54]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [-22, 22]);
+const ProjectCard: React.FC<{ project: Project; index: number }> = ({
+  project,
+  index,
+}) => {
+  const isEven = index % 2 === 0;
 
   return (
-    <motion.article
-      ref={rowRef}
-      initial={reduced ? false : { opacity: 0, y: 46 }}
-      whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-90px' }}
-      transition={{ duration: 0.75, ease: EASE }}
-      className="group relative border-t border-line py-14 first:border-t-0 md:py-20"
-    >
-      {/* Oversized index numeral, behind everything. It is wrapped in its own
-          clipping layer: the numeral deliberately bleeds past the text edge, and
-          clipping the whole section instead would cut the device reflections
-          and the 3D tilt. */}
-      <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <span
-          className="font-display absolute -top-2 select-none text-[120px] font-bold leading-none tracking-tighter text-display/[0.035] md:text-[170px]"
-          style={{ [flip ? 'right' : 'left']: '-0.06em' }}
-        >
-          {String(index + 1).padStart(2, '0')}
-        </span>
-      </span>
-
-      <div
-        className={[
-          'relative grid items-center gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16',
-          flip ? 'lg:[direction:rtl]' : '',
-        ].join(' ')}
-      >
-        {/* ---- Copy ---- */}
-        <motion.div
-          style={reduced ? undefined : { y: copyY }}
-          className={flip ? 'lg:[direction:ltr]' : ''}
-        >
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="eyebrow rounded-full border border-glow/25 bg-glow/[0.07] px-2.5 py-1 text-glow">
-              {TYPE_LABEL[project.type]}
-            </span>
-            <span className="eyebrow">
-              {project.year}
-            </span>
-          </div>
-
-          <h3 className="font-display mt-5 text-[34px] font-semibold leading-[0.94] tracking-[-0.03em] md:text-[46px]">
-            {project.title}
-          </h3>
-          <div className="mt-2 text-[14px] text-glow/80">{project.subtitle}</div>
-
-          <p className="mt-5 max-w-[48ch] text-[14px] leading-[1.75] text-body md:text-[15px]">
-            {project.summary}
-          </p>
-
-          {/* Challenge / outcome — the two things a client actually cares about. */}
-          <div className="mt-7 grid gap-px overflow-hidden rounded-[14px] border border-line bg-line sm:grid-cols-2">
-            <div className="bg-ink-850 p-4">
-              <div className="text-[9px] uppercase tracking-[0.18em] text-muted">
-                The problem
-              </div>
-              <p className="mt-2 text-[12.5px] leading-[1.6] text-bright">
-                {project.challenge[0]}
-              </p>
-            </div>
-            <div className="bg-ink-850 p-4">
-              <div className="text-[9px] uppercase tracking-[0.18em] text-muted">
-                What shipped
-              </div>
-              <p className="mt-2 text-[12.5px] leading-[1.6] text-bright">
-                {project.solution[0]}
-              </p>
-            </div>
-          </div>
-
-          {project.metrics.length > 0 && (
-            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-              {project.metrics.map((m) => (
-                <div key={m.label}>
-                  <div className="font-display text-[20px] font-semibold leading-none tracking-tight text-display">
-                    {m.value}
+    <ScrollReveal direction="up" distance={30} duration={0.6}>
+      <article className="relative">
+        <div className="group relative overflow-hidden rounded-2xl border border-line bg-ink-700/60 backdrop-blur-sm transition-all duration-300 hover:border-line-strong hover:bg-ink-700/80">
+          <div className="grid items-center gap-6 p-6 md:p-8 lg:grid-cols-12 lg:gap-8">
+            {/* ---- Screenshot Showcase (Browser Frame) ---- */}
+            <div
+              className={[
+                'relative flex flex-col justify-center lg:col-span-6',
+                isEven ? 'lg:order-1' : 'lg:order-2',
+              ].join(' ')}
+            >
+              <div className="relative overflow-hidden rounded-xl border border-line-faint bg-frame-well shadow-xl">
+                {/* Browser top chrome */}
+                <div className="flex h-8 items-center justify-between border-b border-line-faint bg-ink-850/80 px-3.5 backdrop-blur-sm">
+                  <div className="flex items-center gap-1.5" aria-hidden="true">
+                    <span className="h-2.5 w-2.5 rounded-full bg-line-strong transition-colors group-hover:bg-danger/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-line-strong transition-colors group-hover:bg-amber-500/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-line-strong transition-colors group-hover:bg-success/80" />
                   </div>
-                  <div className="mt-1.5 eyebrow">
-                    {m.label}
+                  <div className="flex items-center gap-1.5 rounded-md border border-line-faint bg-ink-900/50 px-2 py-0.5 text-[10px] text-faint">
+                    <span className="h-1.5 w-1.5 rounded-full bg-success/60" aria-hidden="true" />
+                    <span className="max-w-[140px] truncate">{host(project.liveUrl)}</span>
                   </div>
+                  <div className="w-8" aria-hidden="true" />
                 </div>
+
+                {/* Screenshot viewport */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink-900">
+                  <Media
+                    asset={IMAGES[project.slug]}
+                    alt={`${project.title} — ${project.subtitle}`}
+                    sizes="(max-width: 1024px) 100vw, 540px"
+                    imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* ---- Project Content ---- */}
+            <div
+              className={[
+                'flex flex-col lg:col-span-6',
+                isEven ? 'lg:order-2 lg:pl-4' : 'lg:order-1 lg:pr-4',
+              ].join(' ')}
+            >
+              <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
+                <span className="font-mono text-accent">{pad(index)}</span>
+                <span aria-hidden="true" className="text-line-strong">|</span>
+                <span>{TYPE_LABEL[project.type]}</span>
+                <span aria-hidden="true" className="text-line-strong">|</span>
+                <span>{project.year}</span>
+              </div>
+
+              <h3 className="font-display text-display-3 mt-3 font-semibold">
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-accent"
+                >
+                  {project.title}
+                </a>
+              </h3>
+
+              <div className="mt-1 text-[13px] font-medium text-muted">
+                {project.subtitle}
+              </div>
+
+              <p className="mt-4 text-[14px] leading-[1.75] text-body">
+                {project.summary}
+              </p>
+
+              {/* Metrics */}
+              {project.metrics.length > 0 && (
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {project.metrics.map((m) => (
+                    <div
+                      key={m.label}
+                      className="rounded-xl border border-line-faint bg-ink-850/60 px-3.5 py-2 backdrop-blur-sm"
+                    >
+                      <div className="font-display text-[16px] font-bold text-display">
+                        {m.value}
+                      </div>
+                      <div className="text-[11px] text-muted">{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/btn inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full bg-display px-4 text-[13px] font-medium text-onaccent shadow-sm transition-all duration-200 hover:scale-[1.02] hover:bg-bright active:scale-[0.98]"
+                >
+                  <span>Live site</span>
+                  <span aria-hidden="true" className="text-[11px] leading-none transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
+                    ↗
+                  </span>
+                </a>
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Source"
+                  className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-line-strong px-4 text-[13px] font-medium text-bright transition-all duration-200 hover:scale-[1.02] hover:border-display/40 hover:bg-tint-2 hover:text-display active:scale-[0.98]"
+                >
+                  Source
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* The write-up: native details disclosure */}
+        <details className="group/details mt-3 overflow-hidden rounded-xl border border-line/60 bg-tint-1 transition-colors duration-200 hover:border-line">
+          <summary className="flex cursor-pointer items-center justify-between px-5 py-3.5 text-[13px] font-medium text-muted transition-colors hover:text-display">
+            <span className="flex items-center gap-2">
+              <span className="font-mono text-accent text-[11px]">&lt;/&gt;</span>
+              <span>How I built {project.title}</span>
+            </span>
+            <span
+              aria-hidden="true"
+              className="inline-block text-[14px] text-muted transition-transform duration-200 group-open/details:rotate-90"
+            >
+              ›
+            </span>
+          </summary>
+
+          <div className="border-t border-line/60 bg-ink-850/40 p-5 md:p-6">
+            <p className="max-w-[64ch] text-[14px] leading-[1.75] text-body">
+              {project.description}
+            </p>
+
+            <div className="mt-5">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-muted">
+                Key Engineering Steps
+              </div>
+              <ul className="mt-3 max-w-[64ch] space-y-2.5">
+                {project.process.map((step, stepIndex) => (
+                  <li key={step} className="flex items-start gap-3 text-[13px] leading-[1.7] text-muted">
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-tint-2 font-mono text-[9px] font-semibold text-accent"
+                    >
+                      {stepIndex + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              {project.tech.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-lg border border-line-faint bg-ink-700/60 px-2.5 py-1 text-[11px] font-medium text-bright"
+                >
+                  {t}
+                </span>
               ))}
             </div>
-          )}
 
-          <div className="mt-7 flex flex-wrap items-center gap-2">
-            {project.tech.map((t) => (
-              <span
-                key={t}
-                className="rounded-md border border-line-strong bg-tint-1 px-2.5 py-1 font-mono text-[10.5px] text-body transition-colors duration-300 hover:border-glow/30 hover:text-glow"
-              >
-                {t}
-              </span>
-            ))}
+            <div className="mt-5 rounded-lg border-l-2 border-accent bg-tint-1 py-2.5 pl-4 pr-3">
+              <div className="text-[11px] font-medium uppercase tracking-wider text-accent">
+                Outcome
+              </div>
+              <p className="mt-1 max-w-[60ch] text-[13px] leading-[1.7] text-bright">
+                {project.outcome}
+              </p>
+            </div>
           </div>
-
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn relative inline-flex h-11 cursor-pointer items-center gap-2 overflow-hidden rounded-full border border-transparent bg-display pl-5 pr-3 text-[13px] font-medium text-onaccent"
-            >
-              <span className="relative z-10">Live site</span>
-              <span
-                aria-hidden="true"
-                className="relative z-10 grid h-6 w-6 place-items-center rounded-full bg-black/10 text-[11px] transition-transform duration-300 group-hover/btn:translate-x-0.5"
-              >
-                ↗
-              </span>
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 origin-left scale-x-0 bg-[linear-gradient(90deg,var(--glow),var(--accent))] transition-transform duration-500 ease-out group-hover/btn:scale-x-100"
-              />
-            </a>
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-11 cursor-pointer items-center rounded-full border border-line-strong px-5 text-[13px] text-bright transition-colors duration-300 hover:border-white/35 hover:bg-tint-2 hover:text-display"
-            >
-              Source
-            </a>
-          </div>
-        </motion.div>
-
-        {/* ---- Device ---- */}
-        <motion.div
-          style={reduced ? undefined : { y: deviceY }}
-          className={[
-            'relative lg:[direction:ltr]',
-            flip ? 'lg:-order-1' : '',
-          ].join(' ')}
-        >
-          <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-[radial-gradient(60%_60%_at_50%_40%,color-mix(in oklab, var(--accent) 22%, transparent),transparent_70%)] opacity-0 blur-[48px] transition-opacity duration-700 group-hover:opacity-100" />
-          <DeviceFrame
-            asset={IMAGES[project.slug]}
-            alt={`${project.title} — ${project.subtitle} interface`}
-            title={`${project.slug}.app`}
-            sizes="(max-width: 1024px) 100vw, 620px"
-          />
-        </motion.div>
-      </div>
-    </motion.article>
+        </details>
+      </article>
+    </ScrollReveal>
   );
 };
 
-export const WorkSection: React.FC = () => {
-  const reduced = useReducedMotion();
+export const WorkSection: React.FC = () => (
+  <Section id="work" tone="band">
+    <SectionHead
+      title="Some things I’ve built"
+      lede="Front end, back end, and the deployment — all mine. Open any one for how it was put together."
+    />
 
-  return (
-    <section id="work" className="mx-auto max-w-[1280px] px-6 md:px-10 md:py-24">
-      <div className="flex flex-wrap items-end justify-between gap-6 pb-10">
-        <div>
-          <div className="eyebrow">
-            Selected work — 2024 / 2026
-          </div>
-          <h2 className="font-display mt-4 text-[40px] font-semibold leading-[0.9] tracking-[-0.035em] md:text-[64px]">
-            <Text3D depth={reduced ? 1 : 16} step={1} tilt={4} className="block">
-              SYSTEMS I SHIPPED
-            </Text3D>
-          </h2>
-        </div>
-        <p className="max-w-[34ch] text-[13px] leading-[1.7] text-body">
-          <ScrambleText text="Each one built end to end" speed={0.03} />{' '}
-          — schema, API, interface, and the deployment that runs it.
-        </p>
-      </div>
-
-      <div>
-        {projects.map((project, index) => (
-          <ProjectRow
-            key={project.slug}
-            project={project}
-            index={index}
-            reduced={reduced}
-          />
-        ))}
-      </div>
-    </section>
-  );
-};
+    <div className="mt-12 flex flex-col gap-6">
+      {projects.map((project, index) => (
+        <ProjectCard key={project.slug} project={project} index={index} />
+      ))}
+    </div>
+  </Section>
+);
 
 export default WorkSection;

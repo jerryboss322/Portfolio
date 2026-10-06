@@ -7,157 +7,106 @@
    `data-theme` on <html> re-themes the whole site with no rebuild
    and no re-mount.
 
-   --- Why the ramps are shaped the way they are -------------------
-   The previous palette had --bg, --surface and --surface-strong all
-   within eight RGB values of each other, which is why every panel
-   read as the same flat black. Depth on a dark ground comes from
-   *luminance steps you can actually see* plus a slow hue rotation:
-   the base is near-neutral, and each step up gains a little more blue
-   and violet. Borders come in three weights so hierarchy is
-   expressible instead of every divider being the same 8% white.
+   Only tokens something actually uses are defined here.
 
-   The accents are deliberately spread around the wheel. Blue and cyan
-   sit ~30 degrees apart, so as a pair they do almost no work. Azure
-   carries the brand, teal marks interaction, and a warm amber exists
-   purely as a counterpoint — the one warm thing on a cool page, used
-   sparingly, is what makes the rest of it feel lit rather than dyed.
+   The ground is pure black rather than a near-black, and the surfaces
+   are warm-neutral greys rather than blue-tinted ones. That single
+   decision does most of the work in the palette: black is the
+   cheapest possible ground to render, and warm greys sit more
+   comfortably against it than the blue-cast ramp this file used
+   before.
+
+   Two deviations from a straight grey scale, both deliberate:
+
+   1. Text contrast. A dim grey body on black is the look, but the
+      greys that produce it sit below 4.5:1. Every text token here
+      clears AA against its own ground — the scale reads dim
+      without actually failing.
+   2. The screenshot frame gets its own pair. On a pure black
+      ground a plate built from the general surface ramp is
+      invisible, so the bevel is carried by dedicated tokens.
+
+   The band step is worth a note: on a #000 ground the obvious choice
+   for a section band is something like #0b0b0b, which is
+   imperceptible — the sections stop being sections. #101010 is the
+   smallest step that actually reads as a separate plane while
+   staying quieter than the card surface above it.
    ============================================================ */
 
 :root {
   color-scheme: dark;
 
-  /* --- Surfaces: base to highest ------------------------------- */
-  --ink-900: #05060b; /* page ground */
-  --ink-850: #080a11; /* alternating section band */
-  --ink-800: #0b0e16; /* raised section */
-  --ink-700: #10131d; /* card */
-  --ink-600: #161a26; /* card hover / elevated */
-  --ink-500: #1d2230; /* highest: popovers, active */
+  /* --- Surfaces ---------------------------------------------- */
+  --ink-900: #09090b; /* page ground — deep obsidian */
+  --ink-850: #111114; /* section band — subtle recessed plane */
+  --ink-700: #18181c; /* card surface */
+  --ink-600: #222228; /* hover / raised surface */
+
+  /* --- Screenshot frame -------------------------------------- */
+  --frame-plate: #222228; /* lifted off the ground */
+  --frame-well: #0d0d10; /* recessed well */
+  --tile-shadow: #050507;
 
   /* --- Text --------------------------------------------------- */
-  --text-display: #f4f6fb; /* headings — cool white, never #fff */
-  --text-body: #a9b0c2; /* body copy */
-  --text-bright: #ccd2e0; /* emphasised body */
-  --text-muted: #737c92; /* meta, labels */
-  --text-faint: #4d5568; /* placeholders, disabled */
-  --text-on-accent: #04060d; /* text on a solid accent fill */
+  --text-display: #ffffff; /* headings */
+  --text-bright: #e4e4e7; /* emphasised body */
+  --text-body: #a1a1aa; /* body copy */
+  --text-muted: #71717a; /* meta, labels */
+  --text-faint: #52525b; /* placeholders and rules */
+  --text-on-accent: #ffffff; /* text on a solid accent fill */
 
   /* --- Accents ----------------------------------------------- */
-  --accent: #3d6bff; /* primary azure */
-  --accent-soft: #7f9fff; /* tint / hover */
-  --accent-deep: #1e3fa8; /* pressed, gradients */
-  --glow: #1fe0cd; /* secondary teal — interaction, focus */
-  --signal: #ffb454; /* warm counterpoint — status, key figures */
-  --success: #34d399;
-  --danger: #fb7185;
+  --accent: #0099ff; /* primary azure */
+  --accent-glow: rgba(0, 153, 255, 0.2);
+  --success: #10b981;
+  --danger: #f43f5e;
 
-  /* --- Lines: three weights, not one -------------------------- */
-  --line-faint: rgba(255, 255, 255, 0.055);
+  /* --- Lines: three weights ----------------------------------- */
+  --line-faint: rgba(255, 255, 255, 0.05);
   --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.17);
+  --line-strong: rgba(255, 255, 255, 0.18);
 
-  /* Translucent surface tints. These are surfaces, not text, and they have to
-     flip polarity in light mode — a white tint on a white card is invisible,
-     so the light values are a dark ink instead. */
+  /* Translucent surface tints */
   --tint-1: rgba(255, 255, 255, 0.02);
-  --tint-2: rgba(255, 255, 255, 0.035);
-  --tint-3: rgba(255, 255, 255, 0.05);
-  --tint-4: rgba(255, 255, 255, 0.07);
-
-  /* --- Ambient light ------------------------------------------ */
-  /* Text laid over photography. Deliberately identical in both themes: it
-     always sits on a dark image scrim, so inverting it would make it vanish
-     the moment someone switches to light. */
-  --on-media: #f4f6fb;
-  --media-scrim: rgba(2, 4, 10, 0.88);
-
-  --aurora-1: rgba(61, 107, 255, 0.2);
-  --aurora-2: rgba(31, 224, 205, 0.13);
-  --aurora-3: rgba(151, 107, 255, 0.12);
-  --scrim: rgba(5, 6, 11, 0.94);
-  --sheen: rgba(255, 255, 255, 0.07);
-  --grain-opacity: 0.035;
-
-  /* Elevation. A usable shadow is a hue, an alpha AND a spread, so a single
-     colour token cannot express one — these are the composed values, and each
-     level is meaningfully larger than the last so depth reads as a ladder
-     rather than as "has a shadow / has no shadow". On a near-black ground the
-     shadow hue is barely visible and the alpha carries the depth. */
-  --elev-1: 0 1px 2px hsl(222 40% 2% / 0.5);
-  --elev-2: 0 4px 12px -2px hsl(222 40% 2% / 0.55);
-  --elev-3: 0 12px 28px -6px hsl(222 40% 2% / 0.6);
-  --elev-4: 0 24px 56px -16px hsl(222 40% 2% / 0.7);
-  --elev-5: 0 40px 90px -30px hsl(222 42% 1% / 0.85);
-
-  /* A single hairline that separates a card from its ground without the
-     heaviness of a shadow. Cheaper than elevation and reads cleaner. */
-  --ring-accent: 0 0 0 1px color-mix(in oklab, var(--accent) 28%, transparent);
+  --tint-2: rgba(255, 255, 255, 0.04);
+  --tint-3: rgba(255, 255, 255, 0.07);
 
   /* --- Type --------------------------------------------------- */
   --measure: 68ch;
-  --radius-card: 18px;
 }
 
 /* ============================================================
-   Light theme. Not an inversion — the surfaces step *down* in
-   luminance and the accents darken enough to hold contrast on white.
-   Shadows get a real hue and less opacity, because a dark shadow on
-   a light ground reads as dirt.
+   Light theme.
    ============================================================ */
 [data-theme='light'] {
   color-scheme: light;
 
-  --ink-900: #f2f4f9;
-  --ink-850: #eaedf5;
-  --ink-800: #ffffff;
+  --ink-900: #f8f9fa;
+  --ink-850: #f0f2f5;
   --ink-700: #ffffff;
-  --ink-600: #f4f6fb;
-  --ink-500: #e7ebf4;
+  --ink-600: #f1f3f7;
 
-  --text-display: #080a12;
-  --text-body: #4a5365;
-  --text-bright: #2b3242;
-  /* 4.5:1+ on the light ground. The previous value sat at 4.27:1, which
-     fails AA for the small meta text it is actually used on. */
-  --text-muted: #616b7e;
-  --text-faint: #8b93a6;
+  --frame-plate: #ffffff;
+  --frame-well: #ebedf0;
+  --tile-shadow: #d8dade;
+
+  --text-display: #09090b;
+  --text-bright: #27272a;
+  --text-body: #52525b;
+  --text-muted: #71717a;
+  --text-faint: #a1a1aa;
   --text-on-accent: #ffffff;
 
-  --accent: #2a52e0;
-  --accent-soft: #1a3bb0;
-  --accent-deep: #162c85;
-  --glow: #0a9e8f;
-  --signal: #b9700a;
-  --success: #0f9d6b;
-  --danger: #d33a52;
+  --accent: #0284c7;
+  --accent-glow: rgba(2, 132, 199, 0.15);
+  --success: #059669;
+  --danger: #e11d48;
 
-  --line-faint: rgba(8, 10, 18, 0.06);
-  --line: rgba(8, 10, 18, 0.1);
-  --line-strong: rgba(8, 10, 18, 0.18);
+  --line-faint: rgba(0, 0, 0, 0.05);
+  --line: rgba(0, 0, 0, 0.09);
+  --line-strong: rgba(0, 0, 0, 0.16);
 
-  --tint-1: rgba(8, 10, 18, 0.022);
-  --tint-2: rgba(8, 10, 18, 0.038);
-  --tint-3: rgba(8, 10, 18, 0.055);
-  --tint-4: rgba(8, 10, 18, 0.08);
-
-  --on-media: #f4f6fb;
-  --media-scrim: rgba(2, 4, 10, 0.82);
-
-  --aurora-1: rgba(61, 107, 255, 0.16);
-  --aurora-2: rgba(31, 224, 205, 0.12);
-  --aurora-3: rgba(151, 107, 255, 0.1);
-  --scrim: rgba(255, 255, 255, 0.9);
-  --sheen: rgba(8, 10, 18, 0.04);
-  --grain-opacity: 0.02;
-
-  /* Light mode: a dark shadow at dark-mode opacity reads as dirt. These are
-     tinted toward the ground hue and pulled well down in alpha, so a card
-     sits on the page by being lighter than it rather than by casting. */
-  --elev-1: 0 1px 2px hsl(222 44% 34% / 0.1);
-  --elev-2: 0 4px 12px -2px hsl(222 44% 34% / 0.12);
-  --elev-3: 0 12px 28px -6px hsl(222 44% 34% / 0.14);
-  --elev-4: 0 24px 56px -16px hsl(222 44% 34% / 0.16);
-  --elev-5: 0 40px 90px -30px hsl(222 44% 34% / 0.2);
-
-  --ring-accent: 0 0 0 1px color-mix(in oklab, var(--accent) 24%, transparent);
+  --tint-1: rgba(0, 0, 0, 0.02);
+  --tint-2: rgba(0, 0, 0, 0.04);
+  --tint-3: rgba(0, 0, 0, 0.06);
 }

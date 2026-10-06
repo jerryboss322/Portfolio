@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 import type { ImageAsset } from '@/content/images';
-import { useReducedMotion } from '@/lib/hooks';
 
 interface MediaProps {
   asset: ImageAsset;
@@ -11,8 +9,6 @@ interface MediaProps {
   priority?: boolean;
   sizes?: string;
   imgClassName?: string;
-  /** Slow parallax drift on scroll, in px. */
-  drift?: number;
 }
 
 /**
@@ -30,22 +26,42 @@ export const Media: React.FC<MediaProps> = ({
   priority = false,
   sizes = '100vw',
   imgClassName,
-  drift = 0,
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const reduced = useReducedMotion();
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  /**
+   * The `load` event is not enough on its own.
+   *
+   * When an image is already in the browser cache the event fires *before*
+   * React attaches `onLoad`, so the handler never runs. The image would sit at
+   * opacity 0 for the rest of the session and the visitor would only ever see
+   * the 24px-wide placeholder. `complete` is already true in that case, so
+   * checking it on mount closes the race. `naturalWidth` keeps a genuinely
+   * broken image hidden behind its placeholder, which is what we want anyway.
+   */
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete && img.naturalWidth > 0) setLoaded(true);
+  }, [asset.src]);
 
   return (
     <div
       className={['relative overflow-hidden', className].filter(Boolean).join(' ')}
       style={{
-        backgroundImage: `url("${asset.lqip}")`,
+        /* The placeholder is dropped the moment the real image is there.
+           For an opaque screenshot it is hidden behind the image anyway, but
+           for a transparent cut-out it is not: the 24px blur scaled up to fill
+           the box stays visible around the subject as a permanent halo, which
+           reads as a glow behind the figure. */
+        backgroundImage: loaded ? 'none' : `url("${asset.lqip}")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         aspectRatio: `${asset.width} / ${asset.height}`,
       }}
     >
-      <motion.img
+      <img
+        ref={imgRef}
         src={asset.src}
         srcSet={asset.srcSet}
         sizes={sizes}
@@ -56,99 +72,65 @@ export const Media: React.FC<MediaProps> = ({
         decoding={priority ? 'sync' : 'async'}
         fetchPriority={priority ? 'high' : 'auto'}
         onLoad={() => setLoaded(true)}
-        initial={false}
-        animate={reduced ? undefined : { opacity: loaded ? 1 : 0, scale: loaded ? 1 : 1.04 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        style={drift && !reduced ? { scale: 1.06 } : undefined}
         className={[
-          'absolute inset-0 h-full w-full object-cover',
-          loaded ? '' : '',
+          'absolute inset-0 h-full w-full object-cover transition-opacity duration-300',
+          loaded ? 'opacity-100' : 'opacity-0',
           imgClassName ?? '',
-        ].join(' ')}
+        ]
+          .filter(Boolean)
+          .join(' ')}
       />
     </div>
   );
 };
 
-interface DeviceProps {
+interface ProjectShotProps {
   asset: ImageAsset;
   alt: string;
-  title: string;
+  /** Short caption under the image — the app's name and its address. */
+  caption: string;
   className?: string;
   sizes?: string;
-  children?: React.ReactNode;
 }
 
 /**
- * A browser window rendered in 3D.
+ * A project screenshot in a beveled plate.
  *
- * The screenshot sits in a chrome bar and a bezel inside a perspective
- * container. A masked copy below acts as a floor reflection, which is what sells
- * the object as a solid floating rather than a flat picture. Everything is
- * transform and mask, so the whole thing stays on the compositor.
+ * A raised plate with the screenshot recessed into it: the plate is lighter
+ * than the page ground and the well is darker again, so the frame reads as depth
+ * in both themes without any theme-conditional class here. `frame-plate` and
+ * `frame-well` exist as separate tokens because the general surface ramp is too
+ * tightly spaced to carry a bevel on a near-black ground.
+ *
+ * The rings are padding, not absolutely positioned insets. Absolute layers have
+ * no intrinsic height and would collapse to nothing, so the frame would only
+ * work with hand-written pixel dimensions per breakpoint — the fragile
+ * Figma-export pattern this design otherwise avoids. Padding lets each layer
+ * take its height from the image inside it.
+ *
+ * The radii step down 16 → 13 → 10 to match the 3px rings, keeping the corners
+ * concentric; at one radius the corners fan out instead of stacking.
  */
-export const DeviceFrame: React.FC<DeviceProps> = ({
+export const ProjectShot: React.FC<ProjectShotProps> = ({
   asset,
   alt,
-  title,
+  caption,
   className,
-  sizes = '(max-width: 1024px) 100vw, 620px',
-  children,
-}) => {
-  const reduced = useReducedMotion();
-
-  return (
-    <div
-      className={['relative [perspective:1600px]', className].filter(Boolean).join(' ')}
-    >
-      <div
-        className="relative [transform-style:preserve-3d]"
-        style={reduced ? undefined : { transform: 'rotateX(6deg) rotateY(-9deg)' }}
-      >
-        {/* Bezel */}
-        <div className="relative overflow-hidden rounded-[14px] border border-line-strong bg-ink-900 p-[6px] shadow-elev-5 shadow-[0_0_0_1px_color-mix(in_oklab,var(--accent)_16%,transparent)]">
-          {/* Chrome */}
-          <div className="flex h-[30px] items-center gap-1.5 rounded-t-[9px] bg-ink-800 px-3">
-            <span className="h-[7px] w-[7px] rounded-full bg-[#FF5F56]/70" />
-            <span className="h-[7px] w-[7px] rounded-full bg-[#FFBD2E]/70" />
-            <span className="h-[7px] w-[7px] rounded-full bg-[#27C93F]/70" />
-            <div className="ml-2 flex h-[16px] flex-1 items-center justify-center rounded-[5px] bg-tint-2 px-3">
-              <span className="truncate font-mono text-[9px] tracking-wider text-faint">
-                {title}
-              </span>
-            </div>
-          </div>
-
-          <Media asset={asset} alt={alt} sizes={sizes} className="rounded-b-[9px]" />
-
-          {/* Screen sheen — a diagonal highlight across the glass. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-[6px] rounded-b-[9px] bg-[linear-gradient(115deg,var(--sheen)_0%,transparent_28%,transparent_72%,color-mix(in oklab, var(--glow) 5%, transparent))]"
-          />
+  sizes = '(max-width: 1024px) 100vw, 560px',
+}) => (
+  <figure className={className}>
+    <div className="rounded-[16px] bg-frame-plate p-[3px]">
+      <div className="rounded-[13px] bg-frame-well p-[3px]">
+        <div className="overflow-hidden rounded-[10px]">
+          <Media asset={asset} alt={alt} sizes={sizes} />
         </div>
-
-        {/* Floor reflection. Painted from the same URL as a CSS background
-            rather than a second <img>, so it costs no extra decode and no extra
-            DOM node — the bytes are already in cache from the screenshot above. */}
-        {!reduced && (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-full h-[42%] origin-top scale-y-[-1] rounded-b-[14px] opacity-30 blur-[2px]"
-            style={{
-              backgroundImage: `url("${asset.src}")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'top center',
-              maskImage: 'linear-gradient(to bottom, rgb(0 0 0 / 0.75), transparent 72%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, rgb(0 0 0 / 0.75), transparent 72%)',
-            }}
-          />
-        )}
-
-        {children}
       </div>
     </div>
-  );
-};
+    {/* Inset to line up with the screenshot's left edge, not the plate's. */}
+    <figcaption className="mt-2 pl-[7px] text-[12px] text-muted">
+      {caption}
+    </figcaption>
+  </figure>
+);
 
-export default DeviceFrame;
+export default Media;
