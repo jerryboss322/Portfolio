@@ -38,7 +38,7 @@ export const Header: React.FC = () => {
           className="group flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
           aria-label={`${profile.brand} — back to top`}
         >
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-display text-onaccent font-mono text-[12px] font-bold shadow-sm transition-transform duration-200 group-hover:scale-105">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-accent bg-accent/10 text-accent font-mono text-[12px] font-bold shadow-sm transition-all duration-200 group-hover:scale-105 group-hover:bg-accent/20">
             J
           </span>
           <span className="text-display">{profile.brand}</span>
@@ -72,12 +72,12 @@ export const Header: React.FC = () => {
           >
             <div className="space-y-1.5">
               <div
-                className={`h-0.5 w-4 rounded-full bg-display transition-all duration-200 ${
+                className={`h-0.5 w-4 rounded-full bg-bright transition-all duration-200 ${
                   menuOpen ? 'translate-y-[4px] rotate-45' : ''
                 }`}
               />
               <div
-                className={`h-0.5 w-4 rounded-full bg-display transition-all duration-200 ${
+                className={`h-0.5 w-4 rounded-full bg-bright transition-all duration-200 ${
                   menuOpen ? '-translate-y-[4px] -rotate-45' : ''
                 }`}
               />

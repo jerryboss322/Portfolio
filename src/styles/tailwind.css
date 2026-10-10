@@ -64,6 +64,11 @@
 
   /* Accents */
   --color-accent: var(--accent);
+  --color-accent-indigo: var(--accent-indigo);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-rose: var(--accent-rose);
   --color-accent-glow: var(--accent-glow);
   --color-success: var(--success);
   --color-danger: var(--danger);

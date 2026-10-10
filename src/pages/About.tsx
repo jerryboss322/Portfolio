@@ -1,24 +1,24 @@
 import React from 'react';
-import { CheckCircle2, Sparkles } from 'lucide-react';
+import { CheckCircle2, Code2, Database, Server } from 'lucide-react';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { Section, SectionHead } from '@/components/ui/Section';
 import { about, values, profile } from '@/content/data';
 
 /**
- * About Jerry: Philosophy, Principles, and Journey.
+ * About Jerry: Architecture Philosophy and Technical Journey.
  *
- * Removes the duplicate portrait photo to keep the page clean and purposeful.
- * Pairs an interactive principles card with a modern vertical milestone timeline.
+ * Technical journey timeline replacing personal timeline.
+ * Architecture principles card showing core engineering values.
  */
 export const AboutSection: React.FC = () => (
   <Section id="about" tone="ground">
     <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-start">
-      {/* ---- Left: Developer Profile & Principles ---- */}
+      {/* ---- Left: Developer Profile & Architecture Principles ---- */}
       <ScrollReveal direction="left" distance={30}>
         <div className="rounded-2xl border border-line bg-ink-700/60 p-6 md:p-8 backdrop-blur-sm shadow-xl">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 border border-accent/20 text-accent">
-              <Sparkles size={20} />
+              <Code2 size={20} />
             </div>
             <div>
               <div className="font-semibold text-display text-[16px]">{profile.fullName}</div>
@@ -28,7 +28,7 @@ export const AboutSection: React.FC = () => (
 
           <div className="mt-6 border-t border-line/60 pt-6">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-muted">
-              Core Principles
+              Architecture Principles
             </div>
             <ul className="mt-3.5 space-y-2.5">
               {values.map((value) => (
@@ -49,14 +49,33 @@ export const AboutSection: React.FC = () => (
 
           <div className="mt-6 rounded-xl border border-line-faint bg-tint-1 p-4 text-[13px] leading-[1.7] text-muted">
             <span className="font-medium text-bright">Focus: </span>
-            End-to-end web engineering with TypeScript, modern React, resilient backend architecture, and production performance.
+            Full-stack architecture design with database-driven development, RESTful APIs, serverless deployment, and production-grade performance.
+          </div>
+
+          {/* Architecture Skills Showcase */}
+          <div className="mt-6">
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">
+              Technical expertise
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-lg border border-line-faint bg-ink-800/40 p-3">
+                <Database size={16} className="mb-2 text-indigo-300" />
+                <div className="text-[12px] font-semibold text-display">Database Design</div>
+                <div className="text-[10px] text-muted mt-1">PostgreSQL, MySQL, schema design</div>
+              </div>
+              <div className="rounded-lg border border-line-faint bg-ink-800/40 p-3">
+                <Server size={16} className="mb-2 text-emerald-300" />
+                <div className="text-[12px] font-semibold text-display">Deployment</div>
+                <div className="text-[10px] text-muted mt-1">Vercel, Railway, CI/CD</div>
+              </div>
+            </div>
           </div>
         </div>
       </ScrollReveal>
 
-      {/* ---- Right: Argument + Connected Timeline ---- */}
+      {/* ---- Right: Technical Journey Timeline ---- */}
       <div>
-        <SectionHead title="About me" />
+        <SectionHead title="Technical journey" />
 
         <ScrollReveal direction="up" distance={20} delay={0.1}>
           <p className="mt-6 max-w-[58ch] text-[16px] leading-[1.8] text-bright">
@@ -66,7 +85,7 @@ export const AboutSection: React.FC = () => (
 
         <div className="mt-12">
           <div className="text-[12px] font-semibold uppercase tracking-wider text-muted mb-6">
-            Experience & Journey
+            Technical milestones
           </div>
 
           <ol className="relative ml-2 space-y-8 border-l border-line/80 pl-6 sm:ml-3 sm:pl-8">
@@ -95,6 +114,9 @@ export const AboutSection: React.FC = () => (
                   </div>
                   <p className="mt-2 text-[13px] leading-[1.7] text-muted">
                     {entry.description}
+                  </p>
+                  <p className="mt-2 text-[11px] font-medium text-indigo-300/80">
+                    {entry.technicalFocus}
                   </p>
                 </div>
               </ScrollReveal>

@@ -6,8 +6,8 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 const SUBMIT_URL = 'https://api.web3forms.com/submit';
 
 const INPUT_CLASS =
-  'w-full rounded-xl border border-line bg-ink-900/60 px-4 py-3 text-[14px] text-display placeholder:text-faint outline-none transition-all duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20';
-const LABEL_CLASS = 'text-[11px] font-semibold uppercase tracking-[0.16em] text-muted';
+  'w-full rounded-xl border border-line-strong bg-ink-700 px-4 py-3 text-[14px] text-bright placeholder:text-muted outline-none transition-all duration-200 focus:border-accent focus:bg-ink-600 focus:ring-2 focus:ring-accent/20 hover:border-line-strong hover:bg-ink-600';
+const LABEL_CLASS = 'text-[11px] font-semibold uppercase tracking-[0.16em] text-bright';
 
 export const ContactForm: React.FC = () => {
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -114,11 +114,11 @@ export const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="grid h-10 cursor-pointer place-items-center rounded-full bg-display px-6 text-[13px] font-medium text-onaccent transition-all duration-300 hover:-translate-y-[2px] hover:bg-bright active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-display"
+          className="grid h-11 cursor-pointer place-items-center rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-7 text-[14px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:brightness-100"
         >
           {status === 'submitting' ? 'Sending…' : 'Send Message'}
         </button>
-        <span className="text-[12px] text-body">Replies go straight to my inbox</span>
+        <span className="text-[12px] text-muted">Replies go straight to my inbox</span>
       </div>
 
       <p role="status" aria-live="polite" className="mt-3 text-[13px]">

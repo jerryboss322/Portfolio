@@ -4,15 +4,14 @@ import { Section, SectionHead } from '@/components/ui/Section';
 import { process, processIntro } from '@/content/data';
 
 /**
- * The five stages, as a horizontal strip.
+ * The five architecture stages, as a horizontal strip.
  *
- * Rule treatment again, but on a band ground so the section separates from
- * About and Capabilities without a fill. A row with dividers reads as a
- * sequence; a fifth grid of boxes would just be more of the same.
+ * Rule treatment on a band ground to separate sections.
+ * Architecture-first process: assess, design, build, test, deploy.
  */
 export const ProcessSection: React.FC = () => (
   <Section id="process" tone="band">
-    <SectionHead title="How a project goes" lede={processIntro} />
+    <SectionHead title="Architecture process" lede={processIntro} />
 
     <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
       {process.map((step, i) => (
@@ -36,6 +35,28 @@ export const ProcessSection: React.FC = () => (
         </ScrollReveal>
       ))}
     </ol>
+
+    {/* Architecture Process Tags */}
+    <div className="mt-12 rounded-2xl border border-line-faint bg-tint-1 p-6">
+      <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-4">
+        What you get with each phase
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        {[
+          { phase: '01', title: 'Assess architecture', desc: 'Technical requirements, constraints, and goals' },
+          { phase: '02', title: 'Design patterns', desc: 'Database schema, API design, deployment strategy' },
+          { phase: '03', title: 'Build architecture', desc: 'Weekly demos of something running' },
+          { phase: '04', title: 'Test robustness', desc: 'Empty states, bad input, security checks' },
+          { phase: '05', title: 'Deploy sustainably', desc: 'Monitoring, documentation, handover walkthrough' },
+        ].map((item) => (
+          <div key={item.phase} className="rounded-xl border border-line-faint bg-ink-800/40 p-4">
+            <div className="text-[10px] font-semibold uppercase tracking-wide text-muted mb-1">Phase {item.phase}</div>
+            <div className="text-[12px] font-semibold text-display mb-1">{item.title}</div>
+            <div className="text-[11px] text-muted">{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   </Section>
 );
 

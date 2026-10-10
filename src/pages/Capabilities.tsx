@@ -22,17 +22,16 @@ const ICONS: Record<CapabilityIcon, LucideIcon> = {
 };
 
 /**
- * Six capabilities, as a rule-separated grid.
+ * Architecture capabilities, as a rule-separated grid.
  *
- * Rule treatment, no fill: these are claims, and a claim does not need a plate.
- * Keeping this section flat is also what stops the page reading as seven
- * identical box grids — the work, testimonial and contact sections carry the
- * filled surfaces, and this one deliberately does not.
+ * These are the architectural skills I bring to every project:
+ * full-stack design, database-driven development, performance optimization,
+ * accessibility, infrastructure, and design implementation.
  */
 export const CapabilitiesSection: React.FC = () => (
   <Section id="capabilities" tone="ground">
     <SectionHead
-      title="What I do"
+      title="Architecture capabilities"
       lede="Six core engineering capabilities I bring to teams. Built on production experience, rigorous fundamentals, and end-to-end delivery."
     />
 
@@ -63,6 +62,32 @@ export const CapabilitiesSection: React.FC = () => (
         );
       })}
     </ul>
+
+    {/* Architecture Pattern Tags */}
+    <div className="mt-12 rounded-2xl border border-line-faint bg-tint-1 p-6">
+      <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-4">
+        Architecture patterns I specialize in
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {[
+          'Full-stack architecture design',
+          'Database-driven design',
+          'API design & documentation',
+          'Serverless architecture',
+          'Edge caching strategies',
+          'Progressive enhancement',
+          'Client-heavy SPA',
+          'Static site generation',
+        ].map((pattern) => (
+          <span
+            key={pattern}
+            className="rounded-lg border border-line-faint bg-ink-800/60 px-3 py-1.5 text-[11px] font-medium text-muted transition-colors hover:border-indigo-500/30 hover:text-indigo-300"
+          >
+            {pattern}
+          </span>
+        ))}
+      </div>
+    </div>
   </Section>
 );
 

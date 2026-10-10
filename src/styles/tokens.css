@@ -56,8 +56,13 @@
   --text-on-accent: #ffffff; /* text on a solid accent fill */
 
   /* --- Accents ----------------------------------------------- */
-  --accent: #0099ff; /* primary azure */
-  --accent-glow: rgba(0, 153, 255, 0.2);
+  --accent: #38bdf8; /* primary sky blue */
+  --accent-indigo: #818cf8;
+  --accent-purple: #c084fc;
+  --accent-emerald: #34d399;
+  --accent-amber: #fbbf24;
+  --accent-rose: #fb7185;
+  --accent-glow: rgba(56, 189, 248, 0.2);
   --success: #10b981;
   --danger: #f43f5e;
 
@@ -98,6 +103,11 @@
   --text-on-accent: #ffffff;
 
   --accent: #0284c7;
+  --accent-indigo: #6366f1;
+  --accent-purple: #a855f7;
+  --accent-emerald: #059669;
+  --accent-amber: #d97706;
+  --accent-rose: #e11d48;
   --accent-glow: rgba(2, 132, 199, 0.15);
   --success: #059669;
   --danger: #e11d48;

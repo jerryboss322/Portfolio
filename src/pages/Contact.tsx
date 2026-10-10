@@ -11,7 +11,7 @@ const FACTS = [
   { k: 'Where I am', v: profile.location, icon: Globe },
   { k: 'Timezone', v: 'WAT (UTC+1)', icon: Clock },
   { k: 'Reply time', v: 'Usually within a day', icon: Zap },
-  { k: 'Available for', v: 'Freelance and contract', icon: MessageSquare },
+  { k: 'Available for', v: 'Architecture consultation & full-stack', icon: MessageSquare },
 ];
 
 const LINKS = [
@@ -26,15 +26,15 @@ export const ContactSection: React.FC = () => (
       {/* ---- Pitch + form ---- */}
       <div>
         <SectionHead
-          title="Get in touch"
-          lede="Tell me what you are building and where it is stuck. I’ll reply with an honest read on what it needs, roughly what it costs, and whether I am the right person for it. If I am not, I’ll say so."
+          title="Let's talk architecture"
+          lede="Tell me what you are building and where it is stuck. I'll reply with an honest read on the architecture, roughly what it costs, and whether I am the right person for it. If I am not, I'll say so."
         />
 
         <ScrollReveal direction="up" distance={20} delay={0.1}>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <a
               href={`mailto:${profile.email}`}
-              className="group inline-flex h-11 cursor-pointer items-center gap-2 rounded-full bg-display px-6 text-[14px] font-medium text-onaccent shadow-sm transition-all duration-200 hover:scale-[1.02] hover:bg-bright active:scale-[0.98]"
+              className="group inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border-2 border-accent bg-accent/10 px-6 text-[14px] font-semibold text-accent shadow-lg shadow-accent/10 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-accent hover:bg-accent hover:text-white hover:shadow-accent/25 active:scale-[0.98]"
             >
               <Mail size={15} />
               <span>{profile.email}</span>
@@ -109,6 +109,17 @@ export const ContactSection: React.FC = () => (
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Architecture Consultation Details */}
+          <div className="mt-6 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300 mb-2">
+              Architecture consultation
+            </div>
+            <p className="text-[13px] text-emerald-200/80 leading-[1.6]">
+              Need a technical audit or architecture review? I offer 30-minute consultations to help you
+              identify architectural gaps, performance bottlenecks, and scalability concerns.
+            </p>
           </div>
         </div>
       </ScrollReveal>

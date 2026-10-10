@@ -36,7 +36,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => 
       <span
         aria-hidden="true"
         className={[
-          'relative grid h-[22px] w-[22px] place-items-center rounded-full bg-display',
+          'relative grid h-[22px] w-[22px] place-items-center rounded-full bg-accent shadow-lg',
           'transition-transform duration-200',
           light ? 'translate-x-[22px]' : 'translate-x-0',
         ].join(' ')}
