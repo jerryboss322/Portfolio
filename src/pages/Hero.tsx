@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowDown, ArrowUpRight, Database, Server, Layers } from 'lucide-react';
 import { Media } from '@/components/ui/Media';
-import { ScrollLink } from '@/components/ui/ScrollLink';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { Marquee } from '@/components/ui/Marquee';
 import { InteractiveBadge } from '@/components/ui/InteractiveBadge';
@@ -110,19 +110,19 @@ export const Hero: React.FC = () => {
 
             <ScrollReveal direction="up" distance={20} delay={0.2}>
               <div className="mt-10 flex flex-wrap items-center gap-4">
-                <ScrollLink
-                  to="work"
+                <Link
+                  to="/work"
                   className="group inline-flex h-12 cursor-pointer items-center gap-2.5 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-7 text-[15px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110 active:scale-[0.98]"
                 >
                   <span>Explore architecture</span>
                   <ArrowDown size={16} className="transition-transform duration-200 group-hover:translate-y-1" />
-                </ScrollLink>
-                <ScrollLink
-                  to="contact"
+                </Link>
+                <Link
+                  to="/contact"
                   className="inline-flex h-12 cursor-pointer items-center rounded-full border-2 border-line-strong px-7 text-[15px] font-semibold text-display transition-all duration-200 hover:scale-[1.03] hover:border-sky-400/50 hover:bg-sky-500/10 hover:text-sky-300 active:scale-[0.98]"
                 >
                   Let's talk systems
-                </ScrollLink>
+                </Link>
               </div>
             </ScrollReveal>
           </div>

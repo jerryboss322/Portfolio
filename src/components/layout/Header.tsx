@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ScrollLink } from '@/components/ui/ScrollLink';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { profile } from '@/content/data';
 
 const NAV_ITEMS = [
-  { label: 'Work', id: 'work' },
-  { label: 'About', id: 'about' },
-  { label: 'What I do', id: 'capabilities' },
-  { label: 'Process', id: 'process' },
-  { label: 'Contact', id: 'contact' },
+  { label: 'Home', path: '/' },
+  { label: 'Work', path: '/work' },
+  { label: 'About', path: '/about' },
+  { label: 'Contact', path: '/contact' },
 ];
 
 export const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -23,36 +23,48 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // Close menu on navigation
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
+
   const closeMenu = () => setMenuOpen(false);
+
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-line/80 bg-ink-900/80 backdrop-blur-xl transition-colors duration-200">
       <div className="shell flex h-[64px] items-center justify-between">
-        <a
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault();
-            closeMenu();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+        <Link
+          to="/"
+          onClick={closeMenu}
           className="group flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
-          aria-label={`${profile.brand} — back to top`}
+          aria-label={`${profile.brand} — home`}
         >
           <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-accent bg-accent/10 text-accent font-mono text-[12px] font-bold shadow-sm transition-all duration-200 group-hover:scale-105 group-hover:bg-accent/20">
             J
           </span>
           <span className="text-display">{profile.brand}</span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-1.5 text-[14px] md:flex" aria-label="Primary">
           {NAV_ITEMS.map((item) => (
-            <ScrollLink
-              key={item.id}
-              to={item.id}
-              className="rounded-full px-3.5 py-1.5 text-body font-medium transition-all duration-200 hover:bg-tint-2 hover:text-display"
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`rounded-full px-3.5 py-1.5 font-medium transition-all duration-200 hover:bg-tint-2 ${
+                isActive(item.path)
+                  ? 'bg-tint-2 text-display'
+                  : 'text-body hover:text-display'
+              }`}
             >
               {item.label}
-            </ScrollLink>
+            </Link>
           ))}
           <div className="ml-2 pl-2 border-l border-line-faint">
             <ThemeToggle />
@@ -99,18 +111,22 @@ export const Header: React.FC = () => {
             <div className="shell flex flex-col gap-1.5 py-4 text-[15px]">
               {NAV_ITEMS.map((item, index) => (
                 <motion.div
-                  key={item.id}
+                  key={item.path}
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.03, duration: 0.18 }}
                 >
-                  <ScrollLink
-                    to={item.id}
+                  <Link
+                    to={item.path}
                     onClick={closeMenu}
-                    className="block rounded-lg px-3 py-2.5 font-medium text-body transition-colors hover:bg-tint-2 hover:text-display"
+                    className={`block rounded-lg px-3 py-2.5 font-medium transition-colors ${
+                      isActive(item.path)
+                        ? 'bg-tint-2 text-display'
+                        : 'text-body hover:bg-tint-2 hover:text-display'
+                    }`}
                   >
                     {item.label}
-                  </ScrollLink>
+                  </Link>
                 </motion.div>
               ))}
             </div>

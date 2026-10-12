@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { projects } from '../content/data';
 import { Media } from '../components/ui/Media';
 import ProjectModal from '../components/ui/ProjectModal';
@@ -63,9 +64,9 @@ export const WorkSection = ({ id = 'work' }: WorkProps) => {
 
           {/* Titan - Full Width Hero Card */}
           {titanProject && (
-            <div 
-              onClick={() => setSelectedProject(titanProject.slug)}
-              className="group relative mb-12 cursor-pointer"
+            <Link
+              to={`/work/${titanProject.slug}`}
+              className="group relative mb-12 block"
             >
               {/* Full-bleed image container */}
               <div className="relative h-[500px] rounded-3xl overflow-hidden border border-line-faint bg-ink-700">
@@ -145,16 +146,16 @@ export const WorkSection = ({ id = 'work' }: WorkProps) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           )}
 
           {/* Other Projects - 2x2 Staggered Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {otherProjects.map((project, idx) => (
-              <div
+              <Link
                 key={project.slug}
-                onClick={() => setSelectedProject(project.slug)}
-                className="group relative cursor-pointer"
+                to={`/work/${project.slug}`}
+                className="group relative"
                 style={{
                   marginTop: idx % 2 === 1 ? '3rem' : '0'
                 }}
@@ -205,7 +206,7 @@ export const WorkSection = ({ id = 'work' }: WorkProps) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
