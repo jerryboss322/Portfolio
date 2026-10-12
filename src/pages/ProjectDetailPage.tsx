@@ -53,55 +53,55 @@ export const ProjectDetailPage: React.FC = () => {
       <section className="relative overflow-hidden border-b border-line-faint bg-ink-900">
         <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-indigo-500/8 to-purple-500/10 blur-[120px]" />
         
-        <div className="shell relative py-20">
+        <div className="shell relative py-12 sm:py-16 md:py-20">
           {/* Back Button */}
           <button
             onClick={() => navigate('/work')}
-            className="inline-flex items-center gap-2 text-[14px] font-medium text-muted hover:text-accent transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-[13px] sm:text-[14px] font-medium text-muted hover:text-accent transition-colors mb-6 sm:mb-8"
           >
             <ArrowLeft size={16} />
             <span>Back to Work</span>
           </button>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             {/* Left: Project Info */}
             <div>
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-accent mb-4">
+              <div className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-accent mb-3 sm:mb-4">
                 <span>{project.type}</span>
                 <span>•</span>
                 <span>{project.year}</span>
               </div>
 
-              <h1 className="font-display text-[clamp(2.5rem,1.5rem+4vw,4.5rem)] font-bold leading-[1.1] tracking-[-0.04em] text-display mb-4">
+              <h1 className="font-display text-[clamp(2rem,8vw,4.5rem)] font-bold leading-[1.1] tracking-[-0.04em] text-display mb-3 sm:mb-4">
                 {project.title}
               </h1>
 
-              <p className="text-[18px] leading-[1.75] text-bright mb-6">
+              <p className="text-[16px] sm:text-[18px] leading-[1.75] text-bright mb-4 sm:mb-6">
                 {project.subtitle}
               </p>
 
-              <p className="text-[16px] leading-[1.8] text-body mb-8 max-w-[54ch]">
+              <p className="text-[14px] sm:text-[16px] leading-[1.8] text-body mb-6 sm:mb-8 max-w-[54ch]">
                 {project.summary}
               </p>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-6 py-3 text-[14px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-5 sm:px-6 py-2.5 sm:py-3 text-[13px] sm:text-[14px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110"
                 >
-                  <ExternalLink size={16} />
+                  <ExternalLink size={15} />
                   <span>View Live Site</span>
                 </a>
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border-2 border-line-strong px-6 py-3 text-[14px] font-semibold text-display transition-all duration-200 hover:scale-[1.03] hover:border-accent hover:bg-accent/10 hover:text-accent"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-line-strong px-5 sm:px-6 py-2.5 sm:py-3 text-[13px] sm:text-[14px] font-semibold text-display transition-all duration-200 hover:scale-[1.03] hover:border-accent hover:bg-accent/10 hover:text-accent"
                 >
-                  <Code2 size={16} />
+                  <Code2 size={15} />
                   <span>Source Code</span>
                 </a>
               </div>
@@ -123,10 +123,10 @@ export const ProjectDetailPage: React.FC = () => {
       </section>
 
       {/* Architecture Content */}
-      <section className="shell py-20">
-        <div className="grid lg:grid-cols-[280px_1fr] gap-12">
-          {/* Left Sidebar - Quick Info */}
-          <aside className="lg:sticky lg:top-24 h-fit space-y-6">
+      <section className="shell py-12 sm:py-16 md:py-20">
+        <div className="grid lg:grid-cols-[280px_1fr] gap-8 sm:gap-12">
+          {/* Left Sidebar - Quick Info (Hidden on mobile, shown as sticky on desktop) */}
+          <aside className="hidden lg:block lg:sticky lg:top-24 h-fit space-y-6">
             {/* Architecture Style */}
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">
@@ -194,38 +194,38 @@ export const ProjectDetailPage: React.FC = () => {
           </aside>
 
           {/* Main Content */}
-          <main className="space-y-16">
+          <main className="space-y-12 sm:space-y-16">
             {/* Description */}
             <div>
-              <p className="text-[17px] leading-[1.8] text-bright">
+              <p className="text-[15px] sm:text-[17px] leading-[1.8] text-bright">
                 {project.description}
               </p>
             </div>
 
             {/* Tech Stack */}
             <div id="tech-stack">
-              <h2 className="font-display text-[32px] font-bold text-display mb-6">
+              <h2 className="font-display text-[24px] sm:text-[32px] font-bold text-display mb-4 sm:mb-6">
                 Technology Stack
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {project.architecture.techStack.map((tech) => (
                   <div
                     key={tech.name}
-                    className="rounded-lg border border-line-faint bg-ink-700/40 p-6"
+                    className="rounded-lg border border-line-faint bg-ink-700/40 p-4 sm:p-6"
                   >
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="font-semibold text-[18px] text-display">{tech.name}</h3>
+                    <div className="flex flex-col sm:flex-row items-start justify-between mb-2 sm:mb-3 gap-2">
+                      <h3 className="font-semibold text-[16px] sm:text-[18px] text-display">{tech.name}</h3>
                       <InteractiveBadge label="Chosen" variant="primary" />
                     </div>
-                    <p className="text-[14px] text-muted mb-4">{tech.purpose}</p>
-                    <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-4">
-                      <div className="text-[11px] font-semibold uppercase tracking-wide text-indigo-300 mb-2">
+                    <p className="text-[13px] sm:text-[14px] text-muted mb-3 sm:mb-4">{tech.purpose}</p>
+                    <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-3 sm:p-4">
+                      <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide text-indigo-300 mb-2">
                         Why this choice
                       </div>
-                      <p className="text-[13px] text-indigo-200/80">{tech.why}</p>
+                      <p className="text-[12px] sm:text-[13px] text-indigo-200/80">{tech.why}</p>
                     </div>
                     {tech.alternatives.length > 0 && (
-                      <div className="mt-4 text-[12px] text-muted">
+                      <div className="mt-3 sm:mt-4 text-[11px] sm:text-[12px] text-muted">
                         <strong>Alternatives considered:</strong> {tech.alternatives.join(', ')}
                       </div>
                     )}

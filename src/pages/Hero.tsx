@@ -26,16 +26,16 @@ export const Hero: React.FC = () => {
         className="pointer-events-none absolute -top-20 -left-20 h-[500px] w-[500px] rounded-full bg-gradient-to-tr from-purple-500/20 via-pink-500/15 to-transparent blur-[160px]"
       />
 
-      <div className="shell relative py-20 md:py-28 lg:py-32">
+      <div className="shell relative py-16 sm:py-20 md:py-28 lg:py-32">
         {/* Asymmetric Grid: 60/40 split */}
-        <div className="grid items-start gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
+        <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
           {/* Left: Large Headline + CTA (60%) */}
           <div>
             {/* Profile Badge with Image */}
             <ScrollReveal direction="up" distance={20}>
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                 <div className="relative">
-                  <div className="h-16 w-16 overflow-hidden rounded-full ring-2 ring-line-strong ring-offset-2 ring-offset-ink-900">
+                  <div className="h-12 w-12 sm:h-16 sm:w-16 overflow-hidden rounded-full ring-2 ring-line-strong ring-offset-2 ring-offset-ink-900">
                     <Media
                       asset={portrait}
                       alt={profile.fullName}
@@ -44,15 +44,15 @@ export const Hero: React.FC = () => {
                       imgClassName="object-cover object-top"
                     />
                   </div>
-                  <span className="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-ink-900 bg-emerald-500 shadow-lg">
+                  <span className="absolute bottom-0 right-0 h-3 w-3 sm:h-4 sm:w-4 rounded-full border-2 border-ink-900 bg-emerald-500 shadow-lg">
                     <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400 opacity-75" />
                   </span>
                 </div>
                 <div>
-                  <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3 py-1.5 text-[12px] font-semibold text-emerald-300 shadow-lg shadow-emerald-500/10 backdrop-blur-sm">
-                    <span className="relative flex h-2 w-2">
+                  <div className="inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-[12px] font-semibold text-emerald-300 shadow-lg shadow-emerald-500/10 backdrop-blur-sm">
+                    <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                      <span className="relative inline-flex h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-emerald-500" />
                     </span>
                     <span>{profile.status}</span>
                   </div>
@@ -61,7 +61,7 @@ export const Hero: React.FC = () => {
             </ScrollReveal>
 
             <ScrollReveal direction="up" distance={24} delay={0.05}>
-              <h1 className="mt-8 font-display text-[clamp(2.5rem,1.5rem+4vw,5rem)] font-bold leading-[1.02] tracking-[-0.05em] text-display">
+              <h1 className="mt-6 sm:mt-8 font-display text-[clamp(1.75rem,8vw,5rem)] font-bold leading-[1.02] tracking-[-0.05em] text-display">
                 I architect{' '}
                 <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
                   full-stack systems
@@ -71,7 +71,7 @@ export const Hero: React.FC = () => {
             </ScrollReveal>
 
             <ScrollReveal direction="up" distance={20} delay={0.1}>
-              <p className="mt-8 max-w-[54ch] text-[17px] leading-[1.75] text-bright sm:text-[18px]">
+              <p className="mt-6 sm:mt-8 max-w-[54ch] text-[15px] sm:text-[17px] leading-[1.75] text-bright">
                 I'm Jerry, a software engineer in Ogbomoso, Nigeria. I design database schemas,
                 architect APIs, and deploy to production. Every project ships with full technical
                 documentation.
@@ -80,28 +80,28 @@ export const Hero: React.FC = () => {
 
             {/* Architectural Stats */}
             <ScrollReveal direction="up" distance={20} delay={0.15}>
-              <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6">
-                <div className="rounded-xl border border-line-faint bg-ink-700/40 p-4 backdrop-blur-sm">
-                  <div className="font-display text-[32px] font-bold tracking-tight bg-gradient-to-br from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+              <div className="mt-8 sm:mt-10 grid grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                <div className="rounded-xl border border-line-faint bg-ink-700/40 p-3 sm:p-4 backdrop-blur-sm">
+                  <div className="font-display text-[24px] sm:text-[32px] font-bold tracking-tight bg-gradient-to-br from-sky-400 to-cyan-300 bg-clip-text text-transparent">
                     5
                   </div>
-                  <div className="mt-1 text-[11px] font-medium uppercase tracking-wide text-muted">
+                  <div className="mt-1 text-[9px] sm:text-[11px] font-medium uppercase tracking-wide text-muted">
                     Production systems
                   </div>
                 </div>
-                <div className="rounded-xl border border-line-faint bg-ink-700/40 p-4 backdrop-blur-sm">
-                  <div className="font-display text-[32px] font-bold tracking-tight bg-gradient-to-br from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                <div className="rounded-xl border border-line-faint bg-ink-700/40 p-3 sm:p-4 backdrop-blur-sm">
+                  <div className="font-display text-[24px] sm:text-[32px] font-bold tracking-tight bg-gradient-to-br from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                     12+
                   </div>
-                  <div className="mt-1 text-[11px] font-medium uppercase tracking-wide text-muted">
+                  <div className="mt-1 text-[9px] sm:text-[11px] font-medium uppercase tracking-wide text-muted">
                     Database tables
                   </div>
                 </div>
-                <div className="rounded-xl border border-line-faint bg-ink-700/40 p-4 backdrop-blur-sm">
-                  <div className="font-display text-[32px] font-bold tracking-tight bg-gradient-to-br from-emerald-400 to-teal-300 bg-clip-text text-transparent">
+                <div className="rounded-xl border border-line-faint bg-ink-700/40 p-3 sm:p-4 backdrop-blur-sm">
+                  <div className="font-display text-[24px] sm:text-[32px] font-bold tracking-tight bg-gradient-to-br from-emerald-400 to-teal-300 bg-clip-text text-transparent">
                     100%
                   </div>
-                  <div className="mt-1 text-[11px] font-medium uppercase tracking-wide text-muted">
+                  <div className="mt-1 text-[9px] sm:text-[11px] font-medium uppercase tracking-wide text-muted">
                     Full ownership
                   </div>
                 </div>
@@ -109,17 +109,17 @@ export const Hero: React.FC = () => {
             </ScrollReveal>
 
             <ScrollReveal direction="up" distance={20} delay={0.2}>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
                 <Link
                   to="/work"
-                  className="group inline-flex h-12 cursor-pointer items-center gap-2.5 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-7 text-[15px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110 active:scale-[0.98]"
+                  className="group inline-flex h-12 cursor-pointer items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-6 sm:px-7 text-[14px] sm:text-[15px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110 active:scale-[0.98]"
                 >
                   <span>Explore architecture</span>
                   <ArrowDown size={16} className="transition-transform duration-200 group-hover:translate-y-1" />
                 </Link>
                 <Link
                   to="/contact"
-                  className="inline-flex h-12 cursor-pointer items-center rounded-full border-2 border-line-strong px-7 text-[15px] font-semibold text-display transition-all duration-200 hover:scale-[1.03] hover:border-sky-400/50 hover:bg-sky-500/10 hover:text-sky-300 active:scale-[0.98]"
+                  className="inline-flex h-12 cursor-pointer items-center justify-center rounded-full border-2 border-line-strong px-6 sm:px-7 text-[14px] sm:text-[15px] font-semibold text-display transition-all duration-200 hover:scale-[1.03] hover:border-sky-400/50 hover:bg-sky-500/10 hover:text-sky-300 active:scale-[0.98]"
                 >
                   Let's talk systems
                 </Link>
