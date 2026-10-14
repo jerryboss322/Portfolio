@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import { Media } from '@/components/ui/Media';
-import { portrait } from '@/content/images';
 import { profile } from '@/content/data';
 
 const NAV_ITEMS = [
@@ -41,25 +39,17 @@ export const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-ink-900/55 backdrop-blur-2xl transition-colors duration-200">
-      <div className="shell flex h-[64px] items-center justify-between">
+      <div className="shell relative flex h-[64px] items-center justify-between">
         <Link
           to="/"
           onClick={closeMenu}
-          className="group flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
+          className="group font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
           aria-label={`${profile.brand} — home`}
         >
-          <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg border border-accent bg-accent/10 shadow-sm transition-all duration-200 group-hover:scale-105 group-hover:bg-accent/20">
-            <Media
-              asset={portrait}
-              alt={profile.fullName}
-              sizes="28px"
-              imgClassName="object-cover object-top w-full h-full"
-            />
-          </span>
           <span className="text-display">{profile.brand}</span>
         </Link>
 
-        <nav className="hidden items-center gap-1.5 text-[14px] md:flex" aria-label="Primary">
+        <nav className="absolute left-1/2 -translate-x-1/2 hidden items-center gap-1.5 text-[14px] md:flex" aria-label="Primary">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.path}
@@ -73,8 +63,11 @@ export const Header: React.FC = () => {
               {item.label}
             </Link>
           ))}
-          <ThemeToggle />
         </nav>
+
+        <div className="hidden md:block">
+          <ThemeToggle />
+        </div>
 
         {/* Mobile menu controls */}
         <div className="flex items-center gap-2.5 md:hidden">

@@ -30,17 +30,15 @@ export const Hero: React.FC = () => {
             {/* Headline */}
             <ScrollReveal direction="up" distance={24} delay={0.05}>
               <h1 className="font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-display">
-                I architect{' '}
-                <span className="text-accent">full-stack systems</span>
-                , database to deployment.
+                I build websites that work.
               </h1>
             </ScrollReveal>
 
             {/* Subtext — one line, then let the numbers and chips do the talking. */}
             <ScrollReveal direction="up" distance={20} delay={0.1}>
               <p className="mt-6 sm:mt-8 max-w-xl text-[16px] sm:text-[18px] leading-[1.75] text-bright">
-                {profile.fullName.split(' ')[0]} builds the whole thing — database, API,
-                interface, deployment — and hands it over running.
+                You bring the idea. I handle design, code, backend, and launch.{' '}
+                No handoffs, no half-done work — just a live site ready for users.
               </p>
             </ScrollReveal>
 
@@ -99,7 +97,7 @@ export const Hero: React.FC = () => {
           {/* Right: Portrait */}
           <ScrollReveal direction="up" distance={24} delay={0.1}>
             <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] lg:max-w-none">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line-faint bg-ink-700 shadow-2xl">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line-faint bg-transparent shadow-2xl">
                 <Media
                   asset={portrait}
                   alt={profile.fullName}
