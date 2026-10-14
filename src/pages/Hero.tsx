@@ -34,18 +34,19 @@ export const Hero: React.FC = () => {
               <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4">
                 <Link
                   to="/work"
-                  className="group relative inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-accent to-emerald-400 px-7 text-[14px] sm:text-[15px] font-semibold text-onaccent shadow-[0_0_30px_rgba(56,189,248,0.4)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(56,189,248,0.6)] active:scale-[0.98]"
+                  className="group relative inline-flex h-12 items-center justify-center gap-2.5 rounded-xl border border-white/5 bg-gradient-to-b from-white/[0.08] to-white/[0.02] px-7 text-[14px] sm:text-[15px] font-medium text-white shadow-[0_4px_30px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-300 hover:translate-y-[-2px] hover:border-white/20 hover:shadow-[0_8px_40px_rgba(56,189,248,0.25)] active:translate-y-0"
                 >
                   <span className="relative z-10">See my work</span>
-                  <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-accent to-emerald-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-75" />
+                  <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <span className="absolute inset-0 rounded-xl opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" style={{ background: 'radial-gradient(135deg, rgba(56,189,248,0.5) 0%, transparent 70%)' }} />
                 </Link>
                 <Link
                   to="/contact"
-                  className="group relative inline-flex h-12 items-center justify-center rounded-full border border-accent/50 bg-ink-800 px-7 text-[14px] sm:text-[15px] font-semibold text-display shadow-inner transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-accent active:scale-[0.98]"
+                  className="group relative inline-flex h-12 items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.02] px-7 text-[14px] sm:text-[15px] font-medium text-body shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/[0.05] hover:text-white active:scale-[0.98]"
                 >
                   <span className="relative z-10">Let&apos;s talk</span>
-                  <span className="absolute inset-0 rounded-full opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.5) 0%, transparent 70%)' }} />
+                  <ArrowUpRight size={15} className="opacity-50 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5" />
+                  <span className="absolute inset-0 rounded-xl opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" style={{ background: 'radial-gradient(225deg, rgba(255,255,255,0.1) 0%, transparent 70%)' }} />
                 </Link>
               </div>
             </ScrollReveal>
