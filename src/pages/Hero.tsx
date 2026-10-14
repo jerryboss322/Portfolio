@@ -14,19 +14,6 @@ export const Hero: React.FC = () => {
         <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
           {/* Left: Text */}
           <div className="max-w-4xl">
-            {/* Label */}
-            <ScrollReveal direction="up" distance={16}>
-              <div className="flex items-center gap-2.5 mb-6 sm:mb-8">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-                </span>
-                <span className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.2em] text-accent">
-                  Full-Stack Engineer · {profile.status}
-                </span>
-              </div>
-            </ScrollReveal>
-
             {/* Headline */}
             <ScrollReveal direction="up" distance={24} delay={0.05}>
               <h1 className="font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-display">
