@@ -34,7 +34,7 @@ export const Hero: React.FC = () => {
               <div className="mt-8 sm:mt-10 flex gap-4">
                 <Link
                   to="/work"
-                  className="group flex items-center gap-3 bg-accent text-white pl-7 pr-2 py-2 rounded-full text-[15px] font-medium tracking-[-0.01em] hover:bg-[#3A5BE5] hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.98] transition-all duration-300 ease-out"
+                  className="group flex items-center gap-3 bg-accent text-white pl-7 pr-2 py-2 rounded-full text-[15px] font-medium tracking-[-0.01em] hover:bg-accent/90 hover:brightness-95 hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.98] transition-all duration-300 ease-out"
                 >
                   <span>See my work</span>
                   <span className="flex items-center justify-center w-9 h-9 bg-white rounded-full text-accent group-hover:scale-105 transition-transform duration-300 ease-out">
