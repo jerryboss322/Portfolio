@@ -7,7 +7,7 @@ const SUBMIT_URL = 'https://api.web3forms.com/submit';
 
 const INPUT_CLASS =
   'w-full rounded-xl border border-line-strong bg-ink-700 px-4 py-3 text-[14px] text-bright placeholder:text-muted outline-none transition-all duration-200 focus:border-accent focus:bg-ink-600 focus:ring-2 focus:ring-accent/20 hover:border-line-strong hover:bg-ink-600';
-const LABEL_CLASS = 'text-[11px] font-semibold uppercase tracking-[0.16em] text-bright';
+const LABEL_CLASS = 'text-[12px] font-semibold uppercase tracking-[0.16em] text-bright';
 
 export const ContactForm: React.FC = () => {
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -114,14 +114,14 @@ export const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="grid h-11 cursor-pointer place-items-center rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-7 text-[14px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:brightness-100"
+          className="grid h-11 cursor-pointer place-items-center rounded-full bg-accent px-7 text-[14px] font-semibold text-onaccent transition-all duration-200 hover:scale-[1.03] hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:brightness-100"
         >
           {status === 'submitting' ? 'Sending…' : 'Send Message'}
         </button>
-        <span className="text-[12px] text-muted">Replies go straight to my inbox</span>
+        <span className="text-[13px] text-muted">Replies go straight to my inbox</span>
       </div>
 
-      <p role="status" aria-live="polite" className="mt-3 text-[13px]">
+      <p role="status" aria-live="polite" className="mt-3 text-[14px]">
         {status === 'success' && (
           <span className="text-success">Message sent — I&apos;ll get back to you shortly.</span>
         )}

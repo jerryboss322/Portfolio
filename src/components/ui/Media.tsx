@@ -127,7 +127,7 @@ export const ProjectShot: React.FC<ProjectShotProps> = ({
       </div>
     </div>
     {/* Inset to line up with the screenshot's left edge, not the plate's. */}
-    <figcaption className="mt-2 pl-[7px] text-[12px] text-muted">
+    <figcaption className="mt-2 pl-[7px] text-[13px] text-muted">
       {caption}
     </figcaption>
   </figure>

@@ -48,6 +48,6 @@ Object.defineProperty(window, 'ResizeObserver', {
   value: ResizeObserverMock,
 });
 
-// jsdom implements neither of these, and Header + ScrollLink call them.
+// jsdom implements neither of these, and Header + the scroll helpers call them.
 window.scrollTo = () => {};
 Element.prototype.scrollIntoView = () => {};

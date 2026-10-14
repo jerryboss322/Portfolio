@@ -44,6 +44,20 @@ export interface ArchitecturePlan {
   lessonsLearned: string[];
 }
 
+/** A syntax-highlightable code snippet shown in a project's deep dive. */
+export interface CodeSample {
+  title: string;
+  language: string;
+  code: string;
+}
+
+/** A prose walk-through of one interesting piece of a project. */
+export interface DeepDive {
+  heading: string;
+  body: string;
+  code?: CodeSample;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -59,6 +73,10 @@ export interface Project {
   metrics: Metric[];
   outcome: string;
   architecture: ArchitecturePlan;
+  /** Code snippets that show how the architecture decisions actually look. */
+  codeSamples?: CodeSample[];
+  /** Narrative walk-throughs of the hardest parts of the build. */
+  deepDive?: DeepDive[];
 }
 
 export const projects: Project[] = [
@@ -152,7 +170,68 @@ export const projects: Project[] = [
         'Error boundaries in Next.js API routes don’t catch all errors — added global error handler',
         'Image optimization on Vercel is great but slow on first build — prebuild images in CI'
       ]
-    }
+    },
+    codeSamples: [
+      {
+        title: 'Separate connection pool for API routes',
+        language: 'typescript',
+        code: `// db/api.ts — a second pool so API traffic can't starve the web pool
+export const apiPool = new Pool({
+  ...config,
+  max: 20, // web pool stays at max: 10
+});`,
+      },
+      {
+        title: 'Server-side validation before any DB write',
+        language: 'typescript',
+        code: `// utils/validators.ts
+export const checkoutSchema = z.object({
+  cartItems: z.array(z.object({ id: z.string(), quantity: z.number().int().positive() })),
+  shippingAddress: z.object({ street: z.string(), city: z.string(), zip: z.string() }),
+  paymentMethod: z.enum(['card', 'bank', 'ussd']),
+});`,
+      },
+      {
+        title: 'ISR — fresh products without a rebuild',
+        language: 'typescript',
+        code: `export async function generateStaticParams() {
+  const products = await db.products.findMany({ select: { slug: true } });
+  return products.map((p) => ({ slug: p.slug }));
+}
+
+export const revalidate = 3600; // revalidate every hour`,
+      },
+    ],
+    deepDive: [
+      {
+        heading: 'Cart persistence across devices',
+        body:
+          'The cart had to survive a refresh, follow the shopper to a second device, and still become an order at checkout. A single store couldn’t do all three, so it’s a hybrid: localStorage for instant UI feedback, Redis for cross-device sync while shopping, and the database for the record of truth once the order is placed.',
+        code: {
+          title: 'The three-tier flow',
+          language: 'text',
+          code: `User adds item → LocalStorage update → Redis sync → On checkout → Order record`,
+        },
+      },
+      {
+        heading: 'Idempotent payment webhooks',
+        body:
+          'Stripe can deliver the same webhook more than once, and out of order. Every handler checks whether the payment intent was already recorded before doing any work, so a duplicate delivery is a no-op rather than a double charge.',
+        code: {
+          title: 'Dedupe before you process',
+          language: 'typescript',
+          code: `const existing = await db.payments.findUnique({
+  where: { stripe_payment_intent_id: event.data.object.id },
+});
+
+if (existing) {
+  return NextResponse.json({ received: true, duplicate: true });
+}
+
+await handlePaymentEvent(event);`,
+        },
+      },
+    ],
   },
   {
     slug: 'jbet',
@@ -250,7 +329,59 @@ export const projects: Project[] = [
         'LocalStorage fills up quickly with bet history — implemented cleanup on logout',
         'Odds updates can race with user actions — added optimistic UI updates with rollback'
       ]
-    }
+    },
+    codeSamples: [
+      {
+        title: 'Live odds via Redis Pub/Sub',
+        language: 'typescript',
+        code: `// hooks/useLiveOdds.ts
+export const useLiveOdds = (matchId: string) => {
+  const [odds, setOdds] = useState<MatchOdds | null>(null);
+
+  useEffect(() => {
+    const channel = redis.subscribe(\`odds-updates:\${matchId}\`);
+    channel.on('message', (message) => setOdds(JSON.parse(message)));
+    return () => channel.unsubscribe();
+  }, [matchId]);
+
+  return odds;
+};`,
+      },
+      {
+        title: 'One interface, many payment providers',
+        language: 'typescript',
+        code: `// types/payment.ts
+export interface PaymentProvider {
+  name: string;
+  processPayment: (amount: number, reference: string) => Promise<string>;
+  verifyPayment: (reference: string) => Promise<boolean>;
+}`,
+      },
+    ],
+    deepDive: [
+      {
+        heading: 'Bet slip that survives a refresh',
+        body:
+          'A half-filled bet slip is money left on the table if a refresh wipes it. The slip lives in localStorage for instant persistence and is shared through React Context, with Redis reserved for syncing across devices later — nothing blocks the UI on the network.',
+      },
+      {
+        heading: 'Optimistic odds with a rollback',
+        body:
+          'Odds move constantly and a user can place a bet mid-update. The UI updates optimistically, then rolls back to the previous value if the placement fails — so the slip never shows odds the server has already rejected.',
+        code: {
+          title: 'Update, try, roll back on failure',
+          language: 'typescript',
+          code: `const previousOdds = odds;
+setOdds(newOdds);
+try {
+  await placeBet(bet);
+} catch (error) {
+  setOdds(previousOdds);
+  throw error;
+}`,
+        },
+      },
+    ],
   },
   {
     slug: 'sallygreen',
@@ -339,7 +470,52 @@ export const projects: Project[] = [
         'Edge functions have 10s timeout — added queue for form submissions',
         'SSG means content changes need rebuild — added incremental revalidation for key pages'
       ]
-    }
+    },
+    codeSamples: [
+      {
+        title: 'Dynamic GROQ filters for the book list',
+        language: 'typescript',
+        code: `// utils/queries.ts
+export const booksByCategoryQuery = (categorySlug?: string, priceRange?: string) => {
+  let filter = '_type == "book"';
+  if (categorySlug) filter += \` && category->slug.current == "\${categorySlug}"\`;
+  if (priceRange === 'low') filter += ' && price < 5000';
+
+  return \`*[\${filter}] | order(publishedAt desc) { title, coverImage, price }\`;
+};`,
+      },
+      {
+        title: 'Queue form submissions to beat the 10s edge timeout',
+        language: 'typescript',
+        code: `// api/lead-form/route.ts
+export async function POST(request: Request) {
+  const { email, message } = await request.json();
+
+  // Hand off to the queue instead of calling a slow mail provider inline
+  await queues.email.add({ to: 'sally@example.com', subject: \`New lead from \${email}\`, body: message });
+
+  return NextResponse.json({ received: true });
+}`,
+      },
+    ],
+    deepDive: [
+      {
+        heading: 'Real-time preview for the author',
+        body:
+          'The client wanted to see edits before publishing. Sanity’s preview client clones the main one with a token and the CDN off, so drafts render against the same components the live site uses — no separate preview build to maintain.',
+      },
+      {
+        heading: 'Static speed without a rebuild per edit',
+        body:
+          'Pages are statically generated for speed, but a CMS edit shouldn’t need a redeploy. Incremental revalidation refreshes the key pages on a timer, bridging SSG and SSR so the client can change a hero image and it lands within the hour.',
+        code: {
+          title: 'Revalidate on a schedule',
+          language: 'typescript',
+          code: `export const revalidate = 3600; // refresh every hour
+export const dynamic = 'force-static';`,
+        },
+      },
+    ],
   },
   {
     slug: 'luxora',
@@ -433,7 +609,64 @@ export const projects: Project[] = [
         'WebGL detection isn’t perfect — added manual toggle for users who want 3D',
         'Animation performance varies by device — added quality settings and fallback animations'
       ]
+    },
+    codeSamples: [
+      {
+        title: 'Three.js viewer with OrbitControls',
+        language: 'typescript',
+        code: `// components/3d-viewer.tsx
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+containerRef.current.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+const loader = new GLTFLoader();
+loader.load(modelUrl, (gltf) => {
+  scene.add(gltf.scene);
+  animate();
+});`,
+      },
+      {
+        title: 'Quality settings by device capability',
+        language: 'typescript',
+        code: `// hooks/useAnimation.ts
+export const useAnimation = (deviceQuality: 'high' | 'low') => {
+  useEffect(() => {
+    if (deviceQuality === 'high') {
+      setAnimation(gsap.to('.product', { rotation: 360, duration: 2 }));
+    } else {
+      setAnimation(gsap.to('.product', { opacity: 1, duration: 0.5 }));
     }
+    return () => animation?.kill();
+  }, [deviceQuality]);
+
+  return animation;
+};`,
+      },
+    ],
+    deepDive: [
+      {
+        heading: 'Progressive enhancement over flash',
+        body:
+          'The 3D viewer is the headline feature, but it can’t be the only way to see a product. WebGL detection is unreliable, so there’s always a static image fallback and a manual toggle — the page is fully usable on a device that never loads a single shader.',
+      },
+      {
+        heading: 'GSAP timelines for the product reveal',
+        body:
+          'The reveal is a choreographed sequence — title, price, then the model settling into scale — built as one GSAP timeline so the steps stay in step and the whole thing is torn down cleanly on unmount.',
+        code: {
+          title: 'One timeline, staggered steps',
+          language: 'typescript',
+          code: `const tl = gsap.timeline({ delay: 0.2 });
+tl.fromTo(titleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 })
+  .fromTo(priceRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+  .fromTo(productRef.current, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, ease: 'back.out(1.7)' });`,
+        },
+      },
+    ],
   },
   {
     slug: 'tastetrail',
@@ -517,7 +750,51 @@ export const projects: Project[] = [
         'Mobile data usage matters — optimized images, lazy-loaded menu items',
         'Order confirmation email delayed — added SMS option for faster notification'
       ]
+    },
+    codeSamples: [
+      {
+        title: 'Basket that auto-saves and merges duplicates',
+        language: 'typescript',
+        code: `// context/BasketContext.tsx
+const addToBasket = (item: BasketItem) => {
+  setBasket((prev) => {
+    const existing = prev.find((i) => i.id === item.id);
+    if (existing) {
+      return prev.map((i) =>
+        i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+      );
     }
+    return [...prev, item];
+  });
+};`,
+      },
+      {
+        title: 'Three-step order confirmation',
+        language: 'typescript',
+        code: `const [step, setStep] = useState<'basket' | 'details' | 'confirm'>('basket');
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  const response = await fetch('/api/orders', {
+    method: 'POST',
+    body: JSON.stringify({ basket, details }),
+  });
+  setStep('success');
+};`,
+      },
+    ],
+    deepDive: [
+      {
+        heading: 'Basket state without a backend round-trip',
+        body:
+          'For a small restaurant, the basket doesn’t need to live on a server mid-order. It’s held in React Context and mirrored to localStorage on every change, so a refresh or an accidental back-button keeps the order intact and adding the same dish twice just bumps the quantity.',
+      },
+      {
+        heading: 'In-memory cache with an escape hatch',
+        body:
+          'The menu is cached in memory for speed, but that means a price change wouldn’t show until a restart. An admin endpoint clears the cache on demand, so the kitchen can update prices and see them reflected immediately without a deploy.',
+      },
+    ],
   },
 ];
 
@@ -534,11 +811,6 @@ export const profile = {
   email: 'jerryadewole2023@gmail.com',
 };
 
-export const heroTitle = 'I build architecture-driven web apps, start to finish.';
-
-export const heroIntro =
-  "I'm Jerry, a software engineer in Ogbomoso, Nigeria. I design the architecture, build the full stack, and deploy to production. Mostly React and TypeScript, with Node and Postgres behind.";
-
 export const heroStats = [
   { value: '5', label: 'Projects shipped' },
   { value: '100%', label: 'Full-stack ownership' },
@@ -550,6 +822,31 @@ export const coreSkills = [
   'API design & documentation',
   'Deployment strategy',
   'Performance optimization',
+];
+
+export interface Faq {
+  q: string;
+  a: string;
+}
+
+/** The questions that come up before a first call — answered on the contact page. */
+export const faqs: Faq[] = [
+  {
+    q: 'How do you charge?',
+    a: 'Fixed price per project, agreed after the first call once the scope is clear. For ongoing work, a monthly retainer. No hourly surprises.',
+  },
+  {
+    q: 'What does the first call look like?',
+    a: 'Thirty minutes. You describe what you are building and where it is stuck; I give an honest read on the architecture, roughly what it costs, and whether I am the right person for it.',
+  },
+  {
+    q: 'How soon will I hear back?',
+    a: 'Usually within a day. If your note arrives over a weekend, first thing Monday.',
+  },
+  {
+    q: 'Do you work with existing codebases?',
+    a: 'Yes. Audits, performance work, and picking up a project someone else started are a good share of what I do.',
+  },
 ];
 
 export const architecturePatterns = [
@@ -567,6 +864,66 @@ export const values = [
   'Works with a keyboard',
   'I finish what I start',
 ];
+
+export interface ToolGroup {
+  category: string;
+  items: string[];
+}
+
+/** The stack, grouped so it reads as a toolbox rather than a tag cloud. */
+export const toolbox: ToolGroup[] = [
+  {
+    category: 'Frontend',
+    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
+  },
+  {
+    category: 'Backend',
+    items: ['Node.js', 'Next.js API Routes', 'REST', 'Webhooks', 'Zod validation'],
+  },
+  {
+    category: 'Data',
+    items: ['PostgreSQL', 'MySQL', 'Redis', 'Prisma', 'Schema design'],
+  },
+  {
+    category: 'Infra & tooling',
+    items: ['Vercel', 'Railway', 'Linux', 'GitHub Actions', 'Sentry', 'Sanity CMS'],
+  },
+];
+
+export interface Principle {
+  title: string;
+  body: string;
+}
+
+/** The longer-form version of `values` — each principle with the reasoning. */
+export const principles: Principle[] = [
+  {
+    title: 'Boring tech where it counts',
+    body:
+      'Novelty belongs in the product, not the plumbing. I reach for well-trodden tools at the layers that have to keep working — the database, the auth, the deploy — and spend the risk budget on the part that is actually new.',
+  },
+  {
+    title: 'One goal per screen',
+    body:
+      'A page that tries to do three things does none of them well. I design around a single primary action per screen, then earn the secondary ones.',
+  },
+  {
+    title: 'Something running, early',
+    body:
+      'A deployed skeleton on day one beats a beautiful spec in month two. Getting real code in front of you early is how we find the wrong assumptions while they are still cheap to fix.',
+  },
+  {
+    title: 'The unglamorous parts',
+    body:
+      'Empty states, the form that fails, the page on a bad connection, the constraint that stops bad data. These are what separate a demo from software, so they get designed, not left to the end.',
+  },
+];
+
+export const availability = {
+  status: 'Available for new work',
+  detail:
+    'Taking on a small number of projects at a time so each one gets full attention. Currently booking for the next few weeks.',
+};
 
 export type CapabilityIcon =
   | 'layers'

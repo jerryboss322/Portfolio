@@ -4,35 +4,34 @@
 /* ============================================================
    Self-hosted fonts.
 
-   Two variable woff2 files in public/fonts/, latin subset only. This
-   replaces a render-blocking <link> to fonts.googleapis.com plus two
-   preconnects, which put a third-party round trip on the critical path
-   for every first visit.
+   Two variable woff2 files in public/fonts/. This replaces a
+   render-blocking <link> to fonts.googleapis.com plus two preconnects,
+   which put a third-party round trip on the critical path for every
+   first visit.
 
    `swap` means text paints in the fallback immediately rather than
-   waiting on the font, and the variable axis means all five weights come
-   from one file each instead of one file per weight.
+   waiting on the font, and each file is a variable font, so the whole
+   weight range comes from one request.
+
+   - **Author** — the UI/body face. A clean, highly readable sans
+     (Indian Type Foundry, via Fontshare).
+   - **Cabinet Grotesk** — the display/heading face. A sturdy geometric
+     grotesk that gives headings weight without shouting.
    ============================================================ */
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Author';
   font-style: normal;
-  font-weight: 400 600;
+  font-weight: 200 700;
   font-display: swap;
-  src: url('/fonts/inter-latin-var.woff2') format('woff2-variations');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url('/fonts/author-variable.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Space Grotesk';
+  font-family: 'Cabinet Grotesk';
   font-style: normal;
-  font-weight: 500 700;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('/fonts/space-grotesk-latin-var.woff2') format('woff2-variations');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url('/fonts/cabinet-grotesk-variable.woff2') format('woff2');
 }
 
 /* ============================================================
@@ -48,6 +47,7 @@
   /* --- Surfaces ---------------------------------------------- */
   --color-ink-900: var(--ink-900);
   --color-ink-850: var(--ink-850);
+  --color-ink-800: var(--ink-800);
   --color-ink-700: var(--ink-700);
   --color-ink-600: var(--ink-600);
   --color-frame-plate: var(--frame-plate);
@@ -82,8 +82,8 @@
   --color-tint-3: var(--tint-3);
 
   /* Type */
-  --font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Cabinet Grotesk', 'Author', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Author', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
 
   /* ============================================================
@@ -103,6 +103,22 @@
   --text-display-2--line-height: 1.06;
   --text-display-3: clamp(1.5rem, 1.3rem + 0.8vw, 2.25rem);
   --text-display-3--line-height: 1.12;
+
+  /* ============================================================
+     Radius.
+
+     One base value the whole scale derives from, matching the design
+     system's 0.875rem. `rounded-lg` is the base; `rounded-full` is
+     still available for pills and avatars. Tailwind reads these to
+     build rounded-sm … rounded-3xl.
+     ============================================================ */
+  --radius: 0.875rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
 
   /* The site uses no drop shadows. Clearing the default scale stops Tailwind
      shipping the base `shadow` rule with a blurred offset value, and makes any

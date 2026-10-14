@@ -14,17 +14,21 @@ No WebGL, no 3D text, no scroll hijacking, and no per-frame JavaScript.
 
 ## Layout
 
-One scrolling page, seven sections:
+One scrolling page — now a full arc (who, what, proof, how, kind words, next
+step) — plus four routed pages:
 
-| Section | Ground | What it is |
-|---------|--------|------------|
-| Hero | ground | Who he is, availability, what he works with — skills run as a marquee |
-| Work | band | Five projects, each a card with a cropped screenshot |
-| About | ground | Photo, what he cares about, a short timeline |
-| What I do | ground | Six capabilities |
-| Process | band | Five stages |
-| Kind words | ground | Two quotes |
-| Get in touch | band | Email, socials, contact form |
+| Page / section | Ground | What it is |
+|----------------|--------|------------|
+| Hero (`/`) | ground | Who he is, availability, one-liner, stats, skill chips |
+| What I do (`/`) | ground | Four capability teasers linking to `/about` |
+| Work preview (`/`) | band | Three projects, non-clickable, linking to `/work` |
+| Process teaser (`/`) | band | Five stages at a glance, linking to `/about` |
+| Featured quote (`/`) | band | One testimonial as social proof |
+| CTA band (`/`) | ground | Availability + "Start a conversation" |
+| Work (`/work`) | — | All projects with a type filter |
+| Project detail (`/work/:slug`) | — | Architecture, deep dive, code samples, process recap, prev/next |
+| About (`/about`) | — | Journey, capabilities, principles, toolbox, process, quotes, sticky sub-nav |
+| Contact (`/contact`) | — | Pitch, form, facts, consultation note, FAQ |
 
 ## Layout system
 
@@ -62,6 +66,13 @@ section that makes a claim deliberately does not get a card.
 All copy lives in `src/content/data.ts` as plain typed objects. Page components
 read from it and hold no prose of their own apart from section titles.
 
+Each `Project` carries an `architecture` plan plus two optional deep-content
+fields the detail page renders: `codeSamples` (labelled code excerpts, shown in
+a `CodeBlock`) and `deepDive` (narrative walk-throughs of the hardest parts,
+each optionally with its own snippet). These were migrated from the original
+per-project markdown in `src/content/projects/`, which is kept only as
+reference and is no longer read by the app.
+
 `src/content/images.ts` is **generated** by `scripts/build-images.mjs` — do not
 edit it by hand. The script reads the originals in `assets/`, writes responsive
 WebP derivatives and a base64 blur-up placeholder into `public/img/`, and
@@ -81,9 +92,11 @@ Only tokens something actually uses are defined. Adding one means adding it to
 the `@theme inline` bridge in `tailwind.css` as well, or Tailwind will not
 generate a utility for it.
 
-The palette is deliberately narrow: one decorative accent (`--accent`) plus two
-semantic colours for the contact form (`--success`, `--danger`). The ground is
-pure black and the surfaces are warm-neutral greys.
+The palette is deliberately narrow: one primary accent (`--accent`) plus a few
+semantic colours (`--success`, `--danger`, and the decorative `--accent-*`
+swatches). The dark ground is a deep cool navy and the surfaces are cool greys;
+the light ground is a warm cream paper rather than plain white. The accent is a
+single blue in both themes.
 
 Every text token is contrast-checked against its own ground and clears WCAG AA.
 This is the one place the greys are not chosen purely by eye: the values that
@@ -127,9 +140,12 @@ Letter-spacing is set against the `h1`/`h2`/`h3` elements in `@layer base` in
 
 ## Fonts
 
-Self-hosted, in `public/fonts/` — two variable woff2 files, latin subset only,
-with `@font-face` declarations at the top of `tailwind.css` and preloads in
-`index.html`. There is no request to a third-party font host.
+Self-hosted, in `public/fonts/` — two variable woff2 files, with `@font-face`
+declarations at the top of `tailwind.css` and preloads in `index.html`. There is
+no request to a third-party font host.
+
+- **Author** — the UI/body face.
+- **Cabinet Grotesk** — the display/heading face, a sturdy geometric grotesk.
 
 Adding a weight means widening the `font-weight` range on the existing
 `@font-face`, not adding a file: the variable axis already covers it.

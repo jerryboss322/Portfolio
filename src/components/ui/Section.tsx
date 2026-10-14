@@ -29,7 +29,7 @@ export const Section: React.FC<SectionProps> = ({
 }) => (
   <section
     id={id}
-    className={['py-24 md:py-32', tone === 'band' ? 'bg-ink-850' : '', className]
+    className={['py-12 md:py-20', tone === 'band' ? 'bg-gradient-to-b from-transparent via-ink-850/80 to-transparent' : '', className]
       .filter(Boolean)
       .join(' ')}
   >

@@ -1,0 +1,424 @@
+[
+  {
+    "id": "1",
+    "slug": "react-19-new-features-guide",
+    "title": "React 19: A Comprehensive Guide",
+    "excerpt": "Explore everything new in React 19 - from Actions and Server Components to the improved compiler and new hooks.",
+    "content": "# React 19 Guide\n\nReact 19 brings exciting new features including Actions, Server Components, and the new compiler. This guide covers the fundamentals of the new React 19 ecosystem.",
+    "category": "technology",
+    "tags": [
+      "react",
+      "react-19",
+      "frontend"
+    ],
+    "authorId": "alex-chen",
+    "publishedAt": "2026-06-01",
+    "readingTime": 15,
+    "wordCount": 985,
+    "seo": {
+      "title": "React 19 Guide",
+      "description": "React 19 comprehensive guide"
+    }
+  },
+  {
+    "id": "2",
+    "slug": "building-design-systems-at-scale",
+    "title": "Building Design Systems at Scale",
+    "excerpt": "A practical guide to creating and maintaining a design system that grows with your organization.",
+    "content": "# Building Design Systems\n\nDesign systems are essential for organizations building multiple products. This guide covers tokens, components, and documentation.",
+    "category": "design",
+    "tags": [
+      "design-system",
+      "ux",
+      "frontend"
+    ],
+    "authorId": "jordan-lee",
+    "publishedAt": "2026-05-15",
+    "readingTime": 20,
+    "wordCount": 1250,
+    "seo": {
+      "title": "Building Design Systems",
+      "description": "Lessons learned building scalable design systems"
+    }
+  },
+  {
+    "id": "3",
+    "slug": "optimizing-react-performance-2026",
+    "title": "Optimizing React Performance in 2026",
+    "excerpt": "Deep dive into React performance optimization techniques that actually move the needle in 2026.",
+    "content": "# Optimizing React Performance\n\nReact performance optimization is about architecture and tooling, not micro-optimizations. Use the compiler, measure everything, and profile before optimizing.",
+    "category": "development",
+    "tags": [
+      "react",
+      "performance",
+      "frontend"
+    ],
+    "authorId": "liam-wilson",
+    "publishedAt": "2026-07-20",
+    "readingTime": 18,
+    "wordCount": 1100,
+    "seo": {
+      "title": "React Performance 2026",
+      "description": "Deep dive into React performance optimization"
+    }
+  },
+  {
+    "id": "4",
+    "slug": "typescript-mastery-patterns-2026",
+    "title": "TypeScript Mastery: Advanced Patterns",
+    "excerpt": "Level up your TypeScript skills with advanced type patterns, generics, conditional types, and the latest features from 2026.",
+    "content": "# TypeScript Mastery\n\nTypeScript has evolved significantly. Key advanced patterns include conditional types, mapped types, template literal types, and branded types for domain safety.",
+    "category": "technology",
+    "tags": [
+      "typescript",
+      "javascript",
+      "development"
+    ],
+    "authorId": "sam-okonkwo",
+    "publishedAt": "2026-04-10",
+    "readingTime": 22,
+    "wordCount": 1380,
+    "seo": {
+      "title": "TypeScript Mastery",
+      "description": "Advanced TypeScript patterns for 2026"
+    }
+  },
+  {
+    "id": "5",
+    "slug": "the-importance-of-accessibility-in-modern-web",
+    "title": "The Importance of Accessibility in Modern Web",
+    "excerpt": "Accessibility is not optional. Learn how to build inclusive web applications that work for everyone.",
+    "content": "# Accessibility in Web Development\n\nAccessibility matters for legal compliance, broader audience reach, better UX, and SEO. Use semantic HTML, test with screen readers, and ensure proper color contrast.",
+    "category": "design",
+    "tags": [
+      "accessibility",
+      "a11y",
+      "web-standards"
+    ],
+    "authorId": "maria-gonzalez",
+    "publishedAt": "2026-06-15",
+    "readingTime": 12,
+    "wordCount": 970,
+    "seo": {
+      "title": "Accessibility in Web Development",
+      "description": "Why accessibility matters and how to build inclusive web applications"
+    }
+  },
+  {
+    "id": "6",
+    "slug": "typescript-v5-10-new-features",
+    "title": "TypeScript 5.0 and Beyond: New Features Explained",
+    "excerpt": "TypeScript 5.0 brings performance improvements and new features. Learn about the key changes and how they affect your codebase.",
+    "content": "# TypeScript 5.0\n\nTypeScript 5.0 introduces performance improvements, uncalled method checks, and better error messages. Focus on strict mode, correct types, and modern patterns.",
+    "category": "technology",
+    "tags": [
+      "typescript",
+      "javascript",
+      "new-features"
+    ],
+    "authorId": "sam-okonkwo",
+    "publishedAt": "2026-03-28",
+    "readingTime": 10,
+    "wordCount": 820,
+    "seo": {
+      "title": "TypeScript 5.0",
+      "description": "New features in TypeScript 5.0 explained"
+    }
+  },
+  {
+    "id": "7",
+    "slug": "nextjs-15-app-router-best-practices",
+    "title": "Next.js 15 App Router: Best Practices",
+    "excerpt": "Next.js 15 introduces new features and breaking changes. Here are the best practices you need to know for building production applications with the App Router.",
+    "content": "# Next.js 15 App Router\n\nNext.js 15 brings Server Components by default, improved data fetching, and route handlers. Use the App Router, embrace Server Components, and optimize performance.",
+    "category": "development",
+    "tags": [
+      "nextjs",
+      "react",
+      "framework"
+    ],
+    "authorId": "liam-wilson",
+    "publishedAt": "2026-07-05",
+    "readingTime": 16,
+    "wordCount": 1050,
+    "seo": {
+      "title": "Next.js 15 App Router",
+      "description": "Best practices for Next.js 15 App Router in 2026"
+    }
+  },
+  {
+    "id": "8",
+    "slug": "automating-workflows-with-automation-tools",
+    "title": "Automating Your Workflow: Tools and Techniques",
+    "excerpt": "Discover how to automate repetitive development tasks and focus on what matters - building great products.",
+    "content": "# Automating Your Workflow\n\nRepetitive tasks are the enemy of productivity. Start with a workflow audit, use git hooks and GitHub Actions, automate dependency management, and build an automation stack.",
+    "category": "productivity",
+    "tags": [
+      "automation",
+      "workflow",
+      "productivity"
+    ],
+    "authorId": "priya-sharma",
+    "publishedAt": "2026-07-10",
+    "readingTime": 14,
+    "wordCount": 840,
+    "seo": {
+      "title": "Automating Your Workflow",
+      "description": "Tools and techniques for automating repetitive development tasks"
+    }
+  },
+  {
+    "id": "9",
+    "slug": "building-interactive-dashboards-react",
+    "title": "Building Interactive Dashboards with React",
+    "excerpt": "Learn how to build data-driven dashboards with React, including charts, data tables, and real-time updates.",
+    "content": "# Building Interactive Dashboards\n\nDashboards consist of layout, metrics, charts, tables, filters, and real-time widgets. Focus on the user data needs, provide intuitive filtering, and use virtualization for large datasets.",
+    "category": "development",
+    "tags": [
+      "react",
+      "dashboard",
+      "charts",
+      "data-visualization"
+    ],
+    "authorId": "alex-chen",
+    "publishedAt": "2026-08-01",
+    "readingTime": 18,
+    "wordCount": 1100,
+    "seo": {
+      "title": "Building Interactive Dashboards",
+      "description": "A practical guide to building data-driven dashboards with React"
+    }
+  },
+  {
+    "id": "10",
+    "slug": "design-tokens-tooling-2026",
+    "title": "Design Tokens: The Secret to Consistent Design Systems",
+    "excerpt": "Design tokens are the foundation of any scalable design system. Learn how to implement them effectively.",
+    "content": "# Design Tokens\n\nDesign tokens are named variables that store design decisions. Group tokens by category and scope, version them with semantic versioning, and never hardcode values in components.",
+    "category": "design",
+    "tags": [
+      "design-tokens",
+      "design-system",
+      "css"
+    ],
+    "authorId": "jordan-lee",
+    "publishedAt": "2026-05-25",
+    "readingTime": 16,
+    "wordCount": 980,
+    "seo": {
+      "title": "Design Tokens",
+      "description": "How to use design tokens to maintain consistency across your product"
+    }
+  },
+  {
+    "id": "11",
+    "slug": "react-hooks-deep-dive-2026",
+    "title": "React Hooks Deep Dive: Mastering the New Hooks",
+    "excerpt": "A deep dive into the advanced React hooks and patterns that will level up your component design.",
+    "content": "# React Hooks Deep Dive\n\nNew hooks include useSyncExternalStore for subscribing to external stores, useActionState for simplified form state management, and custom hooks for code reuse.",
+    "category": "technology",
+    "tags": [
+      "react",
+      "hooks",
+      "frontend"
+    ],
+    "authorId": "liam-wilson",
+    "publishedAt": "2026-07-15",
+    "readingTime": 12,
+    "wordCount": 780,
+    "seo": {
+      "title": "React Hooks Deep Dive",
+      "description": "Mastering React hooks in 2026"
+    }
+  },
+  {
+    "id": "12",
+    "slug": "enterprise-api-design-best-practices",
+    "title": "Enterprise API Design: Patterns and Anti-Patterns",
+    "excerpt": "Learn the best practices for designing APIs that scale in enterprise environments.",
+    "content": "# Enterprise API Design\n\nAPI design principles include consistency, completeness, performance, security, and documentation. Use OpenAPI for documentation, structured error handling, and proper pagination strategies.",
+    "category": "technology",
+    "tags": [
+      "api",
+      "backend",
+      "enterprise"
+    ],
+    "authorId": "sam-okonkwo",
+    "publishedAt": "2026-06-20",
+    "readingTime": 16,
+    "wordCount": 1050,
+    "seo": {
+      "title": "Enterprise API Design",
+      "description": "Best practices for designing scalable enterprise APIs"
+    }
+  },
+  {
+    "id": "13",
+    "slug": "modern-css-architecture-best-practices",
+    "title": "Modern CSS Architecture: Best Practices for 2026",
+    "excerpt": "Learn how to structure your CSS for maintainability, scalability, and performance in 2026.",
+    "content": "# Modern CSS Architecture\n\nCSS architecture has evolved significantly. Use CSS variables for theming, container queries for responsive design, and utility classes for consistency.",
+    "category": "technology",
+    "tags": [
+      "css",
+      "frontend",
+      "architecture"
+    ],
+    "authorId": "jordan-lee",
+    "publishedAt": "2026-08-10",
+    "readingTime": 14,
+    "wordCount": 950,
+    "seo": {
+      "title": "Modern CSS Architecture",
+      "description": "Best practices for modern CSS architecture in 2026"
+    }
+  },
+  {
+    "id": "14",
+    "slug": "accessible-forms-web-standards",
+    "title": "Accessible Forms: A Web Standards Guide",
+    "excerpt": "Forms are the most critical interactive elements on the web. Learn how to make them accessible.",
+    "content": "# Accessible Forms\n\nAccessible forms require proper labels, error messages, keyboard navigation, and focus management. Use semantic HTML, ARIA attributes when needed, and test with assistive technologies.",
+    "category": "design",
+    "tags": [
+      "accessibility",
+      "forms",
+      "web-standards"
+    ],
+    "authorId": "maria-gonzalez",
+    "publishedAt": "2026-07-25",
+    "readingTime": 16,
+    "wordCount": 1080,
+    "seo": {
+      "title": "Accessible Forms Guide",
+      "description": "How to build accessible forms that work for everyone"
+    }
+  },
+  {
+    "id": "15",
+    "slug": "building-scalable-frontend-architectures",
+    "title": "Building Scalable Frontend Architectures",
+    "excerpt": "Learn the principles of scalable frontend architecture that grow with your product and team.",
+    "content": "# Scalable Frontend Architectures\n\nScalable frontend architecture requires clear boundaries between layers, component-based design, state management at the right level, and performance optimization strategies.",
+    "category": "development",
+    "tags": [
+      "frontend",
+      "architecture",
+      "react"
+    ],
+    "authorId": "alex-chen",
+    "publishedAt": "2026-08-05",
+    "readingTime": 20,
+    "wordCount": 1200,
+    "seo": {
+      "title": "Scalable Frontend Architectures",
+      "description": "Principles of scalable frontend architecture that grow with your product"
+    }
+  },
+  {
+    "id": "16",
+    "slug": "css-animations-transitions-guide",
+    "title": "CSS Animations and Transitions: A Complete Guide",
+    "excerpt": "Master CSS animations and transitions to create beautiful, performant user interfaces.",
+    "content": "# CSS Animations Guide\n\nCSS animations and transitions bring interfaces to life. Use transform and opacity for performance, respect user motion preferences, and use the right timing functions for natural movement.",
+    "category": "design",
+    "tags": [
+      "css",
+      "animations",
+      "frontend"
+    ],
+    "authorId": "jordan-lee",
+    "publishedAt": "2026-08-15",
+    "readingTime": 15,
+    "wordCount": 1020,
+    "seo": {
+      "title": "CSS Animations Guide",
+      "description": "Master CSS animations and transitions in 2026"
+    }
+  },
+  {
+    "id": "17",
+    "slug": "state-management-react-2026",
+    "title": "State Management in React: 2026 Edition",
+    "excerpt": "From hooks to libraries, learn the best approaches to state management in React in 2026.",
+    "content": "# State Management in React 2026\n\nState management has evolved. Start with local component state, lift state up when needed, use context for global state, and choose libraries carefully. The React Compiler handles memoization automatically.",
+    "category": "technology",
+    "tags": [
+      "react",
+      "state-management",
+      "frontend"
+    ],
+    "authorId": "liam-wilson",
+    "publishedAt": "2026-07-30",
+    "readingTime": 17,
+    "wordCount": 1050,
+    "seo": {
+      "title": "State Management React 2026",
+      "description": "Best approaches to state management in React in 2026"
+    }
+  },
+  {
+    "id": "18",
+    "slug": "testing-react-applications-vitest",
+    "title": "Testing React Applications with Vitest: A Practical Guide",
+    "excerpt": "Learn how to effectively test React applications using Vitest, from unit tests to E2E testing.",
+    "content": "# Testing React with Vitest\n\nEffective testing includes unit tests, integration tests, E2E tests, and visual regression tests. Use Vitest for fast unit tests, React Testing Library for component tests, and Playwright for E2E testing.",
+    "category": "development",
+    "tags": [
+      "testing",
+      "vitest",
+      "react",
+      "test-driven"
+    ],
+    "authorId": "sam-okonkwo",
+    "publishedAt": "2026-08-12",
+    "readingTime": 16,
+    "wordCount": 1100,
+    "seo": {
+      "title": "Testing React Applications",
+      "description": "A practical guide to testing React applications with Vitest"
+    }
+  },
+  {
+    "id": "19",
+    "slug": "css-grid-layout-tips-and-tricks",
+    "title": "CSS Grid Layout: Tips and Tricks for 2026",
+    "excerpt": "CSS Grid is one of the most powerful layout tools available. Learn advanced techniques for building complex layouts.",
+    "content": "# CSS Grid Tips\n\nCSS Grid is a powerful layout tool. Use grid-template-areas for semantic layouts, auto-fill and auto-fit for responsive grids, and subgrid for nested grid alignment.",
+    "category": "design",
+    "tags": [
+      "css",
+      "grid",
+      "layout"
+    ],
+    "authorId": "jordan-lee",
+    "publishedAt": "2026-08-18",
+    "readingTime": 14,
+    "wordCount": 950,
+    "seo": {
+      "title": "CSS Grid Layout Guide",
+      "description": "Advanced CSS Grid techniques for 2026"
+    }
+  },
+  {
+    "id": "20",
+    "slug": "reducing-website-of-size",
+    "title": "Reducing Website Bundle Size: A Practical Guide",
+    "excerpt": "Learn practical techniques for reducing your website bundle size and improving load times.",
+    "content": "# Reducing Bundle Size\n\nReduce bundle size through code splitting, tree shaking, lazy loading, and avoiding unnecessary dependencies. Use lightweight alternatives and measure with bundle analyzers.",
+    "category": "technology",
+    "tags": [
+      "performance",
+      "bundle",
+      "optimization"
+    ],
+    "authorId": "sam-okonkwo",
+    "publishedAt": "2026-08-20",
+    "readingTime": 15,
+    "wordCount": 1000,
+    "seo": {
+      "title": "Reducing Bundle Size",
+      "description": "Practical techniques for reducing website bundle size and improving load times"
+    }
+  }
+]

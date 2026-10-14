@@ -1,9 +1,11 @@
 import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Code2 } from 'lucide-react';
-import { projects } from '../content/data';
-import { Media } from '../components/ui/Media';
-import InteractiveBadge from '../components/ui/InteractiveBadge';
+import { ArrowLeft, ArrowRight, Code2, ExternalLink } from 'lucide-react';
+import { projects } from '@/content/data';
+import { useDocumentTitle } from '@/lib/hooks';
+import { ProjectShot } from '@/components/ui/Media';
+import TechStackCard from '@/components/ui/TechStackCard';
+import CodeBlock from '@/components/ui/CodeBlock';
 import {
   projectImage_titan,
   projectImage_luxora,
@@ -11,7 +13,7 @@ import {
   projectImage_tastetrail,
   projectImage_jbet,
   type ImageAsset,
-} from '../content/images';
+} from '@/content/images';
 
 const IMAGES: Record<string, ImageAsset> = {
   titan: projectImage_titan,
@@ -27,7 +29,12 @@ const IMAGES: Record<string, ImageAsset> = {
 export const ProjectDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const project = projects.find((p) => p.slug === slug);
+  const index = projects.findIndex((p) => p.slug === slug);
+  const project = index >= 0 ? projects[index] : undefined;
+  const prev = index > 0 ? projects[index - 1] : undefined;
+  const next = index >= 0 && index < projects.length - 1 ? projects[index + 1] : undefined;
+
+  useDocumentTitle(project ? `${project.title} — Jerry Adewole` : 'Project Not Found — Jerry Adewole');
 
   if (!project) {
     return (
@@ -48,31 +55,31 @@ export const ProjectDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-ink-900">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-line-faint bg-ink-900">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-indigo-500/8 to-purple-500/10 blur-[120px]" />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-accent-indigo/8 to-accent-purple/10 blur-[120px]" />
         
         <div className="shell relative py-12 sm:py-16 md:py-20">
           {/* Back Button */}
           <button
             onClick={() => navigate('/work')}
-            className="inline-flex items-center gap-2 text-[13px] sm:text-[14px] font-medium text-muted hover:text-accent transition-colors mb-6 sm:mb-8"
+            className="inline-flex items-center gap-2 text-[14px] sm:text-[14px] font-medium text-muted hover:text-accent transition-colors mb-6 sm:mb-8"
           >
             <ArrowLeft size={16} />
             <span>Back to Work</span>
           </button>
 
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 items-center">
             {/* Left: Project Info */}
             <div>
-              <div className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-accent mb-3 sm:mb-4">
+              <div className="inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-accent mb-3 sm:mb-4">
                 <span>{project.type}</span>
                 <span>•</span>
                 <span>{project.year}</span>
               </div>
 
-              <h1 className="font-display text-[clamp(2rem,8vw,4.5rem)] font-bold leading-[1.1] tracking-[-0.04em] text-display mb-3 sm:mb-4">
+              <h1 className="font-display text-[clamp(1.875rem,5vw,3.25rem)] font-bold leading-[1.1] tracking-[-0.03em] text-display mb-3 sm:mb-4">
                 {project.title}
               </h1>
 
@@ -90,7 +97,7 @@ export const ProjectDetailPage: React.FC = () => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 px-5 sm:px-6 py-2.5 sm:py-3 text-[13px] sm:text-[14px] font-semibold text-white shadow-xl shadow-sky-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-indigo-500/35 hover:brightness-110"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 sm:px-6 py-2.5 sm:py-3 text-[14px] sm:text-[14px] font-semibold text-onaccent transition-all duration-200 hover:scale-[1.03] hover:brightness-110"
                 >
                   <ExternalLink size={15} />
                   <span>View Live Site</span>
@@ -99,7 +106,7 @@ export const ProjectDetailPage: React.FC = () => {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-line-strong px-5 sm:px-6 py-2.5 sm:py-3 text-[13px] sm:text-[14px] font-semibold text-display transition-all duration-200 hover:scale-[1.03] hover:border-accent hover:bg-accent/10 hover:text-accent"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-line-strong px-5 sm:px-6 py-2.5 sm:py-3 text-[14px] sm:text-[14px] font-semibold text-display transition-all duration-200 hover:scale-[1.03] hover:border-accent hover:bg-accent/10 hover:text-accent"
                 >
                   <Code2 size={15} />
                   <span>Source Code</span>
@@ -109,14 +116,12 @@ export const ProjectDetailPage: React.FC = () => {
 
             {/* Right: Project Image */}
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden border border-line-faint shadow-2xl">
-                <Media
-                  asset={IMAGES[project.slug]}
-                  alt={project.title}
-                  sizes="(max-width: 1024px) 100vw, 600px"
-                  priority
-                />
-              </div>
+              <ProjectShot
+                asset={IMAGES[project.slug]}
+                alt={project.title}
+                caption={`${project.title} — ${project.liveUrl.replace(/^https?:\/\//, '')}`}
+                sizes="(max-width: 1024px) 100vw, 600px"
+              />
             </div>
           </div>
         </div>
@@ -124,23 +129,23 @@ export const ProjectDetailPage: React.FC = () => {
 
       {/* Architecture Content */}
       <section className="shell py-12 sm:py-16 md:py-20">
-        <div className="grid lg:grid-cols-[280px_1fr] gap-8 sm:gap-12">
+        <div className="grid lg:grid-cols-[280px_1fr] gap-8 sm:gap-10">
           {/* Left Sidebar - Quick Info (Hidden on mobile, shown as sticky on desktop) */}
           <aside className="hidden lg:block lg:sticky lg:top-24 h-fit space-y-6">
             {/* Architecture Style */}
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">
+              <div className="text-[12px] font-semibold uppercase tracking-wider text-muted mb-3">
                 Architecture
               </div>
               <div className="rounded-lg border border-line-faint bg-ink-700/60 p-4">
-                <p className="text-[13px] text-bright">{project.architecture.style}</p>
+                <p className="text-[14px] text-bright">{project.architecture.style}</p>
               </div>
             </div>
 
             {/* Metrics */}
             {project.metrics.length > 0 && (
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">
+                <div className="text-[12px] font-semibold uppercase tracking-wider text-muted mb-3">
                   Metrics
                 </div>
                 <div className="space-y-2">
@@ -152,7 +157,7 @@ export const ProjectDetailPage: React.FC = () => {
                       <div className="font-display text-[20px] font-bold text-display">
                         {metric.value}
                       </div>
-                      <div className="text-[11px] text-muted">{metric.label}</div>
+                      <div className="text-[12px] text-muted">{metric.label}</div>
                     </div>
                   ))}
                 </div>
@@ -161,40 +166,70 @@ export const ProjectDetailPage: React.FC = () => {
 
             {/* Quick Links */}
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">
+              <div className="text-[12px] font-semibold uppercase tracking-wider text-muted mb-3">
                 Quick Links
               </div>
               <div className="space-y-2">
                 <a
                   href="#tech-stack"
-                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[13px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
                 >
                   Tech Stack
                 </a>
                 <a
                   href="#database"
-                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[13px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
                 >
                   Database Design
                 </a>
                 <a
+                  href="#api"
+                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                >
+                  API Architecture
+                </a>
+                <a
                   href="#decisions"
-                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[13px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
                 >
                   Key Decisions
                 </a>
                 <a
                   href="#lessons"
-                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[13px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                  className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
                 >
                   Lessons Learned
                 </a>
+                {project.process.length > 0 && (
+                  <a
+                    href="#build"
+                    className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                  >
+                    How it was built
+                  </a>
+                )}
+                {project.deepDive && project.deepDive.length > 0 && (
+                  <a
+                    href="#deep-dive"
+                    className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                  >
+                    Deep Dive
+                  </a>
+                )}
+                {project.codeSamples && project.codeSamples.length > 0 && (
+                  <a
+                    href="#code"
+                    className="block rounded-lg border border-line-faint bg-ink-700/40 px-3 py-2 text-[14px] font-medium text-body hover:bg-ink-700 hover:text-display transition-colors"
+                  >
+                    Code Samples
+                  </a>
+                )}
               </div>
             </div>
           </aside>
 
           {/* Main Content */}
-          <main className="space-y-12 sm:space-y-16">
+          <main className="space-y-10 sm:space-y-12">
             {/* Description */}
             <div>
               <p className="text-[15px] sm:text-[17px] leading-[1.8] text-bright">
@@ -207,29 +242,9 @@ export const ProjectDetailPage: React.FC = () => {
               <h2 className="font-display text-[24px] sm:text-[32px] font-bold text-display mb-4 sm:mb-6">
                 Technology Stack
               </h2>
-              <div className="space-y-3 sm:space-y-4">
+              <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                 {project.architecture.techStack.map((tech) => (
-                  <div
-                    key={tech.name}
-                    className="rounded-lg border border-line-faint bg-ink-700/40 p-4 sm:p-6"
-                  >
-                    <div className="flex flex-col sm:flex-row items-start justify-between mb-2 sm:mb-3 gap-2">
-                      <h3 className="font-semibold text-[16px] sm:text-[18px] text-display">{tech.name}</h3>
-                      <InteractiveBadge label="Chosen" variant="primary" />
-                    </div>
-                    <p className="text-[13px] sm:text-[14px] text-muted mb-3 sm:mb-4">{tech.purpose}</p>
-                    <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-3 sm:p-4">
-                      <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide text-indigo-300 mb-2">
-                        Why this choice
-                      </div>
-                      <p className="text-[12px] sm:text-[13px] text-indigo-200/80">{tech.why}</p>
-                    </div>
-                    {tech.alternatives.length > 0 && (
-                      <div className="mt-3 sm:mt-4 text-[11px] sm:text-[12px] text-muted">
-                        <strong>Alternatives considered:</strong> {tech.alternatives.join(', ')}
-                      </div>
-                    )}
-                  </div>
+                  <TechStackCard key={tech.name} tech={tech} showWhy showAlternatives />
                 ))}
               </div>
             </div>
@@ -244,7 +259,7 @@ export const ProjectDetailPage: React.FC = () => {
                   <h3 className="text-[14px] font-semibold text-display mb-3">
                     Schema Overview
                   </h3>
-                  <p className="text-[13px] text-muted">
+                  <p className="text-[14px] text-muted">
                     {project.architecture.database.schemaOverview}
                   </p>
                 </div>
@@ -252,7 +267,7 @@ export const ProjectDetailPage: React.FC = () => {
                   <h3 className="text-[14px] font-semibold text-display mb-3">
                     Optimization Strategy
                   </h3>
-                  <p className="text-[13px] text-muted">
+                  <p className="text-[14px] text-muted">
                     {project.architecture.database.optimizationStrategy}
                   </p>
                 </div>
@@ -263,20 +278,50 @@ export const ProjectDetailPage: React.FC = () => {
                   {project.architecture.database.keyTables.map((table) => (
                     <span
                       key={table}
-                      className="rounded-lg border border-line-faint bg-ink-700/60 px-3 py-1.5 text-[12px] font-medium text-muted"
+                      className="rounded-lg border border-line-faint bg-ink-700/60 px-3 py-1.5 text-[13px] font-medium text-muted"
                     >
                       {table}
                     </span>
                   ))}
                 </div>
               </div>
+              {project.architecture.database.relationships.length > 0 && (
+                <div className="mt-6">
+                  <h3 className="text-[14px] font-semibold text-display mb-3">Relationships</h3>
+                  <ul className="overflow-hidden rounded-lg border border-line-faint bg-ink-850">
+                    {project.architecture.database.relationships.map((rel) => (
+                      <li
+                        key={rel}
+                        className="border-b border-line-faint px-4 py-2.5 font-mono text-[14px] text-body last:border-b-0"
+                      >
+                        {rel}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* API Design */}
-            <div>
+            <div id="api">
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
                 API Architecture
               </h2>
+              {project.architecture.api.endpoints.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-[14px] font-semibold text-display mb-3">Endpoints</h3>
+                  <ul className="overflow-hidden rounded-lg border border-line-faint bg-ink-850">
+                    {project.architecture.api.endpoints.map((endpoint) => (
+                      <li
+                        key={endpoint}
+                        className="border-b border-line-faint px-4 py-2.5 font-mono text-[14px] text-body last:border-b-0"
+                      >
+                        {endpoint}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="rounded-lg border border-line-faint bg-ink-700/40 p-6 space-y-3">
                 <div className="flex gap-3">
                   <span className="font-semibold text-[14px] text-display min-w-[140px]">
@@ -313,7 +358,7 @@ export const ProjectDetailPage: React.FC = () => {
               <ul className="space-y-4">
                 {project.architecture.keyDecisions.map((decision, idx) => (
                   <li key={decision} className="flex gap-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-500/20 font-mono text-[12px] font-semibold text-indigo-300">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/20 font-mono text-[13px] font-semibold text-accent">
                       {idx + 1}
                     </span>
                     <span className="text-[15px] leading-[1.75] text-body pt-0.5">
@@ -332,7 +377,7 @@ export const ProjectDetailPage: React.FC = () => {
               <ul className="space-y-4">
                 {project.architecture.tradeoffs.map((tradeoff, idx) => (
                   <li key={tradeoff} className="flex gap-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500/20 font-mono text-[12px] font-semibold text-amber-300">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-amber/20 font-mono text-[13px] font-semibold text-accent-amber">
                       {idx + 1}
                     </span>
                     <span className="text-[15px] leading-[1.75] text-body pt-0.5">
@@ -351,7 +396,7 @@ export const ProjectDetailPage: React.FC = () => {
               <ul className="space-y-4">
                 {project.architecture.lessonsLearned.map((lesson, idx) => (
                   <li key={lesson} className="flex gap-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 font-mono text-[12px] font-semibold text-emerald-300">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-emerald/20 font-mono text-[13px] font-semibold text-accent-emerald">
                       {idx + 1}
                     </span>
                     <span className="text-[15px] leading-[1.75] text-body pt-0.5">
@@ -362,6 +407,44 @@ export const ProjectDetailPage: React.FC = () => {
               </ul>
             </div>
 
+            {/* Technical Deep Dive — the hardest parts, in prose and code. */}
+            {project.deepDive && project.deepDive.length > 0 && (
+              <div id="deep-dive">
+                <h2 className="font-display text-[32px] font-bold text-display mb-6">
+                  Technical Deep Dive
+                </h2>
+                <div className="space-y-10">
+                  {project.deepDive.map((item) => (
+                    <div key={item.heading}>
+                      <h3 className="font-display text-[20px] font-semibold text-display mb-3">
+                        {item.heading}
+                      </h3>
+                      <p className="text-[15px] leading-[1.8] text-body max-w-[68ch]">
+                        {item.body}
+                      </p>
+                      {item.code && (
+                        <CodeBlock sample={item.code} className="mt-4" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Code Samples — the decisions, shown as code. */}
+            {project.codeSamples && project.codeSamples.length > 0 && (
+              <div id="code">
+                <h2 className="font-display text-[32px] font-bold text-display mb-6">
+                  Code Samples
+                </h2>
+                <div className="space-y-4">
+                  {project.codeSamples.map((sample) => (
+                    <CodeBlock key={sample.title} sample={sample} />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Deployment Strategy */}
             <div>
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
@@ -370,13 +453,13 @@ export const ProjectDetailPage: React.FC = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="rounded-lg border border-line-faint bg-ink-700/40 p-6">
                   <h3 className="text-[14px] font-semibold text-display mb-3">Hosting</h3>
-                  <p className="text-[13px] text-muted">
+                  <p className="text-[14px] text-muted">
                     {project.architecture.deployment.hosting}
                   </p>
                 </div>
                 <div className="rounded-lg border border-line-faint bg-ink-700/40 p-6">
                   <h3 className="text-[14px] font-semibold text-display mb-3">CI/CD</h3>
-                  <p className="text-[13px] text-muted">
+                  <p className="text-[14px] text-muted">
                     {project.architecture.deployment.ciCd}
                   </p>
                 </div>
@@ -384,28 +467,89 @@ export const ProjectDetailPage: React.FC = () => {
                   <h3 className="text-[14px] font-semibold text-display mb-3">
                     Build Process
                   </h3>
-                  <p className="text-[13px] text-muted">
+                  <p className="text-[14px] text-muted">
                     {project.architecture.deployment.buildProcess}
                   </p>
                 </div>
                 <div className="rounded-lg border border-line-faint bg-ink-700/40 p-6">
                   <h3 className="text-[14px] font-semibold text-display mb-3">Monitoring</h3>
-                  <p className="text-[13px] text-muted">
+                  <p className="text-[14px] text-muted">
                     {project.architecture.deployment.monitoring}
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Navigate to other projects */}
+            {/* How it was built — the process, and the outcome in one line. */}
+            {project.process.length > 0 && (
+              <div id="build">
+                <h2 className="font-display text-[32px] font-bold text-display mb-6">
+                  How it was built
+                </h2>
+                <ol className="space-y-4">
+                  {project.process.map((step, idx) => (
+                    <li key={step} className="flex gap-4">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/20 font-mono text-[13px] font-semibold text-accent">
+                        {idx + 1}
+                      </span>
+                      <span className="text-[15px] leading-[1.75] text-body pt-0.5">{step}</span>
+                    </li>
+                  ))}
+                </ol>
+                {project.outcome && (
+                  <p className="mt-6 rounded-xl border border-line-faint bg-tint-1 p-5 text-[15px] leading-[1.75] text-bright">
+                    <span className="font-semibold text-display">In the end: </span>
+                    {project.outcome}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Prev / next project */}
             <div className="pt-12 border-t border-line-faint">
-              <Link
-                to="/work"
-                className="inline-flex items-center gap-2 text-[15px] font-semibold text-accent hover:underline"
-              >
-                <ArrowLeft size={16} />
-                <span>View All Projects</span>
-              </Link>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {prev ? (
+                  <Link
+                    to={`/work/${prev.slug}`}
+                    className="group flex flex-col gap-1 rounded-xl border border-line-faint bg-ink-700/40 p-5 transition-colors hover:border-accent/40 hover:bg-ink-700/70"
+                  >
+                    <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted">
+                      <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
+                      Previous
+                    </span>
+                    <span className="font-display text-[18px] font-semibold text-display group-hover:text-accent transition-colors">
+                      {prev.title}
+                    </span>
+                  </Link>
+                ) : (
+                  <span />
+                )}
+                {next ? (
+                  <Link
+                    to={`/work/${next.slug}`}
+                    className="group flex flex-col items-end gap-1 rounded-xl border border-line-faint bg-ink-700/40 p-5 text-right transition-colors hover:border-accent/40 hover:bg-ink-700/70 sm:col-start-2"
+                  >
+                    <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted">
+                      Next
+                      <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                    <span className="font-display text-[18px] font-semibold text-display group-hover:text-accent transition-colors">
+                      {next.title}
+                    </span>
+                  </Link>
+                ) : (
+                  <span />
+                )}
+              </div>
+              <div className="mt-6">
+                <Link
+                  to="/work"
+                  className="inline-flex items-center gap-2 text-[14px] font-semibold text-accent hover:underline"
+                >
+                  <ArrowLeft size={16} />
+                  <span>All projects</span>
+                </Link>
+              </div>
             </div>
           </main>
         </div>

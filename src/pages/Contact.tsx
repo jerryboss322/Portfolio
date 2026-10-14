@@ -5,7 +5,7 @@ import { Media } from '@/components/ui/Media';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { Section, SectionHead } from '@/components/ui/Section';
 import { portrait } from '@/content/images';
-import { profile } from '@/content/data';
+import { profile, faqs, availability } from '@/content/data';
 
 const FACTS = [
   { k: 'Where I am', v: profile.location, icon: Globe },
@@ -22,7 +22,7 @@ const LINKS = [
 
 export const ContactSection: React.FC = () => (
   <Section id="contact" tone="band">
-    <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 items-start">
+    <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 items-start">
       {/* ---- Pitch + form ---- */}
       <div>
         <SectionHead
@@ -30,11 +30,21 @@ export const ContactSection: React.FC = () => (
           lede="Tell me what you are building and where it is stuck. I'll reply with an honest read on the architecture, roughly what it costs, and whether I am the right person for it. If I am not, I'll say so."
         />
 
+        <ScrollReveal direction="up" distance={20} delay={0.05}>
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3.5 py-1.5 text-[14px] font-medium text-success">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+            </span>
+            {availability.status}
+          </div>
+        </ScrollReveal>
+
         <ScrollReveal direction="up" distance={20} delay={0.1}>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <a
               href={`mailto:${profile.email}`}
-              className="group inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border-2 border-accent bg-accent/10 px-6 text-[14px] font-semibold text-accent shadow-lg shadow-accent/10 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-accent hover:bg-accent hover:text-white hover:shadow-accent/25 active:scale-[0.98]"
+              className="group inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border-2 border-accent bg-accent/10 px-6 text-[14px] font-semibold text-accent shadow-lg shadow-accent/10 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-accent hover:bg-accent hover:text-onaccent hover:shadow-accent/25 active:scale-[0.98]"
             >
               <Mail size={15} />
               <span>{profile.email}</span>
@@ -65,7 +75,7 @@ export const ContactSection: React.FC = () => (
             </div>
             <div className="min-w-0">
               <div className="text-[16px] font-semibold text-display">{profile.fullName}</div>
-              <div className="text-[13px] text-muted">{profile.role} · {profile.location}</div>
+              <div className="text-[14px] text-muted">{profile.role} · {profile.location}</div>
             </div>
           </div>
 
@@ -75,7 +85,7 @@ export const ContactSection: React.FC = () => (
               return (
                 <div
                   key={fact.k}
-                  className="flex items-center justify-between gap-4 border-b border-line-faint py-3.5 text-[13px]"
+                  className="flex items-center justify-between gap-4 border-b border-line-faint py-3.5 text-[14px]"
                 >
                   <dt className="flex items-center gap-2 text-muted">
                     <Icon size={14} className="text-accent" aria-hidden="true" />
@@ -88,7 +98,7 @@ export const ContactSection: React.FC = () => (
           </dl>
 
           <div className="mt-7 pt-2">
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-3">
+            <div className="text-[12px] font-semibold uppercase tracking-wider text-muted mb-3">
               Connect Directly
             </div>
             <ul className="flex flex-wrap gap-2.5">
@@ -98,7 +108,7 @@ export const ContactSection: React.FC = () => (
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-tint-1 px-4 text-[12px] font-medium text-body transition-all duration-200 hover:scale-[1.03] hover:border-line-strong hover:bg-tint-2 hover:text-display"
+                    className="group inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-tint-1 px-4 text-[13px] font-medium text-body transition-all duration-200 hover:scale-[1.03] hover:border-line-strong hover:bg-tint-2 hover:text-display"
                   >
                     <span>{link.label}</span>
                     <ArrowUpRight
@@ -112,14 +122,43 @@ export const ContactSection: React.FC = () => (
           </div>
 
           {/* Architecture Consultation Details */}
-          <div className="mt-6 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300 mb-2">
+          <div className="mt-6 rounded-xl border border-success/20 bg-success/5 p-4">
+            <div className="text-[12px] font-semibold uppercase tracking-wider text-success mb-2">
               Architecture consultation
             </div>
-            <p className="text-[13px] text-emerald-200/80 leading-[1.6]">
+            <p className="text-[14px] text-success/80 leading-[1.6]">
               Need a technical audit or architecture review? I offer 30-minute consultations to help you
               identify architectural gaps, performance bottlenecks, and scalability concerns.
             </p>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      {/* FAQ — the questions that come up before a first call. Native
+          <details> so it works from the keyboard with no JavaScript. */}
+      <ScrollReveal direction="up" distance={20} delay={0.1}>
+        <div className="mt-16 border-t border-line-faint pt-12">
+          <h3 className="font-display text-[24px] font-semibold text-display mb-6">
+            Before you write
+          </h3>
+          <div className="grid gap-3 md:grid-cols-2">
+            {faqs.map((faq) => (
+              <details
+                key={faq.q}
+                className="group rounded-xl border border-line-faint bg-ink-700/40 px-5 py-4 transition-colors hover:border-line"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-semibold text-display [&::-webkit-details-marker]:hidden">
+                  <span>{faq.q}</span>
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 text-accent transition-transform duration-200 group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-[14px] leading-[1.7] text-muted">{faq.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </ScrollReveal>

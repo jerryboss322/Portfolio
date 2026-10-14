@@ -29,7 +29,7 @@ const PROJECTS = ['titan', 'luxora', 'sallygreen', 'tastetrail', 'jbet'];
 const PROJECT_WIDTHS = [480, 800, 1200, 1600];
 
 /** Portrait — deduped to a single source. */
-const PORTRAIT_WIDTHS = [200, 340, 560];
+const PORTRAIT_WIDTHS = [480, 800, 1200, 1600];
 const PORTRAIT_SOURCE = 'portrait.png';
 
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
@@ -58,9 +58,12 @@ const buildProject = async (slug) => {
   const outputs = [];
   for (const width of PROJECT_WIDTHS) {
     if (width > meta.width * 1.15) continue;
+    /* Quality 90+: these are UI screenshots full of small text, and the old
+       72–78 turned that text mushy. effort 6 spends more CPU to keep the file
+       small at the higher quality, so the bytes don't balloon. */
     const buf = await sharp(input)
       .resize({ width, withoutEnlargement: true })
-      .webp({ quality: width > 1000 ? 72 : 78, effort: 5 })
+      .webp({ quality: 90, effort: 6 })
       .toBuffer();
     outputs.push(await emit(`projects/${slug}-${width}.webp`, buf));
   }
@@ -86,9 +89,11 @@ const buildPortrait = async () => {
        produced files *named* 340 and 560 that were really 236px, and the
        generated srcset descriptors claimed widths the bytes did not have. */
     if (width > meta.width * 1.15) continue;
+    /* Same reasoning as the project shots — the portrait carries a face, which
+       reads as soft well before text does, so it wants headroom on quality. */
     const buf = await sharp(input)
       .resize({ width, withoutEnlargement: true })
-      .webp({ quality: 80, effort: 5 })
+      .webp({ quality: 88, effort: 6 })
       .toBuffer();
     outputs.push(await emit(`portrait-${width}.webp`, buf));
   }

@@ -7,8 +7,6 @@
    `data-theme` on <html> re-themes the whole site with no rebuild
    and no re-mount.
 
-   Only tokens something actually uses are defined here.
-
    The ground is pure black rather than a near-black, and the surfaces
    are warm-neutral greys rather than blue-tinted ones. That single
    decision does most of the work in the palette: black is the
@@ -37,86 +35,123 @@
   color-scheme: dark;
 
   /* --- Surfaces ---------------------------------------------- */
-  --ink-900: #09090b; /* page ground — deep obsidian */
-  --ink-850: #111114; /* section band — subtle recessed plane */
-  --ink-700: #18181c; /* card surface */
-  --ink-600: #222228; /* hover / raised surface */
+  --ink-900: #070a12; /* page ground — deep cool navy */
+  --ink-850: #0c1017; /* section band — subtle recessed plane */
+  --ink-800: #161b26; /* between card and hover */
+  --ink-700: #10141b; /* card surface */
+  --ink-600: #1a2030; /* hover / raised surface */
 
   /* --- Screenshot frame -------------------------------------- */
-  --frame-plate: #222228; /* lifted off the ground */
-  --frame-well: #0d0d10; /* recessed well */
-  --tile-shadow: #050507;
+  --frame-plate: #1a2030; /* lifted off the ground */
+  --frame-well: #070a12; /* recessed well */
+  --tile-shadow: #000000;
 
   /* --- Text --------------------------------------------------- */
-  --text-display: #ffffff; /* headings */
-  --text-bright: #e4e4e7; /* emphasised body */
-  --text-body: #a1a1aa; /* body copy */
-  --text-muted: #71717a; /* meta, labels */
-  --text-faint: #52525b; /* placeholders and rules */
-  --text-on-accent: #ffffff; /* text on a solid accent fill */
+  --text-display: #fbfbf2; /* headings — warm off-white */
+  --text-bright: #e6e6de; /* emphasised body */
+  --text-body: #b4b4ac; /* body copy */
+  --text-muted: #8f8f88; /* meta, labels */
+  --text-faint: #63635e; /* placeholders and rules */
+  --text-on-accent: #0a1023; /* text on a solid accent fill */
 
   /* --- Accents ----------------------------------------------- */
-  --accent: #38bdf8; /* primary sky blue */
-  --accent-indigo: #818cf8;
-  --accent-purple: #c084fc;
+  --accent: #5b8def; /* primary blue — readable as text on the dark ground */
+  --accent-indigo: #6366f1;
+  --accent-purple: #a855f7;
   --accent-emerald: #34d399;
   --accent-amber: #fbbf24;
   --accent-rose: #fb7185;
-  --accent-glow: rgba(56, 189, 248, 0.2);
-  --success: #10b981;
-  --danger: #f43f5e;
+  --accent-glow: rgba(91, 141, 239, 0.25);
+  --success: #22c55e;
+  --danger: #ff6568;
 
   /* --- Lines: three weights ----------------------------------- */
-  --line-faint: rgba(255, 255, 255, 0.05);
-  --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.18);
+  --line-faint: rgba(251, 251, 242, 0.07);
+  --line: rgba(251, 251, 242, 0.12);
+  --line-strong: rgba(251, 251, 242, 0.20);
 
   /* Translucent surface tints */
-  --tint-1: rgba(255, 255, 255, 0.02);
-  --tint-2: rgba(255, 255, 255, 0.04);
-  --tint-3: rgba(255, 255, 255, 0.07);
+  --tint-1: rgba(251, 251, 242, 0.02);
+  --tint-2: rgba(251, 251, 242, 0.04);
+  --tint-3: rgba(251, 251, 242, 0.07);
 
   /* --- Type --------------------------------------------------- */
   --measure: 68ch;
 }
 
 /* ============================================================
-   Light theme.
+   Light theme — warm cream paper with a deep blue primary.
    ============================================================ */
 [data-theme='light'] {
   color-scheme: light;
 
-  --ink-900: #f8f9fa;
-  --ink-850: #f0f2f5;
-  --ink-700: #ffffff;
-  --ink-600: #f1f3f7;
+  /* --- Surfaces ---------------------------------------------- */
+  --ink-900: #fffef4; /* warm cream paper */
+  --ink-850: #f4f4ea; /* section band — subtle recessed plane */
+  --ink-800: #f6f6ee; /* between card and hover */
+  --ink-700: #fafaf1; /* card surface */
+  --ink-600: #f0f0e7; /* hover / raised surface */
 
+  /* --- Screenshot frame -------------------------------------- */
   --frame-plate: #ffffff;
-  --frame-well: #ebedf0;
-  --tile-shadow: #d8dade;
+  --frame-well: #eceae0;
+  --tile-shadow: #d8d8cf;
 
-  --text-display: #09090b;
-  --text-bright: #27272a;
+  /* --- Text --------------------------------------------------- */
+  --text-display: #090911; /* near-black on cream */
+  --text-bright: #1c1c22;
   --text-body: #52525b;
-  --text-muted: #71717a;
-  --text-faint: #a1a1aa;
-  --text-on-accent: #ffffff;
+  --text-muted: #6f6f6f;
+  --text-faint: #a1a1aa; /* placeholders and rules */
+  --text-on-accent: #eff6ff; /* text on a solid accent fill */
 
-  --accent: #0284c7;
-  --accent-indigo: #6366f1;
-  --accent-purple: #a855f7;
-  --accent-emerald: #059669;
+  /* --- Accents ----------------------------------------------- */
+  --accent: #1447e6; /* primary blue */
+  --accent-indigo: #4f46e5;
+  --accent-purple: #9333ea;
+  --accent-emerald: #16a34a;
   --accent-amber: #d97706;
   --accent-rose: #e11d48;
-  --accent-glow: rgba(2, 132, 199, 0.15);
-  --success: #059669;
-  --danger: #e11d48;
+  --accent-glow: rgba(20, 71, 230, 0.18);
+  --success: #16a34a;
+  --danger: #e40014;
 
-  --line-faint: rgba(0, 0, 0, 0.05);
-  --line: rgba(0, 0, 0, 0.09);
-  --line-strong: rgba(0, 0, 0, 0.16);
+  /* --- Lines: three weights ----------------------------------- */
+  --line-faint: rgba(9, 9, 17, 0.08);
+  --line: rgba(9, 9, 17, 0.12);
+  --line-strong: rgba(9, 9, 17, 0.20);
 
-  --tint-1: rgba(0, 0, 0, 0.02);
-  --tint-2: rgba(0, 0, 0, 0.04);
-  --tint-3: rgba(0, 0, 0, 0.06);
+  /* Translucent surface tints */
+  --tint-1: rgba(9, 9, 17, 0.02);
+  --tint-2: rgba(9, 9, 17, 0.04);
+  --tint-3: rgba(9, 9, 17, 0.07);
+}
+
+/* Strength of the blended ambient colour layer (AmbientBackground). */
+:root { --ambient-opacity: 0.18; }
+[data-theme='light'] { --ambient-opacity: 0.14; }
+
+/* Smooth theme transition */
+* {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* Scope to UI elements for better control */
+:root,
+html,
+body,
+header,
+footer,
+section,
+div,
+[class*='bg-'],
+[class*='border-'],
+[class*='text-'],
+[class*='ring-'] {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* Smooth scroll behavior for the whole site */
+html {
+  scroll-behavior: smooth;
 }

@@ -40,7 +40,7 @@ export const Marquee: React.FC<MarqueeProps> = ({ items, label, className }) => 
             <span
               key={item}
               role="listitem"
-              className="flex shrink-0 items-center rounded-xl border border-line bg-ink-700/70 px-4 py-2 text-[13px] font-medium text-bright backdrop-blur-sm transition-all duration-200 hover:border-line-strong hover:bg-ink-600 hover:text-display"
+              className="flex shrink-0 items-center rounded-xl border border-line bg-ink-700/70 px-4 py-2 text-[14px] font-medium text-bright backdrop-blur-sm transition-all duration-200 hover:border-line-strong hover:bg-ink-600 hover:text-display"
             >
               {item}
             </span>

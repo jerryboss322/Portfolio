@@ -28,7 +28,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => 
     >
       <span
         aria-hidden="true"
-        className="absolute inset-0 grid place-items-center text-[11px] opacity-70"
+        className="absolute inset-0 grid place-items-center text-[12px] opacity-70"
       >
         {light ? <SunGlyph /> : <MoonGlyph />}
       </span>

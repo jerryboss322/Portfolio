@@ -9,8 +9,8 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-line bg-ink-900/60 backdrop-blur-sm">
-      <div className="shell flex flex-col gap-4 py-10 text-[13px] text-muted sm:flex-row sm:items-center sm:justify-between">
+    <footer className="border-t border-line-faint bg-gradient-to-t from-ink-850/80 to-transparent backdrop-blur-sm">
+      <div className="shell flex flex-col gap-4 py-10 text-[14px] text-muted sm:flex-row sm:items-center sm:justify-between">
         <div>
           © {year} {profile.name} — {profile.location}
         </div>
@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
           <button
             type="button"
             onClick={scrollToTop}
-            className="group inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-line bg-tint-1 px-3 py-1 text-[12px] font-medium text-bright transition-all duration-200 hover:border-line-strong hover:bg-tint-2 hover:text-display"
+            className="group inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-line bg-tint-1 px-3 py-1 text-[13px] font-medium text-bright transition-all duration-200 hover:border-line-strong hover:bg-tint-2 hover:text-display"
           >
             <span>Back to top</span>
             <span aria-hidden="true" className="transition-transform duration-200 group-hover:-translate-y-0.5">

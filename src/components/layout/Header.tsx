@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { Media } from '@/components/ui/Media';
+import { portrait } from '@/content/images';
 import { profile } from '@/content/data';
 
 const NAV_ITEMS = [
@@ -38,7 +40,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/80 bg-ink-900/80 backdrop-blur-xl transition-colors duration-200">
+    <header className="sticky top-0 z-50 bg-ink-900/55 backdrop-blur-2xl transition-colors duration-200">
       <div className="shell flex h-[64px] items-center justify-between">
         <Link
           to="/"
@@ -46,8 +48,13 @@ export const Header: React.FC = () => {
           className="group flex items-center gap-2.5 font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
           aria-label={`${profile.brand} — home`}
         >
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-accent bg-accent/10 text-accent font-mono text-[12px] font-bold shadow-sm transition-all duration-200 group-hover:scale-105 group-hover:bg-accent/20">
-            J
+          <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg border border-accent bg-accent/10 shadow-sm transition-all duration-200 group-hover:scale-105 group-hover:bg-accent/20">
+            <Media
+              asset={portrait}
+              alt={profile.fullName}
+              sizes="28px"
+              imgClassName="object-cover object-top w-full h-full"
+            />
           </span>
           <span className="text-display">{profile.brand}</span>
         </Link>
@@ -66,9 +73,7 @@ export const Header: React.FC = () => {
               {item.label}
             </Link>
           ))}
-          <div className="ml-2 pl-2 border-l border-line-faint">
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
         </nav>
 
         {/* Mobile menu controls */}
