@@ -47,16 +47,18 @@ export const Hero: React.FC = () => {
               <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4">
                 <Link
                   to="/work"
-                  className="group inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-accent px-7 text-[14px] sm:text-[15px] font-semibold text-onaccent shadow-lg transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+                  className="group relative inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-accent to-emerald-400 px-7 text-[14px] sm:text-[15px] font-semibold text-onaccent shadow-[0_0_30px_rgba(56,189,248,0.4)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(56,189,248,0.6)] active:scale-[0.98]"
                 >
-                  <span>See my work</span>
-                  <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <span className="relative z-10">See my work</span>
+                  <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-accent to-emerald-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-75" />
                 </Link>
                 <Link
                   to="/contact"
-                  className="inline-flex h-12 items-center justify-center rounded-full border-2 border-line-strong px-7 text-[14px] sm:text-[15px] font-semibold text-display transition-all duration-200 hover:border-accent hover:text-accent active:scale-[0.98]"
+                  className="group relative inline-flex h-12 items-center justify-center rounded-full border border-accent/50 bg-ink-800 px-7 text-[14px] sm:text-[15px] font-semibold text-display shadow-inner transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-accent active:scale-[0.98]"
                 >
-                  Let&apos;s talk
+                  <span className="relative z-10">Let&apos;s talk</span>
+                  <span className="absolute inset-0 rounded-full opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.5) 0%, transparent 70%)' }} />
                 </Link>
               </div>
             </ScrollReveal>
