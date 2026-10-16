@@ -1,18 +1,19 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { screen, within, fireEvent, waitFor } from '@testing-library/react';
-import { profile, projects } from '@/content/data';
+import { engagementTerms, profile, projects, services } from '@/content/data';
 import { renderAt } from './test-utils';
 
 describe('Shell', () => {
   beforeEach(() => localStorage.clear());
 
-  it('renders the brand and the four primary pages in the nav', () => {
+  it('renders the brand and the primary pages in the nav', () => {
     renderAt('/');
     const nav = screen.getByRole('navigation', { name: 'Primary' });
 
     expect(screen.getByRole('link', { name: /JBOSS.DEV/ })).toHaveAttribute('href', '/');
     expect(within(nav).getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
     expect(within(nav).getByRole('link', { name: 'Work' })).toHaveAttribute('href', '/work');
+    expect(within(nav).getByRole('link', { name: 'Services' })).toHaveAttribute('href', '/services');
     expect(within(nav).getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
     expect(within(nav).getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact');
   });
@@ -145,6 +146,40 @@ describe('Contact page', () => {
     renderAt('/contact');
     expect(screen.getByRole('heading', { name: 'Before you write' })).toBeInTheDocument();
     expect(screen.getByText('How do you charge?')).toBeInTheDocument();
+  });
+});
+
+describe('Services page', () => {
+  it('renders every offer with its inclusions and a best-fit line', () => {
+    renderAt('/services');
+
+    expect(screen.getByRole('heading', { level: 1, name: 'What you can hire me for' })).toBeInTheDocument();
+
+    for (const service of services) {
+      expect(screen.getByRole('heading', { name: service.title })).toBeInTheDocument();
+      for (const item of service.includes) {
+        expect(screen.getByText(item)).toBeInTheDocument();
+      }
+      expect(screen.getByText(service.bestFor)).toBeInTheDocument();
+    }
+  });
+
+  it('states the engagement terms, so ownership and handover are answered up front', () => {
+    renderAt('/services');
+
+    expect(screen.getByRole('heading', { name: 'How working together goes' })).toBeInTheDocument();
+    for (const term of engagementTerms) {
+      expect(screen.getByRole('heading', { name: term.title })).toBeInTheDocument();
+    }
+  });
+
+  it('offers a next step into contact and work', () => {
+    renderAt('/services');
+
+    const contact = screen.getByRole('link', { name: 'Start a conversation' });
+    const work = screen.getByRole('link', { name: 'See the work first' });
+    expect(contact).toHaveAttribute('href', '/contact');
+    expect(work).toHaveAttribute('href', '/work');
   });
 });
 

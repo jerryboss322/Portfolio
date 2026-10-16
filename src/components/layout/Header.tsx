@@ -7,6 +7,7 @@ import { profile } from '@/content/data';
 const NAV_ITEMS = [
   { label: 'Home', path: '/' },
   { label: 'Work', path: '/work' },
+  { label: 'Services', path: '/services' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/contact' },
 ];

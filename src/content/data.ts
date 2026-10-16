@@ -962,6 +962,131 @@ export const timelines: { value: string; label: string }[] = [
   { value: 'exploring', label: 'Just exploring' },
 ];
 
+export type ServiceIcon = 'layout' | 'refresh' | 'stack' | 'wrench';
+
+export interface Service {
+  id: string;
+  icon: ServiceIcon;
+  title: string;
+  summary: string;
+  includes: string[];
+  bestFor: string;
+}
+
+/**
+ * What you can buy.
+ *
+ * Deliberately offerings rather than skills. The capabilities list on the
+ * about page answers "what can he do"; this answers "which of those do I
+ * want", which is the question a visitor actually arrives with. The ids match
+ * the `projectTypes` values on the contact form so the two cannot drift.
+ */
+export const services: Service[] = [
+  {
+    id: 'new-website',
+    icon: 'layout',
+    title: 'New website',
+    summary:
+      'A site designed and built end to end — structure, copy, build, and the server it runs on. For a business that needs a real web presence rather than a page that exists.',
+    includes: [
+      'Discovery call and a written page plan before any code',
+      'Responsive build from your content, not a template',
+      'Deployed, with HTTPS, and handed over with a walkthrough',
+      'Search and social meta tags set up from the start',
+    ],
+    bestFor: 'Businesses starting out, or replacing a site that no longer reflects them.',
+  },
+  {
+    id: 'redesign',
+    icon: 'refresh',
+    title: 'Redesign or rescue',
+    summary:
+      'For a site that already exists and is not working — slow on a phone, hard to use, out of date, or not ranking. I work out why first, then fix the causes rather than repainting the surface.',
+    includes: [
+      'An audit first: what is actually slow, and why',
+      'Performance work — load time treated as a constraint, not a cleanup',
+      'Responsive and keyboard-accessible fixes where they are broken',
+      'A plain report of what I found, whether or not you hire me',
+    ],
+    bestFor: 'Sites that are live but underperforming — the most common thing I am asked for.',
+  },
+  {
+    id: 'web-app',
+    icon: 'stack',
+    title: 'Full-stack application',
+    summary:
+      'A real application with a database behind it: accounts, data, and the interface to use it. Front end, API and schema designed together so the thing is maintainable after I leave.',
+    includes: [
+      'Database schema designed around the constraints that prevent bad data',
+      'API designed and documented, with validation at every layer',
+      'Auth, error states, empty states and the unhappy paths',
+      'A deployment you can run and logs you can debug',
+    ],
+    bestFor: 'Products where a brochure site is not enough — dashboards, ordering, booking, internal tools.',
+  },
+  {
+    id: 'maintenance',
+    icon: 'wrench',
+    title: 'Ongoing maintenance',
+    summary:
+      'Keeping a site alive after it ships: dependencies, monitoring, and the small changes that accumulate. For sites already built by me or by someone else.',
+    includes: [
+      'Dependency and security updates',
+      'Monitoring and alerts, so breakage is noticed before it is reported',
+      'A standing slot each month for changes and fixes',
+      'Honest advice on what is worth changing and what is not',
+    ],
+    bestFor: 'Sites without an in-house developer, and anyone who would rather not think about it.',
+  },
+];
+
+/**
+ * How working together actually goes.
+ *
+ * PLACEHOLDER TERMS. Every `TODO(...)` is a commitment rather than copy —
+ * a number or promise you are making to a paying client. Replace each one
+ * before this page goes live. The surrounding wording is deliberately
+ * non-numerical so it stays true regardless of what you set.
+ */
+export const engagementTerms: { id: string; title: string; detail: string }[] = [
+  {
+    id: 'ownership',
+    title: 'The work is yours',
+    detail:
+      'Source files, the repository and any accounts set up for the project belong to you. I work in your repository rather than handing over an archive at the end, so there is no lock-in and nothing to unlock later.',
+  },
+  {
+    id: 'support',
+    title: 'After launch',
+    detail:
+      'Launch is not the end of it. TODO(support window) of support is included after go-live, covering anything that turns out to be my fault rather than a change of mind.',
+  },
+  {
+    id: 'documentation',
+    title: 'What you get handed over',
+    detail:
+      'A written README covering how to run, deploy and update the project, plus a walkthrough recording. TODO(document deliverables if you provide anything beyond this)',
+  },
+  {
+    id: 'revisions',
+    title: 'Revisions',
+    detail:
+      'TODO(revision rounds) rounds of revisions are included in the scope we agree. Beyond that, further changes are quoted before they are started — never billed as a surprise on an invoice.',
+  },
+  {
+    id: 'communication',
+    title: 'How we keep in touch',
+    detail:
+      'Weekly updates while the work is in progress, and something running to look at rather than a status report about something running. TODO(state your channel — email, call, or chat)',
+  },
+  {
+    id: 'payment',
+    title: 'How billing works',
+    detail:
+      'A fixed price per project, agreed once the scope is clear, split across TODO(deposit and milestone schedule). No hourly billing, because it rewards the wrong thing.',
+  },
+];
+
 export type CapabilityIcon =
   | 'layers'
   | 'gauge'

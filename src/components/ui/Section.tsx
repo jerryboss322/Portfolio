@@ -41,6 +41,12 @@ interface SectionHeadProps {
   title: string;
   lede?: string;
   className?: string;
+  /**
+   * Heading level. Defaults to 2 because SectionHead is usually mid-page. A
+   * standalone page route should pass 1, because a route that renders no Hero
+   * has no other source of an h1 and every page should have exactly one.
+   */
+  level?: 1 | 2;
 }
 
 /**
@@ -50,19 +56,28 @@ interface SectionHeadProps {
  * so the gap between the title and its lede is the same everywhere and the
  * lede measure cannot vary by a few characters per section.
  */
-export const SectionHead: React.FC<SectionHeadProps> = ({ title, lede, className }) => (
-  <ScrollReveal direction="up" distance={24}>
-    <h2
-      className={['font-display text-display-2 font-semibold', className]
-        .filter(Boolean)
-        .join(' ')}
-    >
-      {title}
-    </h2>
-    {lede && (
-      <p className="mt-4 max-w-[54ch] text-[15px] leading-[1.75] text-body">{lede}</p>
-    )}
-  </ScrollReveal>
-);
+export const SectionHead: React.FC<SectionHeadProps> = ({
+  title,
+  lede,
+  className,
+  level = 2,
+}) => {
+  const Heading = level === 1 ? 'h1' : 'h2';
+
+  return (
+    <ScrollReveal direction="up" distance={24}>
+      <Heading
+        className={['font-display text-display-2 font-semibold', className]
+          .filter(Boolean)
+          .join(' ')}
+      >
+        {title}
+      </Heading>
+      {lede && (
+        <p className="mt-4 max-w-[54ch] text-[15px] leading-[1.75] text-body">{lede}</p>
+      )}
+    </ScrollReveal>
+  );
+};
 
 export default Section;

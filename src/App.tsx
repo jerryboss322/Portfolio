@@ -8,6 +8,7 @@ import { AmbientBackground } from './components/layout/AmbientBackground';
 import { ScrollProgress } from './components/layout/ScrollProgress';
 import { HomePage } from './pages/HomePage';
 import { WorkPage } from './pages/WorkPage';
+import { ServicesPage } from './pages/Services';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
@@ -50,6 +51,7 @@ const AnimatedRoutes: React.FC = () => {
         <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
         <Route path="/work" element={<PageTransition><WorkPage /></PageTransition>} />
         <Route path="/work/:slug" element={<PageTransition><ProjectDetailPage /></PageTransition>} />
+        <Route path="/services" element={<PageTransition><ServicesPage /></PageTransition>} />
         <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
         <Route path="/blog" element={<PageTransition><BlogIndex /></PageTransition>} />
