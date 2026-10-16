@@ -29,6 +29,19 @@ export const Hero: React.FC = () => {
               </p>
             </ScrollReveal>
 
+            {/* Who it is for. The headline says what I build; this answers the
+                question behind it — whether this is the person for your
+                particular situation, which lets a visitor rule themselves out
+                instead of guessing. Deliberately a qualifier rather than a
+                boast, and separate from the h1 so neither gets diluted. */}
+            <ScrollReveal direction="up" distance={20} delay={0.12}>
+              <p className="mt-6 max-w-xl border-l-2 border-accent/40 pl-4 text-[14px] leading-[1.7] text-muted sm:text-[15px]">
+                <span className="font-semibold text-bright">Good fit if: </span>
+                you are a small business, an author or a founder who needs the site to
+                work, and there is nobody on your side to fix it when it does not.
+              </p>
+            </ScrollReveal>
+
             {/* CTAs */}
             <ScrollReveal direction="up" distance={20} delay={0.15}>
               <div className="mt-8 sm:mt-10 flex gap-4">
