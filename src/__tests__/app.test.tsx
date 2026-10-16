@@ -40,7 +40,7 @@ describe('Shell', () => {
 describe('Home page', () => {
   it('renders the hero, capability teaser, work preview, process teaser and closing CTA', () => {
     renderAt('/');
-    expect(screen.getByRole('heading', { level: 1, name: /full-stack systems/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /I build websites that work/ })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /What I've shipped/ })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'What I do' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'How a project runs' })).toBeInTheDocument();
@@ -151,7 +151,7 @@ describe('Contact page', () => {
 describe('Routing', () => {
   it('redirects unknown URLs to home', () => {
     renderAt('/nope');
-    expect(screen.getByRole('heading', { level: 1, name: /full-stack systems/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /I build websites that work/ })).toBeInTheDocument();
   });
 
   it('sets a per-page document title and restores it', () => {
@@ -175,6 +175,6 @@ describe('Routing', () => {
         expect(screen.getByRole('heading', { name: "Let's talk architecture" })).toBeInTheDocument(),
       { timeout: 3000 }
     );
-    expect(screen.queryByRole('heading', { level: 1, name: /full-stack systems/ })).toBeNull();
+    expect(screen.queryByRole('heading', { level: 1, name: /I build websites that work/ })).toBeNull();
   });
 });
