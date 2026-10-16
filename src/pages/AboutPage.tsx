@@ -28,7 +28,7 @@ export const AboutPage: React.FC = () => {
   useDocumentTitle('About — Jerry Adewole');
 
   return (
-    <div className="pt-16">
+    <div>
       <SectionNav items={NAV_ITEMS} label="About page sections" />
       <AboutSection />
       <CapabilitiesSection />

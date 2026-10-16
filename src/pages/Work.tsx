@@ -54,7 +54,7 @@ export const WorkSection = ({ id = 'work', preview = false, previewLimit = 3 }: 
         id={id}
         className="relative overflow-hidden"
       >
-        <div className="shell py-16 sm:py-24 md:py-32 relative">
+        <div className="shell py-12 md:py-20 relative">
           {/* Section Header */}
           <div className="mb-10 sm:mb-14">
             <div className="flex items-baseline gap-4 mb-3">

@@ -8,11 +8,7 @@ import { useDocumentTitle } from '@/lib/hooks';
 export const ContactPage: React.FC = () => {
   useDocumentTitle('Contact — Jerry Adewole');
 
-  return (
-    <div className="pt-16">
-      <ContactSection />
-    </div>
-  );
+  return <ContactSection />;
 };
 
 export default ContactPage;

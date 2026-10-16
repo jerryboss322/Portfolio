@@ -8,11 +8,7 @@ import { useDocumentTitle } from '@/lib/hooks';
 export const WorkPage: React.FC = () => {
   useDocumentTitle('Work — Jerry Adewole');
 
-  return (
-    <div className="pt-16">
-      <WorkSection />
-    </div>
-  );
+  return <WorkSection />;
 };
 
 export default WorkPage;
