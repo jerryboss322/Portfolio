@@ -79,7 +79,7 @@ describe('ContactForm', () => {
   });
 
   it('sends the qualification fields, and omits the optional ones as empty strings', async () => {
-    submitForm({ projectType: 'redesign', budget: '750k-2m', timeline: 'quarter' });
+    submitForm({ projectType: 'redesign', budget: '1500-5000', timeline: 'quarter' });
 
     await waitFor(() => {
       expect(screen.getByRole('status')).toHaveTextContent('Message sent');
@@ -87,7 +87,7 @@ describe('ContactForm', () => {
 
     const payload = JSON.parse(String(vi.mocked(fetch).mock.calls[0][1]?.body));
     expect(payload.project_type).toBe('redesign');
-    expect(payload.budget).toBe('750k-2m');
+    expect(payload.budget).toBe('1500-5000');
     expect(payload.timeline).toBe('quarter');
   });
 

@@ -948,10 +948,10 @@ export const projectTypes: { value: string; label: string }[] = [
  * worth having -- publishing precise figures would contradict that.
  */
 export const budgetBands: { value: string; label: string }[] = [
-  { value: 'under-250k', label: 'Under ₦250k' },
-  { value: '250k-750k', label: '₦250k – ₦750k' },
-  { value: '750k-2m', label: '₦750k – ₦2m' },
-  { value: 'over-2m', label: 'Over ₦2m' },
+  { value: 'under-500', label: 'Under $500' },
+  { value: '500-1500', label: '$500 – $1,500' },
+  { value: '1500-5000', label: '$1,500 – $5,000' },
+  { value: 'over-5000', label: 'Over $5,000' },
   { value: 'unsure', label: 'Not sure — advise me' },
 ];
 
