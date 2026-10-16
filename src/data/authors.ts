@@ -1,4 +1,5 @@
 // Author data for blog posts
+import type { Author } from '../types/article';
 export const AUTHORS: Author[] = [
   {
     id: 'alex-chen',
@@ -16,7 +17,6 @@ export const AUTHORS: Author[] = [
     title: 'UX Designer & Design Systems Lead',
     avatar: '',
     bio: 'Jordan leads design systems at a major tech company. He focuses on accessibility, user research, and creating design systems that scale. He has published multiple papers on design token architecture.',
-    title: 'UX Designer & Design Systems Lead',
     email: 'jordan@example.com',
     LinkedIn: 'https://linkedin.com/in/jordanl',
   },
@@ -36,7 +36,6 @@ export const AUTHORS: Author[] = [
     title: 'Design Engineering Manager',
     avatar: '',
     bio: 'Maria leads engineering teams at the intersection of design and code. She writes about team dynamics, design systems, and building products that users love. She is a co-organizer of local developer meetups.',
-    title: 'Design Engineering Manager',
     email: 'maria@example.com',
     LinkedIn: 'https://linkedin.com/in/mariagonzalez',
   },

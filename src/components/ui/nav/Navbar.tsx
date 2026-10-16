@@ -1,5 +1,5 @@
 // Navbar component - site navigation header
-import type { NavbarProps } from '../../types/ui';
+import type { NavbarProps } from '../../../types/ui';
 import { Link } from 'react-router-dom';
 
 export function Navbar({ brand, links, className = '' }: NavbarProps) {

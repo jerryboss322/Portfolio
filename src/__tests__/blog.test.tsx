@@ -1,14 +1,16 @@
 // Blog component tests
+import { describe, test, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ArticleCard } from '../components/blog/ArticleCard';
 import { ArticleList } from '../components/blog/ArticleList';
 import { BlogStatistics } from '../components/blog/BlogStatistics';
 import { BlogLayout } from '../components/blog/BlogLayout';
-import { loadArticles, searchArticles } from '../../data/articles-loader';
+import { loadArticles, searchArticles } from '../data/articles-loader';
+import type { Article } from '../types/article';
 
 // Mock article data
-const mockArticle = {
+const mockArticle: Article = {
   id: '1',
   slug: 'test-article',
   title: 'Test Article',
@@ -16,7 +18,13 @@ const mockArticle = {
   content: '<p>Test content</p>',
   category: 'technology',
   tags: ['test', 'example'],
-  authorId: 'alex-chen',
+  author: {
+    id: 'alex-chen',
+    name: 'Alex Chen',
+    title: 'Senior Frontend Engineer',
+    bio: 'Alex has been building web applications for over 12 years.',
+    email: 'alex@example.com',
+  },
   publishedAt: '2026-06-01',
   readingTime: 5,
   wordCount: 150,

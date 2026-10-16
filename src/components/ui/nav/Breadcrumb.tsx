@@ -1,5 +1,5 @@
 // Breadcrumb navigation component
-import type { BreadcrumbProps } from '../../types/ui';
+import type { BreadcrumbProps } from '../../../types/ui';
 
 export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
   return (

@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { loadArticles, getArticleBySlug } from '../../data/articles-loader';
 import { ArticleCard } from '../../components/blog/ArticleCard';
 import { BlogHeader } from '../../components/blog/BlogHeader';
-import { ARTICLE_CATEGORIES_LABEL, getCategories } from '../../types/article';
+import { ARTICLE_CATEGORIES_LABEL, getCategories, type ArticleCategory } from '../../types/article';
 import { getAllAuthors, getAuthorById } from '../../data/articles-loader';
 
 export function ArticleDetail() {
@@ -30,7 +30,7 @@ export function ArticleDetail() {
   }, [slug]);
 
   const categoryLabel = article
-    ? ARTICLE_CATEGORIES_LABEL[article.category] || article.category
+    ? ARTICLE_CATEGORIES_LABEL[article.category as ArticleCategory] || article.category
     : '';
   const author = article ? getAuthorById(article.authorId) : null;
 

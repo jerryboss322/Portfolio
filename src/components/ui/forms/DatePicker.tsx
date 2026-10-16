@@ -1,6 +1,6 @@
 // Date picker component
 import { useState } from 'react';
-import type { DatePickerProps } from '../../types/ui';
+import type { DatePickerProps } from '../../../types/ui';
 
 export function DatePicker({ label, value, onChange, placeholder = '', disabled, className = '' }: DatePickerProps) {
   const [showPicker, setShowPicker] = useState(false);

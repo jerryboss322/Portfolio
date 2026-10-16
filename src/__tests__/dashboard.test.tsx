@@ -1,4 +1,5 @@
 // Dashboard component tests
+import { describe, test, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { LineChart } from '../components/ui/charts/LineChart';

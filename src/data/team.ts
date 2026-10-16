@@ -1,5 +1,5 @@
 // Team member profile data
-import type { TeamMember } from '../types/team';
+import type { TeamMember } from '../types/config';
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {

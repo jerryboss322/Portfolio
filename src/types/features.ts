@@ -4,7 +4,7 @@ export const FEATURE_FLAG_1 = {
   description: 'Description 1',
   enabled: false,
   rollout: 1,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -14,7 +14,7 @@ export const FEATURE_FLAG_2 = {
   description: 'Description 2',
   enabled: false,
   rollout: 2,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -24,7 +24,7 @@ export const FEATURE_FLAG_3 = {
   description: 'Description 3',
   enabled: false,
   rollout: 3,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -34,7 +34,7 @@ export const FEATURE_FLAG_4 = {
   description: 'Description 4',
   enabled: false,
   rollout: 4,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -44,7 +44,7 @@ export const FEATURE_FLAG_5 = {
   description: 'Description 5',
   enabled: false,
   rollout: 5,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -54,7 +54,7 @@ export const FEATURE_FLAG_6 = {
   description: 'Description 6',
   enabled: false,
   rollout: 6,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -64,7 +64,7 @@ export const FEATURE_FLAG_7 = {
   description: 'Description 7',
   enabled: false,
   rollout: 7,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -74,7 +74,7 @@ export const FEATURE_FLAG_8 = {
   description: 'Description 8',
   enabled: false,
   rollout: 8,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -84,7 +84,7 @@ export const FEATURE_FLAG_9 = {
   description: 'Description 9',
   enabled: false,
   rollout: 9,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -94,7 +94,7 @@ export const FEATURE_FLAG_10 = {
   description: 'Description 10',
   enabled: false,
   rollout: 10,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -104,7 +104,7 @@ export const FEATURE_FLAG_11 = {
   description: 'Description 11',
   enabled: false,
   rollout: 11,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -114,7 +114,7 @@ export const FEATURE_FLAG_12 = {
   description: 'Description 12',
   enabled: false,
   rollout: 12,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -124,7 +124,7 @@ export const FEATURE_FLAG_13 = {
   description: 'Description 13',
   enabled: false,
   rollout: 13,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -134,7 +134,7 @@ export const FEATURE_FLAG_14 = {
   description: 'Description 14',
   enabled: false,
   rollout: 14,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -144,7 +144,7 @@ export const FEATURE_FLAG_15 = {
   description: 'Description 15',
   enabled: false,
   rollout: 15,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -154,7 +154,7 @@ export const FEATURE_FLAG_16 = {
   description: 'Description 16',
   enabled: false,
   rollout: 16,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -164,7 +164,7 @@ export const FEATURE_FLAG_17 = {
   description: 'Description 17',
   enabled: false,
   rollout: 17,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -174,7 +174,7 @@ export const FEATURE_FLAG_18 = {
   description: 'Description 18',
   enabled: false,
   rollout: 18,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -184,7 +184,7 @@ export const FEATURE_FLAG_19 = {
   description: 'Description 19',
   enabled: false,
   rollout: 19,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -194,7 +194,7 @@ export const FEATURE_FLAG_20 = {
   description: 'Description 20',
   enabled: false,
   rollout: 20,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -204,7 +204,7 @@ export const FEATURE_FLAG_21 = {
   description: 'Description 21',
   enabled: false,
   rollout: 21,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -214,7 +214,7 @@ export const FEATURE_FLAG_22 = {
   description: 'Description 22',
   enabled: false,
   rollout: 22,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -224,7 +224,7 @@ export const FEATURE_FLAG_23 = {
   description: 'Description 23',
   enabled: false,
   rollout: 23,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -234,7 +234,7 @@ export const FEATURE_FLAG_24 = {
   description: 'Description 24',
   enabled: false,
   rollout: 24,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -244,7 +244,7 @@ export const FEATURE_FLAG_25 = {
   description: 'Description 25',
   enabled: false,
   rollout: 25,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -254,7 +254,7 @@ export const FEATURE_FLAG_26 = {
   description: 'Description 26',
   enabled: false,
   rollout: 26,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -264,7 +264,7 @@ export const FEATURE_FLAG_27 = {
   description: 'Description 27',
   enabled: false,
   rollout: 27,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -274,7 +274,7 @@ export const FEATURE_FLAG_28 = {
   description: 'Description 28',
   enabled: false,
   rollout: 28,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -284,7 +284,7 @@ export const FEATURE_FLAG_29 = {
   description: 'Description 29',
   enabled: false,
   rollout: 29,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -294,7 +294,7 @@ export const FEATURE_FLAG_30 = {
   description: 'Description 30',
   enabled: false,
   rollout: 30,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -304,7 +304,7 @@ export const FEATURE_FLAG_31 = {
   description: 'Description 31',
   enabled: false,
   rollout: 31,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -314,7 +314,7 @@ export const FEATURE_FLAG_32 = {
   description: 'Description 32',
   enabled: false,
   rollout: 32,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -324,7 +324,7 @@ export const FEATURE_FLAG_33 = {
   description: 'Description 33',
   enabled: false,
   rollout: 33,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -334,7 +334,7 @@ export const FEATURE_FLAG_34 = {
   description: 'Description 34',
   enabled: false,
   rollout: 34,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -344,7 +344,7 @@ export const FEATURE_FLAG_35 = {
   description: 'Description 35',
   enabled: false,
   rollout: 35,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -354,7 +354,7 @@ export const FEATURE_FLAG_36 = {
   description: 'Description 36',
   enabled: false,
   rollout: 36,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -364,7 +364,7 @@ export const FEATURE_FLAG_37 = {
   description: 'Description 37',
   enabled: false,
   rollout: 37,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -374,7 +374,7 @@ export const FEATURE_FLAG_38 = {
   description: 'Description 38',
   enabled: false,
   rollout: 38,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -384,7 +384,7 @@ export const FEATURE_FLAG_39 = {
   description: 'Description 39',
   enabled: false,
   rollout: 39,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -394,7 +394,7 @@ export const FEATURE_FLAG_40 = {
   description: 'Description 40',
   enabled: false,
   rollout: 40,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -404,7 +404,7 @@ export const FEATURE_FLAG_41 = {
   description: 'Description 41',
   enabled: false,
   rollout: 41,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -414,7 +414,7 @@ export const FEATURE_FLAG_42 = {
   description: 'Description 42',
   enabled: false,
   rollout: 42,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -424,7 +424,7 @@ export const FEATURE_FLAG_43 = {
   description: 'Description 43',
   enabled: false,
   rollout: 43,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -434,7 +434,7 @@ export const FEATURE_FLAG_44 = {
   description: 'Description 44',
   enabled: false,
   rollout: 44,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -444,7 +444,7 @@ export const FEATURE_FLAG_45 = {
   description: 'Description 45',
   enabled: false,
   rollout: 45,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -454,7 +454,7 @@ export const FEATURE_FLAG_46 = {
   description: 'Description 46',
   enabled: false,
   rollout: 46,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -464,7 +464,7 @@ export const FEATURE_FLAG_47 = {
   description: 'Description 47',
   enabled: false,
   rollout: 47,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -474,7 +474,7 @@ export const FEATURE_FLAG_48 = {
   description: 'Description 48',
   enabled: false,
   rollout: 48,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -484,7 +484,7 @@ export const FEATURE_FLAG_49 = {
   description: 'Description 49',
   enabled: false,
   rollout: 49,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -494,7 +494,7 @@ export const FEATURE_FLAG_50 = {
   description: 'Description 50',
   enabled: false,
   rollout: 50,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -504,7 +504,7 @@ export const FEATURE_FLAG_51 = {
   description: 'Description 51',
   enabled: false,
   rollout: 51,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -514,7 +514,7 @@ export const FEATURE_FLAG_52 = {
   description: 'Description 52',
   enabled: false,
   rollout: 52,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -524,7 +524,7 @@ export const FEATURE_FLAG_53 = {
   description: 'Description 53',
   enabled: false,
   rollout: 53,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -534,7 +534,7 @@ export const FEATURE_FLAG_54 = {
   description: 'Description 54',
   enabled: false,
   rollout: 54,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -544,7 +544,7 @@ export const FEATURE_FLAG_55 = {
   description: 'Description 55',
   enabled: false,
   rollout: 55,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -554,7 +554,7 @@ export const FEATURE_FLAG_56 = {
   description: 'Description 56',
   enabled: false,
   rollout: 56,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -564,7 +564,7 @@ export const FEATURE_FLAG_57 = {
   description: 'Description 57',
   enabled: false,
   rollout: 57,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -574,7 +574,7 @@ export const FEATURE_FLAG_58 = {
   description: 'Description 58',
   enabled: false,
   rollout: 58,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -584,7 +584,7 @@ export const FEATURE_FLAG_59 = {
   description: 'Description 59',
   enabled: false,
   rollout: 59,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -594,7 +594,7 @@ export const FEATURE_FLAG_60 = {
   description: 'Description 60',
   enabled: false,
   rollout: 60,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -604,7 +604,7 @@ export const FEATURE_FLAG_61 = {
   description: 'Description 61',
   enabled: false,
   rollout: 61,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -614,7 +614,7 @@ export const FEATURE_FLAG_62 = {
   description: 'Description 62',
   enabled: false,
   rollout: 62,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -624,7 +624,7 @@ export const FEATURE_FLAG_63 = {
   description: 'Description 63',
   enabled: false,
   rollout: 63,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -634,7 +634,7 @@ export const FEATURE_FLAG_64 = {
   description: 'Description 64',
   enabled: false,
   rollout: 64,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -644,7 +644,7 @@ export const FEATURE_FLAG_65 = {
   description: 'Description 65',
   enabled: false,
   rollout: 65,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -654,7 +654,7 @@ export const FEATURE_FLAG_66 = {
   description: 'Description 66',
   enabled: false,
   rollout: 66,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -664,7 +664,7 @@ export const FEATURE_FLAG_67 = {
   description: 'Description 67',
   enabled: false,
   rollout: 67,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -674,7 +674,7 @@ export const FEATURE_FLAG_68 = {
   description: 'Description 68',
   enabled: false,
   rollout: 68,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -684,7 +684,7 @@ export const FEATURE_FLAG_69 = {
   description: 'Description 69',
   enabled: false,
   rollout: 69,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -694,7 +694,7 @@ export const FEATURE_FLAG_70 = {
   description: 'Description 70',
   enabled: false,
   rollout: 70,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -704,7 +704,7 @@ export const FEATURE_FLAG_71 = {
   description: 'Description 71',
   enabled: false,
   rollout: 71,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -714,7 +714,7 @@ export const FEATURE_FLAG_72 = {
   description: 'Description 72',
   enabled: false,
   rollout: 72,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -724,7 +724,7 @@ export const FEATURE_FLAG_73 = {
   description: 'Description 73',
   enabled: false,
   rollout: 73,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -734,7 +734,7 @@ export const FEATURE_FLAG_74 = {
   description: 'Description 74',
   enabled: false,
   rollout: 74,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -744,7 +744,7 @@ export const FEATURE_FLAG_75 = {
   description: 'Description 75',
   enabled: false,
   rollout: 75,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -754,7 +754,7 @@ export const FEATURE_FLAG_76 = {
   description: 'Description 76',
   enabled: false,
   rollout: 76,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -764,7 +764,7 @@ export const FEATURE_FLAG_77 = {
   description: 'Description 77',
   enabled: false,
   rollout: 77,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -774,7 +774,7 @@ export const FEATURE_FLAG_78 = {
   description: 'Description 78',
   enabled: false,
   rollout: 78,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -784,7 +784,7 @@ export const FEATURE_FLAG_79 = {
   description: 'Description 79',
   enabled: false,
   rollout: 79,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -794,7 +794,7 @@ export const FEATURE_FLAG_80 = {
   description: 'Description 80',
   enabled: false,
   rollout: 80,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -804,7 +804,7 @@ export const FEATURE_FLAG_81 = {
   description: 'Description 81',
   enabled: false,
   rollout: 81,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -814,7 +814,7 @@ export const FEATURE_FLAG_82 = {
   description: 'Description 82',
   enabled: false,
   rollout: 82,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -824,7 +824,7 @@ export const FEATURE_FLAG_83 = {
   description: 'Description 83',
   enabled: false,
   rollout: 83,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -834,7 +834,7 @@ export const FEATURE_FLAG_84 = {
   description: 'Description 84',
   enabled: false,
   rollout: 84,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -844,7 +844,7 @@ export const FEATURE_FLAG_85 = {
   description: 'Description 85',
   enabled: false,
   rollout: 85,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -854,7 +854,7 @@ export const FEATURE_FLAG_86 = {
   description: 'Description 86',
   enabled: false,
   rollout: 86,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -864,7 +864,7 @@ export const FEATURE_FLAG_87 = {
   description: 'Description 87',
   enabled: false,
   rollout: 87,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -874,7 +874,7 @@ export const FEATURE_FLAG_88 = {
   description: 'Description 88',
   enabled: false,
   rollout: 88,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -884,7 +884,7 @@ export const FEATURE_FLAG_89 = {
   description: 'Description 89',
   enabled: false,
   rollout: 89,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -894,7 +894,7 @@ export const FEATURE_FLAG_90 = {
   description: 'Description 90',
   enabled: false,
   rollout: 90,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -904,7 +904,7 @@ export const FEATURE_FLAG_91 = {
   description: 'Description 91',
   enabled: false,
   rollout: 91,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -914,7 +914,7 @@ export const FEATURE_FLAG_92 = {
   description: 'Description 92',
   enabled: false,
   rollout: 92,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -924,7 +924,7 @@ export const FEATURE_FLAG_93 = {
   description: 'Description 93',
   enabled: false,
   rollout: 93,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -934,7 +934,7 @@ export const FEATURE_FLAG_94 = {
   description: 'Description 94',
   enabled: false,
   rollout: 94,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -944,7 +944,7 @@ export const FEATURE_FLAG_95 = {
   description: 'Description 95',
   enabled: false,
   rollout: 95,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -954,7 +954,7 @@ export const FEATURE_FLAG_96 = {
   description: 'Description 96',
   enabled: false,
   rollout: 96,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -964,7 +964,7 @@ export const FEATURE_FLAG_97 = {
   description: 'Description 97',
   enabled: false,
   rollout: 97,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -974,7 +974,7 @@ export const FEATURE_FLAG_98 = {
   description: 'Description 98',
   enabled: false,
   rollout: 98,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -984,7 +984,7 @@ export const FEATURE_FLAG_99 = {
   description: 'Description 99',
   enabled: false,
   rollout: 99,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 
@@ -994,7 +994,7 @@ export const FEATURE_FLAG_100 = {
   description: 'Description 100',
   enabled: false,
   rollout: 0,
-  stage: 'alpha' | 'beta' | 'stable',
+  stage: 'alpha',
   permissions: ['read', 'write'],
 };
 

@@ -2,15 +2,13 @@ import { memo } from 'react';
 import type { ChartDataPoint } from './ChartBase';
 import { getChartDimensions } from './ChartBase';
 
-export function StackedBarChart({ data, height = 300, width = 600, showGrid = true, showLabels = true }: { data: ChartDataPoint[]; height?: number; width?: number; showGrid?: boolean; showLabels?: boolean }) {
-  const { padding, chartWidth, chartHeight, maxValue } = getChartDimensions(data, height, width, { top: 20, right: 20, bottom: 40, left: 50 });
+export function StackedBarChart({ data, height = 300, width = 600, showGrid = true }: { data: ChartDataPoint[]; height?: number; width?: number; showGrid?: boolean; showLabels?: boolean }) {
+  const { padding, chartWidth, chartHeight, maxValue, width: totalWidth, height: totalHeight } = getChartDimensions(data, height, width, { top: 20, right: 20, bottom: 40, left: 50 });
 
-  const categories = Array.from({ length: data.length }, (_, i) => data[i].label || `Category ${i + 1}`);
-  const series = data[0]?.series || [];
-  const totalValues = Array(series.length).fill(0).map((_, i) => series[i].values.reduce((a, b) => a + b, 0));
+  const barGroupWidth = chartWidth / (data.length || 1);
 
   return (
-    <div className="chart-container chart-stacked-bar" style={{ width: padding.left + chartWidth + padding.right, height: padding.top + chartHeight + padding.bottom }}>
+    <div className="chart-container chart-stacked-bar" style={{ width: totalWidth, height: totalHeight }}>
       {showGrid && (
         <svg width={totalWidth} height={totalHeight} style={{ position: 'absolute', top: 0, left: 0 }}>
           {Array.from({ length: 5 }, (_, i) => {
@@ -25,25 +23,21 @@ export function StackedBarChart({ data, height = 300, width = 600, showGrid = tr
         </svg>
       )}
       <svg width={totalWidth} height={totalHeight}>
-        {series.map((series, si) => {
-          const seriesTotal = series.values.reduce((a, b) => a + b, 0);
-          let cumulative = 0;
-          return series.values.map((value, vi) => {
-            const x = padding.left + (chartWidth / data.length) * vi;
-            const barHeight = (value / maxValue) * chartHeight;
-            const y = padding.top + chartHeight - barHeight - cumulative;
-            cumulative += value;
-            return (
-              <rect
-                key={vi}
-                x={x}
-                y={y}
-                width={chartWidth / data.length - 1}
-                height={barHeight}
-                fill={series.color || `var(--color-primary)`}
-              />
-            );
-          });
+        {data.map((item, i) => {
+          const barHeight = (item.value / maxValue) * chartHeight;
+          const y = padding.top + chartHeight - barHeight;
+          const x = padding.left + barGroupWidth * i + 2;
+          return (
+            <rect
+              key={i}
+              x={x}
+              y={y}
+              width={barGroupWidth - 4}
+              height={barHeight}
+              fill={item.color || 'var(--color-primary)'}
+              rx="4"
+            />
+          );
         })}
       </svg>
     </div>

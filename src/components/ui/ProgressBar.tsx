@@ -1,7 +1,7 @@
 // Progress bar component - animated progress indicator
 import type { ProgressBarProps } from '../../types/ui';
 
-export function ProgressBar({ value, max = 100, variant = 'default', size = 'md', className = '' }: ProgressBarProps) {
+export function ProgressBar({ value, max = 100, variant = 'default', size = 'md', className = '', style }: ProgressBarProps) {
   const percentage = Math.min(100, Math.max(0, (value / max) * 100));
   const sizeStyle: Record<string, string> = size === 'sm' ? { height: '6px' } : size === 'lg' ? { height: '16px' } : { height: '8px' };
   const variantStyle: Record<string, string> = variant === 'primary'
@@ -15,7 +15,7 @@ export function ProgressBar({ value, max = 100, variant = 'default', size = 'md'
           : { background: 'var(--color-primary)' };
 
   return (
-    <div className={className} style={{ width: '100%' }}>
+    <div className={className} style={{ width: '100%', ...style }}>
       <div
         className="progress-bar-track"
         style={{

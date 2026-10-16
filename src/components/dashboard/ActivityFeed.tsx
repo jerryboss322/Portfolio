@@ -2,20 +2,13 @@
 import type { ActivityItem } from '../../types/ui';
 import { useState } from 'react';
 
+export type { ActivityItem };
+
 export interface ActivityConsumerProps {
   items: ActivityItem[];
   onItemClick?: (item: ActivityItem) => void;
   showPagination?: boolean;
   className?: string;
-}
-
-export interface ActivityItem {
-  id: string;
-  user: string;
-  action: string;
-  target: string;
-  timestamp: string;
-  color: string;
 }
 
 export function ActivityFeed({ items, onItemClick, showPagination = true, className = '' }: ActivityConsumerProps) {

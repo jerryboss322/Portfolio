@@ -1,6 +1,9 @@
 // Blog data loader - loads articles from JSON
 import type { Article, Author } from '../types/article';
 import { AUTHORS } from './authors';
+import rawArticles from './articles.json';
+
+const articles = rawArticles as (Article & { authorId: string })[];
 
 let articlesCache: Article[] | null = null;
 
@@ -8,16 +11,16 @@ export function loadArticles(): Article[] {
   if (articlesCache) return articlesCache;
 
   try {
-    const response = fetch(new URL('./articles.json', import.meta.url));
-    const data = response.json();
+    const data = articles;
     // Convert authorId to full Author object
-    return data.map((article: Article & { authorId: string }) => {
+    articlesCache = data.map((article) => {
       const author = AUTHORS.find((a) => a.id === article.authorId) || AUTHORS[0];
       return {
         ...article,
         author,
       };
     });
+    return articlesCache;
   } catch {
     // Fallback to hard-coded articles
     return [];

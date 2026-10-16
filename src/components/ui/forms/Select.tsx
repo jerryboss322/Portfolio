@@ -1,5 +1,5 @@
 // Select form component
-import type { SelectProps } from '../../types/ui';
+import type { SelectProps } from '../../../types/ui';
 
 export function Select({ label, options, value, onChange, error, disabled, className = '', required }: SelectProps) {
   return (

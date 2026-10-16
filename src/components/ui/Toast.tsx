@@ -1,4 +1,5 @@
 // Toast notification component - dismissible notifications
+import { useEffect } from 'react';
 import type { ToastProps } from '../../types/ui';
 
 const TYPE_STYLES: Record<string, { bg: string; color: string; border: string }> = {
@@ -14,9 +15,9 @@ const SIZE_STYLES: Record<string, string> = {
   lg: 'padding: 1.125rem 1.375rem; font-size: 1rem;',
 };
 
-export function Toast({ message, type = 'info', onClose, duration = 5000, className = '' }: ToastProps) {
+export function Toast({ message, type = 'info', onClose, duration = 5000, className = '', size = 'md' }: ToastProps) {
   const style = TYPE_STYLES[type];
-  const sizeStyle = SIZE_STYLES[size] || SIZE_STYLES.md;
+  
 
   // Auto dismiss
   useEffect(() => {

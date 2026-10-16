@@ -3,7 +3,7 @@
 // Part of the design system component library.
 
 import { memo, useState, useEffect, useCallback } from 'react';
-import type { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent, ReactNode } from 'react';
 
 const DEFAULTS = {
   disabled: false,
@@ -12,7 +12,14 @@ const DEFAULTS = {
   variant: 'primary',
 };
 
+type ComponentVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+type ComponentSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 interface Props {
+  disabled?: boolean;
+  loading?: boolean;
+  size?: ComponentSize;
+  variant?: ComponentVariant;
   prop1?: string | number | boolean;
   prop2?: string | number | boolean;
   prop3?: string | number | boolean;
@@ -107,7 +114,7 @@ export function Component186(props: Props) {
     setState(p => ({ ...p, focused: false }));
   }, []);
 
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       handleClick();
@@ -120,8 +127,8 @@ export function Component186(props: Props) {
     }
   }, []);
 
-  const preset = STYLE_PRESETS[variant] || STYLE_PRESETS.primary;
-  const sizePreset = SIZE_PRESETS[size] || SIZE_PRESETS.md;
+  const preset = (STYLE_PRESETS as Record<string, { background: string; color?: string; border?: string }>)[variant] || STYLE_PRESETS.primary;
+  const sizePreset = (SIZE_PRESETS as Record<string, { padding: string; fontSize: string }>)[size] || SIZE_PRESETS.md;
   const isDisabled = disabled || loading;
 
   return (

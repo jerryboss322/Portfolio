@@ -1,11 +1,11 @@
 // Avatar component - user avatar with different sizes
 import type { AvatarProps } from '../../types/ui';
 
-const SIZE_STYLES: Record<string, string> = {
-  sm: 'width: 32px; height: 32px; font-size: 0.75rem;',
-  md: 'width: 40px; height: 40px; font-size: 0.875rem;',
-  lg: 'width: 56px; height: 56px; font-size: 1.125rem;',
-  xl: 'width: 80px; height: 80px; font-size: 1.5rem;',
+const SIZE_STYLES: Record<string, Record<string, string>> = {
+  sm: { width: '32px', height: '32px', fontSize: '0.75rem' },
+  md: { width: '40px', height: '40px', fontSize: '0.875rem' },
+  lg: { width: '56px', height: '56px', fontSize: '1.125rem' },
+  xl: { width: '80px', height: '80px', fontSize: '1.5rem' },
 };
 
 export function Avatar({ src, alt = '', size = 'md', variant = 'default', children }: AvatarProps) {

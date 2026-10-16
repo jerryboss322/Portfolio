@@ -1,10 +1,10 @@
 // Spinner component - loading spinner with multiple sizes
 import type { SpinnerProps } from '../../types/ui';
 
-const SIZE_STYLES: Record<string, string> = {
-  sm: 'width: 16px; height: 16px; border-width: 2px;',
-  md: 'width: 24px; height: 24px; border-width: 3px;',
-  lg: 'width: 36px; height: 36px; border-width: 4px;',
+const SIZE_STYLES: Record<string, Record<string, string>> = {
+  sm: { width: '16px', height: '16px', borderWidth: '2px' },
+  md: { width: '24px', height: '24px', borderWidth: '3px' },
+  lg: { width: '36px', height: '36px', borderWidth: '4px' },
 };
 
 export function Spinner({ size = 'md', className = '', label = 'Loading...' }: SpinnerProps) {

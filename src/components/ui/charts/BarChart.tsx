@@ -54,10 +54,10 @@ export function BarChart({ data, height = 300, width = 600, showGrid = true, sho
               rx="4"
               className="cursor-pointer"
               onMouseEnter={(e) => {
-                e.target.style.opacity = '0.8';
+                (e.target as SVGElement).style.opacity = '0.8';
               }}
               onMouseLeave={(e) => {
-                e.target.style.opacity = '1';
+                (e.target as SVGElement).style.opacity = '1';
               }}
             />
           );

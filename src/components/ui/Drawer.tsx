@@ -1,10 +1,10 @@
 // Drawer component - sliding panel from any edge
 import type { DrawerProps } from '../../types/ui';
 
-const SIZE_STYLES: Record<string, string> = {
-  sm: 'width: 300px;',
-  md: 'width: 400px;',
-  lg: 'width: 560px;',
+const SIZE_STYLES: Record<string, Record<string, string>> = {
+  sm: { width: '300px' },
+  md: { width: '400px' },
+  lg: { width: '560px' },
 };
 
 export function Drawer({ isOpen, onClose, title, direction = 'left', children, size = 'md' }: DrawerProps) {

@@ -29,7 +29,7 @@ export function TimelinesDocPage() {
           <tr><td>children</td><td>ReactNode</td><td>None</td><td>Content</td></tr>
           <tr><td>className</td><td>string</td><td></td><td>Custom class</td></tr>
           <tr><td>style</td><td>CSSProperties</td><td>{}</td><td>Inline styles</td></tr>
-          <tr><td>onClick</td><td>() => void</td><td>None</td><td>Handler</td></tr>
+          <tr><td>onClick</td><td>() =&gt; void</td><td>None</td><td>Handler</td></tr>
           <tr><td>disabled</td><td>boolean</td><td>false</td><td>Disabled</td></tr>
           <tr><td>loading</td><td>boolean</td><td>false</td><td>Loading</td></tr>
           <tr><td>variant</td><td>string</td><td>primary</td><td>Variant</td></tr>

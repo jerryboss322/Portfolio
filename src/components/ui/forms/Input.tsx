@@ -1,5 +1,5 @@
 // Input form component
-import type { InputProps } from '../../types/ui';
+import type { InputProps } from '../../../types/ui';
 
 export function Input({ label, type = 'text', placeholder = '', value, onChange, error, disabled, className = '', required }: InputProps) {
   return (

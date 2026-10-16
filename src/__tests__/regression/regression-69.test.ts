@@ -1,5 +1,7 @@
 // Regression test 69
 import { describe, it, expect } from 'vitest';
+
+describe('Regression 69', () => {
   it('test 1', () => { expect(true).toBe(true) });
   it('test 2', () => { expect(true).toBe(true) });
   it('test 3', () => { expect(true).toBe(true) });

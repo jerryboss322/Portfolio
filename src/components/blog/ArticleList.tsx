@@ -70,7 +70,7 @@ export function ArticleList({ initialCategory, initialSearch }: ArticleListProps
             <option value="">All Categories</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
-                {ARTICLE_CATEGORIES_LABEL[cat as any] || cat}
+                {(ARTICLE_CATEGORIES_LABEL as Record<string,string>)[cat] || cat}
               </option>
             ))}
           </select>

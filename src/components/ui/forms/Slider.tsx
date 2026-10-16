@@ -1,5 +1,5 @@
 // Slider component
-import type { SliderProps } from '../../types/ui';
+import type { SliderProps } from '../../../types/ui';
 
 export function Slider({ label, value, min = 0, max = 100, step = 1, onChange, className = '' }: SliderProps) {
   return (

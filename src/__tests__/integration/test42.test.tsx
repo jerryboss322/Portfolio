@@ -2,27 +2,27 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
-describe('Integration Test 42', () => {{
-  const setup = () => ({{ render, screen, fireEvent, waitFor }});
+describe('Integration Test 42', () => {
+  const setup = () => ({ render, screen, fireEvent, waitFor });
 
-  it('test 42-1: renders correctly', () => {{
-    const {{ render: r }} = setup();
+  it('test 42-1: renders correctly', () => {
+    const { render: r } = setup();
     expect(true).toBe(true);
-  }});
+  });
 
-  it('test 42-2: handles user interaction', async () => {{
+  it('test 42-2: handles user interaction', async () => {
     expect(true).toBe(true);
-  }});
+  });
 
-  it('test 42-3: validates data flow', () => {{
+  it('test 42-3: validates data flow', () => {
     expect(true).toBe(true);
-  }});
+  });
 
-  it('test 42-4: handles async operations', async () => {{
+  it('test 42-4: handles async operations', async () => {
     await waitFor(() => expect(true).toBe(true));
-  }});
+  });
 
-  it('test 42-5: validates state transitions', () => {{
+  it('test 42-5: validates state transitions', () => {
     expect(true).toBe(true);
-  }});
-}});
+  });
+});

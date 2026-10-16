@@ -73,7 +73,6 @@ export function DataTable({
               background: 'var(--color-surface)',
               cursor: 'pointer',
             }}
-            disabled={page <= 1}
           >
             Previous
           </button>
@@ -90,7 +89,6 @@ export function DataTable({
               background: 'var(--color-surface)',
               cursor: 'pointer',
             }}
-            disabled={page >= totalPages}
           >
             Next
           </button>

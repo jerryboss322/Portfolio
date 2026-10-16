@@ -1,5 +1,5 @@
 // Checkbox component
-import type { CheckboxProps } from '../../types/ui';
+import type { CheckboxProps } from '../../../types/ui';
 
 export function Checkbox({ label, checked, onChange, disabled, className = '' }: CheckboxProps) {
   return (

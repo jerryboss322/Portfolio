@@ -1,11 +1,11 @@
 // Modal component - dialog overlay
 import type { ModalProps } from '../../types/ui';
 
-const SIZE_STYLES: Record<string, string> = {
-  sm: 'max-width: 400px;',
-  md: 'max-width: 600px;',
-  lg: 'max-width: 900px;',
-  xl: 'max-width: 1200px;',
+const SIZE_STYLES: Record<string, Record<string, string>> = {
+  sm: { maxWidth: '400px' },
+  md: { maxWidth: '600px' },
+  lg: { maxWidth: '900px' },
+  xl: { maxWidth: '1200px' },
 };
 
 export function Modal({ isOpen, onClose, title, children, size = 'md', variant = 'default' }: ModalProps) {
