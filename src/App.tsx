@@ -17,11 +17,6 @@ import { BlogHeader } from './components/blog/BlogHeader';
 import { DashboardDemo } from './pages/DashboardDemo';
 import { DashboardPage } from './pages/DashboardPage';
 import { DesignSystem } from './pages/DesignSystem';
-import { TeamPage } from './pages/Team';
-import { PricingPage } from './pages/Pricing';
-import { FaqPage } from './pages/Faq';
-import { AboutExtendedPage } from './pages/AboutExtended';
-import { ContactExtendedPage } from './pages/ContactExtended';
 import GettingStartedDoc from './pages/Docs/GettingStarted';
 import ComponentsDoc from './pages/Docs/Components';
 
@@ -56,17 +51,12 @@ const AnimatedRoutes: React.FC = () => {
         <Route path="/work" element={<PageTransition><WorkPage /></PageTransition>} />
         <Route path="/work/:slug" element={<PageTransition><ProjectDetailPage /></PageTransition>} />
         <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
-        <Route path="/about-extended" element={<PageTransition><AboutExtendedPage /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
-        <Route path="/contact-extended" element={<PageTransition><ContactExtendedPage /></PageTransition>} />
         <Route path="/blog" element={<PageTransition><BlogIndex /></PageTransition>} />
         <Route path="/blog/:slug" element={<PageTransition><ArticleDetail /></PageTransition>} />
         <Route path="/dashboard" element={<PageTransition><DashboardPage /></PageTransition>} />
         <Route path="/dashboard-demo" element={<PageTransition><DashboardDemo /></PageTransition>} />
         <Route path="/design" element={<PageTransition><DesignSystem /></PageTransition>} />
-        <Route path="/team" element={<PageTransition><TeamPage /></PageTransition>} />
-        <Route path="/pricing" element={<PageTransition><PricingPage /></PageTransition>} />
-        <Route path="/faq" element={<PageTransition><FaqPage /></PageTransition>} />
         <Route path="/docs/getting-started" element={<PageTransition><GettingStartedDoc /></PageTransition>} />
         <Route path="/docs/components" element={<PageTransition><ComponentsDoc /></PageTransition>} />
         <Route path="*" element={<Navigate to="/" replace />} />

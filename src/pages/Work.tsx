@@ -66,9 +66,10 @@ export const WorkSection = ({ id = 'work', preview = false, previewLimit = 3 }: 
               What I&apos;ve shipped
             </h2>
             <p className="text-[15px] sm:text-[17px] leading-[1.75] text-bright max-w-2xl">
-              Real systems, in production, with real users — an e-commerce platform, a booking
-              site, a betting app, a 3D storefront, and a restaurant orderer. Each one has a case
-              study with the architecture, the tradeoffs, and the code behind the hard parts.
+              Five projects, one per problem worth solving — a full-stack e-commerce
+              platform, a betting app, a marketing site for an author, a 3D shopfront, and a
+              restaurant ordering app. Each one has a case study with the architecture, the
+              tradeoffs, and the code behind the hard parts.
             </p>
           </div>
 

@@ -185,17 +185,3 @@ export interface AppConfig {
 
 export type ConfigKey = keyof AppConfig;
 export type FeatureFlag = keyof AppEnvironment['FEATURE_FLAGS'];
-
-// Team members (see src/data/team.ts)
-export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  avatar: string;
-  email: string;
-  Twitter?: string;
-  GitHub?: string;
-  LinkedIn?: string;
-  status: 'online' | 'away' | 'busy' | 'offline';
-}
