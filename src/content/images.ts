@@ -51,9 +51,9 @@ export const projectImage_tastetrail: ImageAsset = {
   src: '/img/projects/tastetrail-1600.webp',
   srcSet: "/img/projects/tastetrail-480.webp 480w, /img/projects/tastetrail-800.webp 800w, /img/projects/tastetrail-1200.webp 1200w, /img/projects/tastetrail-1600.webp 1600w",
   width: 1536,
-  height: 1024,
-  ratio: 1.5,
-  lqip: 'data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACwAwCdASoYABAAPwlwr1ArpqQisAgBcCEJZwAAW+uIGPj6g0rdgAD+69AlruFhc+As13aLOWwQdlmjhd6cPgQA',
+  height: 683,
+  ratio: 2.2489,
+  lqip: 'data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAABQAwCdASoYAAsAPwlur0+rpiQiMAgBcCEJZQDCgCHgFF6sAAD+6+9IRTTucuUM8Vd3yTDqBedj67YeXVWk0RSUy3Dp55llRYAAAA==',
 };
 
 export const projectImage_jbet: ImageAsset = {
