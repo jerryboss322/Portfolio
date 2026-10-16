@@ -109,30 +109,23 @@ export const WorkSection = ({ id = 'work', preview = false, previewLimit = 3 }: 
                 <div className="relative w-full sm:w-[280px] lg:w-[340px] shrink-0">
                   {preview ? (
                     <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-line-faint bg-ink-700 shadow-lg">
-                      <div className="aspect-[16/10] sm:aspect-[4/3] overflow-hidden">
-                        <Media
-                          asset={IMAGES[project.slug]}
-                          alt={project.title}
-                          className="w-full h-full"
-                          imgClassName="object-cover"
-                          sizes="(max-width: 640px) 100vw, 340px"
-                        />
-                      </div>
+                      <Media
+                        asset={IMAGES[project.slug]}
+                        alt={project.title}
+                        sizes="(max-width: 640px) 100vw, 340px"
+                      />
                     </div>
                   ) : (
                     <Link
                       to={`/work/${project.slug}`}
                       className="block relative rounded-xl sm:rounded-2xl overflow-hidden border border-line-faint bg-ink-700 shadow-lg transition-all duration-300 hover:shadow-2xl hover:shadow-accent-glow hover:border-accent/20"
                     >
-                      <div className="aspect-[16/10] sm:aspect-[4/3] overflow-hidden">
-                        <Media
-                          asset={IMAGES[project.slug]}
-                          alt={project.title}
-                          className="w-full h-full"
-                          imgClassName="object-cover group-hover:scale-105 transition-transform duration-700"
-                          sizes="(max-width: 640px) 100vw, 340px"
-                        />
-                      </div>
+                      <Media
+                        asset={IMAGES[project.slug]}
+                        alt={project.title}
+                        imgClassName="object-cover group-hover:scale-105 transition-transform duration-700"
+                        sizes="(max-width: 640px) 100vw, 340px"
+                      />
                     </Link>
                   )}
                 </div>
