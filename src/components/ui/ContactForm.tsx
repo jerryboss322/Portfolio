@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { profile } from '@/content/data';
+import { budgetBands, profile, projectTypes, timelines } from '@/content/data';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -35,6 +35,9 @@ export const ContactForm: React.FC = () => {
           access_key: accessKey,
           name: formData.get('name'),
           email: formData.get('email'),
+          project_type: formData.get('project_type') ?? '',
+          budget: formData.get('budget') ?? '',
+          timeline: formData.get('timeline') ?? '',
           message: formData.get('message'),
           subject: 'New message from jboss.dev portfolio',
           replyto: formData.get('email'),
@@ -87,6 +90,56 @@ export const ContactForm: React.FC = () => {
         </div>
       </div>
 
+      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        <div>
+          <label htmlFor="cf-project-type" className={LABEL_CLASS}>
+            What do you need?
+          </label>
+          <select
+            id="cf-project-type"
+            name="project_type"
+            required
+            defaultValue=""
+            className={`${INPUT_CLASS} mt-2`}
+          >
+            <option value="" disabled>
+              Choose one
+            </option>
+            {projectTypes.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="cf-budget" className={LABEL_CLASS}>
+            Budget range
+          </label>
+          <select id="cf-budget" name="budget" defaultValue="" className={`${INPUT_CLASS} mt-2`}>
+            <option value="">Optional</option>
+            {budgetBands.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="cf-timeline" className={LABEL_CLASS}>
+            Timeline
+          </label>
+          <select id="cf-timeline" name="timeline" defaultValue="" className={`${INPUT_CLASS} mt-2`}>
+            <option value="">Optional</option>
+            {timelines.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
       <div className="mt-4">
         <label htmlFor="cf-message" className={LABEL_CLASS}>
           MESSAGE
@@ -96,7 +149,7 @@ export const ContactForm: React.FC = () => {
           name="message"
           required
           rows={5}
-          placeholder="Tell me about your project…"
+          placeholder="What are you building, and where is it stuck?"
           className={`${INPUT_CLASS} mt-2 resize-y`}
         />
       </div>

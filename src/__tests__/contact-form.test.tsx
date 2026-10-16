@@ -2,12 +2,38 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ContactForm } from '@/components/ui/ContactForm';
 
-const submitForm = (overrides: Partial<{ name: string; email: string; message: string }> = {}) => {
-  const values = { name: 'Jane Doe', email: 'jane@example.com', message: 'Hello there!', ...overrides };
+const submitForm = (
+  overrides: Partial<{
+    name: string;
+    email: string;
+    message: string;
+    projectType: string;
+    budget: string;
+    timeline: string;
+  }> = {}
+) => {
+  const values = {
+    name: 'Jane Doe',
+    email: 'jane@example.com',
+    message: 'Hello there!',
+    projectType: 'new-website',
+    budget: '',
+    timeline: '',
+    ...overrides,
+  };
   render(<ContactForm />);
 
   fireEvent.change(screen.getByLabelText(/name/i), { target: { value: values.name } });
   fireEvent.change(screen.getByLabelText(/email/i), { target: { value: values.email } });
+  fireEvent.change(screen.getByLabelText(/what do you need/i), {
+    target: { value: values.projectType },
+  });
+  if (values.budget) {
+    fireEvent.change(screen.getByLabelText(/budget range/i), { target: { value: values.budget } });
+  }
+  if (values.timeline) {
+    fireEvent.change(screen.getByLabelText(/timeline/i), { target: { value: values.timeline } });
+  }
   fireEvent.change(screen.getByLabelText(/message/i), { target: { value: values.message } });
   fireEvent.click(screen.getByRole('button', { name: 'Send Message' }));
 };
@@ -50,6 +76,31 @@ describe('ContactForm', () => {
     expect(payload.subject).toBe('New message from jboss.dev portfolio');
     expect(payload.replyto).toBe('jane@example.com');
     expect(payload.botcheck).toBe('');
+  });
+
+  it('sends the qualification fields, and omits the optional ones as empty strings', async () => {
+    submitForm({ projectType: 'redesign', budget: '750k-2m', timeline: 'quarter' });
+
+    await waitFor(() => {
+      expect(screen.getByRole('status')).toHaveTextContent('Message sent');
+    });
+
+    const payload = JSON.parse(String(vi.mocked(fetch).mock.calls[0][1]?.body));
+    expect(payload.project_type).toBe('redesign');
+    expect(payload.budget).toBe('750k-2m');
+    expect(payload.timeline).toBe('quarter');
+  });
+
+  it('treats budget and timeline as optional', async () => {
+    submitForm();
+
+    await waitFor(() => {
+      expect(screen.getByRole('status')).toHaveTextContent('Message sent');
+    });
+
+    const payload = JSON.parse(String(vi.mocked(fetch).mock.calls[0][1]?.body));
+    expect(payload.budget).toBe('');
+    expect(payload.timeline).toBe('');
   });
 
   it('shows an error and re-enables the button when the request fails', async () => {

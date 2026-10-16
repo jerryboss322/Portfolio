@@ -925,6 +925,43 @@ export const availability = {
     'Taking on a small number of projects at a time so each one gets full attention. Currently booking for the next few weeks.',
 };
 
+/**
+ * What a visitor is asking for, in their words.
+ *
+ * These are the qualification questions a builder's form should answer for
+ * itself. Kept here rather than inline in the form so the offers stay in one
+ * place and can be reused by a services page without drifting.
+ */
+export const projectTypes: { value: string; label: string }[] = [
+  { value: 'new-website', label: 'New website' },
+  { value: 'redesign', label: 'Redesign or fix an existing site' },
+  { value: 'web-app', label: 'Full-stack web application' },
+  { value: 'maintenance', label: 'Ongoing maintenance or retainer' },
+  { value: 'unsure', label: 'Not sure yet' },
+];
+
+/**
+ * Deliberately wide, non-committal bands with an explicit "advise me" option.
+ *
+ * These are not quotes. The stated policy is a fixed price agreed after the
+ * first call, so a range here is only to establish whether a conversation is
+ * worth having -- publishing precise figures would contradict that.
+ */
+export const budgetBands: { value: string; label: string }[] = [
+  { value: 'under-250k', label: 'Under ₦250k' },
+  { value: '250k-750k', label: '₦250k – ₦750k' },
+  { value: '750k-2m', label: '₦750k – ₦2m' },
+  { value: 'over-2m', label: 'Over ₦2m' },
+  { value: 'unsure', label: 'Not sure — advise me' },
+];
+
+export const timelines: { value: string; label: string }[] = [
+  { value: 'urgent', label: 'As soon as possible' },
+  { value: 'month', label: 'Within a month' },
+  { value: 'quarter', label: 'One to three months' },
+  { value: 'exploring', label: 'Just exploring' },
+];
+
 export type CapabilityIcon =
   | 'layers'
   | 'gauge'
