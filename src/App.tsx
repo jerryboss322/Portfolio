@@ -6,20 +6,13 @@ import { Footer } from './components/layout/Footer';
 import { PageTransition } from './components/layout/PageTransition';
 import { AmbientBackground } from './components/layout/AmbientBackground';
 import { ScrollProgress } from './components/layout/ScrollProgress';
+import { CommandPalette } from './components/ui/CommandPalette';
 import { HomePage } from './pages/HomePage';
 import { WorkPage } from './pages/WorkPage';
 import { ServicesPage } from './pages/Services';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
-import { BlogIndex } from './pages/Blog/BlogIndex';
-import { ArticleDetail } from './pages/Blog/ArticleDetailPage';
-import { BlogHeader } from './components/blog/BlogHeader';
-import { DashboardDemo } from './pages/DashboardDemo';
-import { DashboardPage } from './pages/DashboardPage';
-import { DesignSystem } from './pages/DesignSystem';
-import GettingStartedDoc from './pages/Docs/GettingStarted';
-import ComponentsDoc from './pages/Docs/Components';
 
 /** Resets scroll on navigation, or glides to a #hash target if there is one. */
 const ScrollManager: React.FC = () => {
@@ -54,13 +47,6 @@ const AnimatedRoutes: React.FC = () => {
         <Route path="/services" element={<PageTransition><ServicesPage /></PageTransition>} />
         <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
-        <Route path="/blog" element={<PageTransition><BlogIndex /></PageTransition>} />
-        <Route path="/blog/:slug" element={<PageTransition><ArticleDetail /></PageTransition>} />
-        <Route path="/dashboard" element={<PageTransition><DashboardPage /></PageTransition>} />
-        <Route path="/dashboard-demo" element={<PageTransition><DashboardDemo /></PageTransition>} />
-        <Route path="/design" element={<PageTransition><DesignSystem /></PageTransition>} />
-        <Route path="/docs/getting-started" element={<PageTransition><GettingStartedDoc /></PageTransition>} />
-        <Route path="/docs/components" element={<PageTransition><ComponentsDoc /></PageTransition>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>
@@ -70,25 +56,24 @@ const AnimatedRoutes: React.FC = () => {
 /** The whole site minus the router, so tests can mount it at any URL. */
 export const AppShell: React.FC = () => {
   return (
-    <>
-      <div className="relative min-h-screen bg-ink-900 text-body">
-        <a href="#main" className="sr-only">
-          Skip to content
-        </a>
-        <ScrollManager />
-        <ScrollProgress />
-        <AmbientBackground />
-        <Header />
+    <div className="relative min-h-screen bg-ink-900 text-body">
+      <a href="#main" className="sr-only">
+        Skip to content
+      </a>
+      <ScrollManager />
+      <ScrollProgress />
+      <AmbientBackground />
+      <Header />
+      <CommandPalette />
 
-        <main id="main" className="relative z-10">
-          <AnimatedRoutes />
-        </main>
+      <main id="main" className="relative z-10">
+        <AnimatedRoutes />
+      </main>
 
-        <div className="relative z-10">
-          <Footer />
-        </div>
+      <div className="relative z-10">
+        <Footer />
       </div>
-    </>
+    </div>
   );
 };
 

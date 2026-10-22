@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { App } from './App';
 import './styles/tailwind.css';
 import './styles/global.css';
-import './styles/blog.css';
-import './styles/form.css';
-import './styles/chart.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

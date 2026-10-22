@@ -15,7 +15,7 @@ export const AboutSection: React.FC = () => (
     <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 items-start">
       {/* ---- Left: Developer Profile & Architecture Principles ---- */}
       <ScrollReveal direction="left" distance={30}>
-        <div className="rounded-2xl border border-line bg-ink-700/60 p-6 md:p-8 backdrop-blur-sm shadow-xl">
+        <div className="rounded-2xl border border-line bg-ink-700/60 p-6 md:p-8">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 border border-accent/20 text-accent">
               <Code2 size={20} />
@@ -103,7 +103,7 @@ export const AboutSection: React.FC = () => (
                   aria-hidden="true"
                   className="absolute -left-[calc(1.5rem+5px)] top-6 h-2.5 w-2.5 rounded-full border-2 border-ink-900 bg-line-strong transition-colors duration-200 group-hover:bg-accent sm:-left-[calc(2rem+5px)]"
                 />
-                <div className="group rounded-xl border border-line-faint bg-ink-700/40 p-4 sm:p-5 backdrop-blur-sm transition-all duration-200 hover:border-line hover:bg-ink-700/70">
+                <div className="group rounded-xl border border-line-faint bg-ink-700/45 p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-line hover:bg-ink-700/75">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h3 className="text-[15px] font-semibold text-display">
                       {entry.title}

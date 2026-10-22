@@ -131,26 +131,6 @@
 :root { --ambient-opacity: 0.18; }
 [data-theme='light'] { --ambient-opacity: 0.14; }
 
-/* Smooth theme transition */
-* {
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
-}
-
-/* Scope to UI elements for better control */
-:root,
-html,
-body,
-header,
-footer,
-section,
-div,
-[class*='bg-'],
-[class*='border-'],
-[class*='text-'],
-[class*='ring-'] {
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
-}
-
 /* Smooth scroll behavior for the whole site */
 html {
   scroll-behavior: smooth;

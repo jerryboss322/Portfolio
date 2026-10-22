@@ -51,7 +51,9 @@ export const useActiveSection = (ids: string[]): string => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const onScroll = () => {
+    let rafId = 0;
+    const computeActive = () => {
+      rafId = 0;
       const line = window.innerHeight * 0.34;
       let current = ids[0] ?? '';
       for (const id of ids) {
@@ -59,15 +61,22 @@ export const useActiveSection = (ids: string[]): string => {
         if (!el) continue;
         if (el.getBoundingClientRect().top <= line) current = id;
       }
-      setActive(current);
+      setActive((prev) => (prev === current ? prev : current));
     };
 
-    onScroll();
+    const onScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(computeActive);
+      }
+    };
+
+    computeActive();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', onScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
     };
   }, [ids]);
 

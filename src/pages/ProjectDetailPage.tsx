@@ -6,6 +6,7 @@ import { useDocumentTitle } from '@/lib/hooks';
 import { ProjectShot } from '@/components/ui/Media';
 import TechStackCard from '@/components/ui/TechStackCard';
 import CodeBlock from '@/components/ui/CodeBlock';
+import { SystemSchematic } from '@/components/ui/SystemSchematic';
 import {
   projectImage_titan,
   projectImage_luxora,
@@ -57,8 +58,15 @@ export const ProjectDetailPage: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-accent-indigo/8 to-accent-purple/10 blur-[120px]" />
+      <section className="relative overflow-hidden border-b border-line-faint/60">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              'radial-gradient(70% 60% at 30% 20%, var(--accent-glow), transparent 70%)',
+          }}
+        />
         
         <div className="shell relative py-12 sm:py-16 md:py-20">
           {/* Back Button */}
@@ -235,6 +243,7 @@ export const ProjectDetailPage: React.FC = () => {
               <p className="text-[15px] sm:text-[17px] leading-[1.8] text-bright">
                 {project.description}
               </p>
+              <SystemSchematic slug={project.slug} />
             </div>
 
             {/* Tech Stack */}

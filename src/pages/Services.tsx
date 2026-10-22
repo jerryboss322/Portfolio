@@ -19,14 +19,15 @@ const ICONS: Record<ServiceIcon, LucideIcon> = {
   wrench: Wrench,
 };
 
+const TIMELINES: Record<string, string> = {
+  'marketing-site': 'TYPICAL WINDOW // 2–3 WEEKS',
+  'web-app': 'TYPICAL WINDOW // 4–8 WEEKS',
+  'redesign': 'TYPICAL WINDOW // 1–3 WEEKS',
+  'retainer': 'CADENCE // ONGOING OR SPRINT',
+};
+
 /**
- * What you can buy.
- *
- * The about page answers "what can he do". This answers the question a
- * visitor actually arrives with, which is "which of those do I want" — so
- * these are offerings with a price conversation attached, not a second
- * list of skills. Same card treatment as Capabilities on purpose; the
- * difference is that each of these ends in a decision rather than a nod.
+ * What you can buy — presented as an architectural scope blueprint matrix.
  */
 export const ServicesPage: React.FC = () => {
   useDocumentTitle('Services — Jerry Adewole');
@@ -40,49 +41,83 @@ export const ServicesPage: React.FC = () => {
           lede="Four ways we usually work together. Each one is scoped and priced on its own — if none of them fit, say so on the contact form and I will tell you honestly whether I am the right person."
         />
 
-        <ul className="mt-6 grid gap-5 lg:grid-cols-2">
+        <div className="mt-8 arch-frame arch-corner-tl arch-corner-br rounded-2xl overflow-hidden divide-y divide-line-faint surface-inset">
           {services.map((service, index) => {
             const Icon = ICONS[service.icon];
 
             return (
               <ScrollReveal
-                as="li"
                 key={service.id}
                 direction="up"
-                distance={20}
-                delay={(index % 2) * 0.08}
-                className="h-full"
+                distance={16}
+                delay={index * 0.05}
               >
-                <article className="group flex h-full flex-col rounded-2xl border border-line bg-ink-700/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-line-strong hover:bg-ink-700/80">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-line-faint bg-tint-2 text-bright transition-colors duration-200 group-hover:border-accent/30 group-hover:bg-accent/10 group-hover:text-accent">
-                    <Icon size={18} strokeWidth={1.8} aria-hidden="true" />
+                <article className="group grid grid-cols-1 lg:grid-cols-12 transition-colors duration-200 hover:bg-ink-900/35">
+                  {/* Col 1: Scope Identity (4 cols) */}
+                  <div className="lg:col-span-4 p-6 sm:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-line-faint bg-ink-900/25">
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-accent tabular-nums">
+                          SCOPE 0{index + 1}
+                        </span>
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-line-faint bg-ink-850 text-bright transition-colors group-hover:border-accent/40 group-hover:text-accent">
+                          <Icon size={16} strokeWidth={1.8} aria-hidden="true" />
+                        </div>
+                      </div>
+
+                      <h2 className="font-display text-[20px] sm:text-[22px] font-bold text-display mb-2.5">
+                        {service.title}
+                      </h2>
+                      <p className="text-[14px] leading-[1.7] text-body">
+                        {service.summary}
+                      </p>
+                    </div>
+
+                    <div className="mt-5 pt-3 border-t border-line-faint/70 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+                      {TIMELINES[service.id] ?? 'FIXED-SCOPE DELIVERY'}
+                    </div>
                   </div>
 
-                  <h2 className="mt-4 text-[18px] font-semibold text-display">
-                    {service.title}
-                  </h2>
-                  <p className="mt-2 text-[14px] leading-[1.7] text-muted">
-                    {service.summary}
-                  </p>
+                  {/* Col 2: Deliverable Specification (5 cols) */}
+                  <div className="lg:col-span-5 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r border-line-faint">
+                    <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted mb-3.5">
+                      INCLUDED DELIVERABLES
+                    </div>
+                    <ul className="space-y-2.5">
+                      {service.includes.map((item) => (
+                        <li key={item} className="flex gap-3 text-[14px] leading-[1.6] text-body">
+                          <span
+                            aria-hidden="true"
+                            className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                  <ul className="mt-4 space-y-2">
-                    {service.includes.map((item) => (
-                      <li key={item} className="flex gap-2.5 text-[14px] leading-[1.6] text-body">
-                        <span aria-hidden="true" className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-accent" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Col 3: Best-Fit Profile (3 cols) */}
+                  <div className="lg:col-span-3 p-6 sm:p-8 flex flex-col justify-between bg-ink-900/15">
+                    <div>
+                      <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-accent mb-2.5">
+                        BEST FIT
+                      </div>
+                      <p className="text-[13px] leading-[1.65] text-muted">
+                        <span className="sr-only">Best for: </span>
+                        {service.bestFor}
+                      </p>
+                    </div>
 
-                  <p className="mt-5 border-t border-line-faint pt-4 text-[13px] leading-[1.6] text-muted">
-                    <span className="font-semibold text-bright">Best for: </span>
-                    {service.bestFor}
-                  </p>
+                    <div className="mt-6 pt-3 border-t border-line-faint/60 flex items-center justify-between font-mono text-[11px] text-muted">
+                      <span>OWNERSHIP</span>
+                      <span className="text-bright">100% CLIENT REPO</span>
+                    </div>
+                  </div>
                 </article>
               </ScrollReveal>
             );
           })}
-        </ul>
+        </div>
       </Section>
 
       <Section id="how-we-work" tone="band">
@@ -91,32 +126,27 @@ export const ServicesPage: React.FC = () => {
           lede="The parts clients usually want to know before starting: what they own, what they receive, and how the boring administrative details work."
         />
 
-        <dl className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <dl className="mt-8 arch-frame arch-corner-tl arch-corner-br rounded-2xl overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-line-faint surface-inset">
           {engagementTerms.map((term, index) => (
-            <ScrollReveal
+            <div
               key={term.id}
-              direction="up"
-              distance={20}
-              delay={(index % 3) * 0.06}
+              className="p-6 sm:p-7 border-b border-line-faint bg-ink-900/20 transition-colors hover:bg-ink-900/40"
             >
-              <div className="h-full rounded-2xl border border-line-faint bg-tint-1 p-6">
-                {/* The heading lives inside the <dt> rather than replacing it:
-                    a term/description pair is the right semantics for this, and
-                    <dt> may contain flow content, so screen reader users still
-                    get these as navigable headings. */}
-                <dt>
-                  <h3 className="text-[15px] font-semibold text-display">{term.title}</h3>
-                </dt>
-                <dd className="mt-2 text-[14px] leading-[1.7] text-muted">{term.detail}</dd>
+              <div className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent tabular-nums">
+                TERM 0{index + 1}
               </div>
-            </ScrollReveal>
+              <dt>
+                <h3 className="text-[16px] font-semibold text-display">{term.title}</h3>
+              </dt>
+              <dd className="mt-2 text-[14px] leading-[1.7] text-muted">{term.detail}</dd>
+            </div>
           ))}
         </dl>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <Link
             to="/contact"
-            className="inline-flex h-11 cursor-pointer items-center rounded-full bg-accent px-7 text-[14px] font-semibold text-onaccent transition-all duration-200 hover:scale-[1.03] hover:brightness-110 active:scale-[0.98]"
+            className="inline-flex h-11 cursor-pointer items-center rounded-full bg-accent px-7 text-[14px] font-semibold text-onaccent transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-bright active:scale-[0.98]"
           >
             Start a conversation
           </Link>

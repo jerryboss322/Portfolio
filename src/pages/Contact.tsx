@@ -44,7 +44,7 @@ export const ContactSection: React.FC = () => (
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <a
               href={`mailto:${profile.email}`}
-              className="group inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border-2 border-accent bg-accent/10 px-6 text-[14px] font-semibold text-accent shadow-lg shadow-accent/10 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-accent hover:bg-accent hover:text-onaccent hover:shadow-accent/25 active:scale-[0.98]"
+              className="group inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border-2 border-accent bg-accent/10 px-6 text-[14px] font-semibold text-accent transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-onaccent active:scale-[0.98]"
             >
               <Mail size={15} />
               <span>{profile.email}</span>
@@ -53,7 +53,7 @@ export const ContactSection: React.FC = () => (
         </ScrollReveal>
 
         <ScrollReveal direction="up" distance={24} delay={0.2}>
-          <div className="mt-9 rounded-2xl border border-line bg-ink-700/60 p-6 md:p-8 backdrop-blur-sm shadow-xl">
+          <div className="mt-9 rounded-2xl border border-line bg-ink-700/65 p-6 md:p-8">
             <ContactForm />
           </div>
         </ScrollReveal>
@@ -61,7 +61,7 @@ export const ContactSection: React.FC = () => (
 
       {/* ---- Details ---- */}
       <ScrollReveal direction="up" distance={24} delay={0.15}>
-        <div className="rounded-2xl border border-line bg-ink-700/50 p-6 md:p-8 backdrop-blur-sm shadow-lg">
+        <div className="rounded-2xl border border-line bg-ink-700/55 p-6 md:p-8">
           <div className="flex items-center gap-4">
             <div className="relative">
               <Media

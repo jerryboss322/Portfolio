@@ -20,27 +20,30 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => 
       aria-label={`Switch to ${light ? 'dark' : 'light'} theme`}
       title={`Switch to ${light ? 'dark' : 'light'} theme`}
       className={[
-        'relative grid h-8 w-[52px] shrink-0 cursor-pointer place-items-center',
-        'rounded-full border border-line bg-ink-700/70 p-[3px]',
-        'transition-colors duration-200 hover:border-line-strong',
+        'group relative flex h-8 w-[54px] shrink-0 cursor-pointer items-center justify-between',
+        'rounded-full border border-line bg-ink-800/80 p-[3px]',
+        'transition-colors duration-200 hover:border-line-strong hover:bg-ink-700',
         className ?? '',
       ].join(' ')}
     >
       <span
         aria-hidden="true"
-        className="absolute inset-0 grid place-items-center text-[12px] opacity-70"
+        className="pointer-events-none flex w-full items-center justify-between px-[5px] text-muted"
       >
-        {light ? <SunGlyph /> : <MoonGlyph />}
+        <MoonGlyph />
+        <SunGlyph />
       </span>
 
       <span
         aria-hidden="true"
         className={[
-          'relative grid h-[22px] w-[22px] place-items-center rounded-full bg-accent shadow-lg',
-          'transition-transform duration-200',
+          'absolute left-[3px] top-[3px] grid h-[24px] w-[24px] place-items-center rounded-full bg-accent text-onaccent',
+          'transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
           light ? 'translate-x-[22px]' : 'translate-x-0',
         ].join(' ')}
-      />
+      >
+        {light ? <SunGlyph /> : <MoonGlyph />}
+      </span>
     </button>
   );
 };

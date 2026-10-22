@@ -5,40 +5,40 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { Section } from '@/components/ui/Section';
 import { availability } from '@/content/data';
 
-/**
- * A closing call-to-action band.
- *
- * The home page used to end on a testimonial with no next step; this gives it
- * one. Uses the shared availability line so the status lives in one place.
- */
 export const CtaBand: React.FC = () => (
   <Section id="cta" tone="ground">
-    <ScrollReveal direction="up" distance={24}>
-      <div className="relative overflow-hidden rounded-2xl border border-line bg-ink-700/50 px-6 py-12 text-center backdrop-blur-sm sm:px-12 sm:py-16">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/8 via-transparent to-accent-indigo/8" aria-hidden="true" />
-        <div className="relative">
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3.5 py-1.5 text-[13px] font-medium text-success">
+    <ScrollReveal direction="up" distance={20}>
+      <div className="arch-frame arch-corner-tl arch-corner-br rounded-2xl overflow-hidden surface-inset">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line-faint bg-ink-900/60 px-6 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+          <div className="flex items-center gap-2 text-success font-semibold">
             <span className="h-1.5 w-1.5 rounded-full bg-success" aria-hidden="true" />
-            {availability.status}
+            <span>{availability.status}</span>
           </div>
-          <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-[1.1] tracking-[-0.02em] text-display text-balance">
-            Got something to build?
-          </h2>
-          <p className="mx-auto mt-4 max-w-[52ch] text-[15px] leading-[1.75] text-bright">
-            Tell me what you are working on. If it is a fit, we will book a short call and I will
-            give you an honest read on the architecture before anything is committed.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <span>RESPONSE WINDOW // &lt; 24 HOURS</span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-center p-6 sm:p-10 lg:p-12 gap-8 bg-ink-900/25">
+          <div className="lg:col-span-8">
+            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-bold leading-[1.08] tracking-[-0.03em] text-display mb-3">
+              Got something to build?
+            </h2>
+            <p className="max-w-[54ch] text-[15px] leading-[1.75] text-body">
+              Tell me what you are working on. If it is a fit, we will book a short call and I will
+              give you an honest read on the architecture before anything is committed.
+            </p>
+          </div>
+
+          <div className="lg:col-span-4 flex flex-wrap lg:justify-end items-center gap-3">
             <Link
               to="/contact"
-              className="group inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-accent px-7 text-[14px] sm:text-[15px] font-semibold text-onaccent shadow-lg transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+              className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-accent px-6 text-[14px] font-semibold text-onaccent transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-bright active:scale-[0.98]"
             >
               <span>Start a conversation</span>
               <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <Link
               to="/work"
-              className="inline-flex h-12 items-center justify-center rounded-full border-2 border-line-strong px-7 text-[14px] sm:text-[15px] font-semibold text-display transition-all duration-200 hover:border-accent hover:text-accent active:scale-[0.98]"
+              className="inline-flex h-12 items-center justify-center rounded-full border border-line-strong px-6 text-[14px] font-semibold text-display transition-all duration-200 hover:border-accent hover:text-accent active:scale-[0.98]"
             >
               See the work
             </Link>

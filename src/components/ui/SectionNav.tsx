@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useActiveSection } from '@/lib/hooks';
 import { scrollToSection } from '@/lib/scroll';
 
@@ -47,18 +48,26 @@ export const SectionNav: React.FC<SectionNavProps> = ({ items, label, className 
               }}
               aria-current={isActive ? 'location' : undefined}
               className={[
-                'flex shrink-0 items-center gap-2 rounded-full px-3.5 py-1.5 text-[14px] font-medium transition-colors',
-                isActive ? 'bg-accent/10 text-accent' : 'text-muted hover:bg-tint-2 hover:text-bright',
+                'relative flex shrink-0 items-center gap-2 rounded-full px-3.5 py-1.5 text-[14px] font-medium transition-colors duration-200',
+                isActive ? 'text-accent' : 'text-muted hover:bg-tint-2 hover:text-bright',
               ].join(' ')}
             >
+              {isActive && (
+                <motion.span
+                  layoutId="section-nav-pill"
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-full border border-accent/25 bg-accent/10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                />
+              )}
               <span
                 aria-hidden="true"
                 className={[
-                  'h-1.5 w-1.5 rounded-full transition-colors',
+                  'relative z-10 h-1.5 w-1.5 rounded-full transition-colors duration-200',
                   isActive ? 'bg-accent' : 'bg-line-strong',
                 ].join(' ')}
               />
-              {item.label}
+              <span className="relative z-10">{item.label}</span>
             </a>
           );
         })}

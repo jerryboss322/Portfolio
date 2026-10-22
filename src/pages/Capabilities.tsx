@@ -47,8 +47,8 @@ export const CapabilitiesSection: React.FC = () => (
             distance={20}
             delay={(index % 3) * 0.08}
           >
-            <div className="group h-full rounded-2xl border border-line bg-ink-700/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-line-strong hover:bg-ink-700/80 hover:-translate-y-1">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-line-faint bg-tint-2 text-bright transition-colors duration-200 group-hover:border-accent/30 group-hover:bg-accent/10 group-hover:text-accent">
+            <div className="group h-full rounded-2xl border border-line bg-ink-700/45 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:bg-ink-700/85">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-line-faint bg-tint-2 text-bright transition-all duration-200 group-hover:scale-105 group-hover:border-accent/30 group-hover:bg-accent/10 group-hover:text-accent">
                 <Icon size={18} strokeWidth={1.8} aria-hidden="true" />
               </div>
               <h3 className="mt-4 text-[16px] font-semibold text-display transition-colors group-hover:text-display">

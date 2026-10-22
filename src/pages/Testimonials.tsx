@@ -23,7 +23,7 @@ export const TestimonialsSection: React.FC = () => (
     <ul className="mt-6 grid gap-6 md:grid-cols-2">
       {about.testimonials.map((testimonial, index) => (
         <ScrollReveal as="li" key={testimonial.author} direction="up" distance={24} delay={index * 0.08}>
-          <figure className="group relative flex h-full flex-col justify-between rounded-2xl border border-line bg-ink-700/60 p-7 md:p-8 backdrop-blur-sm transition-all duration-300 hover:border-line-strong hover:bg-ink-700/90 hover:-translate-y-1 shadow-lg">
+          <figure className="group relative flex h-full flex-col justify-between rounded-2xl border border-line bg-ink-700/60 p-7 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:bg-ink-700/90">
             <div>
               <div className="mb-4 flex items-center justify-between">
                 <Quote size={28} className="text-accent/40 transition-colors group-hover:text-accent/70" />

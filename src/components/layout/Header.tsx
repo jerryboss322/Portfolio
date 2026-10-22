@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { openCommandPalette } from '@/components/ui/CommandPalette';
 import { profile } from '@/content/data';
 
 const NAV_ITEMS = [
@@ -39,34 +40,61 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-ink-900/55 backdrop-blur-2xl transition-colors duration-200">
+    <header className="sticky top-0 z-50 border-b border-line-faint/60 bg-ink-900/75 backdrop-blur-xl transition-colors duration-200">
       <div className="shell relative flex h-[64px] items-center justify-between">
         <Link
           to="/"
           onClick={closeMenu}
-          className="group font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
+          className="group inline-flex items-center gap-2 font-display text-[15px] font-semibold tracking-tight transition-opacity hover:opacity-90"
           aria-label={`${profile.brand} — home`}
         >
+          <span
+            aria-hidden="true"
+            className="h-2 w-2 rounded-full bg-accent transition-transform duration-300 group-hover:scale-125"
+          />
           <span className="text-display">{profile.brand}</span>
         </Link>
 
-        <nav className="absolute left-1/2 -translate-x-1/2 hidden items-center gap-1.5 text-[14px] md:flex" aria-label="Primary">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`rounded-full px-3.5 py-1.5 font-medium transition-all duration-200 hover:bg-tint-2 ${
-                isActive(item.path)
-                  ? 'bg-tint-2 text-display'
-                  : 'text-body hover:text-display'
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <nav className="absolute left-1/2 -translate-x-1/2 hidden items-center gap-1 rounded-full border border-line-faint bg-ink-850/65 p-1 text-[14px] backdrop-blur-md md:flex" aria-label="Primary">
+          {NAV_ITEMS.map((item) => {
+            const active = isActive(item.path);
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                aria-current={active ? 'page' : undefined}
+                className={`relative rounded-full px-3.5 py-1.5 font-medium transition-colors duration-200 ${
+                  active
+                    ? 'text-display'
+                    : 'text-body hover:text-display'
+                }`}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="header-nav-pill"
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-full border border-line bg-tint-3"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">{item.label}</span>
+              </Link>
+            );
+          })}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-2.5 md:flex">
+          <button
+            type="button"
+            onClick={openCommandPalette}
+            aria-label="Open command palette"
+            className="inline-flex h-8 items-center gap-2 rounded-full border border-line bg-ink-800/80 px-3 font-mono text-[11px] text-muted transition-colors hover:border-line-strong hover:text-display"
+          >
+            <span>Index</span>
+            <kbd className="rounded border border-line-faint bg-ink-900/70 px-1.5 py-0.5 text-[10px] text-bright">
+              ⌘K
+            </kbd>
+          </button>
           <ThemeToggle />
         </div>
 
