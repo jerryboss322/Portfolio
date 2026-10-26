@@ -7,6 +7,7 @@ import { Media } from '@/components/ui/Media';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import {
   projectImage_titan,
+  projectImage_virtualFootball,
   projectImage_luxora,
   projectImage_sallygreen,
   projectImage_tastetrail,
@@ -16,6 +17,7 @@ import {
 
 const IMAGES: Record<string, ImageAsset> = {
   titan: projectImage_titan,
+  'virtual-football': projectImage_virtualFootball,
   luxora: projectImage_luxora,
   sallygreen: projectImage_sallygreen,
   tastetrail: projectImage_tastetrail,
@@ -24,6 +26,7 @@ const IMAGES: Record<string, ImageAsset> = {
 
 const ARCH_FLOWS: Record<string, string> = {
   titan: 'Next.js Frontend → Express REST → Prisma / PostgreSQL → Stripe / Paystack',
+  'virtual-football': 'Next.js 15 → FastAPI Python → Bivariate Poisson Odds → Double-Entry Ledger',
   jbet: 'Next.js 16 → Slip State Engine → Framer Motion → Custom Canvas Ticket',
   sallygreen: 'Semantic HTML5 → Vanilla JS Modules → Scroll Choreography → Zero Deps',
   luxora: 'React 18 → Three.js / R3F WebGL → Zustand Cart → Tailwind UI',

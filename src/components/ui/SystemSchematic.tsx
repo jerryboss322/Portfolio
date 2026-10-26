@@ -14,6 +14,16 @@ interface SchematicSpec {
 }
 
 const SCHEMATICS: Record<string, SchematicSpec> = {
+  'virtual-football': {
+    protocol: 'SSE · POISSON · DOUBLE-ENTRY LEDGER',
+    invariant: 'Strict integer minor units & idempotent bet settlement before wallet mutation',
+    nodes: [
+      { stage: '01 // CLIENT', name: 'Next.js 15 + React 19', detail: 'Real-time pitch radar, CLOB exchange & betslip' },
+      { stage: '02 // ENGINE', name: 'FastAPI + Python 3.12', detail: 'Autonomous match simulator & Poisson odds' },
+      { stage: '03 // STREAM', name: 'SSE Broadcast Broker', detail: 'Sub-50ms live tick updates & event replay' },
+      { stage: '04 // LEDGER', name: 'PostgreSQL 16 + AsyncPG', detail: 'ACID immutable transactions & bet escrow' },
+    ],
+  },
   titan: {
     protocol: 'HTTPS · JWT · WEBHOOK',
     invariant: 'Server-side price verification before Paystack charge',

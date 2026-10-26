@@ -9,6 +9,7 @@ import CodeBlock from '@/components/ui/CodeBlock';
 import { SystemSchematic } from '@/components/ui/SystemSchematic';
 import {
   projectImage_titan,
+  projectImage_virtualFootball,
   projectImage_luxora,
   projectImage_sallygreen,
   projectImage_tastetrail,
@@ -18,6 +19,7 @@ import {
 
 const IMAGES: Record<string, ImageAsset> = {
   titan: projectImage_titan,
+  'virtual-football': projectImage_virtualFootball,
   luxora: projectImage_luxora,
   sallygreen: projectImage_sallygreen,
   tastetrail: projectImage_tastetrail,
