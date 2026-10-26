@@ -25,7 +25,7 @@ const SRC = path.join(ROOT, 'assets');
 const IMG = path.join(ROOT, 'public', 'img');
 
 /** Project screenshots: wide captures of the real apps. */
-const PROJECTS = ['titan', 'luxora', 'sallygreen', 'tastetrail', 'jbet'];
+const PROJECTS = ['titan', 'virtual-football', 'luxora', 'sallygreen', 'tastetrail', 'jbet'];
 const PROJECT_WIDTHS = [480, 800, 1200, 1600];
 
 /** Portrait — deduped to a single source. */
@@ -161,7 +161,7 @@ const main = async () => {
   );
 
   /* ---- report ---- */
-  const SOURCES = { titan: 31.6, luxora: 34.8, sallygreen: 31.0, tastetrail: 54.7, jbet: 35.6 };
+  const SOURCES = { titan: 31.6, 'virtual-football': 898.6, luxora: 34.8, sallygreen: 31.0, tastetrail: 54.7, jbet: 35.6 };
   const before = 248.2 * 2 + Object.values(SOURCES).reduce((a, b) => a + b, 0);
   const after =
     Object.values(projects).reduce((a, p) => a + p.bytes, 0) + portrait.bytes;

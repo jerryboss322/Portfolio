@@ -29,6 +29,15 @@ export const projectImage_titan: ImageAsset = {
   lqip: 'data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACQAwCdASoYAAwAPwl4s1Erp6SisAgBcCEJZwAAUOY/99298dkAAP7swQ7FHG37WFouTB2vDt/g+eOccVCPwAgc50WkngTbCgAAAA==',
 };
 
+export const projectImage_virtualFootball: ImageAsset = {
+  src: '/img/projects/virtual-football-1600.webp',
+  srcSet: "/img/projects/virtual-football-480.webp 480w, /img/projects/virtual-football-800.webp 800w, /img/projects/virtual-football-1200.webp 1200w, /img/projects/virtual-football-1600.webp 1600w",
+  width: 1488,
+  height: 704,
+  ratio: 2.1136,
+  lqip: 'data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAACQAgCdASoYAAsAA8BmJZQAAxf8Ou6wFquV9pvYAAD+7qs4+6xalU7LLHL3s1OuYczh8U3G8M31AAAA',
+};
+
 export const projectImage_luxora: ImageAsset = {
   src: '/img/projects/luxora-1600.webp',
   srcSet: "/img/projects/luxora-480.webp 480w, /img/projects/luxora-800.webp 800w, /img/projects/luxora-1200.webp 1200w, /img/projects/luxora-1600.webp 1600w",
