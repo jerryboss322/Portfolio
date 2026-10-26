@@ -25,7 +25,7 @@ export const HomePage: React.FC = () => {
     <>
       <Hero />
       <CapabilityTeaser />
-      <WorkSection id="work" preview previewLimit={3} />
+      <WorkSection id="work" preview previewLimit={4} />
       <ProcessTeaser />
       <FeaturedTestimonial />
       <CtaBand />

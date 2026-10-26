@@ -86,10 +86,10 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
                 What I&apos;ve shipped
               </h2>
               <p className="text-[15px] sm:text-[16px] leading-[1.75] text-body max-w-2xl">
-                Five projects, one per problem worth solving — a full-stack e-commerce
-                platform, a betting app, a marketing site for an author, a 3D shopfront, and a
-                restaurant ordering app. Each one has a case study with the architecture, the
-                tradeoffs, and the code behind the hard parts.
+                Six projects, each solving a distinct engineering challenge — a sports simulation
+                and exchange platform, a full-stack e-commerce shop, a betting app, a 3D product
+                showcase, an author marketing site, and a restaurant ordering system. Each one has a
+                case study with the architecture, the tradeoffs, and the code behind the hard parts.
               </p>
             </div>
 

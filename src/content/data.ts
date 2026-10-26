@@ -518,6 +518,214 @@ export const dynamic = 'force-static';`,
     ],
   },
   {
+    slug: 'virtual-football',
+    title: 'Virtual Football Universe',
+    subtitle: 'Autonomous match simulation & betting platform',
+    type: 'personal',
+    year: '2026',
+    summary:
+      'A full-stack sports simulation platform with 6 European leagues, 27 live betting markets, real-time Server-Sent Events (SSE), and an immutable financial ledger.',
+    description:
+      'Next.js 15 and FastAPI with autonomous double round-robin fixtures, bivariate Poisson odds distributions, and sub-second settlement in integer minor units.',
+    tech: ['FastAPI', 'Next.js', 'PostgreSQL', 'Python', 'TypeScript', 'Tailwind CSS'],
+    liveUrl: 'https://vfl-psi.vercel.app/',
+    githubUrl: 'https://github.com/jerryboss322/VFL',
+    process: [
+      'Autonomous match simulator running double round-robin seasons with time-dilated 8-minute matchdays.',
+      'Dynamic odds pricing powered by independent bivariate Poisson processes across 27 distinct betting markets.',
+      'Double-entry immutable ledger tracking all wallet stakes, payouts, and reserves in integer minor units.',
+      'Real-time SSE event pipeline broadcasting live match clocks, goal roars, and dynamic handicap shifts.',
+    ],
+    metrics: [
+      { value: '<50ms', label: 'SSE live event latency' },
+      { value: '27', label: 'Dynamic betting markets' },
+      { value: '6', label: 'Simulated European leagues' },
+      { value: '100%', label: 'Ledger ACID compliance' },
+    ],
+    outcome:
+      'Shipped an enterprise-grade sports simulation platform capable of running autonomous infinite seasons with real-time odds pricing, cashout re-offers, and zero floating-point ledger mutations.',
+    architecture: {
+      style: 'Decoupled full-stack architecture with real-time SSE streaming',
+      techStack: [
+        {
+          name: 'FastAPI (Python 3.12)',
+          purpose: 'High-throughput async backend & simulation engine',
+          why: 'Native asyncpg support for non-blocking database queries, Pydantic v2 serialization, and fast mathematical modeling',
+          alternatives: ['Django', 'Node.js Express', 'Go Fiber'],
+        },
+        {
+          name: 'Next.js 15 + React 19',
+          purpose: 'Sportsbook frontend & betting exchange interface',
+          why: 'Concurrent rendering for latency-free odds toggling, server components, and responsive mobile-first UI',
+          alternatives: ['Vite + React SPA', 'Vue 3 / Nuxt', 'SvelteKit'],
+        },
+        {
+          name: 'PostgreSQL 16 + SQLAlchemy 2.0',
+          purpose: 'ACID database & transactional ledger',
+          why: 'Strict foreign key integrity, row-level locking for wallet updates, and transaction pooler support',
+          alternatives: ['MySQL', 'MongoDB', 'DynamoDB'],
+        },
+        {
+          name: 'Tailwind CSS',
+          purpose: 'Betfair/Stake.com high-contrast dark theme',
+          why: 'Rapid composition of responsive grid tables, animated odds pills, and digital scoreboards',
+          alternatives: ['CSS Modules', 'Styled Components'],
+        },
+      ],
+      database: {
+        schemaOverview:
+          'Normalized relational schema with 12 core tables covering users, wallets, immutable ledger entries, fixtures, match states, odds snapshots, and bets.',
+        keyTables: [
+          'wallets',
+          'ledger_entries',
+          'fixtures',
+          'match_states',
+          'odds_snapshots',
+          'bets',
+          'clubs',
+          'leagues',
+        ],
+        relationships: [
+          'users (1) → (1) wallets',
+          'wallets (1) → (M) ledger_entries',
+          'fixtures (1) → (1) match_states',
+          'fixtures (1) → (M) odds_snapshots',
+          'users (1) → (M) bets',
+          'bets (1) → (M) bet_selections',
+        ],
+        optimizationStrategy:
+          'Async connection pooling via Supabase transaction pooler, partial indexing on open bets and live fixtures, joined eager-loading for matchday schedules.',
+      },
+      api: {
+        endpoints: [
+          'POST /api/auth/register - Account creation with starter token allocation',
+          'POST /api/auth/login - JWT access token authentication',
+          'GET /api/fixtures - Active and scheduled fixtures filtered by league',
+          'GET /api/matches/[id]/state - Live match clock, score, and period',
+          'GET /api/stream/events - SSE match clock, event feed, and score broadcast',
+          'GET /api/odds/[fixture_id] - Bivariate Poisson odds across 27 markets',
+          'POST /api/bets - Idempotent bet placement with ledger balance reservation',
+          'GET /api/wallet/transactions - Paginated immutable double-entry ledger history',
+        ],
+        authentication: 'JWT Bearer token authentication with bcrypt password hashing',
+        rateLimiting: '120 requests per minute per IP, token-bucket protection on bet creation',
+        cachingStrategy: 'In-memory match simulation state broker with SSE broadcast and database savepoint checkpoints',
+      },
+      deployment: {
+        hosting: 'Vercel (Next.js frontend + Serverless Python API) & Supabase PostgreSQL',
+        buildProcess: 'Next.js production build with TypeScript verification and isolated Python dependency packaging',
+        ciCd: 'GitHub Actions on push to main with pytest async suite and Vercel preview deploys',
+        monitoring: 'Dedicated /api/health/db diagnostic endpoint, structured error logs, and Vercel Analytics',
+      },
+      keyDecisions: [
+        'Strict integer minor units for all balances and stakes to avoid IEEE 754 floating-point errors',
+        'Stateless time-dilation simulation tick capable of running continuously or catching up on demand',
+        'Early settlement for conditional markets (BTTS, Over 2.5) as soon as criteria are satisfied in-play',
+      ],
+      tradeoffs: [
+        'SSE vs. WebSockets: Chose SSE for automatic reconnection and simpler serverless compatibility',
+        'Monolithic Next.js + FastAPI on Vercel vs. separate VPS: Chose single deployment for zero-devops hosting',
+        'Dynamic Poisson recalculation vs. static pre-match odds: Adds compute overhead per minute but delivers true in-play exchange mechanics',
+      ],
+      lessonsLearned: [
+        'Serverless Postgres connection exhaustion is resolved via Supabase transaction poolers and disabling prepared statement caching',
+        'Idempotency keys on bet placement prevent duplicate bets during mobile network packet retries',
+        'Decoupling the simulation tick from HTTP request loops eliminates latency spikes for concurrent visitors',
+      ],
+    },
+    codeSamples: [
+      {
+        title: 'Bivariate Poisson odds calculation with overround',
+        language: 'python',
+        code: `def _poisson_pmf(k: int, lam: float) -> float:
+    if lam <= 0:
+        return 1.0 if k == 0 else 0.0
+    return (lam ** k) * math.exp(-lam) / math.factorial(k)
+
+# Compute joint probability matrix P(home = x, away = y)
+joint = [[p_home[x] * p_away[y] for y in range(max_goals + 1)] for x in range(max_goals + 1)]
+
+p_win = sum(joint[x][y] for x in range(max_goals + 1) for y in range(x))
+p_draw = sum(joint[x][x] for x in range(max_goals + 1))
+p_loss = sum(joint[x][y] for x in range(max_goals + 1) for y in range(x + 1, max_goals + 1))
+
+# Convert probabilities to bookmaker odds with 4.5% overround
+raw_odds = 1.0 / (prob * OVERROUND)
+return max(MIN_ODDS, min(MAX_ODDS, round(raw_odds, 2)))`,
+      },
+      {
+        title: 'Immutable double-entry ledger reservation',
+        language: 'python',
+        code: `async def place_bet(session: AsyncSession, user_id: UUID, stake_minor: int, idempotency_key: str):
+    # Lock wallet row for update to prevent concurrent race conditions
+    wallet = await session.execute(
+        select(Wallet).where(Wallet.user_id == user_id).with_for_update()
+    )
+    wallet = wallet.scalar_one()
+
+    if wallet.balance_minor < stake_minor:
+        raise InsufficientFundsException()
+
+    wallet.balance_minor -= stake_minor
+    ledger_entry = LedgerEntry(
+        wallet_id=wallet.id,
+        user_id=user_id,
+        kind="stake_reserve",
+        amount_minor=-stake_minor,
+        balance_after_minor=wallet.balance_minor,
+        description="Stake reserved for bet placement",
+        reference=idempotency_key,
+    )
+    session.add(ledger_entry)
+    await session.commit()`,
+      },
+      {
+        title: 'Stateless simulation tick with Berger circle rotation',
+        language: 'python',
+        code: `def get_season_pairings(clubs: list[Club], matchday: int) -> list[tuple[Club, Club]]:
+    """Double round-robin generator: 38 matchdays for 20 clubs using circle rotation."""
+    n = len(clubs)
+    half_season = n - 1
+    rotation = list(clubs)
+    rounds = []
+    for r in range(half_season):
+        pairings = []
+        for i in range(n // 2):
+            c1, c2 = rotation[i], rotation[n - 1 - i]
+            pairings.append((c1, c2) if r % 2 == 0 else (c2, c1))
+        rotation = [rotation[0]] + [rotation[-1]] + rotation[1:-1]
+        rounds.append(pairings)
+    return rounds[(matchday - 1) % len(rounds)]`,
+      },
+    ],
+    deepDive: [
+      {
+        heading: 'Autonomous match engine & infinite season rollover',
+        body:
+          'Simulating thousands of fixtures across 6 leagues without human intervention required a deterministic time-dilation model. Each match lasts 8 real-world minutes (480 seconds). One game-minute equates to 5.33 seconds of wall-clock time. Rather than running fragile in-memory background threads that crash when serverless instances spin down, the engine compares wall-clock deltas on every tick, allowing instantaneous state catch-up and rollover to the next matchday.',
+        code: {
+          title: 'Deterministic wall-clock catchup',
+          language: 'python',
+          code: `elapsed_seconds = (now_utc - fixture.kickoff_at).total_seconds()
+target_minute = min(90, int(elapsed_seconds / SECONDS_PER_GAME_MINUTE))
+while current_minute < target_minute:
+    advance_tick(match_state)
+    current_minute += 1`,
+        },
+      },
+      {
+        heading: 'Zero floating-point arithmetic in financial ledger',
+        body:
+          'Sports betting platforms cannot tolerate rounding drifts caused by standard binary floating-point representation. Every transaction in Virtual Football Universe is strictly stored and calculated in integer minor units (1 token = 100 minor units). All wallet modifications require a corresponding append-only ledger row, and bet placements enforce client-side idempotency keys to ensure mobile network reconnections never trigger double debits.',
+        code: {
+          title: 'ACID ledger integrity check',
+          language: 'text',
+          code: `Client Intent (Idempotency Key) → Lock Wallet Row → Check Balance → Deduct Minor Units → Append Ledger Entry → Commit Transaction`,
+        },
+      },
+    ],
+  },
+  {
     slug: 'luxora',
     title: 'Luxora',
     subtitle: '3D shopfront concept',
@@ -796,214 +1004,6 @@ const handleSubmit = async (e: React.FormEvent) => {
       },
     ],
   },
-  {
-    slug: 'virtual-football',
-    title: 'Virtual Football Universe',
-    subtitle: 'Autonomous match simulation & betting platform',
-    type: 'personal',
-    year: '2026',
-    summary:
-      'A full-stack sports simulation platform with 6 European leagues, 27 live betting markets, real-time Server-Sent Events (SSE), and an immutable financial ledger.',
-    description:
-      'Next.js 15 and FastAPI with autonomous double round-robin fixtures, bivariate Poisson odds distributions, and sub-second settlement in integer minor units.',
-    tech: ['FastAPI', 'Next.js', 'PostgreSQL', 'Python', 'TypeScript', 'Tailwind CSS'],
-    liveUrl: 'https://vfl-psi.vercel.app/',
-    githubUrl: 'https://github.com/jerryboss322/VFL',
-    process: [
-      'Autonomous match simulator running double round-robin seasons with time-dilated 8-minute matchdays.',
-      'Dynamic odds pricing powered by independent bivariate Poisson processes across 27 distinct betting markets.',
-      'Double-entry immutable ledger tracking all wallet stakes, payouts, and reserves in integer minor units.',
-      'Real-time SSE event pipeline broadcasting live match clocks, goal roars, and dynamic handicap shifts.',
-    ],
-    metrics: [
-      { value: '<50ms', label: 'SSE live event latency' },
-      { value: '27', label: 'Dynamic betting markets' },
-      { value: '6', label: 'Simulated European leagues' },
-      { value: '100%', label: 'Ledger ACID compliance' },
-    ],
-    outcome:
-      'Shipped an enterprise-grade sports simulation platform capable of running autonomous infinite seasons with real-time odds pricing, cashout re-offers, and zero floating-point ledger mutations.',
-    architecture: {
-      style: 'Decoupled full-stack architecture with real-time SSE streaming',
-      techStack: [
-        {
-          name: 'FastAPI (Python 3.12)',
-          purpose: 'High-throughput async backend & simulation engine',
-          why: 'Native asyncpg support for non-blocking database queries, Pydantic v2 serialization, and fast mathematical modeling',
-          alternatives: ['Django', 'Node.js Express', 'Go Fiber'],
-        },
-        {
-          name: 'Next.js 15 + React 19',
-          purpose: 'Sportsbook frontend & betting exchange interface',
-          why: 'Concurrent rendering for latency-free odds toggling, server components, and responsive mobile-first UI',
-          alternatives: ['Vite + React SPA', 'Vue 3 / Nuxt', 'SvelteKit'],
-        },
-        {
-          name: 'PostgreSQL 16 + SQLAlchemy 2.0',
-          purpose: 'ACID database & transactional ledger',
-          why: 'Strict foreign key integrity, row-level locking for wallet updates, and transaction pooler support',
-          alternatives: ['MySQL', 'MongoDB', 'DynamoDB'],
-        },
-        {
-          name: 'Tailwind CSS',
-          purpose: 'Betfair/Stake.com high-contrast dark theme',
-          why: 'Rapid composition of responsive grid tables, animated odds pills, and digital scoreboards',
-          alternatives: ['CSS Modules', 'Styled Components'],
-        },
-      ],
-      database: {
-        schemaOverview:
-          'Normalized relational schema with 12 core tables covering users, wallets, immutable ledger entries, fixtures, match states, odds snapshots, and bets.',
-        keyTables: [
-          'wallets',
-          'ledger_entries',
-          'fixtures',
-          'match_states',
-          'odds_snapshots',
-          'bets',
-          'clubs',
-          'leagues',
-        ],
-        relationships: [
-          'users (1) → (1) wallets',
-          'wallets (1) → (M) ledger_entries',
-          'fixtures (1) → (1) match_states',
-          'fixtures (1) → (M) odds_snapshots',
-          'users (1) → (M) bets',
-          'bets (1) → (M) bet_selections',
-        ],
-        optimizationStrategy:
-          'Async connection pooling via Supabase transaction pooler, partial indexing on open bets and live fixtures, joined eager-loading for matchday schedules.',
-      },
-      api: {
-        endpoints: [
-          'POST /api/auth/register - Account creation with starter token allocation',
-          'POST /api/auth/login - JWT access token authentication',
-          'GET /api/fixtures - Active and scheduled fixtures filtered by league',
-          'GET /api/matches/[id]/state - Live match clock, score, and period',
-          'GET /api/stream/events - SSE match clock, event feed, and score broadcast',
-          'GET /api/odds/[fixture_id] - Bivariate Poisson odds across 27 markets',
-          'POST /api/bets - Idempotent bet placement with ledger balance reservation',
-          'GET /api/wallet/transactions - Paginated immutable double-entry ledger history',
-        ],
-        authentication: 'JWT Bearer token authentication with bcrypt password hashing',
-        rateLimiting: '120 requests per minute per IP, token-bucket protection on bet creation',
-        cachingStrategy: 'In-memory match simulation state broker with SSE broadcast and database savepoint checkpoints',
-      },
-      deployment: {
-        hosting: 'Vercel (Next.js frontend + Serverless Python API) & Supabase PostgreSQL',
-        buildProcess: 'Next.js production build with TypeScript verification and isolated Python dependency packaging',
-        ciCd: 'GitHub Actions on push to main with pytest async suite and Vercel preview deploys',
-        monitoring: 'Dedicated /api/health/db diagnostic endpoint, structured error logs, and Vercel Analytics',
-      },
-      keyDecisions: [
-        'Strict integer minor units for all balances and stakes to avoid IEEE 754 floating-point errors',
-        'Stateless time-dilation simulation tick capable of running continuously or catching up on demand',
-        'Early settlement for conditional markets (BTTS, Over 2.5) as soon as criteria are satisfied in-play',
-      ],
-      tradeoffs: [
-        'SSE vs. WebSockets: Chose SSE for automatic reconnection and simpler serverless compatibility',
-        'Monolithic Next.js + FastAPI on Vercel vs. separate VPS: Chose single deployment for zero-devops hosting',
-        'Dynamic Poisson recalculation vs. static pre-match odds: Adds compute overhead per minute but delivers true in-play exchange mechanics',
-      ],
-      lessonsLearned: [
-        'Serverless Postgres connection exhaustion is resolved via Supabase transaction poolers and disabling prepared statement caching',
-        'Idempotency keys on bet placement prevent duplicate bets during mobile network packet retries',
-        'Decoupling the simulation tick from HTTP request loops eliminates latency spikes for concurrent visitors',
-      ],
-    },
-    codeSamples: [
-      {
-        title: 'Bivariate Poisson odds calculation with overround',
-        language: 'python',
-        code: `def _poisson_pmf(k: int, lam: float) -> float:
-    if lam <= 0:
-        return 1.0 if k == 0 else 0.0
-    return (lam ** k) * math.exp(-lam) / math.factorial(k)
-
-# Compute joint probability matrix P(home = x, away = y)
-joint = [[p_home[x] * p_away[y] for y in range(max_goals + 1)] for x in range(max_goals + 1)]
-
-p_win = sum(joint[x][y] for x in range(max_goals + 1) for y in range(x))
-p_draw = sum(joint[x][x] for x in range(max_goals + 1))
-p_loss = sum(joint[x][y] for x in range(max_goals + 1) for y in range(x + 1, max_goals + 1))
-
-# Convert probabilities to bookmaker odds with 4.5% overround
-raw_odds = 1.0 / (prob * OVERROUND)
-return max(MIN_ODDS, min(MAX_ODDS, round(raw_odds, 2)))`,
-      },
-      {
-        title: 'Immutable double-entry ledger reservation',
-        language: 'python',
-        code: `async def place_bet(session: AsyncSession, user_id: UUID, stake_minor: int, idempotency_key: str):
-    # Lock wallet row for update to prevent concurrent race conditions
-    wallet = await session.execute(
-        select(Wallet).where(Wallet.user_id == user_id).with_for_update()
-    )
-    wallet = wallet.scalar_one()
-
-    if wallet.balance_minor < stake_minor:
-        raise InsufficientFundsException()
-
-    wallet.balance_minor -= stake_minor
-    ledger_entry = LedgerEntry(
-        wallet_id=wallet.id,
-        user_id=user_id,
-        kind="stake_reserve",
-        amount_minor=-stake_minor,
-        balance_after_minor=wallet.balance_minor,
-        description="Stake reserved for bet placement",
-        reference=idempotency_key,
-    )
-    session.add(ledger_entry)
-    await session.commit()`,
-      },
-      {
-        title: 'Stateless simulation tick with Berger circle rotation',
-        language: 'python',
-        code: `def get_season_pairings(clubs: list[Club], matchday: int) -> list[tuple[Club, Club]]:
-    """Double round-robin generator: 38 matchdays for 20 clubs using circle rotation."""
-    n = len(clubs)
-    half_season = n - 1
-    rotation = list(clubs)
-    rounds = []
-    for r in range(half_season):
-        pairings = []
-        for i in range(n // 2):
-            c1, c2 = rotation[i], rotation[n - 1 - i]
-            pairings.append((c1, c2) if r % 2 == 0 else (c2, c1))
-        rotation = [rotation[0]] + [rotation[-1]] + rotation[1:-1]
-        rounds.append(pairings)
-    return rounds[(matchday - 1) % len(rounds)]`,
-      },
-    ],
-    deepDive: [
-      {
-        heading: 'Autonomous match engine & infinite season rollover',
-        body:
-          'Simulating thousands of fixtures across 6 leagues without human intervention required a deterministic time-dilation model. Each match lasts 8 real-world minutes (480 seconds). One game-minute equates to 5.33 seconds of wall-clock time. Rather than running fragile in-memory background threads that crash when serverless instances spin down, the engine compares wall-clock deltas on every tick, allowing instantaneous state catch-up and rollover to the next matchday.',
-        code: {
-          title: 'Deterministic wall-clock catchup',
-          language: 'python',
-          code: `elapsed_seconds = (now_utc - fixture.kickoff_at).total_seconds()
-target_minute = min(90, int(elapsed_seconds / SECONDS_PER_GAME_MINUTE))
-while current_minute < target_minute:
-    advance_tick(match_state)
-    current_minute += 1`,
-        },
-      },
-      {
-        heading: 'Zero floating-point arithmetic in financial ledger',
-        body:
-          'Sports betting platforms cannot tolerate rounding drifts caused by standard binary floating-point representation. Every transaction in Virtual Football Universe is strictly stored and calculated in integer minor units (1 token = 100 minor units). All wallet modifications require a corresponding append-only ledger row, and bet placements enforce client-side idempotency keys to ensure mobile network reconnections never trigger double debits.',
-        code: {
-          title: 'ACID ledger integrity check',
-          language: 'text',
-          code: `Client Intent (Idempotency Key) → Lock Wallet Row → Check Balance → Deduct Minor Units → Append Ledger Entry → Commit Transaction`,
-        },
-      },
-    ],
-  },
 ];
 
 export const profile = {
@@ -1086,11 +1086,11 @@ export const toolbox: ToolGroup[] = [
   },
   {
     category: 'Backend',
-    items: ['Node.js', 'Next.js API Routes', 'REST', 'Webhooks', 'Zod validation'],
+    items: ['FastAPI (Python)', 'Node.js', 'Next.js API Routes', 'REST & SSE', 'Webhooks', 'Zod / Pydantic'],
   },
   {
     category: 'Data',
-    items: ['PostgreSQL', 'MySQL', 'Redis', 'Prisma', 'Schema design'],
+    items: ['PostgreSQL', 'MySQL', 'Redis', 'SQLAlchemy', 'Prisma', 'Schema design'],
   },
   {
     category: 'Infra & tooling',
@@ -1402,9 +1402,9 @@ export const about = {
   timeline: [
     {
       period: '2024 — now',
-      title: 'Freelance',
-      description: 'Client sites, shops, betting platforms, and full-stack apps.',
-      technicalFocus: 'Production deployments, performance optimization, architecture design',
+      title: 'Full-Stack Systems & Platforms',
+      description: 'Virtual Football Universe (FastAPI + Next.js), Jbet, and client platforms with real-time streaming.',
+      technicalFocus: 'Production deployments, real-time SSE streaming, performance optimization, architecture design',
     },
     {
       period: '2023 — 2024',
