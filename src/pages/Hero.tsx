@@ -6,6 +6,7 @@ import { coreSkills, heroStats, profile } from '@/content/data';
 import { portrait } from '@/content/images';
 import { Media } from '@/components/ui/Media';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
+import { TiltCard } from '@/components/ui/TiltCard';
 import { useReducedMotion } from '@/lib/hooks';
 
 const SHIPPING_LANES = [
@@ -167,19 +168,21 @@ export const Hero: React.FC = () => {
             >
               {/* Framed Portrait with Bevel Plate */}
               <div className="mx-auto w-full max-w-[290px] sm:max-w-[310px]">
-                <div className="rounded-[18px] bg-frame-plate p-[3px] surface-inset">
-                  <div className="rounded-[15px] bg-frame-well p-[3px]">
-                    <div className="relative overflow-hidden rounded-[12px] bg-ink-800">
-                      <Media
-                        asset={portrait}
-                        alt={`${profile.fullName} — ${profile.role}`}
-                        priority
-                        sizes="(max-width: 768px) 290px, 310px"
-                        imgClassName="object-cover object-top"
-                      />
+                <TiltCard maxTilt={5} className="rounded-[18px]">
+                  <div className="rounded-[18px] bg-frame-plate p-[3px] surface-inset">
+                    <div className="rounded-[15px] bg-frame-well p-[3px]">
+                      <div className="relative overflow-hidden rounded-[12px] bg-ink-800">
+                        <Media
+                          asset={portrait}
+                          alt={`${profile.fullName} — ${profile.role}`}
+                          priority
+                          sizes="(max-width: 768px) 290px, 310px"
+                          imgClassName="object-cover object-top"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </TiltCard>
                 <div className="mt-2.5 flex items-center justify-between px-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
                   <span>FIG. 01 // {profile.fullName}</span>
                   <span>{profile.brand}</span>

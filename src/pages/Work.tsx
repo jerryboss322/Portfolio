@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, LayoutGrid, List } from 'lucide-react';
 import { projects, type ProjectType } from '@/content/data';
 import { Media } from '@/components/ui/Media';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { TiltCard } from '@/components/ui/TiltCard';
 import {
   projectImage_titan,
   projectImage_virtualFootball,
@@ -183,34 +184,38 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
                   </div>
 
                   {preview ? (
-                    <div className="rounded-[16px] bg-frame-plate p-[3px] transition-colors duration-300 group-hover:bg-accent/30">
-                      <div className="rounded-[13px] bg-frame-well p-[3px]">
-                        <div className="relative overflow-hidden rounded-[10px] bg-ink-700">
-                          <Media
-                            asset={IMAGES[project.slug]}
-                            alt={project.title}
-                            sizes="(max-width: 640px) 100vw, 420px"
-                            imgClassName="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                          />
+                    <TiltCard maxTilt={5} className="rounded-[16px]">
+                      <div className="rounded-[16px] bg-frame-plate p-[3px] transition-colors duration-300 group-hover:bg-accent/30">
+                        <div className="rounded-[13px] bg-frame-well p-[3px]">
+                          <div className="relative overflow-hidden rounded-[10px] bg-ink-700">
+                            <Media
+                              asset={IMAGES[project.slug]}
+                              alt={project.title}
+                              sizes="(max-width: 640px) 100vw, 420px"
+                              imgClassName="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </TiltCard>
                   ) : (
-                    <Link
-                      to={`/work/${project.slug}`}
-                      className="block rounded-[16px] bg-frame-plate p-[3px] transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/35"
-                    >
-                      <div className="rounded-[13px] bg-frame-well p-[3px]">
-                        <div className="relative overflow-hidden rounded-[10px] bg-ink-700">
-                          <Media
-                            asset={IMAGES[project.slug]}
-                            alt={project.title}
-                            imgClassName="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                            sizes="(max-width: 640px) 100vw, 420px"
-                          />
+                    <TiltCard maxTilt={5} className="rounded-[16px]">
+                      <Link
+                        to={`/work/${project.slug}`}
+                        className="block rounded-[16px] bg-frame-plate p-[3px] transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/35"
+                      >
+                        <div className="rounded-[13px] bg-frame-well p-[3px]">
+                          <div className="relative overflow-hidden rounded-[10px] bg-ink-700">
+                            <Media
+                              asset={IMAGES[project.slug]}
+                              alt={project.title}
+                              imgClassName="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                              sizes="(max-width: 640px) 100vw, 420px"
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </Link>
+                      </Link>
+                    </TiltCard>
                   )}
 
                   {/* Architecture Pipeline Strip */}
