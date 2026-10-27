@@ -42,8 +42,12 @@ export const CapabilityTeaser: React.FC = () => {
         {items.map((capability, index) => {
           const Icon = ICONS[capability.icon];
           return (
-            <li
+            <ScrollReveal
+              as="li"
               key={capability.id}
+              direction="up"
+              distance={24}
+              delay={index * 0.08}
               className="group p-6 sm:p-8 border-b border-line-faint bg-ink-900/20 transition-colors duration-200 hover:bg-ink-900/45"
             >
               <div className="flex items-center justify-between gap-3 mb-4">
@@ -56,7 +60,7 @@ export const CapabilityTeaser: React.FC = () => {
               </div>
               <h3 className="text-[17px] font-semibold text-display mb-2">{capability.title}</h3>
               <p className="text-[14px] leading-[1.7] text-muted">{capability.description}</p>
-            </li>
+            </ScrollReveal>
           );
         })}
       </ul>

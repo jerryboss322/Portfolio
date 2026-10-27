@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, LayoutGrid, List, Lock } from 'lucide-react';
 import { projects, type ProjectType } from '@/content/data';
 import { Media } from '@/components/ui/Media';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { useReducedMotion } from '@/lib/hooks';
 import {
   projectImage_titan,
   projectImage_virtualFootball,
@@ -98,6 +99,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
   preview = false,
   previewLimit = 3,
 }) => {
+  const reduced = useReducedMotion();
   const [filter, setFilter] = useState<ProjectType | 'all'>('all');
   const [viewMode, setViewMode] = useState<'editorial' | 'ledger'>('editorial');
   const [hoveredSlug, setHoveredSlug] = useState<string>(projects[0]?.slug ?? 'titan');
@@ -218,10 +220,11 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
                 <motion.div
                   layout
                   key={project.slug}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                  className="group grid grid-cols-1 lg:grid-cols-12 transition-colors duration-200 hover:bg-ink-900/35"
+                  initial={reduced ? false : { opacity: 0, y: 32 }}
+                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 0.55, delay: (idx % 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className="group grid grid-cols-1 lg:grid-cols-12 transition-colors duration-200 hover:bg-ink-900/35 scroll-entry-card"
                 >
                   {/* Left Column: Beveled Viewport Frame (5 cols) */}
                   <div className="lg:col-span-5 p-5 sm:p-7 lg:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-line-faint bg-ink-900/25">
@@ -411,8 +414,12 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
               {visibleProjects.map((project, idx) => {
                 const isHovered = activePreviewProject?.slug === project.slug;
                 return (
-                  <div
+                  <motion.div
                     key={project.slug}
+                    initial={reduced ? false : { opacity: 0, x: -16 }}
+                    whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.45, delay: (idx % 4) * 0.05, ease: [0.16, 1, 0.3, 1] }}
                     onMouseEnter={() => setHoveredSlug(project.slug)}
                     onFocus={() => setHoveredSlug(project.slug)}
                     className={`p-5 sm:p-6 transition-colors ${
@@ -453,7 +460,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
                         <ArrowRight size={12} aria-hidden="true" />
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>

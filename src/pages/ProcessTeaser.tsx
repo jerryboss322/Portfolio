@@ -10,9 +10,13 @@ export const ProcessTeaser: React.FC = () => (
     <SectionHead title="How a project runs" lede={processIntro} />
 
     <ol className="mt-8 arch-frame arch-corner-tl arch-corner-br rounded-2xl overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-line-faint surface-inset">
-      {process.map((step) => (
-        <li
+      {process.map((step, index) => (
+        <ScrollReveal
+          as="li"
           key={step.number}
+          direction="up"
+          distance={20}
+          delay={index * 0.06}
           className="flex flex-col justify-between p-5 sm:p-6 bg-ink-900/20 transition-colors hover:bg-ink-900/45"
         >
           <div>
@@ -23,7 +27,7 @@ export const ProcessTeaser: React.FC = () => (
             <h3 className="text-[15px] font-semibold text-display mb-2">{step.title}</h3>
             <p className="text-[13px] leading-[1.65] text-muted">{step.description}</p>
           </div>
-        </li>
+        </ScrollReveal>
       ))}
     </ol>
 

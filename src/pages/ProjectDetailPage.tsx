@@ -7,6 +7,7 @@ import { ProjectShot } from '@/components/ui/Media';
 import TechStackCard from '@/components/ui/TechStackCard';
 import CodeBlock from '@/components/ui/CodeBlock';
 import { SystemSchematic } from '@/components/ui/SystemSchematic';
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import {
   projectImage_titan,
   projectImage_virtualFootball,
@@ -82,7 +83,7 @@ export const ProjectDetailPage: React.FC = () => {
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 items-center">
             {/* Left: Project Info */}
-            <div>
+            <ScrollReveal direction="left" distance={24}>
               <div className="inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-accent mb-3 sm:mb-4">
                 <span>{project.type}</span>
                 <span>•</span>
@@ -122,17 +123,17 @@ export const ProjectDetailPage: React.FC = () => {
                   <span>Source Code</span>
                 </a>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Right: Project Image */}
-            <div className="relative">
+            <ScrollReveal direction="right" distance={24} delay={0.08} className="relative">
               <ProjectShot
                 asset={IMAGES[project.slug]}
                 alt={project.title}
                 caption={`${project.title} — ${project.liveUrl.replace(/^https?:\/\//, '')}`}
                 sizes="(max-width: 1024px) 100vw, 600px"
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -241,15 +242,15 @@ export const ProjectDetailPage: React.FC = () => {
           {/* Main Content */}
           <main className="space-y-10 sm:space-y-12">
             {/* Description */}
-            <div>
+            <ScrollReveal direction="up" distance={20}>
               <p className="text-[15px] sm:text-[17px] leading-[1.8] text-bright">
                 {project.description}
               </p>
               <SystemSchematic slug={project.slug} />
-            </div>
+            </ScrollReveal>
 
             {/* Tech Stack */}
-            <div id="tech-stack">
+            <ScrollReveal direction="up" distance={20} id="tech-stack">
               <h2 className="font-display text-[24px] sm:text-[32px] font-bold text-display mb-4 sm:mb-6">
                 Technology Stack
               </h2>
@@ -258,10 +259,10 @@ export const ProjectDetailPage: React.FC = () => {
                   <TechStackCard key={tech.name} tech={tech} showWhy showAlternatives />
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Database Design */}
-            <div id="database">
+            <ScrollReveal direction="up" distance={20} id="database">
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
                 Database Design
               </h2>
@@ -311,10 +312,10 @@ export const ProjectDetailPage: React.FC = () => {
                   </ul>
                 </div>
               )}
-            </div>
+            </ScrollReveal>
 
             {/* API Design */}
-            <div id="api">
+            <ScrollReveal direction="up" distance={20} id="api">
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
                 API Architecture
               </h2>
@@ -359,10 +360,10 @@ export const ProjectDetailPage: React.FC = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Key Decisions */}
-            <div id="decisions">
+            <ScrollReveal direction="up" distance={20} id="decisions">
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
                 Key Architectural Decisions
               </h2>
@@ -378,10 +379,10 @@ export const ProjectDetailPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </ScrollReveal>
 
             {/* Tradeoffs */}
-            <div>
+            <ScrollReveal direction="up" distance={20}>
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
                 Tradeoffs Made
               </h2>
@@ -397,10 +398,10 @@ export const ProjectDetailPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </ScrollReveal>
 
             {/* Lessons Learned */}
-            <div id="lessons">
+            <ScrollReveal direction="up" distance={20} id="lessons">
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
                 Lessons Learned
               </h2>
@@ -416,11 +417,11 @@ export const ProjectDetailPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </ScrollReveal>
 
             {/* Technical Deep Dive — the hardest parts, in prose and code. */}
             {project.deepDive && project.deepDive.length > 0 && (
-              <div id="deep-dive">
+              <ScrollReveal direction="up" distance={20} id="deep-dive">
                 <h2 className="font-display text-[32px] font-bold text-display mb-6">
                   Technical Deep Dive
                 </h2>
@@ -439,12 +440,12 @@ export const ProjectDetailPage: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </ScrollReveal>
             )}
 
             {/* Code Samples — the decisions, shown as code. */}
             {project.codeSamples && project.codeSamples.length > 0 && (
-              <div id="code">
+              <ScrollReveal direction="up" distance={20} id="code">
                 <h2 className="font-display text-[32px] font-bold text-display mb-6">
                   Code Samples
                 </h2>
@@ -453,11 +454,11 @@ export const ProjectDetailPage: React.FC = () => {
                     <CodeBlock key={sample.title} sample={sample} />
                   ))}
                 </div>
-              </div>
+              </ScrollReveal>
             )}
 
             {/* Deployment Strategy */}
-            <div>
+            <ScrollReveal direction="up" distance={20}>
               <h2 className="font-display text-[32px] font-bold text-display mb-6">
                 Deployment Strategy
               </h2>
@@ -489,11 +490,11 @@ export const ProjectDetailPage: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* How it was built — the process, and the outcome in one line. */}
             {project.process.length > 0 && (
-              <div id="build">
+              <ScrollReveal direction="up" distance={20} id="build">
                 <h2 className="font-display text-[32px] font-bold text-display mb-6">
                   How it was built
                 </h2>
@@ -513,11 +514,11 @@ export const ProjectDetailPage: React.FC = () => {
                     {project.outcome}
                   </p>
                 )}
-              </div>
+              </ScrollReveal>
             )}
 
             {/* Prev / next project */}
-            <div className="pt-12 border-t border-line-faint">
+            <ScrollReveal direction="up" distance={20} className="pt-12 border-t border-line-faint">
               <div className="grid gap-4 sm:grid-cols-2">
                 {prev ? (
                   <Link
@@ -561,7 +562,7 @@ export const ProjectDetailPage: React.FC = () => {
                   <span>All projects</span>
                 </Link>
               </div>
-            </div>
+            </ScrollReveal>
           </main>
         </div>
       </section>
