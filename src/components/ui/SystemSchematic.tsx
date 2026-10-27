@@ -1,5 +1,7 @@
 import React from 'react';
 import { ArrowRight, Cpu } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useReducedMotion } from '@/lib/hooks';
 
 interface SchematicNode {
   stage: string;
@@ -78,6 +80,7 @@ const SCHEMATICS: Record<string, SchematicSpec> = {
 
 export const SystemSchematic: React.FC<{ slug: string }> = ({ slug }) => {
   const spec = SCHEMATICS[slug];
+  const reduced = useReducedMotion();
   if (!spec) return null;
 
   return (
@@ -91,27 +94,75 @@ export const SystemSchematic: React.FC<{ slug: string }> = ({ slug }) => {
           <Cpu size={13} className="text-accent" aria-hidden="true" />
           <span className="text-bright font-semibold">SYSTEM TOPOLOGY // {slug.toUpperCase()}</span>
         </div>
-        <span>PROTOCOL: {spec.protocol}</span>
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2 w-2" aria-hidden="true">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+          </span>
+          <span className="hidden sm:inline text-bright font-semibold">BUS // ACTIVE</span>
+          <span className="hidden sm:inline text-line-strong" aria-hidden="true">·</span>
+          <span>PROTOCOL: {spec.protocol}</span>
+        </div>
       </div>
+
+      {/* Animated Traveling Data Bus Light */}
+      {!reduced && (
+        <div className="relative h-[2px] w-full bg-line-faint/40 overflow-hidden" aria-hidden="true">
+          <motion.div
+            className="h-full w-32 bg-gradient-to-r from-transparent via-accent to-transparent"
+            animate={{ x: ['-100%', '700%'] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
+          />
+        </div>
+      )}
 
       {/* 4-Stage Pipeline */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-line-faint bg-ink-900/25">
         {spec.nodes.map((node, i) => (
-          <div key={node.stage} className="relative p-5 flex flex-col justify-between">
+          <div
+            key={node.stage}
+            className="group/node relative p-5 flex flex-col justify-between transition-colors duration-200 hover:bg-ink-900/40"
+          >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[10px] font-semibold tracking-[0.14em] text-accent">
-                  {node.stage}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] font-semibold tracking-[0.14em] text-accent">
+                    {node.stage}
+                  </span>
+                  {!reduced && (
+                    <span
+                      className="inline-block h-1 w-1 rounded-full bg-accent/70 animate-pulse"
+                      aria-hidden="true"
+                    />
+                  )}
+                </div>
                 {i < 3 && (
-                  <ArrowRight
-                    size={13}
-                    className="hidden lg:inline text-line-strong"
-                    aria-hidden="true"
-                  />
+                  <div className="hidden lg:flex items-center gap-1.5 text-line-strong">
+                    {!reduced && (
+                      <motion.span
+                        className="h-1 w-1 rounded-full bg-accent"
+                        animate={{
+                          x: [0, 8, 0],
+                          opacity: [0.2, 1, 0.2],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.45,
+                          ease: 'easeInOut',
+                        }}
+                        aria-hidden="true"
+                      />
+                    )}
+                    <ArrowRight
+                      size={13}
+                      className="transition-colors group-hover/node:text-accent"
+                      aria-hidden="true"
+                    />
+                  </div>
                 )}
               </div>
-              <div className="font-display text-[15px] font-bold text-display mb-1">
+              <div className="font-display text-[15px] font-bold text-display mb-1 transition-colors group-hover/node:text-accent">
                 {node.name}
               </div>
               <p className="text-[12px] leading-[1.55] text-muted">
