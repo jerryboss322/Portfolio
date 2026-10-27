@@ -5,6 +5,7 @@ import { ArrowRight, Check, Copy } from 'lucide-react';
 import { coreSkills, heroStats, profile } from '@/content/data';
 import { portrait } from '@/content/images';
 import { Media } from '@/components/ui/Media';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 import { useReducedMotion } from '@/lib/hooks';
 
 const SHIPPING_LANES = [
@@ -61,8 +62,9 @@ export const Hero: React.FC = () => {
           {/* Top Telemetry Strip */}
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line-faint bg-ink-900/55 px-4 py-2.5 sm:px-6 font-mono text-[11px] tracking-[0.12em] uppercase text-muted">
             <div className="flex items-center gap-2.5">
-              <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="relative flex h-2.5 w-2.5 items-center justify-center" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/50 opacity-75 duration-1000" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
               </span>
               <span className="text-bright font-semibold">STATUS // {profile.status}</span>
             </div>
@@ -214,9 +216,10 @@ export const Hero: React.FC = () => {
             {allStats.map((stat, idx) => (
               <div key={stat.label} className="p-5 sm:p-6">
                 <div className="flex items-baseline justify-between mb-1">
-                  <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-display tabular-nums">
-                    {stat.value}
-                  </span>
+                  <AnimatedCounter
+                    value={stat.value}
+                    className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-display tabular-nums"
+                  />
                   <span className="font-mono text-[10px] text-muted">0{idx + 1}</span>
                 </div>
                 <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
