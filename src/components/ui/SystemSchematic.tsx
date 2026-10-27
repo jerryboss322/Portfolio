@@ -105,16 +105,10 @@ export const SystemSchematic: React.FC<{ slug: string }> = ({ slug }) => {
         </div>
       </div>
 
-      {/* Animated Traveling Data Bus Light */}
-      {!reduced && (
-        <div className="relative h-[2px] w-full bg-line-faint/40 overflow-hidden" aria-hidden="true">
-          <motion.div
-            className="h-full w-32 bg-gradient-to-r from-transparent via-accent to-transparent"
-            animate={{ x: ['-100%', '700%'] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
-          />
-        </div>
-      )}
+      {/* Animated Traveling Data Bus Light (Pure CSS hardware-accelerated compositor) */}
+      <div className="relative h-[2px] w-full bg-line-faint/40 overflow-hidden" aria-hidden="true">
+        <div className="h-full w-32 bg-gradient-to-r from-transparent via-accent to-transparent animate-data-bus" />
+      </div>
 
       {/* 4-Stage Pipeline */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-line-faint bg-ink-900/25">

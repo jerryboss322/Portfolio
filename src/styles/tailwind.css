@@ -153,6 +153,26 @@
   animation-play-state: paused;
 }
 
+@keyframes data-bus-stream {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(650%);
+  }
+}
+
+.animate-data-bus {
+  animation: data-bus-stream 4.5s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-data-bus {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: scroll()) {
     @keyframes scroll-progress-grow {

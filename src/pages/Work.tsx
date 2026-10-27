@@ -1,11 +1,10 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, LayoutGrid, List } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, LayoutGrid, List, Lock } from 'lucide-react';
 import { projects, type ProjectType } from '@/content/data';
 import { Media } from '@/components/ui/Media';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
-import { TiltCard } from '@/components/ui/TiltCard';
 import {
   projectImage_titan,
   projectImage_virtualFootball,
@@ -15,6 +14,52 @@ import {
   projectImage_jbet,
   type ImageAsset,
 } from '@/content/images';
+
+interface ProjectTheme {
+  glowColor: string;
+  badge: string;
+  watermark: string;
+  domain: string;
+}
+
+const PROJECT_THEMES: Record<string, ProjectTheme> = {
+  titan: {
+    glowColor: 'from-teal-500/25 via-cyan-950/20 to-transparent',
+    badge: 'ACID COMMERCE',
+    watermark: 'POSTGRES 16 · STRIPE PAYMENTS · PRISMA',
+    domain: 'titan-teal.vercel.app',
+  },
+  'virtual-football': {
+    glowColor: 'from-emerald-500/25 via-emerald-950/20 to-transparent',
+    badge: 'LIVE SIMULATOR',
+    watermark: 'POISSON ENGINE · SSE TICKER · DUAL ROUND-ROBIN',
+    domain: 'vfl-psi.vercel.app',
+  },
+  jbet: {
+    glowColor: 'from-amber-500/25 via-yellow-950/20 to-transparent',
+    badge: 'SPORTSBOOK',
+    watermark: 'DYNAMIC ODDS · CANVAS TICKET · NGN RAILS',
+    domain: 'jbet.vercel.app',
+  },
+  sallygreen: {
+    glowColor: 'from-emerald-600/20 via-teal-950/20 to-transparent',
+    badge: 'EDITORIAL CMS',
+    watermark: 'SANITY CMS · ZERO RUNTIME · 100 LH',
+    domain: 'sallygreenmarketing.vercel.app',
+  },
+  luxora: {
+    glowColor: 'from-purple-500/25 via-fuchsia-950/20 to-transparent',
+    badge: 'WEBGL 3D',
+    watermark: 'THREE.JS · R3F · 60FPS SHADERS · ZUSTAND',
+    domain: 'luxora-self-two.vercel.app',
+  },
+  tastetrail: {
+    glowColor: 'from-orange-500/25 via-amber-950/20 to-transparent',
+    badge: 'DIRECT DISPATCH',
+    watermark: 'LOCALSTORAGE · WHATSAPP RECEIPT · CONTEXT',
+    domain: 'tastetrail.vercel.app',
+  },
+};
 
 const IMAGES: Record<string, ImageAsset> = {
   titan: projectImage_titan,
@@ -167,63 +212,102 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
         {/* View Mode 1: Exposed Architectural Editorial Grid */}
         {viewMode === 'editorial' ? (
           <div className="arch-frame arch-corner-tl arch-corner-br rounded-2xl overflow-hidden divide-y divide-line-faint surface-inset">
-            {visibleProjects.map((project, idx) => (
-              <motion.div
-                layout
-                key={project.slug}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="group grid grid-cols-1 lg:grid-cols-12 transition-colors duration-200 hover:bg-ink-900/35"
-              >
-                {/* Left Column: Beveled Viewport Frame (5 cols) */}
-                <div className="lg:col-span-5 p-5 sm:p-7 lg:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-line-faint bg-ink-900/25">
-                  <div className="mb-3 flex items-center justify-between font-mono text-[11px] text-muted tabular-nums">
-                    <span className="text-accent font-semibold">0{idx + 1} // {project.slug.toUpperCase()}</span>
-                    <span>{project.year}</span>
-                  </div>
+            {visibleProjects.map((project, idx) => {
+              const theme = PROJECT_THEMES[project.slug] ?? PROJECT_THEMES['virtual-football'];
+              return (
+                <motion.div
+                  layout
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="group grid grid-cols-1 lg:grid-cols-12 transition-colors duration-200 hover:bg-ink-900/35"
+                >
+                  {/* Left Column: Beveled Viewport Frame (5 cols) */}
+                  <div className="lg:col-span-5 p-5 sm:p-7 lg:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-line-faint bg-ink-900/25">
+                    <div className="mb-3 flex items-center justify-between font-mono text-[11px] text-muted tabular-nums">
+                      <span className="text-accent font-semibold">0{idx + 1} // {project.slug.toUpperCase()}</span>
+                      <span>{project.year}</span>
+                    </div>
 
-                  {preview ? (
-                    <TiltCard maxTilt={5} className="rounded-[16px]">
-                      <div className="rounded-[16px] bg-frame-plate p-[3px] transition-colors duration-300 group-hover:bg-accent/30">
-                        <div className="rounded-[13px] bg-frame-well p-[3px]">
-                          <div className="relative overflow-hidden rounded-[10px] bg-ink-700">
-                            <Media
-                              asset={IMAGES[project.slug]}
-                              alt={project.title}
-                              sizes="(max-width: 640px) 100vw, 420px"
-                              imgClassName="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                            />
+                    {/* Creative Ambient Background Stage & Browser Chrome */}
+                    <div className="relative group/stage my-auto">
+                      {/* Ambient Glow Aura from surrounding brand colors */}
+                      <div
+                        aria-hidden="true"
+                        className={`pointer-events-none absolute -inset-3 rounded-2xl bg-gradient-to-tr ${theme.glowColor} opacity-40 blur-xl transition-all duration-500 group-hover/stage:opacity-85 group-hover/stage:scale-105`}
+                      />
+
+                      {/* Window Container */}
+                      <div className="relative rounded-xl border border-line-strong/80 bg-ink-950/90 shadow-2xl backdrop-blur-md overflow-hidden transition-transform duration-300 ease-out group-hover/stage:-translate-y-1">
+                        {/* Window Header / Browser Chrome */}
+                        <div className="flex items-center justify-between border-b border-line-faint/80 bg-ink-900/80 px-3 py-2 text-[10px] font-mono">
+                          {/* Traffic light buttons */}
+                          <div className="flex items-center gap-1.5" aria-hidden="true">
+                            <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]/90 border border-[#e0443e]/40 inline-block" />
+                            <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]/90 border border-[#dea123]/40 inline-block" />
+                            <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]/90 border border-[#1aab29]/40 inline-block" />
+                          </div>
+
+                          {/* SSL URL Bar */}
+                          <div className="mx-2 flex max-w-[200px] flex-1 items-center justify-center gap-1.5 rounded-md border border-line-faint bg-ink-950/60 px-2 py-0.5 text-[10px] text-muted truncate">
+                            <Lock size={9} className="text-accent shrink-0" aria-hidden="true" />
+                            <span className="truncate text-muted">{theme.domain}</span>
+                          </div>
+
+                          {/* System Status Tag */}
+                          <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider text-accent shrink-0">
+                            <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                            {theme.badge}
+                          </span>
+                        </div>
+
+                        {/* Viewport Frame with Corner Crosshairs */}
+                        <div className="relative bg-ink-900/50 p-2 sm:p-2.5">
+                          {/* Corner Crosshairs */}
+                          <span className="pointer-events-none absolute left-3 top-3 text-[10px] font-mono text-line-strong select-none leading-none z-10">+</span>
+                          <span className="pointer-events-none absolute right-3 top-3 text-[10px] font-mono text-line-strong select-none leading-none z-10">+</span>
+                          <span className="pointer-events-none absolute left-3 bottom-8 text-[10px] font-mono text-line-strong select-none leading-none z-10">+</span>
+                          <span className="pointer-events-none absolute right-3 bottom-8 text-[10px] font-mono text-line-strong select-none leading-none z-10">+</span>
+
+                          {preview ? (
+                            <div className="relative overflow-hidden rounded-lg border border-line-faint/60 bg-ink-800">
+                              <Media
+                                asset={IMAGES[project.slug]}
+                                alt={project.title}
+                                sizes="(max-width: 640px) 100vw, 420px"
+                                imgClassName="object-cover transition-transform duration-500 ease-out group-hover/stage:scale-[1.03]"
+                              />
+                            </div>
+                          ) : (
+                            <Link
+                              to={`/work/${project.slug}`}
+                              className="block relative overflow-hidden rounded-lg border border-line-faint/60 bg-ink-800 focus:outline-none focus:ring-2 focus:ring-accent"
+                            >
+                              <Media
+                                asset={IMAGES[project.slug]}
+                                alt={project.title}
+                                sizes="(max-width: 640px) 100vw, 420px"
+                                imgClassName="object-cover transition-transform duration-500 ease-out group-hover/stage:scale-[1.03]"
+                              />
+                            </Link>
+                          )}
+
+                          {/* Viewport Telemetry Watermark */}
+                          <div className="mt-2 flex items-center justify-between px-1 font-mono text-[9px] tracking-wider text-muted/80 uppercase">
+                            <span className="truncate">{theme.watermark}</span>
+                            <span className="shrink-0 pl-2 tabular-nums text-muted/60">16:10 FHD</span>
                           </div>
                         </div>
                       </div>
-                    </TiltCard>
-                  ) : (
-                    <TiltCard maxTilt={5} className="rounded-[16px]">
-                      <Link
-                        to={`/work/${project.slug}`}
-                        className="block rounded-[16px] bg-frame-plate p-[3px] transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/35"
-                      >
-                        <div className="rounded-[13px] bg-frame-well p-[3px]">
-                          <div className="relative overflow-hidden rounded-[10px] bg-ink-700">
-                            <Media
-                              asset={IMAGES[project.slug]}
-                              alt={project.title}
-                              imgClassName="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                              sizes="(max-width: 640px) 100vw, 420px"
-                            />
-                          </div>
-                        </div>
-                      </Link>
-                    </TiltCard>
-                  )}
+                    </div>
 
-                  {/* Architecture Pipeline Strip */}
-                  <div className="mt-3.5 flex items-center gap-2 rounded-lg border border-line-faint bg-ink-900/60 px-3 py-1.5 font-mono text-[10px] text-muted truncate">
-                    <span className="text-accent shrink-0">ARCH:</span>
-                    <span className="truncate">{ARCH_FLOWS[project.slug] ?? project.tech.join(' → ')}</span>
+                    {/* Architecture Pipeline Strip */}
+                    <div className="mt-4 flex items-center gap-2 rounded-lg border border-line-faint bg-ink-900/60 px-3 py-1.5 font-mono text-[10px] text-muted truncate">
+                      <span className="text-accent shrink-0">ARCH:</span>
+                      <span className="truncate">{ARCH_FLOWS[project.slug] ?? project.tech.join(' → ')}</span>
+                    </div>
                   </div>
-                </div>
 
                 {/* Right Column: Specification & Actions (7 cols) */}
                 <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
@@ -316,8 +400,9 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         ) : (
           /* View Mode 2: Interactive Split Ledger */
@@ -375,33 +460,55 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
 
             {/* Pinned Preview Pane */}
             <div className="hidden lg:flex lg:col-span-5 flex-col justify-between border-l border-line-faint bg-ink-900/35 p-6">
-              {activePreviewProject && (
-                <>
-                  <div>
-                    <div className="mb-3 flex items-center justify-between font-mono text-[11px] text-muted">
-                      <span>PREVIEW // {activePreviewProject.title.toUpperCase()}</span>
-                      <span>{activePreviewProject.year}</span>
-                    </div>
-                    <div className="rounded-[16px] bg-frame-plate p-[3px]">
-                      <div className="rounded-[13px] bg-frame-well p-[3px]">
-                        <div className="overflow-hidden rounded-[10px] bg-ink-800">
-                          <Media
-                            asset={IMAGES[activePreviewProject.slug]}
-                            alt={`${activePreviewProject.title} preview`}
-                            sizes="400px"
-                          />
+              {activePreviewProject && (() => {
+                const previewTheme = PROJECT_THEMES[activePreviewProject.slug] ?? PROJECT_THEMES['virtual-football'];
+                return (
+                  <>
+                    <div>
+                      <div className="mb-3 flex items-center justify-between font-mono text-[11px] text-muted">
+                        <span>PREVIEW // {activePreviewProject.title.toUpperCase()}</span>
+                        <span>{activePreviewProject.year}</span>
+                      </div>
+                      <div className="relative group/preview">
+                        <div
+                          aria-hidden="true"
+                          className={`pointer-events-none absolute -inset-2 rounded-2xl bg-gradient-to-tr ${previewTheme.glowColor} opacity-50 blur-lg`}
+                        />
+                        <div className="relative rounded-xl border border-line-strong/80 bg-ink-950/90 shadow-xl overflow-hidden">
+                          {/* Mini Chrome Header */}
+                          <div className="flex items-center justify-between border-b border-line-faint bg-ink-900/80 px-3 py-1.5 text-[10px] font-mono">
+                            <div className="flex items-center gap-1.5" aria-hidden="true">
+                              <span className="h-2 w-2 rounded-full bg-[#ff5f56]" />
+                              <span className="h-2 w-2 rounded-full bg-[#ffbd2e]" />
+                              <span className="h-2 w-2 rounded-full bg-[#27c93f]" />
+                            </div>
+                            <span className="text-muted text-[10px] truncate max-w-[160px]">{previewTheme.domain}</span>
+                            <span className="text-[9px] text-accent uppercase font-semibold">{previewTheme.badge}</span>
+                          </div>
+                          <div className="p-2">
+                            <div className="overflow-hidden rounded-lg border border-line-faint/60 bg-ink-800">
+                              <Media
+                                asset={IMAGES[activePreviewProject.slug]}
+                                alt={`${activePreviewProject.title} preview`}
+                                sizes="400px"
+                              />
+                            </div>
+                            <div className="mt-1.5 px-1 font-mono text-[9px] text-muted/80 truncate">
+                              {previewTheme.watermark}
+                            </div>
+                          </div>
                         </div>
                       </div>
+                      <p className="mt-4 text-[13px] leading-[1.65] text-body">
+                        {activePreviewProject.outcome}
+                      </p>
                     </div>
-                    <p className="mt-4 text-[13px] leading-[1.65] text-body">
-                      {activePreviewProject.outcome}
-                    </p>
-                  </div>
-                  <div className="mt-6 pt-4 border-t border-line-faint font-mono text-[11px] text-muted">
-                    {ARCH_FLOWS[activePreviewProject.slug]}
-                  </div>
-                </>
-              )}
+                    <div className="mt-6 pt-4 border-t border-line-faint font-mono text-[11px] text-muted">
+                      {ARCH_FLOWS[activePreviewProject.slug]}
+                    </div>
+                  </>
+                );
+              })()}
             </div>
           </div>
         )}

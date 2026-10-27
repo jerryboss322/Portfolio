@@ -6,7 +6,6 @@ import { coreSkills, heroStats, profile } from '@/content/data';
 import { portrait } from '@/content/images';
 import { Media } from '@/components/ui/Media';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
-import { TiltCard } from '@/components/ui/TiltCard';
 import { useReducedMotion } from '@/lib/hooks';
 
 const SHIPPING_LANES = [
@@ -166,23 +165,26 @@ export const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Framed Portrait with Bevel Plate */}
-              <div className="mx-auto w-full max-w-[290px] sm:max-w-[310px]">
-                <TiltCard maxTilt={5} className="rounded-[18px]">
-                  <div className="rounded-[18px] bg-frame-plate p-[3px] surface-inset">
-                    <div className="rounded-[15px] bg-frame-well p-[3px]">
-                      <div className="relative overflow-hidden rounded-[12px] bg-ink-800">
-                        <Media
-                          asset={portrait}
-                          alt={`${profile.fullName} — ${profile.role}`}
-                          priority
-                          sizes="(max-width: 768px) 290px, 310px"
-                          imgClassName="object-cover object-top"
-                        />
-                      </div>
+              {/* Framed Portrait with Ambient Aura & Bevel Plate */}
+              <div className="mx-auto w-full max-w-[290px] sm:max-w-[310px] relative group/portrait">
+                {/* Ambient Aura */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-2 rounded-[22px] bg-gradient-to-tr from-accent/25 via-emerald-500/10 to-transparent opacity-60 blur-xl transition-all duration-500 group-hover/portrait:opacity-100 group-hover/portrait:scale-105"
+                />
+                <div className="relative rounded-[18px] bg-frame-plate p-[3px] surface-inset transition-transform duration-300 ease-out group-hover/portrait:-translate-y-1">
+                  <div className="rounded-[15px] bg-frame-well p-[3px]">
+                    <div className="relative overflow-hidden rounded-[12px] bg-ink-800">
+                      <Media
+                        asset={portrait}
+                        alt={`${profile.fullName} — ${profile.role}`}
+                        priority
+                        sizes="(max-width: 768px) 290px, 310px"
+                        imgClassName="object-cover object-top"
+                      />
                     </div>
                   </div>
-                </TiltCard>
+                </div>
                 <div className="mt-2.5 flex items-center justify-between px-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
                   <span>FIG. 01 // {profile.fullName}</span>
                   <span>{profile.brand}</span>
